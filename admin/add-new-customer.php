@@ -239,7 +239,18 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <input type="text" id="route"  name="route" placeholder="Enter Route" class="form-control" autocomplete="off">
+                                          <select class="form-control" autocomplete="off" id="route"  name="route">
+                                                <option selected=""> - - Select the Route - - </option>
+                                                <?php
+                                                $ROUTE = Route::all();
+                                                foreach ($ROUTE as $route) {
+                                                    ?>
+                                                <option select="true" value="<?php echo $route['id']?>"> <?php echo $route['route_name']?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -259,7 +270,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 $CENTER = Center::all();
                                                 foreach ($CENTER as $center) {
                                                     ?>
-                                                <option select="true" value="<?php echo $center['center_name']?>"> <?php echo $center['center_name']?></option>
+                                                <option select="true" value="<?php echo $center['id']?>"> <?php echo $center['center_name']?></option>
                                                     <?php
                                                 }
                                                 ?>
