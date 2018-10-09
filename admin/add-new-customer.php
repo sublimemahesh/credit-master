@@ -253,7 +253,17 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <input type="text" id="center"  name="center" placeholder="Enter Center" class="form-control" autocomplete="off">
+                                            <select class="form-control" autocomplete="off" id="center"  name="center">
+                                                <option selected=""> - - Select the Center - -</option>
+                                                <?php
+                                                $CENTER = Center::all();
+                                                foreach ($CENTER as $center) {
+                                                    ?>
+                                                <option select="true" value="<?php echo $center['center_name']?>"> <?php echo $center['center_name']?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

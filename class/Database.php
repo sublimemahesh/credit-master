@@ -8,16 +8,16 @@
  * */
 class Database {
 
-    private $host = 'localhost';
-    private $name = 'gallnwxt_micro_credit';
-    private $user = 'gallnwxt_micro_credit';
-    private $password = 'o&nb[hu[}*#K';
+//    private $host = 'localhost';
+//    private $name = 'gallnwxt_micro_credit';
+//    private $user = 'gallnwxt_micro_credit';
+//    private $password = 'o&nb[hu[}*#K';
     
   
-//    private $host = 'localhost';
-//    private $name = 'micro-credit';
-//    private $user = 'root';
-//    private $password = '';
+    private $host = 'localhost';
+    private $name = 'micro_credit';
+    private $user = 'root';
+    private $password = '';
 
     public function __construct() {
         mysql_connect($this->host, $this->user, $this->password) or die("Invalid host  or user details");
