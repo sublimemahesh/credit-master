@@ -49,8 +49,7 @@ include_once(dirname(__FILE__) . './auth.php');
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/center.php" method="post"  enctype="multipart/form-data"> 
-                            
-
+                    
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="center_name">Center Name</label>

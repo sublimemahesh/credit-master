@@ -232,7 +232,7 @@ include_once(dirname(__FILE__) . './auth.php');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="add-route.php">
+                            <a href="create-route.php">
                                 <i class="material-icons">add</i>
                                 <span>Add New</span>
                             </a>
