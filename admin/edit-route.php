@@ -4,7 +4,8 @@ include_once(dirname(__FILE__) . './auth.php');
 
 $id = '';
 $id = $_GET['id'];
-$CENTER = new Center($id);
+
+$ROUTE = new Route($id);
 ?>
 
 <!DOCTYPE html>
@@ -13,7 +14,7 @@ $CENTER = new Center($id);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Edit Center || Credit Master</title>
+        <title>Edit Route || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -42,27 +43,27 @@ $CENTER = new Center($id);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Edit Center</h2>
+                        <h2>Edit Route</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-center.php">
+                                <a href="manage-route.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="body">
-                        <form class="" action="post-and-get/center.php" method="post"  enctype="multipart/form-data"> 
+                        <form class="" action="post-and-get/route.php" method="post"  enctype="multipart/form-data"> 
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center_name">Center Name</label>
+                                    <label for="route_name">Route Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="center_name" class="hidden-lg hidden-md">Center Name</label>
-                                            <input type="text" id="center_name"  name="center_name" value="<?php echo $CENTER->center_name ?>"  class="form-control" autocomplete="off">
+                                            <label for="route_name" class="hidden-lg hidden-md">Route Name</label>
+                                            <input type="text" id="route_name"  name="route_name" value="<?php echo $ROUTE->route_name?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -70,13 +71,13 @@ $CENTER = new Center($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="address">Address</label>
+                                    <label for="route_code">Route Code</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="address" class="hidden-lg hidden-md">Address</label>
-                                            <input type="text" id="address"  name="address" value="<?php echo $CENTER->address ?>"  class="form-control" autocomplete="off">
+                                            <label for="route_code" class="hidden-lg hidden-md">Route Code</label>
+                                            <input type="text" id="route_code"  name="route_code" value="<?php echo $ROUTE->route_code?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -84,22 +85,35 @@ $CENTER = new Center($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center_leader_name">Center Leader Name</label>
+                                    <label for="start_location">Start Location</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="center_leader_name" class="hidden-lg hidden-md">Center Leader Name</label>
-                                            <input type="text" id="center_leader_name"  name="center_leader_name" value="<?php echo $CENTER->center_leader_name ?>"  class="form-control" autocomplete="off">
+                                            <label for="start_location" class="hidden-lg hidden-md">Start Location</label>
+                                            <input type="text" id="start_location"  name="start_location" value="<?php echo $ROUTE->start_location?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="end-location">End Location</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="end-location" class="hidden-lg hidden-md">End Location</label>
+                                            <input type="text" id="end-location"  name="end_location" value="<?php echo $ROUTE->end_location?>" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                            
 
                             <div class="row clearfix">                  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <input type="hidden" id="id" value="<?php echo $CENTER->id; ?>" name="id"/>
+                                       <input type="hidden" id="id" value="<?php echo $ROUTE->id; ?>" name="id"/>
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
                                 </div>
                             </div> 

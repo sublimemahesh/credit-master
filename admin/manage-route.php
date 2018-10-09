@@ -49,7 +49,7 @@ $ROUTE = new Route(NULL)
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
-                                        <a href="add-new-center.php">
+                                        <a href="create-route.php">
                                             <i class="material-icons">add</i> 
                                         </a>
                                     </li>
@@ -79,7 +79,7 @@ $ROUTE = new Route(NULL)
                                                     <td><?php echo $route['start_location']; ?></td>
                                                     <td><?php echo $route['end_location']; ?></td>
                                                     <td>
-                                                        <a href="edit-center.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
+                                                        <a href="edit-route.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
