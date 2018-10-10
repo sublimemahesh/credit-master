@@ -69,15 +69,17 @@ $CENTER = new Center(NULL)
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($CENTER->all() as $key => $customer) {
+                                            foreach ($CENTER->all() as $key => $center) {
                                                 ?>
-                                                <tr id="row_<?php echo $customer['id']; ?>">
-                                                    <td>#<?php echo $customer['id']; ?></td> 
-                                                    <td><?php echo $customer['center_name']; ?></td>  
-                                                    <td><?php echo $customer['address']; ?></td>
-                                                    <td><?php echo $customer['center_leader_name']; ?></td>
+                                                <tr id="row_<?php echo $center['id']; ?>">
+                                                    <td>#<?php echo $center['id']; ?></td> 
+                                                    <td><?php echo $center['center_name']; ?></td>  
+                                                    <td><?php echo $center['address']; ?></td>
+                                                    <td><?php echo $center['center_leader_name']; ?></td>
                                                     <td>
-                                                        <a href="edit-center.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
+                                                        <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="#"  class="delete-center" data-id="<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -123,7 +125,7 @@ $CENTER = new Center(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/vehicle-type.js" type="text/javascript"></script>
+        <script src="delete/js/center.js" type="text/javascript"></script>
 
     </body> 
 </html> 

@@ -53,9 +53,8 @@ class Center {
             return FALSE;
         }
     }
-    
-    
-     public function all() {
+
+    public function all() {
 
 
         $query = "SELECT * FROM `center` ";
@@ -68,12 +67,9 @@ class Center {
             array_push($array_res, $row);
         }
         return $array_res;
-
     }
-    
-    
-    
-     public function update() {
+
+    public function update() {
 
         $query = "UPDATE  `center` SET "
                 . "`center_name` ='" . $this->center_name . "', "
@@ -86,14 +82,19 @@ class Center {
 
         if ($result) {
             return $this->__construct($this->id);
-
         } else {
 
             return FALSE;
-
         }
-
     }
 
+      public function delete() {
+
+        $query = 'DELETE FROM `center` WHERE id="' . $this->id . '"';
+
+        $db = new Database();
+
+        return $db->readQuery($query);
+    }
 
 }
