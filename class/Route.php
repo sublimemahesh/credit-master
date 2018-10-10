@@ -56,9 +56,8 @@ class Route {
             return FALSE;
         }
     }
-    
-    
-     public function all() {
+
+    public function all() {
 
 
         $query = "SELECT * FROM `route` ";
@@ -71,12 +70,9 @@ class Route {
             array_push($array_res, $row);
         }
         return $array_res;
-
     }
-    
-    
-    
-     public function update() {
+
+    public function update() {
 
         $query = "UPDATE  `route` SET "
                 . "`route_name` ='" . $this->route_name . "', "
@@ -90,14 +86,19 @@ class Route {
 
         if ($result) {
             return $this->__construct($this->id);
-
         } else {
 
             return FALSE;
-
         }
-
     }
 
+    public function delete() {
+
+        $query = 'DELETE FROM `route` WHERE id="' . $this->id . '"';
+
+        $db = new Database();
+
+        return $db->readQuery($query);
+    }
 
 }

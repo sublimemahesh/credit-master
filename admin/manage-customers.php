@@ -81,10 +81,10 @@ $CUSTOMER = new Customer(NULL)
                                                     <td><?php echo $customer['mobile']; ?></td>
                                                     <td><?php echo $customer['route'] . ' | ' . $customer['route'] . ' | ' . $customer['route']; ?></td>
                                                     <td>
-                                                        
+
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn"></button></a>
-                                                    
+                                                   
                                                     </td> 
                                                 </tr>
                                                 <?php

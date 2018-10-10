@@ -79,7 +79,8 @@ $ROUTE = new Route(NULL)
                                                     <td><?php echo $route['start_location']; ?></td>
                                                     <td><?php echo $route['end_location']; ?></td>
                                                     <td>
-                                                        <a href="edit-route.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
+                                                        <a href="edit-route.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="#"  class="delete-route" data-id="<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -126,7 +127,6 @@ $ROUTE = new Route(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/vehicle-type.js" type="text/javascript"></script>
-
+        <script src="delete/js/route.js" type="text/javascript"></script>
     </body> 
 </html> 
