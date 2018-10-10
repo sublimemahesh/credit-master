@@ -162,3 +162,64 @@ if (isset($_POST['add-customer'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
+
+
+if (isset($_POST['update'])) {
+
+
+    $CUSTOMER = new Customer($_POST['id']);
+
+    $CUSTOMER->title = $_POST['title'];
+    $CUSTOMER->surname = $_POST['surname'];
+    $CUSTOMER->first_name = $_POST['first_name'];
+    $CUSTOMER->last_name = $_POST['last_name'];
+    $CUSTOMER->nic_number = $_POST['nic_number'];
+    $CUSTOMER->dob = $_POST['dob'];
+    $CUSTOMER->address = $_POST['address'];
+    $CUSTOMER->email = $_POST['email'];
+    $CUSTOMER->telephone = $_POST['telephone'];
+    $CUSTOMER->mobile = $_POST['mobile'];
+    $CUSTOMER->route = $_POST['route'];
+    $CUSTOMER->center = $_POST['center'];
+    $CUSTOMER->city = $_POST['city'];
+    $CUSTOMER->credit_limit = $_POST['credit_limit'];
+    $CUSTOMER->business_name = $_POST['business_name'];
+    $CUSTOMER->br_number = $_POST['br_number'];
+    $CUSTOMER->nature_of_business = $_POST['nature_of_business'];
+    $CUSTOMER->bank = $_POST['bank'];
+    $CUSTOMER->branch = $_POST['branch'];
+    $CUSTOMER->branch_code = $_POST['branch_code'];
+    $CUSTOMER->account_number = $_POST['account_number'];
+    $CUSTOMER->holder_name = $_POST['holder_name'];
+
+
+    $VALID = new Validator();
+    $VALID->check($CUSTOMER, [
+        'title' => ['required' => TRUE],
+       
+    ]);
+
+
+
+    if ($VALID->passed()) {
+        $CUSTOMER->update();
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $VALID->addError("Your changes saved successfully", 'success');
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    } else {
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+}

@@ -173,4 +173,42 @@ class Customer {
         return $array_res;
     }
 
+    public function update() {
+
+        $query = "UPDATE  `customer` SET "
+                . "`title` ='" . $this->title . "', "
+                . "`first_name` ='" . $this->first_name . "', "
+                . "`last_name` ='" . $this->last_name . "', "
+                . "`surname` ='" . $this->surname . "', "
+                . "`nic_number` ='" . $this->nic_number . "', "
+                . "`dob` ='" . $this->dob . "', "
+                . "`address` ='" . $this->address . "', "
+                . "`email` ='" . $this->email . "', "
+                . "`telephone` ='" . $this->telephone . "', "
+                . "`mobile` ='" . $this->mobile . "', "
+                . "`route` ='" . $this->route . "', "
+                . "`center` ='" . $this->center . "', "
+                . "`city` ='" . $this->city . "', "
+                . "`credit_limit` ='" . $this->credit_limit . "', "
+                . "`business_name` ='" . $this->business_name . "', "
+                . "`br_number` ='" . $this->br_number . "', "
+                . "`nature_of_business` ='" . $this->nature_of_business . "', "
+                . "`bank` ='" . $this->bank . "', "
+                . "`branch` ='" . $this->branch . "', "
+                . "`branch_code` ='" . $this->branch_code . "', "
+                . "`account_number` ='" . $this->account_number . "', "
+                . "`holder_name` ='" . $this->holder_name . "' "
+                . "WHERE `id` = '" . $this->id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+
+            return FALSE;
+        }
+    }
+
 }
