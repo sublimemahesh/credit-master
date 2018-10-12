@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$CENTER = new Center(NULL)
+$USERS = new Users(NULL)
 ?> 
 <!DOCTYPE html>
 <html>
@@ -10,7 +10,7 @@ $CENTER = new Center(NULL)
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Center || Credit Master</title>
+        <title>Manage Users || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -45,11 +45,11 @@ $CENTER = new Center(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Center
+                                    Manage Users
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
-                                        <a href="add-new-center.php">
+                                        <a href="create-users.php">
                                             <i class="material-icons">add</i> 
                                         </a>
                                     </li>
@@ -61,24 +61,24 @@ $CENTER = new Center(NULL)
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Center Name</th>  
-                                                <th>Address</th>
-                                                <th>Center Leader Name</th>
+                                                <th>Name</th>  
+                                                <th>User Name</th>
+                                                <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($CENTER->all() as $key => $center) {
+                                            foreach ($USERS->all() as $key => $users) {
                                                 ?>
-                                                <tr id="row_<?php echo $center['id']; ?>">
-                                                    <td>#<?php echo $center['id']; ?></td> 
-                                                    <td><?php echo $center['center_name']; ?></td>  
-                                                    <td><?php echo $center['address']; ?></td>
-                                                    <td><?php echo $center['center_leader_name']; ?></td>
+                                                <tr id="row_<?php echo $users['id']; ?>">
+                                                    <td>#<?php echo $users['id']; ?></td> 
+                                                    <td><?php echo $users['name']; ?></td>  
+                                                    <td><?php echo $users['user_name']; ?></td>
+                                                    <td><?php echo $users['email']; ?></td>
                                                     <td>
-                                                        <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
-                                                        <a href="#"  class="delete-center" data-id="<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+                                                        <a href="edit-users.php?id=<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="#"  class="delete-user" data-id="<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
 
                                                     </td> 
                                                 </tr>
@@ -87,11 +87,11 @@ $CENTER = new Center(NULL)
                                             ?>   
                                         </tbody>
                                         <tfoot>
-                                            <tr>
+                                             <tr>
                                                 <th>ID</th>
-                                                <th>Center Name</th>  
-                                                <th>Address</th>
-                                                <th>Center Leader Name</th>
+                                                <th>Name</th>  
+                                                <th>User Name</th>
+                                                <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>
                                         </tfoot>
@@ -125,7 +125,6 @@ $CENTER = new Center(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/center.js" type="text/javascript"></script>
-
+        <script src="delete/js/users.js" type="text/javascript"></script>
     </body> 
 </html> 
