@@ -270,8 +270,9 @@ include_once(dirname(__FILE__) . './auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                            how_to_reg
+                            perm_identity
                         </i>
+
                         <span>Users</span>
                     </a>
                     <ul class="ml-menu">
@@ -287,9 +288,25 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Manage</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="view-active-users.php">
+                                <i class="material-icons">
+                                    how_to_reg
+                                </i>
+                                <span>Active Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="">
+                                <i class="material-icons">
+                                    person_add_disabled
+                                </i>
+                                <span>Inactive Users</span>
+                            </a>
+                        </li>
                     </ul>
                 </li> 
-                
+
             </ul>
         </div>
         <!-- #Menu -->
