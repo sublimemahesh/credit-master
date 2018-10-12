@@ -92,7 +92,10 @@ class Users {
         }
     }
 
-      public function delete() {
+    public function delete() {
+
+
+        unlink(Helper::getSitePath() . "upload/users/" . $this->image_name);
 
         $query = 'DELETE FROM `users` WHERE id="' . $this->id . '"';
 
