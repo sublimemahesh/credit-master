@@ -71,7 +71,7 @@ class Loan {
     public function all() {
 
 
-        $query = "SELECT * FROM `center` ";
+        $query = "SELECT * FROM `loan` ";
         $db = new Database();
 
         $result = $db->readQuery($query);

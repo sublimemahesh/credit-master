@@ -50,6 +50,7 @@ include_once(dirname(__FILE__) . './auth.php');
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data"> 
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="create_date">Create Date</label>
@@ -63,7 +64,6 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div> 
-
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -206,7 +206,6 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
