@@ -75,20 +75,23 @@ $LOAN = new Loan(NULL)
                                                 <tr id="row_<?php echo $loan['id']; ?>">
                                                     <td>#<?php echo $loan['id']; ?></td> 
                                                     <td><?php echo $loan['create_date']; ?></td>  
-                                                    <td><?php
-                                                        $CUSTOMER_NAME = new Customer($loan['customer']);
-                                                        $customer_name = $CUSTOMER_NAME->surname . ' ' . $CUSTOMER_NAME->first_name . ' ' . $CUSTOMER_NAME->last_name;
+                                                    <td>
+                                                        <?php
+                                                        $CUSTOMER_NAMES = new Customer($loan['customer']);
+                                                        $customer_name = $CUSTOMER_NAMES->surname . ' ' . $CUSTOMER_NAMES->first_name . ' ' . $CUSTOMER_NAMES->last_name;
                                                         echo $customer_name;
                                                         ?>
                                                     </td>
-                                                    <td><?php
+                                                    <td>
+                                                        <?php
                                                         $GARENTERS = new Customer($loan['guarantor_1']);
                                                         $garenter_01 = $GARENTERS->surname . ' ' . $GARENTERS->first_name . ' ' . $GARENTERS->last_name;
                                                         echo $garenter_01;
-                                                        ?></td>
+                                                        ?>
+                                                    </td>
                                                     <td><?php echo $loan['loan_amount']; ?></td>
                                                     <td>
-                                                        <a href="edit-route.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="edit-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
                                                         <a href="#"  class="delete-route" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>

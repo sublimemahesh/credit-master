@@ -85,12 +85,19 @@ class Loan {
 
     public function update() {
 
-        $query = "UPDATE  `center` SET "
-                . "`center_name` ='" . $this->center_name . "', "
-                . "`address` ='" . $this->address . "', "
-                . "`center_leader_name` ='" . $this->center_leader_name . "' "
+        $query = "UPDATE  `loan` SET "
+                . "`create_date` ='" . $this->create_date . "', "
+                . "`customer` ='" . $this->customer . "', "
+                . "`guarantor_1` ='" . $this->guarantor_1 . "', "
+                . "`guarantor_2` ='" . $this->guarantor_2 . "', "
+                . "`loan_amount` ='" . $this->loan_amount . "', "
+                . "`loan_period` ='" . $this->loan_period . "', "
+                . "`interest_rate` ='" . $this->interest_rate . "', "
+                . "`installment_type` ='" . $this->installment_type . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
+        
+     
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -104,7 +111,7 @@ class Loan {
 
       public function delete() {
 
-        $query = 'DELETE FROM `center` WHERE id="' . $this->id . '"';
+        $query = 'DELETE FROM `loan` WHERE id="' . $this->id . '"';
 
         $db = new Database();
 
