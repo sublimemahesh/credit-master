@@ -75,6 +75,36 @@ class Users {
         }
         return $array_res;
     }
+    
+    public function activeUsers() {
+
+
+        $query = "SELECT * FROM `users` WHERE `is_active` = 1";
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
+    
+    public function inctiveUsers() {
+
+
+        $query = "SELECT * FROM `users` WHERE `is_active` = 0";
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
 
     
     public function update() {
