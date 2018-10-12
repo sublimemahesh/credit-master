@@ -12,6 +12,7 @@ include_once(dirname(__FILE__) . '/District.php');
 include_once(dirname(__FILE__) . '/Customer.php');
 include_once(dirname(__FILE__) . '/Center.php');
 include_once(dirname(__FILE__) . '/Route.php');
+include_once(dirname(__FILE__) . '/Users.php');
 
 function dd($data) {
     var_dump($data);
