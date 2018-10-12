@@ -23,7 +23,7 @@ $(document).ready(function () {
 
                         swal({
                             title: "Deleted!",
-                            text: "City has been deleted.",
+                            text: "Vehical type has been deleted.",
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false
