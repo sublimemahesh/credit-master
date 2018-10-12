@@ -92,7 +92,7 @@ $LOAN = new Loan(NULL)
                                                     <td><?php echo $loan['loan_amount']; ?></td>
                                                     <td>
                                                         <a href="edit-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
-                                                        <a href="#"  class="delete-route" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+                                                        <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -139,6 +139,6 @@ $LOAN = new Loan(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/route.js" type="text/javascript"></script>
+        <script src="delete/js/loan.js" type="text/javascript"></script>
     </body> 
 </html> 

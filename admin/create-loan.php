@@ -147,7 +147,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
-                                            <input type="number" id="loan_amount"  name="loan_amount" placeholder="Enter Loan Amount" class="form-control" autocomplete="off">
+                                            <input type="text" id="loan_amount"  name="loan_amount" placeholder="Enter Loan Amount" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

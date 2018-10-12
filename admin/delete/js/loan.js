@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.delete-route').click(function () {
+    $('.delete-loan').click(function () {
 
         var id = $(this).attr("data-id");
 
@@ -14,7 +14,7 @@ $(document).ready(function () {
         }, function () {
 
             $.ajax({
-                url: "delete/ajax/router.php",
+                url: "delete/ajax/loan.php",
                 type: "POST",
                 data: {id: id, option: 'delete'},
                 dataType: "JSON",
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
                         swal({
                             title: "Deleted!",
-                            text: "Route has been deleted.",
+                            text: "Loan has been deleted.",
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false
