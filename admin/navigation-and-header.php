@@ -282,7 +282,7 @@ include_once(dirname(__FILE__) . './auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-users.php">
+                            <a href="manage-loan.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
