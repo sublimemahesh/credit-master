@@ -11,6 +11,7 @@ if (isset($_POST['add-user'])) {
     $USERS->name = $_POST['name'];
     $USERS->user_name = $_POST['user_name'];
     $USERS->email = $_POST['email'];
+    $USERS->is_active = $_POST['is_active'];
 
     $dir_dest = '../../upload/users/';
 
@@ -109,6 +110,7 @@ if (isset($_POST['update'])) {
     $USERS->name = $_POST['name'];
     $USERS->user_name = $_POST['user_name'];
     $USERS->email = $_POST['email'];
+    $USERS->is_active = $_POST['is_active'];
 
 
     $VALID = new Validator();

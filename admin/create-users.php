@@ -1,8 +1,6 @@
 ﻿<?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-
-
 ?> 
 ﻿<!DOCTYPE html>
 <html> 
@@ -27,7 +25,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 
         <section class="content">
             <div class="container-fluid"> 
-               <?php
+                <?php
                 $vali = new Validator();
 
                 $vali->show_message();
@@ -38,7 +36,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                   Create users
+                                    Create users
                                 </h2>
 
                             </div>
@@ -96,8 +94,21 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="picture" class="hidden-lg hidden-md">Picture</label>
-                                                    
+
                                                     <input type="file" id="picture" class="form-control" name="image_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row clearfix">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                            <div class="form-group">
+                                                <div class=" p-top ">
+                                                    <input class="filled-in chk-col-pink" type="checkbox" name="is_active" value="1" id="rememberme" />
+                                                    <label for="rememberme">Activate</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -105,15 +116,14 @@ include_once(dirname(__FILE__) . '/auth.php');
 
                                     <div class="row clearfix">
                                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
-
-                                           
                                             <input type="hidden" id="authToken" value="<?php echo $_SESSION["authToken"]; ?>" name="authToken"/>
-
                                             <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="add-user" value="submit">Create User</button>
                                         </div>
                                     </div>
+
+
                                 </form>
-              
+
                             </div>
                         </div>
                     </div>
