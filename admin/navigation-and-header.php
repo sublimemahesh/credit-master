@@ -220,6 +220,22 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Manage</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="view-active-customer.php">
+                                <i class="material-icons">
+                                    how_to_reg
+                                </i>
+                                <span>Active Customer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="view-inactive-customer.php">
+                                <i class="material-icons">
+                                    person_add_disabled
+                                </i>
+                                <span>Inactive Customer</span>
+                            </a>
+                        </li>
                     </ul>
                 </li> 
 
@@ -297,7 +313,7 @@ include_once(dirname(__FILE__) . './auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="">
+                            <a href="view-inactive-users.php">
                                 <i class="material-icons">
                                     person_add_disabled
                                 </i>

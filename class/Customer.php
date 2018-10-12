@@ -39,6 +39,7 @@ class Customer {
     public $account_number;
     public $holder_name;
     public $bank_book_picture;
+    public $is_active;
     public $queue;
 
     public function __construct($id) {
@@ -79,6 +80,7 @@ class Customer {
             $this->account_number = $result['account_number'];
             $this->holder_name = $result['holder_name'];
             $this->bank_book_picture = $result['bank_book_picture'];
+            $this->is_active = $result['is_active'];
             $this->queue = $result['queue'];
 
             return $this;
@@ -115,7 +117,8 @@ class Customer {
                 . "`branch_code`,"
                 . "`account_number`,"
                 . "`holder_name`,"
-                . "`bank_book_picture`"
+                . "`bank_book_picture`,"
+                . "`is_active`"
                 . ") VALUES  ('"
                 . $this->title . "','"
                 . $this->surname . "','"
@@ -144,7 +147,8 @@ class Customer {
                 . $this->branch_code . "','"
                 . $this->account_number . "','"
                 . $this->holder_name . "','"
-                . $this->bank_book_picture . "')";
+                . $this->bank_book_picture . "','"
+                . $this->is_active . "')";
 
         $db = new Database();
 
@@ -162,6 +166,34 @@ class Customer {
     public function all() {
 
         $query = "SELECT * FROM `customer` ORDER BY `first_name` ASC";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+    
+    public function activeCustomer() {
+
+        $query = "SELECT * FROM `customer` WHERE `is_active` = 1";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+    
+    public function inactiveCustomer() {
+
+        $query = "SELECT * FROM `customer` WHERE `is_active` = 0";
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -197,7 +229,8 @@ class Customer {
                 . "`branch` ='" . $this->branch . "', "
                 . "`branch_code` ='" . $this->branch_code . "', "
                 . "`account_number` ='" . $this->account_number . "', "
-                . "`holder_name` ='" . $this->holder_name . "' "
+                . "`holder_name` ='" . $this->holder_name . "', "
+                . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
