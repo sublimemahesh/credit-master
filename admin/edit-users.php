@@ -108,6 +108,23 @@ $USERS = new Users($id);
                                     </div>
 
                                     <div class="row clearfix">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                            <div class="form-group">
+                                                <div class=" p-top ">
+                                                    <input class="filled-in chk-col-pink" type="checkbox" <?php
+                                                    if ($USERS->is_active == 1) {
+                                                        echo 'checked';
+                                                    }
+                                                    ?> name="is_active" value="1" id="rememberme" />
+                                                    <label for="rememberme">Activate</label> </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row clearfix">
                                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
                                             <input type="hidden" id="oldImageName" value="<?php echo $USERS->image_name; ?>" name="oldImageName"/>
                                             <input type="hidden" id="id" value="<?php echo $USERS->id; ?>" name="id"/>

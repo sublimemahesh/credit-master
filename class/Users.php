@@ -12,6 +12,7 @@ class Users {
     public $user_name;
     public $email;
     public $image_name;
+    public $is_active;
 
     public function __construct($id) {
         if ($id) {
@@ -27,6 +28,7 @@ class Users {
             $this->user_name = $result['user_name'];
             $this->email = $result['email'];
             $this->image_name = $result['image_name'];
+            $this->is_active = $result['is_active'];
 
 
             return $this;
@@ -36,11 +38,12 @@ class Users {
     public function create() {
 
 
-        $query = "INSERT INTO `users` (`name`,`user_name`,`email`,`image_name`) VALUES  ('"
+        $query = "INSERT INTO `users` (`name`,`user_name`,`email`,`image_name`,`is_active`) VALUES  ('"
                 . $this->name . "','"
                 . $this->user_name . "', '"
                 . $this->email . "', '"
-                . $this->image_name . "')";
+                . $this->image_name . "', '"
+                . $this->is_active . "')";
 
 
         $db = new Database();
@@ -57,6 +60,7 @@ class Users {
         }
     }
 
+    
     public function all() {
 
 
@@ -72,13 +76,15 @@ class Users {
         return $array_res;
     }
 
+    
     public function update() {
 
         $query = "UPDATE  `users` SET "
                 . "`name` ='" . $this->name . "', "
                 . "`user_name` ='" . $this->user_name . "', "
                 . "`email` ='" . $this->email . "', "
-                . "`image_name` ='" . $this->image_name . "' "
+                . "`image_name` ='" . $this->image_name . "', "
+                . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
@@ -92,6 +98,7 @@ class Users {
         }
     }
 
+    
     public function delete() {
 
 
