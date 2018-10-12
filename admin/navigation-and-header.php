@@ -248,19 +248,19 @@ include_once(dirname(__FILE__) . './auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                            add_location
+                            how_to_reg
                         </i>
-                        <span>Route</span>
+                        <span>Users</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="add-route.php">
+                            <a href="create-users.php">
                                 <i class="material-icons">add</i>
                                 <span>Add New</span>
                             </a>
                         </li>
                         <li>
-                            <a href="manage-route.php">
+                            <a href="manage-users.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
