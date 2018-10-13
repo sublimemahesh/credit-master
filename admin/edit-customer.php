@@ -156,7 +156,7 @@ $CUSTOMER = new Customer($id);
                                             <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
                                             <input type="file" id="nic_photo_front"  name="nic_photo_front"  class="form-control" autocomplete="off">
                                             <img src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_front" alt="old image">
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -249,7 +249,12 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <select class="form-control" autocomplete="off" id="route"  name="route">
-                                                <option selected=""> <?php echo $CUSTOMER->route ?></option>
+                                                <option selected="" value="<?php echo $CUSTOMER->route ?>">                                                     
+                                                    <?php
+                                                    $ROUTE = new Route($CUSTOMER->route);                                                    
+                                                    echo $ROUTE->route_name
+                                                    ?>
+                                                </option>
                                                 <?php
                                                 $ROUTE = Route::all();
                                                 foreach ($ROUTE as $route) {
@@ -274,7 +279,11 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center">
-                                                <option selected="" value="<?php echo $CUSTOMER->center ?>"> <?php echo $CUSTOMER->center ?></option>
+                                                <option selected="" value="<?php echo $CUSTOMER->center ?>">                                                    
+                                                    <?php 
+                                                    $CENTER = new Center($CUSTOMER->center);                                                    
+                                                    echo  $CENTER->center_name?>
+                                                </option>
                                                 <?php
                                                 $CENTER = Center::all();
                                                 foreach ($CENTER as $center) {
@@ -455,6 +464,23 @@ $CUSTOMER = new Customer($id);
                                             <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
 
                                         </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                    <div class="form-group">
+                                        <div class=" p-top ">
+                                            <input class="filled-in chk-col-pink" type="checkbox" <?php
+                                            if ($CUSTOMER->is_active == 1) {
+                                                echo 'checked';
+                                            }
+                                            ?> name="is_active" value="1" id="rememberme" />
+                                            <label for="rememberme">Activate</label> </div>
                                     </div>
                                 </div>
                             </div>

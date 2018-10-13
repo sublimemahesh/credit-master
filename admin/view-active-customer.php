@@ -10,7 +10,7 @@ $CUSTOMER = new Customer(NULL)
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Customers || Credit Master</title>
+        <title>Active Customers || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -45,7 +45,7 @@ $CUSTOMER = new Customer(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Customers
+                                    Active Customers
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -79,12 +79,24 @@ $CUSTOMER = new Customer(NULL)
                                                     <td><?php echo $customer['nic_number']; ?></td>  
                                                     <td><?php echo $customer['address']; ?></td>
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                    <td><?php echo $customer['route'] . ' | ' . $customer['route'] . ' | ' . $customer['route']; ?></td>
+                                                    <td>
+
+                                                        <?php
+                                                        $ROUTE = new Route($customer['route']);
+                                                        $CENTER = new Center($customer['route']);
+                                                        $CITY = new City($customer['city']);
+
+                                                        echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name
+                                                        ?></td>
+
+
+
+                                                    </td>
                                                     <td>
 
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn"></button></a>
-                                                   
+
                                                     </td> 
                                                 </tr>
                                                 <?php

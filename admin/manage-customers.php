@@ -63,7 +63,7 @@ $CUSTOMER = new Customer(NULL)
                                                 <th>ID</th>
                                                 <th>Full Name</th>  
                                                 <th>NIC Number</th>
-                                                <th>Address</th>
+<!--                                                <th>Address</th>-->
                                                 <th>Mobile</th>
                                                 <th>Route/Center/City</th>
                                                 <th>Options</th> 
@@ -77,9 +77,14 @@ $CUSTOMER = new Customer(NULL)
                                                     <td>#<?php echo $customer['id']; ?></td> 
                                                     <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
                                                     <td><?php echo $customer['nic_number']; ?></td>  
-                                                    <td><?php echo $customer['address']; ?></td>
+<!--                                                    <td><?php echo $customer['address']; ?></td>-->
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                    <td><?php echo $customer['route'] . ' | ' . $customer['route'] . ' | ' . $customer['route']; ?></td>
+                                                    <td><?php 
+                                                    $ROUTE = new Route($customer['route']);                                                    
+                                                    $CENTER = new Center($customer['route']);                                                    
+                                                    $CITY = new City($customer['city']);                                                    
+                                                    
+                                                    echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name ?></td>
                                                     <td>
 
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
@@ -96,7 +101,7 @@ $CUSTOMER = new Customer(NULL)
                                                 <th>ID</th>
                                                 <th>Full Name</th>  
                                                 <th>NIC Number</th>
-                                                <th>Address</th>
+<!--                                                <th>Address</th>-->
                                                 <th>Mobile</th>
                                                 <th>Route/Center/City</th>
                                                 <th>Options</th>

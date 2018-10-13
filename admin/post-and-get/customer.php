@@ -32,6 +32,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = $_POST['holder_name'];
+    $CUSTOMER->is_active = $_POST['is_active'];
 
 
     $dir_dest_p = '../../upload/customer/profile';
@@ -191,6 +192,7 @@ if (isset($_POST['update'])) {
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = $_POST['holder_name'];
+    $CUSTOMER->is_active = $_POST['is_active'];
 
 
     $VALID = new Validator();
