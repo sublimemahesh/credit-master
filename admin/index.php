@@ -117,7 +117,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header bg-blue-grey">
                                 <h2>
-                                    MEMBER <small>   
+                                    LOAN <small>   
 
                                     </small>
                                 </h2>
@@ -125,8 +125,8 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </div>
                             <div class="body">
                                 <div class="list-group">
-                                    <a href="create-member.php"><button type="button" class="list-group-item">Add new</button></a>
-                                    <a href="manage-member.php"><button type="button" class="list-group-item">Manage</button></a>
+                                    <a href="create-loan.php"><button type="button" class="list-group-item">Add new</button></a>
+                                    <a href="manage-loan.php"><button type="button" class="list-group-item">Manage</button></a>
                                 </div>
                             </div>
                         </div>
@@ -135,15 +135,15 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header bg-blue-grey">
                                 <h2>
-                                    Company
+                                    CUSTOMER
                                     <small>  </small>
                                 </h2>
 
                             </div>
                             <div class="body">
                                 <div class="list-group">
-                                    <a href="create-company.php"><button type="button" class="list-group-item">Add new</button></a>
-                                    <a href="manage-company.php"><button type="button" class="list-group-item">Manage</button></a>
+                                    <a href="add-new-customer.php"><button type="button" class="list-group-item">Add new</button></a>
+                                    <a href="manage-customers.php"><button type="button" class="list-group-item">Manage</button></a>
                                 </div>
                             </div>
                         </div>
@@ -153,15 +153,15 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header bg-blue-grey">
                                 <h2>
-                                    Category
+                                    CENTER
                                 </h2>
 
                             </div>
                             <div class="body">
 
                                 <div class="list-group">
-                                    <a href="create-industry.php"><button type="button" class="list-group-item">Add new</button></a>
-                                    <a href="manage-industry.php"><button type="button" class="list-group-item">Manage</button></a>
+                                    <a href="add-new-center.php"><button type="button" class="list-group-item">Add new</button></a>
+                                    <a href="manage-center.php"><button type="button" class="list-group-item">Manage</button></a>
 
                                 </div>
                             </div>
@@ -172,15 +172,15 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header bg-blue-grey">
                                 <h2>
-                                    Skill
+                                    ROUTE
                                     <small></small>
                                 </h2>
 
                             </div>
                             <div class="body">
                                 <div class="list-group">
-                                    <a href="create-skill.php"><button type="button" class="list-group-item">Add new</button></a>
-                                    <a href="manage-skills.php"><button type="button" class="list-group-item">Manage</button></a>
+                                    <a href="create-route.php"><button type="button" class="list-group-item">Add new</button></a>
+                                    <a href="manage-route.php"><button type="button" class="list-group-item">Manage</button></a>
                                 </div>
                             </div>
                         </div>
