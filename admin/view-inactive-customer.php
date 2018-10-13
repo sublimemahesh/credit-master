@@ -90,10 +90,9 @@ $CUSTOMER = new Customer(NULL)
                                                     </td>
                                                     </td>
                                                     <td>
-
-                                                        <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
-                                                        <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn"></button></a>
-
+                                                        <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
+                                                        <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn" title="View"></button></a> |
+                                                        <a href="#"  class="delete-customer" data-id="<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -141,7 +140,6 @@ $CUSTOMER = new Customer(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/vehicle-type.js" type="text/javascript"></script>
-
+        <script src="delete/js/customer.js" type="text/javascript"></script>
     </body> 
 </html> 

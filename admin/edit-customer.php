@@ -165,6 +165,8 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                             <input type="file" id="nic_photo_back"  name="nic_photo_back"  class="form-control" autocomplete="off">
+                                            <img src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_back" alt="old image">
+
                                         </div>
                                     </div>
                                 </div>
@@ -251,7 +253,7 @@ $CUSTOMER = new Customer($id);
                                             <select class="form-control" autocomplete="off" id="route"  name="route">
                                                 <option selected="" value="<?php echo $CUSTOMER->route ?>">                                                     
                                                     <?php
-                                                    $ROUTE = new Route($CUSTOMER->route);                                                    
+                                                    $ROUTE = new Route($CUSTOMER->route);
                                                     echo $ROUTE->route_name
                                                     ?>
                                                 </option>
@@ -280,9 +282,10 @@ $CUSTOMER = new Customer($id);
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center">
                                                 <option selected="" value="<?php echo $CUSTOMER->center ?>">                                                    
-                                                    <?php 
-                                                    $CENTER = new Center($CUSTOMER->center);                                                    
-                                                    echo  $CENTER->center_name?>
+                                                    <?php
+                                                    $CENTER = new Center($CUSTOMER->center);
+                                                    echo $CENTER->center_name
+                                                    ?>
                                                 </option>
                                                 <?php
                                                 $CENTER = Center::all();
@@ -462,6 +465,7 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                             <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
+                                            <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="bank_book_picture" alt="old image">
 
                                         </div>
                                     </div>
@@ -492,7 +496,11 @@ $CUSTOMER = new Customer($id);
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
 
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
-                                    <input type="hidden" name="add-customer" value="add-customer"/>
+                                    <input type="hidden" id="oldImageName" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageName"/>
+                                    <input type="hidden" id="oldImageNameBank" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBank"/>
+                                    <input type="hidden" id="oldImageNameNfp" value="<?php echo $CUSTOMER->nic_photo_front; ?>" name="oldImageNameNfp"/>
+                                    <input type="hidden" id="oldImageNameNbp" value="<?php echo $CUSTOMER->nic_photo_back; ?>" name="oldImageNameNbp"/>
+                                    <input type="hidden" id="oldImageNameBBP" value="<?php echo $CUSTOMER->bank_book_picture; ?>" name="oldImageNameBBP"/>
                                     <input type="hidden" name="id" value="<?php echo $CUSTOMER->id ?>">
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>

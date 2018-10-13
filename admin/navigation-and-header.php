@@ -180,7 +180,44 @@ include_once(dirname(__FILE__) . './auth.php');
                         <span>Dashboard</span>
                     </a>
                 </li> 
+                
                 <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">group</i>
+                        <span>Customer</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="add-new-customer.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+<!--                        <li>
+                            <a href="manage-customers.php">
+                                <i class="material-icons">list</i>
+                                <span>Manage</span>
+                            </a>
+                        </li>-->
+                        <li>
+                            <a href="view-active-customer.php">
+                                <i class="material-icons">
+                                    how_to_reg
+                                </i>
+                                <span>Active Customer</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="view-inactive-customer.php">
+                                <i class="material-icons">
+                                    person_add_disabled
+                                </i>
+                                <span>Inactive Customer</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> 
+<li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
                             subtitles
@@ -202,43 +239,6 @@ include_once(dirname(__FILE__) . './auth.php');
                         </li>
                     </ul>
                 </li> 
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">group</i>
-                        <span>Customer</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="add-new-customer.php">
-                                <i class="material-icons">add</i>
-                                <span>Add New</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="manage-customers.php">
-                                <i class="material-icons">list</i>
-                                <span>Manage</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="view-active-customer.php">
-                                <i class="material-icons">
-                                    how_to_reg
-                                </i>
-                                <span>Active Customer</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="view-inactive-customer.php">
-                                <i class="material-icons">
-                                    person_add_disabled
-                                </i>
-                                <span>Inactive Customer</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> 
-
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
@@ -298,12 +298,12 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Add New</span>
                             </a>
                         </li>
-                        <li>
+<!--                        <li>
                             <a href="manage-users.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
-                        </li>
+                        </li>-->
                         <li>
                             <a href="view-active-users.php">
                                 <i class="material-icons">
