@@ -242,7 +242,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <select class="form-control" autocomplete="off" id="route"  name="route">
-                                                <option selected=""> - - Select the Route - - </option>
+                                                <option selected=""> -- Select the Route -- </option>
                                                 <?php
                                                 $ROUTE = Route::all();
                                                 foreach ($ROUTE as $route) {
@@ -267,10 +267,10 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center">
-                                                <option selected=""> - - Select the Center - -</option>
+                                                <option selected=""> -- Select the Center --</option>
                                                 <?php
-                                                $CENTER = Center::all();
-                                                foreach ($CENTER as $center) {
+                                                $CITY = Center::all();
+                                                foreach ($CITY as $center) {
                                                     ?>
                                                     <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['center_name'] ?></option>
                                                     <?php
@@ -284,13 +284,23 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="city">City</label>
+                                    <label for="city_name">City</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="city" class="hidden-lg hidden-md">City</label>
-                                            <input type="text" id="city"  name="city" placeholder="Enter City" class="form-control" autocomplete="off">
+                                            <label for="city_name" class="hidden-lg hidden-md">City</label>
+                                           <select class="form-control" autocomplete="off" id="city_name"  name="city">
+                                                <option selected=""> -- Select the City --</option>
+                                                <?php
+                                                $CITY = City::all();
+                                                foreach ($CITY as $city) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
