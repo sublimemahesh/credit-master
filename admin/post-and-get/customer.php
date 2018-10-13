@@ -43,8 +43,8 @@ if (isset($_POST['add-customer'])) {
         $handle_p->file_new_name_ext = 'jpg';
         $handle_p->image_ratio_crop = 'C';
         $handle_p->file_new_name_body = Helper::randamId();
-        $handle_p->image_x = 600;
-        $handle_p->image_y = 600;
+        $handle_p->image_x = 250;
+        $handle_p->image_y = 250;
         $handle_p->Process($dir_dest_p);
         if ($handle_p->processed) {
             $info = getimagesize($handle_p->file_dst_pathname);
@@ -63,8 +63,8 @@ if (isset($_POST['add-customer'])) {
         $handle_br->file_new_name_ext = 'jpg';
         $handle_br->image_ratio_crop = 'C';
         $handle_br->file_new_name_body = Helper::randamId();
-        $handle_br->image_x = 900;
-        $handle_br->image_y = 600;
+        $handle_br->image_x = 250;
+        $handle_br->image_y = 250;
         $handle_br->Process($dir_dest_br);
         if ($handle_br->processed) {
             $info = getimagesize($handle_br->file_dst_pathname);
@@ -83,8 +83,8 @@ if (isset($_POST['add-customer'])) {
         $handle_nfp->file_new_name_ext = 'jpg';
         $handle_nfp->image_ratio_crop = 'C';
         $handle_nfp->file_new_name_body = Helper::randamId();
-        $handle_nfp->image_x = 900;
-        $handle_nfp->image_y = 600;
+        $handle_nfp->image_x = 250;
+        $handle_nfp->image_y = 250;
         $handle_nfp->Process($dir_dest_nfp);
         if ($handle_nfp->processed) {
             $info = getimagesize($handle_nfp->file_dst_pathname);
@@ -103,8 +103,8 @@ if (isset($_POST['add-customer'])) {
         $handle_nbp->file_new_name_ext = 'jpg';
         $handle_nbp->image_ratio_crop = 'C';
         $handle_nbp->file_new_name_body = Helper::randamId();
-        $handle_nbp->image_x = 900;
-        $handle_nbp->image_y = 600;
+        $handle_nbp->image_x = 250;
+        $handle_nbp->image_y = 250;
         $handle_nbp->Process($dir_dest_nbp);
         if ($handle_nbp->processed) {
             $info = getimagesize($handle_nbp->file_dst_pathname);
@@ -116,15 +116,15 @@ if (isset($_POST['add-customer'])) {
 //////////////////////////////////////////////////////////////////////
 
     $dir_dest_bbp = '../../upload/customer/bbp';
-    $handle_nbp = new Upload($_FILES['bank_book_picture']);
+    $handle_bbp = new Upload($_FILES['bank_book_picture']);
     $img_name_bbp = null;
     if ($handle_bbp->uploaded) {
         $handle_bbp->image_resize = true;
         $handle_bbp->file_new_name_ext = 'jpg';
         $handle_bbp->image_ratio_crop = 'C';
         $handle_bbp->file_new_name_body = Helper::randamId();
-        $handle_bbp->image_x = 900;
-        $handle_bbp->image_y = 600;
+        $handle_bbp->image_x = 250;
+        $handle_bbp->image_y = 250;
         $handle_bbp->Process($dir_dest_bbp);
         if ($handle_bbp->processed) {
             $info = getimagesize($handle_bbp->file_dst_pathname);
@@ -167,7 +167,147 @@ if (isset($_POST['add-customer'])) {
 
 if (isset($_POST['update'])) {
 
+    $dir_dest_p = '../../upload/customer/profile';
 
+    $handle = new Upload($_FILES['profile_picture']);
+
+    $imgName = null;
+
+
+    if ($handle->uploaded) {
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = FALSE;
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $_POST ["oldImageName"];
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_p);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $imgName = $handle->file_dst_name;
+        }
+    }
+
+
+    //////////////////////////////////////////////////
+    
+   $dir_dest_br = '../../upload/customer/br';
+
+    $handle = new Upload($_FILES['br_picture']);
+
+    $imgName = null;
+
+
+    if ($handle->uploaded) {
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = FALSE;
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $_POST ["oldImageNameBank"];
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_br);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $imgName = $handle->file_dst_name;
+        }
+    }
+    /////////////////////////////////////////////////
+    
+    $dir_dest_br = '../../upload/customer/nfp';
+
+    $handle = new Upload($_FILES['nic_photo_front']);
+
+    $imgName = null;
+
+
+    if ($handle->uploaded) {
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = FALSE;
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $_POST ["oldImageNameNfp"];
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_br);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $imgName = $handle->file_dst_name;
+        }
+    }
+    /////////////////////////////////////////////////////
+    $dir_dest_br = '../../upload/customer/nbp';
+
+    $handle = new Upload($_FILES['nic_photo_back']);
+
+    $imgName = null;
+
+
+    if ($handle->uploaded) {
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = FALSE;
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $_POST ["oldImageNameNbp"];
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_br);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $imgName = $handle->file_dst_name;
+        }
+    }
+    ////////////////////////////////////////////////////
+
+    $dir_dest_bbp = '../../upload/customer/bbp';
+
+    $handle = new Upload($_FILES['bank_book_picture']);
+
+    $imgName = null;
+
+
+    if ($handle->uploaded) {
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = FALSE;
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $_POST ["oldImageNameBBP"];
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_bbp);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $imgName = $handle->file_dst_name;
+        }
+    }
+    /////////////////////////////////////////////////
+    
     $CUSTOMER = new Customer($_POST['id']);
 
     $CUSTOMER->title = $_POST['title'];
@@ -198,7 +338,6 @@ if (isset($_POST['update'])) {
     $VALID = new Validator();
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
-       
     ]);
 
 

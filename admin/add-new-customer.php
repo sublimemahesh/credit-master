@@ -21,7 +21,9 @@ include_once(dirname(__FILE__) . './auth.php');
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
         <!-- Bootstrap Spinner Css -->
-        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     </head>
 
     <body class="theme-red">
@@ -169,7 +171,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                            <input type="datetime" id="dob"  name="dob" placeholder="Select Date of Birthday" class="form-control" autocomplete="off">
+                                            <input type="text" id="dob"  name="dob" placeholder="Select Date of Birthday" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -487,6 +489,12 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script>
+            $(function () {
+                $(".datepicker").datepicker();
+            });
+        </script>
     </body>
 
 </html>
