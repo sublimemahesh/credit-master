@@ -74,7 +74,7 @@ $CITY = new City(NULL)
                                                     <td><?php echo $city['name']; ?></td>  
                                                     
                                                     <td>
-                                                        <a href="#"  class="delete-loan" data-id="<?php echo $city['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+                                                        <a href="#"  class="delete-city" data-id="<?php echo $city['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -118,6 +118,6 @@ $CITY = new City(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/loan.js" type="text/javascript"></script>
+        <script src="delete/js/city.js" type="text/javascript"></script>
     </body> 
 </html> 
