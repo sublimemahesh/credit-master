@@ -239,18 +239,18 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
-                                          <select class="form-control" autocomplete="off" id="route"  name="route">
+                                            <select class="form-control" autocomplete="off" id="route"  name="route">
                                                 <option selected=""> - - Select the Route - - </option>
                                                 <?php
                                                 $ROUTE = Route::all();
                                                 foreach ($ROUTE as $route) {
                                                     ?>
-                                                <option select="true" value="<?php echo $route['id']?>"> <?php echo $route['route_name']?></option>
+                                                    <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['route_name'] ?></option>
                                                     <?php
                                                 }
                                                 ?>
                                             </select>
-                                            
+
                                         </div>
                                     </div>
                                 </div>
@@ -270,7 +270,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 $CENTER = Center::all();
                                                 foreach ($CENTER as $center) {
                                                     ?>
-                                                <option select="true" value="<?php echo $center['id']?>"> <?php echo $center['center_name']?></option>
+                                                    <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['center_name'] ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -443,6 +443,19 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                             <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                    <div class="form-group">
+                                        <div class=" p-top ">
+                                            <input class="filled-in chk-col-pink" type="checkbox" name="is_active" value="1" id="rememberme" />
+                                            <label for="rememberme">Activate</label>
                                         </div>
                                     </div>
                                 </div>
