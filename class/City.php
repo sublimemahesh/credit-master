@@ -10,41 +10,42 @@ class City {
 
     //put your code here
     public $id;
-    public $district;
     public $name;
     public $sort;
 
     public function __construct($id) {
         if ($id) {
 
-            $query = "SELECT `id`,`district`,`name`,`sort` FROM `city` WHERE `id`=" . $id;
+            $query = "SELECT `id`,`name`,`sort` FROM `city` WHERE `id`=" . $id;
 
             $db = new Database();
 
             $result = mysql_fetch_array($db->readQuery($query));
 
             $this->id = $result['id'];
-            $this->district = $result['district'];
-            $this->name = $result['name'];
             $this->sort = $result['sort'];
 
             return $this;
         }
     }
 
-    public function create() {
+   public function create() {
 
-        $query = "INSERT INTO `city` (`district`, `name`, `sort`) VALUES  ('" . $this->district . "','" . $this->name . "', '" . $this->sort . "')";
+
+        $query = "INSERT INTO `city` (`name`) VALUES  ('"
+                . $this->name . "')";
+
 
         $db = new Database();
-
         $result = $db->readQuery($query);
 
         if ($result) {
+
             $last_id = mysql_insert_id();
 
             return $this->__construct($last_id);
         } else {
+
             return FALSE;
         }
     }
@@ -86,37 +87,6 @@ class City {
         return $db->readQuery($query);
     }
 
-    public function GetCitiesByDistrict($district) {
-
-        $query = "SELECT * FROM `city` WHERE `district` = '" . $district . "'";
-
-        $db = new Database();
-
-        $result = $db->readQuery($query);
-        $array_res = array();
-
-        while ($row = mysql_fetch_array($result)) {
-            array_push($array_res, $row);
-        }
-
-        return $array_res;
-    }
-
-    public function deleteCitiesByDistrict($district) {
-
-        $query = "DELETE FROM `city` WHERE `district`= '" . $district . "'";
-
-        $db = new Database();
-        $result = $db->readQuery($query);
-
-        return $result;
-    }
-
-    public function arrange($key, $img) {
-        $query = "UPDATE `city` SET `sort` = '" . $key . "'  WHERE id = '" . $img . "'";
-        $db = new Database();
-        $result = $db->readQuery($query);
-        return $result;
-    }
+   
 
 }

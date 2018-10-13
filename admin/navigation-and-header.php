@@ -180,7 +180,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <span>Dashboard</span>
                     </a>
                 </li> 
-                
+
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">group</i>
@@ -193,12 +193,12 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Add New</span>
                             </a>
                         </li>
-<!--                        <li>
-                            <a href="manage-customers.php">
-                                <i class="material-icons">list</i>
-                                <span>Manage</span>
-                            </a>
-                        </li>-->
+                        <!--                        <li>
+                                                    <a href="manage-customers.php">
+                                                        <i class="material-icons">list</i>
+                                                        <span>Manage</span>
+                                                    </a>
+                                                </li>-->
                         <li>
                             <a href="view-active-customer.php">
                                 <i class="material-icons">
@@ -217,7 +217,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         </li>
                     </ul>
                 </li> 
-<li>
+                <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
                             subtitles
@@ -264,7 +264,7 @@ include_once(dirname(__FILE__) . './auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                            add_location
+                            trending_up
                         </i>
                         <span>Route</span>
                     </a>
@@ -298,12 +298,12 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Add New</span>
                             </a>
                         </li>
-<!--                        <li>
-                            <a href="manage-users.php">
-                                <i class="material-icons">list</i>
-                                <span>Manage</span>
-                            </a>
-                        </li>-->
+                        <!--                        <li>
+                                                    <a href="manage-users.php">
+                                                        <i class="material-icons">list</i>
+                                                        <span>Manage</span>
+                                                    </a>
+                                                </li>-->
                         <li>
                             <a href="view-active-users.php">
                                 <i class="material-icons">
@@ -322,6 +322,31 @@ include_once(dirname(__FILE__) . './auth.php');
                         </li>
                     </ul>
                 </li> 
+
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            room
+                        </i>
+
+                        <span>City</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="create-city.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-city.php">
+                                <i class="material-icons">list</i>
+                                <span>Manage</span>
+                            </a>
+                        </li>
+
+                    </ul>
+                </li>
 
             </ul>
         </div>
