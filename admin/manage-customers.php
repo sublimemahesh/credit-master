@@ -77,19 +77,21 @@ $CUSTOMER = new Customer(NULL)
                                                     <td>#<?php echo $customer['id']; ?></td> 
                                                     <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
                                                     <td><?php echo $customer['nic_number']; ?></td>  
-<!--                                                    <td><?php echo $customer['address']; ?></td>-->
+    <!--                                                    <td><?php echo $customer['address']; ?></td>-->
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                    <td><?php 
-                                                    $ROUTE = new Route($customer['route']);                                                    
-                                                    $CENTER = new Center($customer['route']);                                                    
-                                                    $CITY = new City($customer['city']);                                                    
-                                                    
-                                                    echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name ?></td>
+                                                    <td><?php
+                                                        $ROUTE = new Route($customer['route']);
+                                                        $CENTER = new Center($customer['route']);
+                                                        $CITY = new City($customer['city']);
+
+                                                        echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name
+                                                        ?></td>
                                                     <td>
 
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn"></button></a>
-                                                   
+                                                        <a href="#"  class="delete-customer" data-id="<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -137,7 +139,7 @@ $CUSTOMER = new Customer(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/vehicle-type.js" type="text/javascript"></script>
+        <script src="delete/js/customer.js" type="text/javascript"></script>
 
     </body> 
 </html> 

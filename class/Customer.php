@@ -176,7 +176,7 @@ class Customer {
 
         return $array_res;
     }
-    
+
     public function activeCustomer() {
 
         $query = "SELECT * FROM `customer` WHERE `is_active` = 1";
@@ -190,7 +190,7 @@ class Customer {
 
         return $array_res;
     }
-    
+
     public function inactiveCustomer() {
 
         $query = "SELECT * FROM `customer` WHERE `is_active` = 0";
@@ -242,6 +242,19 @@ class Customer {
 
             return FALSE;
         }
+    }
+
+    public function delete() {
+
+        unlink(Helper::getSitePath() . "upload/customer/profile/" . $this->profile_picture);
+        unlink(Helper::getSitePath() . "upload/customer/nfp/" . $this->nic_photo_front);
+        unlink(Helper::getSitePath() . "upload/customer/nbp/" . $this->nic_photo_back);
+        unlink(Helper::getSitePath() . "upload/customer/br/" . $this->br_picture);
+
+        $query = 'DELETE FROM `customer` WHERE id="' . $this->id . '"';
+
+        $db = new Database();
+        return $db->readQuery($query);
     }
 
 }
