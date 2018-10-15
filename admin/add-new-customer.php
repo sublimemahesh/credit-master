@@ -43,7 +43,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Add New Customer</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="view-active-customer.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -169,9 +169,41 @@ include_once(dirname(__FILE__) . './auth.php');
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        <div >
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                            <input type="text" id="dob"  name="dob" placeholder="Select Date of Birthday" class="form-control datepicker" autocomplete="off">
+<!--                                            <input type="text" id="dob"  name="dob" placeholder="Select Date of Birthday" class="form-control datepicker" autocomplete="off">-->
+
+                                            <div class="register-form-row-col">
+                                                <div class="col-md-3">
+                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month">
+                                                        <option value="">select Month :</option>
+                                                        <option value="1">Jan</option>
+                                                        <option value="2">Feb</option>
+                                                        <option value="3">Mar</option>
+                                                        <option value="4">Apr</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">Jun</option>
+                                                        <option value="7">Jul</option>
+                                                        <option value="8">Aug</option>
+                                                        <option value="9">Sep</option>
+                                                        <option value="10">Oct</option>
+                                                        <option value="11">Nov</option>
+                                                        <option value="12">Dec</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                   <select id="day"  name="day" class="form-control ">
+                                                        <option value="">select Day :</option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                   <select name="year" onchange="call()" class="form-control ">
+                                                        <option value="">select  Year:</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>
@@ -185,7 +217,11 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="address" class="hidden-lg hidden-md">Address</label>
-                                            <input type="text" id="address"  name="address" placeholder="Enter Address" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_1" placeholder=" Address Line 1" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_2" placeholder=" Address Line 2" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_3" placeholder=" Address Line 3" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_4" placeholder=" Address Line 4" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_5" placeholder=" Address Line 5" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -290,7 +326,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city_name" class="hidden-lg hidden-md">City</label>
-                                           <select class="form-control" autocomplete="off" id="city_name"  name="city">
+                                            <select class="form-control" autocomplete="off" id="city_name"  name="city">
                                                 <option selected=""> -- Select the City --</option>
                                                 <?php
                                                 $CITY = City::all();
@@ -499,11 +535,13 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+
+        <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
-            $(function () {
-                $(".datepicker").datepicker();
-            });
+                                                        $(function () {
+                                                            $(".datepicker").datepicker();
+                                                        });
         </script>
     </body>
 

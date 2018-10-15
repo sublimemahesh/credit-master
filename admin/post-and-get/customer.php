@@ -15,8 +15,14 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->first_name = $_POST['first_name'];
     $CUSTOMER->last_name = $_POST['last_name'];
     $CUSTOMER->nic_number = $_POST['nic_number'];
-    $CUSTOMER->dob = $_POST['dob'];
-    $CUSTOMER->address = $_POST['address'];
+    $CUSTOMER->dob_day = $_POST['day'];
+    $CUSTOMER->dob_month = $_POST['month'];
+    $CUSTOMER->dob_year = $_POST['year'];
+    $CUSTOMER->address_line_1 = $_POST['address_line_1'];
+    $CUSTOMER->address_line_2 = $_POST['address_line_2'];
+    $CUSTOMER->address_line_3 = $_POST['address_line_3'];
+    $CUSTOMER->address_line_4 = $_POST['address_line_4'];
+    $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];
@@ -138,7 +144,7 @@ if (isset($_POST['add-customer'])) {
         'surname' => ['required' => TRUE],
         'first_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
-        'address' => ['required' => TRUE],
+        'address_line_1' => ['required' => TRUE],
         'mobile' => ['required' => TRUE]
     ]);
 
@@ -196,8 +202,8 @@ if (isset($_POST['update'])) {
 
 
     //////////////////////////////////////////////////
-    
-   $dir_dest_br = '../../upload/customer/br';
+
+    $dir_dest_br = '../../upload/customer/br';
 
     $handle = new Upload($_FILES['br_picture']);
 
@@ -224,7 +230,7 @@ if (isset($_POST['update'])) {
         }
     }
     /////////////////////////////////////////////////
-    
+
     $dir_dest_br = '../../upload/customer/nfp';
 
     $handle = new Upload($_FILES['nic_photo_front']);
@@ -307,16 +313,22 @@ if (isset($_POST['update'])) {
         }
     }
     /////////////////////////////////////////////////
-    
-    $CUSTOMER = new Customer($_POST['id']);
 
+    $CUSTOMER = new Customer($_POST['id']);
+         
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
     $CUSTOMER->last_name = $_POST['last_name'];
     $CUSTOMER->nic_number = $_POST['nic_number'];
-    $CUSTOMER->dob = $_POST['dob'];
-    $CUSTOMER->address = $_POST['address'];
+    $CUSTOMER->dob_day = $_POST['day'];
+    $CUSTOMER->dob_month = $_POST['month'];
+    $CUSTOMER->dob_year = $_POST['year'];
+    $CUSTOMER->address_line_1 =  $_POST['address_line_1'];
+    $CUSTOMER->address_line_2 =  $_POST['address_line_2'];
+    $CUSTOMER->address_line_3 =  $_POST['address_line_3'];
+    $CUSTOMER->address_line_4 =  $_POST['address_line_4'];
+    $CUSTOMER->address_line_5 =  $_POST['address_line_5'];
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];

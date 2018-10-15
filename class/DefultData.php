@@ -1,37 +1,16 @@
 <?php
 
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- * Description of DefultData
- *
- * @author sublime
- */
 class DefultData {
 
     //put your code here
-    public function getloanperiod() {
+    public function getLoanPeriod() {
 
-        $defultdata = array("1" => Day, "2" => week, "3" => Month, "4" => Year);
-
-        while ($row = mysql_fetch_array($defultdata)) {
-            array_push($defultdata, $row);
-        }
-        return $defultdata;
+        return array("30" => "One Month", "60" => "Two Months", "90" => "Three Months", "100" => "100 Days");
     }
 
-    public function getinstallmenttype() {
+    public function getInstallmentType() {
 
-        $defultdata = array("1" => Day, "2" => week, "3" => Month, "4" => Year);
-
-        while ($row = mysql_fetch_array($defultdata)) {
-            array_push($defultdata, $row);
-        }
-        return $defultdata;
+        return array("1" => "Day", "7" => "Week", "30" => "Month");
     }
 
 }

@@ -77,7 +77,7 @@ $CUSTOMER = new Customer(NULL)
                                                     <td>#<?php echo $customer['id']; ?></td> 
                                                     <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
                                                     <td><?php echo $customer['nic_number']; ?></td>  
-                                                    <td><?php echo $customer['address']; ?></td>
+                                                    <td><?php echo $customer['address_line_1'].' '.$customer['address_line_2']; ?></td>
                                                     <td><?php echo $customer['mobile']; ?></td>
                                                     <td>
 
