@@ -164,7 +164,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <select id="loan_period" name="loan_period" class="form-control" >
                                                 <option value=""> -- Please Select Loan Period -- </option>
                                                 <?php
-                                                $LOAN_PERIODS = DefultData::getloanperiod();
+                                                $LOAN_PERIODS = DefultData::getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
                                                     ?>
                                                     <option value="<?php echo $key ?>"><?php echo $loan_period ?></option>
@@ -202,7 +202,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <select id="installment_type" name="installment_type" class="form-control" >
                                                 <option value=""> -- Please Select Installment Type -- </option>
                                                 <?php
-                                                $INSTALLMENT_TYPES = DefultData::getinstallmenttype();
+                                                $INSTALLMENT_TYPES = DefultData::getInstallmentType();
                                                 foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
                                                     ?>
                                                     <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>

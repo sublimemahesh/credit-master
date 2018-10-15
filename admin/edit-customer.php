@@ -47,7 +47,7 @@ $CUSTOMER = new Customer($id);
                         <h2>Edit Customer</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="view-active-customer.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -180,7 +180,62 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                            <input type="text" id="dob"  name="dob" value="<?php echo $CUSTOMER->dob ?>" class="form-control datepicker" autocomplete="off">
+                                            <div class="register-form-row-col">
+                                                <div class="col-md-3">
+                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month">
+                                                        <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
+                                                            if ($CUSTOMER->dob_month == 1) {
+                                                                echo 'Jan';
+                                                            } elseif ($CUSTOMER->dob_month == 2) {
+                                                                echo 'Feb';
+                                                            } elseif ($CUSTOMER->dob_month == 3) {
+                                                                echo 'Mar';
+                                                            } elseif ($CUSTOMER->dob_month == 4) {
+                                                                echo 'Apr';
+                                                            } elseif ($CUSTOMER->dob_month == 5) {
+                                                                echo 'May';
+                                                            } elseif ($CUSTOMER->dob_month == 6) {
+                                                                echo 'Jun';
+                                                            } elseif ($CUSTOMER->dob_month == 7) {
+                                                                echo 'Jul';
+                                                            } elseif ($CUSTOMER->dob_month == 8) {
+                                                                echo 'Aug';
+                                                            } elseif ($CUSTOMER->dob_month == 9) {
+                                                                echo 'Sep';
+                                                            } elseif ($CUSTOMER->dob_month == 10) {
+                                                                echo 'Oct';
+                                                            } elseif ($CUSTOMER->dob_month == 11) {
+                                                                echo 'Nov';
+                                                            }else{
+                                                                 echo 'Dec';
+                                                            }
+                                                            ?></option>
+                                                        <option value="1">Jan</option>
+                                                        <option value="2">Feb</option>
+                                                        <option value="3">Mar</option>
+                                                        <option value="4">Apr</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">Jun</option>
+                                                        <option value="7">Jul</option>
+                                                        <option value="8">Aug</option>
+                                                        <option value="9">Sep</option>
+                                                        <option value="10">Oct</option>
+                                                        <option value="11">Nov</option>
+                                                        <option value="12">Dec</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select id="day"  name="day" class="form-control ">
+                                                        <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="year" onchange="call()" class="form-control ">
+                                                        <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -194,7 +249,12 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="address" class="hidden-lg hidden-md">Address</label>
-                                            <input type="text" id="address"  name="address" value="<?php echo $CUSTOMER->address ?>" class="form-control" autocomplete="off">
+
+                                            <input type="text" id="address"  name="address_line_1" value="<?php echo $CUSTOMER->address_line_1 ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_2" value="<?php echo $CUSTOMER->address_line_2 ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_3" value="<?php echo $CUSTOMER->address_line_3 ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_4" value="<?php echo $CUSTOMER->address_line_4 ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_5" value="<?php echo $CUSTOMER->address_line_5 ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -252,19 +312,19 @@ $CUSTOMER = new Customer($id);
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <select class="form-control" autocomplete="off" id="route"  name="route">
                                                 <option selected="" value="<?php echo $CUSTOMER->route ?>">                                                     
-                                                    <?php
-                                                    $ROUTE = new Route($CUSTOMER->route);
-                                                    echo $ROUTE->route_name
-                                                    ?>
+<?php
+$ROUTE = new Route($CUSTOMER->route);
+echo $ROUTE->route_name
+?>
                                                 </option>
-                                                <?php
-                                                $ROUTE = Route::all();
-                                                foreach ($ROUTE as $route) {
-                                                    ?>
+<?php
+$ROUTE = Route::all();
+foreach ($ROUTE as $route) {
+    ?>
                                                     <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['route_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                                        <?php
+                                                    }
+                                                    ?>
                                             </select>
 
                                         </div>
@@ -282,19 +342,19 @@ $CUSTOMER = new Customer($id);
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center">
                                                 <option selected="" value="<?php echo $CUSTOMER->center ?>">                                                    
-                                                    <?php
-                                                    $CENTER = new Center($CUSTOMER->center);
-                                                    echo $CENTER->center_name
-                                                    ?>
+<?php
+$CENTER = new Center($CUSTOMER->center);
+echo $CENTER->center_name
+?>
                                                 </option>
-                                                <?php
-                                                $CENTER = Center::all();
-                                                foreach ($CENTER as $center) {
-                                                    ?>
+<?php
+$CENTER = Center::all();
+foreach ($CENTER as $center) {
+    ?>
                                                     <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['center_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                                        <?php
+                                                    }
+                                                    ?>
                                             </select>
                                         </div>
                                     </div>
@@ -480,10 +540,10 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class=" p-top ">
                                             <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                            if ($CUSTOMER->is_active == 1) {
-                                                echo 'checked';
-                                            }
-                                            ?> name="is_active" value="1" id="rememberme" />
+                                                    if ($CUSTOMER->is_active == 1) {
+                                                        echo 'checked';
+                                                    }
+                                                    ?> name="is_active" value="1" id="rememberme" />
                                             <label for="rememberme">Activate</label> </div>
                                     </div>
                                 </div>
@@ -520,10 +580,11 @@ $CUSTOMER = new Customer($id);
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/birthday_script.js" type="text/javascript"></script>
         <script>
-            $(function () {
-                $(".datepicker").datepicker();
-            });
+                                                        $(function () {
+                                                            $(".datepicker").datepicker();
+                                                        });
         </script>
     </body>
 

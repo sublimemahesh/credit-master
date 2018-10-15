@@ -187,11 +187,11 @@ $LOAN = new Loan($id);
                                             <select id="loan_period" name="loan_period" class="form-control" >
                                                 <option value="" selected="" value="<?php echo $LOAN->loan_period ?>">
                                                     <?php
-                                                    if ($LOAN->loan_period == 1) {
+                                                    if ($LOAN->loan_period == 30) {
                                                         echo 'Day';
-                                                    } elseif ($LOAN->loan_period == 2) {
+                                                    } elseif ($LOAN->loan_period == 60) {
                                                         echo 'Week';
-                                                    } elseif ($LOAN->loan_period == 3) {
+                                                    } elseif ($LOAN->loan_period == 90) {
                                                         echo 'Month';
                                                     } else {
                                                         echo 'Year';
@@ -199,11 +199,16 @@ $LOAN = new Loan($id);
                                                     ?> 
 
                                                 </option>
-                                                <option value="1">Day</option>
-                                                <option value="2">Week</option>
-                                                <option value="3">Month</option>
-                                                <option value="4">Year</option>
-                                            </select> 
+
+                                                <?php
+                                                $LOAN_PERIODS = DefultData::getLoanPeriod();
+                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $loan_period ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -232,24 +237,28 @@ $LOAN = new Loan($id);
                                         <div class="form-line">
                                             <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
                                             <select id="installment_type" name="installment_type" class="form-control" >
-                                                <option value="" selected=""  value="<?php echo $LOAN->installment_type ?>"> 
+                                                <option value="" selected="" value="<?php echo $LOAN->installment_type ?>">
                                                     <?php
                                                     if ($LOAN->installment_type == 1) {
                                                         echo 'Day';
-                                                    } elseif ($LOAN->installment_type == 2) {
+                                                    } elseif ($LOAN->installment_type == 7) {
                                                         echo 'Week';
-                                                    } elseif ($LOAN->installment_type == 3) {
+                                                    } elseif ($LOAN->installment_type == 30){
                                                         echo 'Month';
-                                                    } else {
-                                                        echo 'Year';
                                                     }
                                                     ?> 
+
                                                 </option>
-                                                <option value="1">Day</option>
-                                                <option value="2">Week</option>
-                                                <option value="3">Month</option>
-                                                <option value="4">Year</option>
-                                            </select> 
+                                               
+                                                <?php
+                                                $INSTALLMENT_TYPES = DefultData::getInstallmentType();
+                                                foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

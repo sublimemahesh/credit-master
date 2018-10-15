@@ -17,8 +17,14 @@ class Customer {
     public $nic_number;
     public $nic_photo_front;
     public $nic_photo_back;
-    public $dob;
-    public $address;
+    public $dob_day;
+    public $dob_month;
+    public $dob_year;
+    public $address_line_1;
+    public $address_line_2;
+    public $address_line_3;
+    public $address_line_4;
+    public $address_line_5;
     public $email;
     public $telephone;
     public $mobile;
@@ -60,8 +66,14 @@ class Customer {
             $this->nic_number = $result['nic_number'];
             $this->nic_photo_front = $result['nic_photo_front'];
             $this->nic_photo_back = $result['nic_photo_back'];
-            $this->dob = $result['dob'];
-            $this->address = $result['address'];
+            $this->dob_day = $result['dob_day'];
+            $this->dob_month = $result['dob_month'];
+            $this->dob_year = $result['dob_year'];
+            $this->address_line_1 = $result['address_line_1'];
+            $this->address_line_2 = $result['address_line_2'];
+            $this->address_line_3 = $result['address_line_3'];
+            $this->address_line_4 = $result['address_line_4'];
+            $this->address_line_5 = $result['address_line_5'];
             $this->email = $result['email'];
             $this->telephone = $result['telephone'];
             $this->mobile = $result['mobile'];
@@ -98,8 +110,14 @@ class Customer {
                 . "`nic_number`,"
                 . "`nic_photo_front`,"
                 . "`nic_photo_back`,"
-                . "`dob`,"
-                . "`address`,"
+                . "`dob_day`,"
+                . "`dob_month`,"
+                . "`dob_year`,"
+                . "`address_line_1`,"
+                . "`address_line_2`,"
+                . "`address_line_3`,"
+                . "`address_line_4`,"
+                . "`address_line_5`,"
                 . "`email`,"
                 . "`telephone`,"
                 . "`mobile`,"
@@ -128,8 +146,14 @@ class Customer {
                 . $this->nic_number . "','"
                 . $this->nic_photo_front . "','"
                 . $this->nic_photo_back . "','"
-                . $this->dob . "','"
-                . $this->address . "','"
+                . $this->dob_day . "','"
+                . $this->dob_month . "','"
+                . $this->dob_year . "','"
+                . $this->address_line_1 . "','"
+                . $this->address_line_2 . "','"
+                . $this->address_line_3 . "','"
+                . $this->address_line_4 . "','"
+                . $this->address_line_5 . "','"
                 . $this->email . "','"
                 . $this->telephone . "','"
                 . $this->mobile . "','"
@@ -213,8 +237,14 @@ class Customer {
                 . "`last_name` ='" . $this->last_name . "', "
                 . "`surname` ='" . $this->surname . "', "
                 . "`nic_number` ='" . $this->nic_number . "', "
-                . "`dob` ='" . $this->dob . "', "
-                . "`address` ='" . $this->address . "', "
+                . "`dob_day` ='" . $this->dob_day . "', "
+                . "`dob_month` ='" . $this->dob_month . "', "
+                . "`dob_year` ='" . $this->dob_year . "', "
+                . "`address_line_1` ='" . $this->address_line_1 . "', "
+                . "`address_line_2` ='" . $this->address_line_2 . "', "
+                . "`address_line_3` ='" . $this->address_line_3 . "', "
+                . "`address_line_4` ='" . $this->address_line_4 . "', "
+                . "`address_line_5` ='" . $this->address_line_5 . "', "
                 . "`email` ='" . $this->email . "', "
                 . "`telephone` ='" . $this->telephone . "', "
                 . "`mobile` ='" . $this->mobile . "', "
