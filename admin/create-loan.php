@@ -50,7 +50,7 @@ include_once(dirname(__FILE__) . './auth.php');
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data"> 
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="create_date">Create Date</label>
@@ -163,10 +163,14 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
                                             <select id="loan_period" name="loan_period" class="form-control" >
                                                 <option value=""> -- Please Select Loan Period -- </option>
-                                                <option value="1">Day</option>
-                                                <option value="2">Week</option>
-                                                <option value="3">Month</option>
-                                                <option value="4">Year</option>
+                                                <?php
+                                                $LOAN_PERIODS = DefultData::getloanperiod();
+                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $loan_period ?></option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select> 
                                         </div>
                                     </div>
@@ -197,10 +201,14 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
                                             <select id="installment_type" name="installment_type" class="form-control" >
                                                 <option value=""> -- Please Select Installment Type -- </option>
-                                                <option value="1">Day</option>
-                                                <option value="2">Week</option>
-                                                <option value="3">Month</option>
-                                                <option value="4">Year</option>
+                                                <?php
+                                                $INSTALLMENT_TYPES = DefultData::getinstallmenttype();
+                                                foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select> 
                                         </div>
                                     </div>
