@@ -14,6 +14,7 @@ include_once(dirname(__FILE__) . '/Center.php');
 include_once(dirname(__FILE__) . '/Route.php');
 include_once(dirname(__FILE__) . '/Users.php');
 include_once(dirname(__FILE__) . '/Loan.php');
+include_once(dirname(__FILE__) . '/DefultData.php');
 
 function dd($data) {
     var_dump($data);
