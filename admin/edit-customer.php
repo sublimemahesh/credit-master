@@ -206,8 +206,8 @@ $CUSTOMER = new Customer($id);
                                                                 echo 'Oct';
                                                             } elseif ($CUSTOMER->dob_month == 11) {
                                                                 echo 'Nov';
-                                                            }else{
-                                                                 echo 'Dec';
+                                                            } else {
+                                                                echo 'Dec';
                                                             }
                                                             ?></option>
                                                         <option value="1">Jan</option>
@@ -312,19 +312,19 @@ $CUSTOMER = new Customer($id);
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <select class="form-control" autocomplete="off" id="route"  name="route">
                                                 <option selected="" value="<?php echo $CUSTOMER->route ?>">                                                     
-<?php
-$ROUTE = new Route($CUSTOMER->route);
-echo $ROUTE->route_name
-?>
-                                                </option>
-<?php
-$ROUTE = Route::all();
-foreach ($ROUTE as $route) {
-    ?>
-                                                    <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['route_name'] ?></option>
-                                                        <?php
-                                                    }
+                                                    <?php
+                                                    $ROUTE = new Route($CUSTOMER->route);
+                                                    echo $ROUTE->name
                                                     ?>
+                                                </option>
+                                                <?php
+                                                $ROUTE = Route::all();
+                                                foreach ($ROUTE as $route) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select>
 
                                         </div>
@@ -342,25 +342,25 @@ foreach ($ROUTE as $route) {
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center">
                                                 <option selected="" value="<?php echo $CUSTOMER->center ?>">                                                    
-<?php
-$CENTER = new Center($CUSTOMER->center);
-echo $CENTER->center_name
-?>
-                                                </option>
-<?php
-$CENTER = Center::all();
-foreach ($CENTER as $center) {
-    ?>
-                                                    <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['center_name'] ?></option>
-                                                        <?php
-                                                    }
+                                                    <?php
+                                                    $CENTER = new Center($CUSTOMER->center);
+                                                   echo $CENTER->name   
                                                     ?>
+                                                </option>
+                                                <?php
+                                                $CENTER = Center::all();
+                                                foreach ($CENTER as $center) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="city">City</label>
@@ -369,11 +369,28 @@ foreach ($CENTER as $center) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city" class="hidden-lg hidden-md">City</label>
-                                            <input type="text" id="city"  name="city" value="<?php echo $CUSTOMER->city ?>" class="form-control" autocomplete="off">
+                                            <select class="form-control" autocomplete="off" id="city"  name="city">
+                                                <option selected="" value="<?php echo $CUSTOMER->city ?>">                                                    
+                                                    <?php
+                                                    $CITY = new Route($CUSTOMER->city);
+                                                    echo $CITY->name
+                                                    ?>
+                                                </option>
+                                                <?php
+                                                $CITY = City::all();
+                                                foreach ($CITY as $city) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+                            
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -540,10 +557,10 @@ foreach ($CENTER as $center) {
                                     <div class="form-group">
                                         <div class=" p-top ">
                                             <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                                    if ($CUSTOMER->is_active == 1) {
-                                                        echo 'checked';
-                                                    }
-                                                    ?> name="is_active" value="1" id="rememberme" />
+                                            if ($CUSTOMER->is_active == 1) {
+                                                echo 'checked';
+                                            }
+                                            ?> name="is_active" value="1" id="rememberme" />
                                             <label for="rememberme">Activate</label> </div>
                                     </div>
                                 </div>

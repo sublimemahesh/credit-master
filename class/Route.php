@@ -8,8 +8,8 @@
 class Route {
 
     public $id;
-    public $route_name;
-    public $route_code;
+    public $name;
+    public $code;
     public $start_location;
     public $end_location;
 
@@ -23,8 +23,8 @@ class Route {
             $result = mysql_fetch_array($db->readQuery($query));
 
             $this->id = $result['id'];
-            $this->route_name = $result['route_name'];
-            $this->route_code = $result['route_code'];
+            $this->name = $result['name'];
+            $this->code = $result['code'];
             $this->start_location = $result['start_location'];
             $this->end_location = $result['end_location'];
 
@@ -36,9 +36,9 @@ class Route {
     public function create() {
 
 
-        $query = "INSERT INTO `route` (`route_name`,`route_code`,`start_location`,`end_location`) VALUES  ('"
-                . $this->route_name . "','"
-                . $this->route_code . "', '"
+        $query = "INSERT INTO `route` (`name`,`code`,`start_location`,`end_location`) VALUES  ('"
+                . $this->name . "','"
+                . $this->code . "', '"
                 . $this->start_location . "', '"
                 . $this->end_location . "')";
 
@@ -71,27 +71,12 @@ class Route {
         }
         return $array_res;
     }
-    
-    public function getRouteName() {
-
-
-        $query = "SELECT `route_name` FROM `route` ";
-        $db = new Database();
-
-        $result = $db->readQuery($query);
-        $array_res = array();
-
-        while ($row = mysql_fetch_array($result)) {
-            array_push($array_res, $row);
-        }
-        return $array_res;
-    }
 
     public function update() {
 
         $query = "UPDATE  `route` SET "
-                . "`route_name` ='" . $this->route_name . "', "
-                . "`route_code` ='" . $this->route_code . "', "
+                . "`name` ='" . $this->name . "', "
+                . "`code` ='" . $this->code . "', "
                 . "`start_location` ='" . $this->start_location . "', "
                 . "`end_location` ='" . $this->end_location . "' "
                 . "WHERE `id` = '" . $this->id . "'";

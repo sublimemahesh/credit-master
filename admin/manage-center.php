@@ -73,7 +73,7 @@ $CENTER = new Center(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $center['id']; ?>">
                                                     <td>#<?php echo $center['id']; ?></td> 
-                                                    <td><?php echo $center['center_name']; ?></td>  
+                                                    <td><?php echo $center['name']; ?></td>  
                                                     <td><?php echo $center['address']; ?></td>
                                                     <td><?php echo $center['center_leader_name']; ?></td>
                                                     <td>
