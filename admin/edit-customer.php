@@ -598,11 +598,7 @@ $CUSTOMER = new Customer($id);
         <script src="js/demo.js"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/birthday_script.js" type="text/javascript"></script>
-        <script>
-                                                        $(function () {
-                                                            $(".datepicker").datepicker();
-                                                        });
-        </script>
+
     </body>
 
 </html>

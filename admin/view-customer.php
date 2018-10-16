@@ -152,9 +152,64 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line"> 
-                                            <label  class="hidden-lg hidden-md">Date of Birthday</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->dob; ?></div>
+                                        <div class="form-line">
+                                            <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
+                                            <div class="register-form-row-col">
+                                                <div class="col-md-3">
+                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month">
+                                                        <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
+                                                            if ($CUSTOMER->dob_month == 1) {
+                                                                echo 'Jan';
+                                                            } elseif ($CUSTOMER->dob_month == 2) {
+                                                                echo 'Feb';
+                                                            } elseif ($CUSTOMER->dob_month == 3) {
+                                                                echo 'Mar';
+                                                            } elseif ($CUSTOMER->dob_month == 4) {
+                                                                echo 'Apr';
+                                                            } elseif ($CUSTOMER->dob_month == 5) {
+                                                                echo 'May';
+                                                            } elseif ($CUSTOMER->dob_month == 6) {
+                                                                echo 'Jun';
+                                                            } elseif ($CUSTOMER->dob_month == 7) {
+                                                                echo 'Jul';
+                                                            } elseif ($CUSTOMER->dob_month == 8) {
+                                                                echo 'Aug';
+                                                            } elseif ($CUSTOMER->dob_month == 9) {
+                                                                echo 'Sep';
+                                                            } elseif ($CUSTOMER->dob_month == 10) {
+                                                                echo 'Oct';
+                                                            } elseif ($CUSTOMER->dob_month == 11) {
+                                                                echo 'Nov';
+                                                            } else {
+                                                                echo 'Dec';
+                                                            }
+                                                            ?></option>
+                                                        <option value="1">Jan</option>
+                                                        <option value="2">Feb</option>
+                                                        <option value="3">Mar</option>
+                                                        <option value="4">Apr</option>
+                                                        <option value="5">May</option>
+                                                        <option value="6">Jun</option>
+                                                        <option value="7">Jul</option>
+                                                        <option value="8">Aug</option>
+                                                        <option value="9">Sep</option>
+                                                        <option value="10">Oct</option>
+                                                        <option value="11">Nov</option>
+                                                        <option value="12">Dec</option>
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select id="day"  name="day" class="form-control ">
+                                                        <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
+
+                                                    </select>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <select name="year" onchange="call()" class="form-control ">
+                                                        <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
+                                                    </select>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -168,7 +223,11 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label  class="hidden-lg hidden-md">Address</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->address; ?></div>
+                                            <div class="form-control"><?php echo $CUSTOMER->address_line_1; ?></div>
+                                            <div class="form-control"><?php echo $CUSTOMER->address_line_2; ?></div>
+                                            <div class="form-control"><?php echo $CUSTOMER->address_line_3; ?></div>
+                                            <div class="form-control"><?php echo $CUSTOMER->address_line_4; ?></div>
+                                            <div class="form-control"><?php echo $CUSTOMER->address_line_5; ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -425,6 +484,7 @@ $CUSTOMER = new Customer($_GET['id']);
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+        <script src="js/birthday_script.js" type="text/javascript"></script>
     </body>
 
 </html>

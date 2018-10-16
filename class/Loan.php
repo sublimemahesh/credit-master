@@ -13,6 +13,7 @@ class Loan {
     public $guarantor_1;
     public $guarantor_2;
     public $loan_amount;
+    public $issue_mode;
     public $loan_period;
     public $interest_rate;
     public $installment_type;
@@ -32,6 +33,7 @@ class Loan {
             $this->guarantor_1 = $result['guarantor_1'];
             $this->guarantor_2 = $result['guarantor_2'];
             $this->loan_amount = $result['loan_amount'];
+            $this->issue_mode = $result['issue_mode'];
             $this->loan_period = $result['loan_period'];
             $this->interest_rate = $result['interest_rate'];
             $this->installment_type = $result['installment_type'];
@@ -43,12 +45,13 @@ class Loan {
 
     public function create() {
 
-        $query = "INSERT INTO `loan` (`create_date`,`customer`,`guarantor_1`,`guarantor_2`,`loan_amount`,`loan_period`,`interest_rate`,`installment_type`) VALUES  ('"
+        $query = "INSERT INTO `loan` (`create_date`,`customer`,`guarantor_1`,`guarantor_2`,`loan_amount`,`issue_mode`,`loan_period`,`interest_rate`,`installment_type`) VALUES  ('"
                 . $this->create_date . "','"
                 . $this->customer . "', '"
                 . $this->guarantor_1 . "', '"
                 . $this->guarantor_2 . "', '"
                 . $this->loan_amount . "', '"
+                . $this->issue_mode . "', '"
                 . $this->loan_period . "', '"
                 . $this->interest_rate . "', '"
                 . $this->installment_type . "')";
@@ -91,6 +94,7 @@ class Loan {
                 . "`guarantor_1` ='" . $this->guarantor_1 . "', "
                 . "`guarantor_2` ='" . $this->guarantor_2 . "', "
                 . "`loan_amount` ='" . $this->loan_amount . "', "
+                . "`issue_mode` ='" . $this->issue_mode . "', "
                 . "`loan_period` ='" . $this->loan_period . "', "
                 . "`interest_rate` ='" . $this->interest_rate . "', "
                 . "`installment_type` ='" . $this->installment_type . "' "
