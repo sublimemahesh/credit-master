@@ -192,13 +192,13 @@ include_once(dirname(__FILE__) . './auth.php');
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                   <select id="day"  name="day" class="form-control ">
+                                                    <select id="day"  name="day" class="form-control ">
                                                         <option value="">select Day :</option>
 
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                   <select name="year" onchange="call()" class="form-control ">
+                                                    <select name="year" onchange="call()" class="form-control ">
                                                         <option value="">select  Year:</option>
                                                     </select>
                                                 </div>
@@ -271,30 +271,39 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Registration Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type">
+                                                <option value=""> -- Select Registration Type -- </option>
+                                                <option  value="route">Route</option>
+                                                <option value="center">Center</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="route_row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="route">Route</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control" autocomplete="off" id="route"  name="route">
-                                                <option selected=""> -- Select the Route -- </option>
-                                                <?php
-                                                $ROUTE = Route::all();
-                                                foreach ($ROUTE as $route) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['route_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                            <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                <option> -- Please Select a Route -- </option>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="center">Center</label>
                                 </div>
@@ -302,16 +311,8 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <select class="form-control" autocomplete="off" id="center"  name="center">
-                                                <option selected=""> -- Select the Center --</option>
-                                                <?php
-                                                $CITY = Center::all();
-                                                foreach ($CITY as $center) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['center_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                            <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                <option> -- Please Select a Center -- </option>
                                             </select>
                                         </div>
                                     </div>
@@ -529,20 +530,16 @@ include_once(dirname(__FILE__) . './auth.php');
 
         <!-- Jquery Core Js -->
         <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-        <script src="js/admin.js"></script>
-        <script src="js/demo.js"></script> 
 
+        <script src="js/admin.js"></script>
+        <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-                                                        $(function () {
-                                                            $(".datepicker").datepicker();
-                                                        });
-        </script>
+        <script src="js/ajax/customer.js" type="text/javascript"></script> 
     </body>
 
 </html>

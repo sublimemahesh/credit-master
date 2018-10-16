@@ -71,6 +71,21 @@ class Route {
         }
         return $array_res;
     }
+    
+    public function getRouteName() {
+
+
+        $query = "SELECT `route_name` FROM `route` ";
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
 
     public function update() {
 
@@ -100,5 +115,7 @@ class Route {
 
         return $db->readQuery($query);
     }
+    
+    
 
 }
