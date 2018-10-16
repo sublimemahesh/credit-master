@@ -20,7 +20,7 @@ $(document).ready(function () {
                     var html = '<option> -- Please Select a Route -- </option>';
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
-                        html += data.route_name;
+                        html += data.name;
                         html += '</option>';
                     });
                     $('#route').empty();
@@ -32,7 +32,7 @@ $(document).ready(function () {
                     var html = '<option> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
-                        html += data.center_name;
+                        html += data.name;
                         html += '</option>';
                     });
                     $('#center').empty();

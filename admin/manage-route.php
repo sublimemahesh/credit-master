@@ -74,8 +74,8 @@ $ROUTE = new Route(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $route['id']; ?>">
                                                     <td>#<?php echo $route['id']; ?></td> 
-                                                    <td><?php echo $route['route_name']; ?></td>  
-                                                    <td><?php echo $route['route_code']; ?></td>
+                                                    <td><?php echo $route['name']; ?></td>  
+                                                    <td><?php echo $route['code']; ?></td>
                                                     <td><?php echo $route['start_location']; ?></td>
                                                     <td><?php echo $route['end_location']; ?></td>
                                                     <td>

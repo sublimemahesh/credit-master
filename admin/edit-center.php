@@ -56,13 +56,13 @@ $CENTER = new Center($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center_name">Center Name</label>
+                                    <label for="name">Center Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="center_name" class="hidden-lg hidden-md">Center Name</label>
-                                            <input type="text" id="center_name"  name="center_name" value="<?php echo $CENTER->center_name ?>"  class="form-control" autocomplete="off">
+                                            <label for="name" class="hidden-lg hidden-md">Center Name</label>
+                                            <input type="text" id="name"  name="name" value="<?php echo $CENTER->name ?>"  class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

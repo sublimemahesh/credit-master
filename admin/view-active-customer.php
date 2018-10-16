@@ -86,7 +86,7 @@ $CUSTOMER = new Customer(NULL)
                                                         $CENTER = new Center($customer['route']);
                                                         $CITY = new City($customer['city']);
 
-                                                        echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name
+                                                        echo $ROUTE->name . ' | ' . $CENTER->name . ' | ' . $CITY->name
                                                         ?></td>
 
                                                     </td>

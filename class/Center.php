@@ -8,7 +8,7 @@
 class Center {
 
     public $id;
-    public $center_name;
+    public $name;
     public $address;
     public $center_leader_name;
 
@@ -22,7 +22,7 @@ class Center {
             $result = mysql_fetch_array($db->readQuery($query));
 
             $this->id = $result['id'];
-            $this->center_name = $result['center_name'];
+            $this->name = $result['name'];
             $this->address = $result['address'];
             $this->center_leader_name = $result['center_leader_name'];
 
@@ -34,8 +34,8 @@ class Center {
     public function create() {
 
 
-        $query = "INSERT INTO `center` (`center_name`,`address`,`center_leader_name`) VALUES  ('"
-                . $this->center_name . "','"
+        $query = "INSERT INTO `center` (`name`,`address`,`center_leader_name`) VALUES  ('"
+                . $this->name . "','"
                 . $this->address . "', '"
                 . $this->center_leader_name . "')";
 
@@ -72,7 +72,7 @@ class Center {
     public function update() {
 
         $query = "UPDATE  `center` SET "
-                . "`center_name` ='" . $this->center_name . "', "
+                . "`name` ='" . $this->name . "', "
                 . "`address` ='" . $this->address . "', "
                 . "`center_leader_name` ='" . $this->center_leader_name . "' "
                 . "WHERE `id` = '" . $this->id . "'";

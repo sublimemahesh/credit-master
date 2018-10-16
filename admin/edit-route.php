@@ -57,13 +57,13 @@ $ROUTE = new Route($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route_name">Route Name</label>
+                                    <label for="name">Route Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route_name" class="hidden-lg hidden-md">Route Name</label>
-                                            <input type="text" id="route_name"  name="route_name" value="<?php echo $ROUTE->route_name?>" class="form-control" autocomplete="off">
+                                            <label for="name" class="hidden-lg hidden-md">Route Name</label>
+                                            <input type="text" id="name"  name="name" value="<?php echo $ROUTE->name?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -71,13 +71,13 @@ $ROUTE = new Route($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route_code">Route Code</label>
+                                    <label for="code">Route Code</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route_code" class="hidden-lg hidden-md">Route Code</label>
-                                            <input type="text" id="route_code"  name="route_code" value="<?php echo $ROUTE->route_code?>" class="form-control" autocomplete="off">
+                                            <label for="code" class="hidden-lg hidden-md">Route Code</label>
+                                            <input type="text" id="code"  name="code" value="<?php echo $ROUTE->code?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

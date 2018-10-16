@@ -52,13 +52,13 @@ include_once(dirname(__FILE__) . './auth.php');
                             
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route_name">Route Name</label>
+                                    <label for="name">Route Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route_name" class="hidden-lg hidden-md">Route Name</label>
-                                            <input type="text" id="route_name"  name="route_name" placeholder="Enter Route Name" class="form-control" autocomplete="off">
+                                            <label for="name" class="hidden-lg hidden-md">Route Name</label>
+                                            <input type="text" id="name"  name="name" placeholder="Enter Route Name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -66,13 +66,13 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route_code">Route Code</label>
+                                    <label for="code">Route Code</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route_code" class="hidden-lg hidden-md">Route Code</label>
-                                            <input type="text" id="route_code"  name="route_code" placeholder="Enter Route Code" class="form-control" autocomplete="off">
+                                            <label for="code" class="hidden-lg hidden-md">Route Code</label>
+                                            <input type="text" id="code"  name="code" placeholder="Enter Route Code" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
