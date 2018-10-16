@@ -38,19 +38,20 @@ include_once(dirname(__FILE__) . './auth.php');
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <div class="card">
-                    <div class="header">
-                        <h2>Add New Customer</h2>
-                        <ul class="header-dropdown">
-                            <li class="">
-                                <a href="view-active-customer.php">
-                                    <i class="material-icons">list</i> 
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data"> 
+                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data"> 
+                    <div class="card">
+                        <div class="header">
+                            <h2>Add Customer Details</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="title">Title</label>
@@ -176,7 +177,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <div class="register-form-row-col">
                                                 <div class="col-md-3">
                                                     <select name="month" onchange="call()" class="form-control " id="month"  name="month">
-                                                        <option value="">select Month :</option>
+                                                        <option value="">Select Month :</option>
                                                         <option value="1">Jan</option>
                                                         <option value="2">Feb</option>
                                                         <option value="3">Mar</option>
@@ -193,13 +194,13 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select id="day"  name="day" class="form-control ">
-                                                        <option value="">select Day :</option>
+                                                        <option value="">Select Day :</option>
 
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
                                                     <select name="year" onchange="call()" class="form-control ">
-                                                        <option value="">select  Year:</option>
+                                                        <option value="">Select  Year:</option>
                                                     </select>
                                                 </div>
                                             </div>
@@ -357,7 +358,20 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Add Business Details</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="business_name">Business Name</label>
@@ -371,6 +385,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -413,6 +428,20 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>Add Bank Details</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -497,6 +526,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
+
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
 
@@ -510,7 +540,6 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
 
@@ -522,10 +551,12 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <input type="hidden" name="add-customer" value="add-customer"/>
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
-                            </div> 
-                        </form> 
+                            </div>
+                        </div>
                     </div>
-                </div>
+
+                </form> 
+
             </div>
         </section>
 
@@ -543,4 +574,4 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
     </body>
 
-</html>
+</html> 
