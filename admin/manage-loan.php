@@ -90,9 +90,9 @@ $LOAN = new Loan(NULL)
                                                         ?>
                                                     </td>
                                                     <td><?php echo $loan['loan_amount']; ?></td>
-                                                    <td>
+                                                    <td>     
+                                                        <a href="view-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn"></button></a> |
                                                         <a href="edit-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
-                                                        <a href="view-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-folder-open arrange-btn"></button></a> |
                                                         <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>

@@ -42,7 +42,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Create Loan  </h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="manage-loan.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -141,28 +141,52 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_amount">Loan Amount</label>
+                                    <label for="loan_amount"> Amount</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
+                                            <label for="loan_amount" class="hidden-lg hidden-md"> Amount</label>
                                             <input type="text" id="loan_amount"  name="loan_amount" placeholder="Enter Loan Amount" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div> 
 
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_period">Loan Period</label>
+                                    <label for="issue_mode"> Issue Mode</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="issue_mode" class="hidden-lg hidden-md">Section</label>
+                                            <select id="issue_mode" name="issue_mode" class="form-control" >
+                                                <option value=""> -- Please Select Issue Mode -- </option>
+                                                <?php
+                                                $LOAN_SECTION = LoanIssueMode::getLoanIssueMode();
+                                                foreach ($LOAN_SECTION as $key => $loan_section) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $loan_section ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_period"> Period</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
                                             <select id="loan_period" name="loan_period" class="form-control" >
-                                                <option value=""> -- Please Select Loan Period -- </option>
+                                                <option value=""> -- Please Select Period -- </option>
                                                 <?php
                                                 $LOAN_PERIODS = DefultData::getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
