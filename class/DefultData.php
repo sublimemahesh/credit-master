@@ -10,7 +10,7 @@ class DefultData {
 
     public function getInstallmentType() {
 
-        return array("1" => "Day", "7" => "Week", "30" => "Month");
+        return array("30" => "Day", "4" => "Week", "1" => "Month");
     }
 
 }

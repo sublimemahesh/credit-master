@@ -147,13 +147,104 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="text" id="loan_amount"  name="loan_amount" placeholder="Enter Loan Amount" class="form-control" autocomplete="off">
+                                            <input type="text" id="loan_amount"  name="loan_amount" placeholder="Enter Loan Amount" class="form-control loan_amount" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div> 
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="interest_rate">Interest Rate</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
+                                            <input type="text" id="interest_rate"  name="interest_rate" placeholder="Enter Interest Rate" class="form-control interest_rate" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_period"> Period</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
+                                            <select id="loan_period" name="loan_period" class="form-control loan_period " >
+                                                <option value=""> -- Please Select Period -- </option>
+                                                <?php
+                                                $LOAN_PERIODS = DefultData::getLoanPeriod();
+                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>" ><?php echo $loan_period ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="period_price">Period price</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="Period price" >
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="installment_type">Installment Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
+                                            <select id="installment_type" name="installment_type" class="form-control installment_type" >
+                                                <option value=""> -- Please Select Installment Type -- </option>
+                                                <?php
+                                                $INSTALLMENT_TYPES = DefultData::getInstallmentType();
+                                                foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="installment_price">Installment Price</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <input type="text" class="form-control" autocomplete="nope" id="Installment_Type"  placeholder="Installment Price">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="issue_mode"> Issue Mode</label>
@@ -173,67 +264,6 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 }
                                                 ?>
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_period"> Period</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
-                                            <select id="loan_period" name="loan_period" class="form-control" >
-                                                <option value=""> -- Please Select Period -- </option>
-                                                <?php
-                                                $LOAN_PERIODS = DefultData::getLoanPeriod();
-                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $loan_period ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="interest_rate">Interest Rate</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="text" id="interest_rate"  name="interest_rate" placeholder="Enter Interest Rate" class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="installment_type">Installment Type</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
-                                            <select id="installment_type" name="installment_type" class="form-control" >
-                                                <option value=""> -- Please Select Installment Type -- </option>
-                                                <?php
-                                                $INSTALLMENT_TYPES = DefultData::getInstallmentType();
-                                                foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select> 
                                         </div>
                                     </div>
                                 </div>
@@ -263,6 +293,7 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/ajax/customer.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $(".datepicker").datepicker();
