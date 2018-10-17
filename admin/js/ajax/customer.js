@@ -46,3 +46,31 @@ $(document).ready(function () {
     });
 });
 
+
+///calculate the total loan 
+
+$(document).ready(function () {
+    $('.loan_amount, .interest_rate, .loan_period, .installment_type').change(function () {
+
+        //Variables to assign  values
+
+        var Period = Number(document.getElementById("loan_period").value);
+        var Installment_Type = Number(document.getElementById("installment_type").value);
+        var NumVal = Number(document.getElementById("loan_amount").value);
+        var NumVa2 = Number(document.getElementById("interest_rate").value) / 100;
+        var Month = (Period / 30);
+
+        //cal total value in month
+        var TotalValue = NumVal + (Month * (NumVal * NumVa2));
+
+        //echo total
+        document.getElementById("total").value = TotalValue.toFixed(2);
+
+        //cal installment type
+        var Installment_Type = (TotalValue / Installment_Type);
+
+        //echo  installment type
+        document.getElementById("Installment_Type").value = Installment_Type.toFixed(2);
+
+    });
+});
