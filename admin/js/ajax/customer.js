@@ -47,7 +47,7 @@ $(document).ready(function () {
 });
 
 
-///calculate the total loan 
+///calculate the Total loan 
 
 $(document).ready(function () {
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').change(function () {
@@ -60,11 +60,11 @@ $(document).ready(function () {
         var NumVa2 = Number(document.getElementById("interest_rate").value) / 100;
         var Month = (Period / 30);
 
-        //cal total value in month
+        //cal Total value in month
         var TotalValue = NumVal + (Month * (NumVal * NumVa2));
 
-        //echo total
-        document.getElementById("total").value = TotalValue.toFixed(2);
+        //echo Total
+        document.getElementById("Total").value = TotalValue.toFixed(2);
 
         //cal installment type
         var Installment_Type = (TotalValue / Installment_Type);
@@ -74,3 +74,6 @@ $(document).ready(function () {
 
     });
 });
+
+
+

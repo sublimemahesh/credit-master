@@ -63,8 +63,8 @@ include_once(dirname(__FILE__) . './auth.php');
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
-
+                            </div>
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="customer">Customer</label>
@@ -198,7 +198,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="Period price" >
+                                            <input type="text" class="form-control" autocomplete="off" id="Total" placeholder="Period price" >
                                             </select>
                                         </div>
                                     </div>
