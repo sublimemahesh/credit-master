@@ -80,8 +80,8 @@ $id = $_GET['id'];
                                                     <td><?php echo $installment['paid_amount']; ?></td>
                                                     <td><?php echo $installment['additional_interest']; ?></td>
                                                     <td>
-                                                        <a href="edit-route.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
-                                                        <a href="#"  class="delete-route" data-id="<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+                                                        <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="#"  class="delete-installment" data-id="<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -128,5 +128,6 @@ $id = $_GET['id'];
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
+        <script src="delete/js/installment.js" type="text/javascript"></script>
     </body> 
 </html> 

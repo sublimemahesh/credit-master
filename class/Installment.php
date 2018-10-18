@@ -97,4 +97,33 @@ class Installment {
         return $array_res;
     }
 
+    public function update() {
+
+        $query = "UPDATE  `installment` SET "
+                . "`paid_date` ='" . $this->paid_date . "', "
+                . "`paid_amount` ='" . $this->paid_amount . "', "
+                . "`additional_interest` ='" . $this->additional_interest . "',"
+                . "`paid_by` ='" . $this->paid_by . "' "
+                . "WHERE `id` = '" . $this->id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+
+            return FALSE;
+        }
+    }
+
+    public function delete() {
+
+        $query = 'DELETE FROM `installment` WHERE id="' . $this->id . '"';
+
+        $db = new Database();
+
+        return $db->readQuery($query);
+    }
+
 }
