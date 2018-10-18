@@ -2,7 +2,10 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$LOAN = new Loan(NULL)
+$id = '';
+$id = $_GET['id'];
+
+
 ?> 
 <!DOCTYPE html>
 <html>
@@ -10,7 +13,7 @@ $LOAN = new Loan(NULL)
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Loan || Credit Master</title>
+        <title>Manage Installment || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -45,57 +48,40 @@ $LOAN = new Loan(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Loan
+                                    Manage Installment
                                 </h2>
-                                <ul class="header-dropdown">
-                                    <li>
-                                        <a href="create-loan.php">
-                                            <i class="material-icons">add</i> 
-                                        </a>
-                                    </li>
-                                </ul>
                             </div> 
                             <div class="body">
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                       
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Create Date</th>  
-                                                <th>Customer</th>
-                                                <th>Guarantor</th>
-                                                <th>Loan Amount</th>                                                 
+                                                <th>Paid By</th>  
+                                                <th>Paid Date</th>
+                                                <th>Paid Amount</th>
+                                                <th>Additional Interest</th>                                                 
                                                 <th>Option</th> 
                                             </tr>
                                         </thead>
+                                        
                                         <tbody>
                                             <?php
-                                            foreach ($LOAN->all() as $key => $loan) {
+                                            foreach (Installment::getInstallmentByLoan($id) as $key => $installment) {
                                                 ?>
-                                                <tr id="row_<?php echo $loan['id']; ?>">
-                                                    <td>#<?php echo $loan['id']; ?></td> 
-                                                    <td><?php echo $loan['create_date']; ?></td>  
+                                                <tr id="row_<?php echo $installment['id']; ?>">
+                                                    <td>#<?php echo $installment['id']; ?></td> 
+                                                    <td><?php
+                                                        $CUSTOMER = new Customer($installment['paid_by']);
+                                                        echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                        ?></td>  
+                                                    <td><?php echo $installment['paid_date']; ?></td>
+                                                    <td><?php echo $installment['paid_amount']; ?></td>
+                                                    <td><?php echo $installment['additional_interest']; ?></td>
                                                     <td>
-                                                        <?php
-                                                        $CUSTOMER_NAMES = new Customer($loan['customer']);
-                                                        $customer_name = $CUSTOMER_NAMES->surname . ' ' . $CUSTOMER_NAMES->first_name . ' ' . $CUSTOMER_NAMES->last_name;
-                                                        echo $customer_name;
-                                                        ?>
-                                                    </td>
-                                                    <td>
-                                                        <?php
-                                                        $GARENTERS = new Customer($loan['guarantor_1']);
-                                                        $garenter_01 = $GARENTERS->surname . ' ' . $GARENTERS->first_name . ' ' . $GARENTERS->last_name;
-                                                        echo $garenter_01;
-                                                        ?>
-                                                    </td>
-                                                    <td><?php echo $loan['loan_amount']; ?></td>
-                                                    <td>     
-                                                        <a href="view-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn" title="View"></button></a> |
-                                                        <a href="add-new-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-hourglass defult-btn" title="Installment"></button></a> |
-                                                        <a href="view-installments-by-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-share  defult-btn2" title="View Installment"></button></a> |
-                                                        <a href="edit-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
-                                                        <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
+                                                        <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
+                                                        <a href="#"  class="delete-installment" data-id="<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -105,11 +91,11 @@ $LOAN = new Loan(NULL)
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Create Date</th>  
-                                                <th>Customer</th>
-                                                <th>Guarantor</th>
-                                                <th>Loan Amount</th>                                                 
-                                                <th>Option</th>  
+                                                <th>Paid By</th>  
+                                                <th>Paid Date</th>
+                                                <th>Paid Amount</th>
+                                                <th>Additional Interest</th>                                                 
+                                                <th>Option</th> 
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -142,6 +128,6 @@ $LOAN = new Loan(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-        <script src="delete/js/loan.js" type="text/javascript"></script>
+        <script src="delete/js/installment.js" type="text/javascript"></script>
     </body> 
 </html> 
