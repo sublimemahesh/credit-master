@@ -17,6 +17,7 @@ include_once(dirname(__FILE__) . '/Loan.php');
 include_once(dirname(__FILE__) . '/DefultData.php');
 include_once(dirname(__FILE__) . '/LoanIssueMode.php');
 include_once(dirname(__FILE__) . '/Installment.php');
+include_once(dirname(__FILE__) . '/PostponeDate.php');
 
 function dd($data) {
     var_dump($data);
