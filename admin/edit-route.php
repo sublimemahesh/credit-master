@@ -63,7 +63,7 @@ $ROUTE = new Route($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="name" class="hidden-lg hidden-md">Route Name</label>
-                                            <input type="text" id="name"  name="name" value="<?php echo $ROUTE->name?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="name"  name="name" value="<?php echo $ROUTE->name ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -77,7 +77,7 @@ $ROUTE = new Route($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="code" class="hidden-lg hidden-md">Route Code</label>
-                                            <input type="text" id="code"  name="code" value="<?php echo $ROUTE->code?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="code"  name="code" value="<?php echo $ROUTE->code ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +91,7 @@ $ROUTE = new Route($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="start_location" class="hidden-lg hidden-md">Start Location</label>
-                                            <input type="text" id="start_location"  name="start_location" value="<?php echo $ROUTE->start_location?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="start_location"  name="start_location" value="<?php echo $ROUTE->start_location ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -105,15 +105,17 @@ $ROUTE = new Route($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="end-location" class="hidden-lg hidden-md">End Location</label>
-                                            <input type="text" id="end-location"  name="end_location" value="<?php echo $ROUTE->end_location?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="end-location"  name="end_location" value="<?php echo $ROUTE->end_location ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>                            
 
-                            <div class="row clearfix">                  
+                            <div class="row clearfix">   
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
+                                </div> 
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                       <input type="hidden" id="id" value="<?php echo $ROUTE->id; ?>" name="id"/>
+                                    <input type="hidden" id="id" value="<?php echo $ROUTE->id; ?>" name="id"/>
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
                                 </div>
                             </div> 

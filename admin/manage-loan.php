@@ -93,7 +93,7 @@ $LOAN = new Loan(NULL)
                                                     <td>     
                                                         <a href="view-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn" title="View"></button></a> |
                                                         <a href="add-new-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-hourglass defult-btn" title="Installment"></button></a> |
-                                                        <a href="view-installments-by-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-share  defult-btn2" title="View Installment"></button></a> |
+                                                        <a href="view-installments-by-loan.php?id=<?php echo $loan['id']; ?>"> <button class=" glyphicon glyphicon-export  defult-btn2" title="View Installment"></button></a> |
                                                         <a href="edit-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
                                                         <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 

@@ -42,7 +42,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Add New Postpone Date</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-loan.php">
+                                <a href="manage-postpone-dates.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>

@@ -41,7 +41,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Add New Center</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="view-active-customer.php">
+                                <a href="manage-center.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>

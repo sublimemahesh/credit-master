@@ -41,7 +41,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Add New Route </h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="manage-route.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -49,7 +49,7 @@ include_once(dirname(__FILE__) . './auth.php');
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/route.php" method="post"  enctype="multipart/form-data"> 
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="name">Route Name</label>
@@ -91,7 +91,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="end-location">End Location</label>
@@ -106,14 +106,11 @@ include_once(dirname(__FILE__) . './auth.php');
                                 </div>
                             </div>
 
-                            
-
                             <div class="row clearfix">
-                  
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
+                                </div> 
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="add-route">Save Details</button>
-
-                                  
                                 </div>
                             </div> 
                         </form> 
