@@ -152,7 +152,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        <div class="">
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
                                                 <div class="col-md-3">
@@ -381,7 +381,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->br_picture; ?></div>
+                                            <img src="../upload/customer/br/<?php echo $CUSTOMER->br_picture;; ?>" class="img-thumbnail img-responsive"/>
                                         </div>
                                     </div>
                                 </div>
@@ -465,7 +465,8 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->bank_book_picture; ?></div>
+                                            <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" class="img-thumbnail img-responsive"/>
+
                                         </div>
                                     </div>
                                 </div>

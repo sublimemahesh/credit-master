@@ -97,7 +97,9 @@ $CENTER = new Center($id);
                             </div>
 
 
-                            <div class="row clearfix">                  
+                            <div class="row clearfix">     
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
+                                </div> 
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <input type="hidden" id="id" value="<?php echo $CENTER->id; ?>" name="id"/>
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>

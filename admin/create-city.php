@@ -41,7 +41,7 @@ include_once(dirname(__FILE__) . './auth.php');
                         <h2>Create City </h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="manage-city.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>

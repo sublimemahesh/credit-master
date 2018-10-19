@@ -49,7 +49,7 @@ $CITY = new City(NULL)
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
-                                        <a href="create-loan.php">
+                                        <a href="create-city.php">
                                             <i class="material-icons">add</i> 
                                         </a>
                                     </li>
