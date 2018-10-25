@@ -10,7 +10,7 @@ $CENTER = new Center(NULL)
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Center || Credit Master</title>
+        <title>View Center || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -45,7 +45,7 @@ $CENTER = new Center(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Center
+                                    View Center
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -77,6 +77,7 @@ $CENTER = new Center(NULL)
                                                     <td><?php echo $center['address']; ?></td>
                                                     <td><?php echo $center['center_leader_name']; ?></td>
                                                     <td>
+                                                        <a href="view-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
                                                         <a href="#"  class="delete-center" data-id="<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
 
