@@ -274,34 +274,50 @@ $CUSTOMER = new Customer($_GET['id']);
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            $ROUTE = new Route($CUSTOMER->route);
+                            if ($ROUTE->id == $CUSTOMER->route) {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    echo $ROUTE->name;
+                                                    ?>
 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route">Route</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->route; ?></div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center">Center</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->center; ?></div>
+                                <?php
+                              
+                            } else {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                <div class="form-control"><?php  
+                                                $CENTER = new Center($CUSTOMER->center);
+                                              echo $CENTER->name;
+                                                ?></div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            <?php } ?>
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -381,7 +397,10 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                            <img src="../upload/customer/br/<?php echo $CUSTOMER->br_picture;; ?>" class="img-thumbnail img-responsive"/>
+                                            <img src="../upload/customer/br/<?php
+                                            echo $CUSTOMER->br_picture;
+                                            ;
+                                            ?>" class="img-thumbnail img-responsive"/>
                                         </div>
                                     </div>
                                 </div>

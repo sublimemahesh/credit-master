@@ -81,10 +81,10 @@ $CUSTOMER = new Customer(NULL)
                                                     <td><?php echo $customer['mobile']; ?></td>
                                                     <td><?php
                                                         $ROUTE = new Route($customer['route']);
-                                                        $CENTER = new Center($customer['route']);
+                                                        $CENTER = new Center($customer['center']);  
                                                         $CITY = new City($customer['city']);
 
-                                                        echo $ROUTE->route_name . ' | ' . $CENTER->center_name . ' | ' . $CITY->name
+                                                        echo $ROUTE->name . ' | ' . $CENTER->name . ' | ' . $CITY->name
                                                         ?></td>
                                                     <td>
 
