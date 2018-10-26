@@ -302,7 +302,63 @@ $CUSTOMER = new Customer($id);
                                 </div>
                             </div>
 
+                            <?php
+                            $ROUTE = new Route($CUSTOMER->route);
+                            if ($ROUTE->id == $CUSTOMER->route) {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <input type="text"   name="route" value=" <?php echo $ROUTE->name; ?>" class="form-control" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            } else {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                <?php $CENTER = new Center($CUSTOMER->center); ?>
+                                                <input type="text"   name="center" value=" <?php echo $CENTER->name; ?>" class="form-control" autocomplete="off">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
+
                             <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Registration Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type">
+                                                <option value=""> -- Change the Registration Type --</option>   
+                                                <option  value="route">Route</option>
+                                                <option value="center">Center</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="route_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="route">Route</label>
                                 </div>
@@ -310,29 +366,15 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control" autocomplete="off" id="route"  name="route">
-                                                <option selected="" value="<?php echo $CUSTOMER->route ?>">                                                     
-                                                    <?php
-                                                    $ROUTE = new Route($CUSTOMER->route);
-                                                    echo $ROUTE->name
-                                                    ?>
-                                                </option>
-                                                <?php
-                                                $ROUTE = Route::all();
-                                                foreach ($ROUTE as $route) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $route['id'] ?>"> <?php echo $route['name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                            <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                <option> -- Please Select a Route -- </option>
                                             </select>
-
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="center">Center</label>
                                 </div>
@@ -340,27 +382,16 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <select class="form-control" autocomplete="off" id="center"  name="center">
-                                                <option selected="" value="<?php echo $CUSTOMER->center ?>">                                                    
-                                                    <?php
-                                                    $CENTER = new Center($CUSTOMER->center);
-                                                   echo $CENTER->name   
-                                                    ?>
-                                                </option>
-                                                <?php
-                                                $CENTER = Center::all();
-                                                foreach ($CENTER as $center) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $center['id'] ?>"> <?php echo $center['name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
+                                            <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                <option> -- Please Select a Center -- </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
+
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="city">City</label>
@@ -370,17 +401,16 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="city" class="hidden-lg hidden-md">City</label>
                                             <select class="form-control" autocomplete="off" id="city"  name="city">
-                                                <option selected="" value="<?php echo $CUSTOMER->city ?>">                                                    
-                                                    <?php
-                                                    $CITY = new Route($CUSTOMER->city);
-                                                    echo $CITY->name
-                                                    ?>
+                                                <?php
+                                                $CITY = new City($CUSTOMER->city);
+                                                ?>
+                                                <option selected="" value="<?php echo $CUSTOMER->city ?>"><?php echo $CITY->name; ?>
                                                 </option>
                                                 <?php
                                                 $CITY = City::all();
                                                 foreach ($CITY as $city) {
                                                     ?>
-                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
+                                                    <option   value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -389,8 +419,6 @@ $CUSTOMER = new Customer($id);
                                     </div>
                                 </div>
                             </div>
-
-                            
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -599,6 +627,7 @@ $CUSTOMER = new Customer($id);
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/birthday_script.js" type="text/javascript"></script>
 
+        <script src="js/ajax/customer.js" type="text/javascript"></script> 
     </body>
 
 </html>
