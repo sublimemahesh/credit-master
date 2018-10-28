@@ -314,7 +314,7 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <input type="text"   name="route" value=" <?php echo $ROUTE->name; ?>" class="form-control" autocomplete="off">
+                                                <input type="text"   name="registration_type" value=" <?php echo $ROUTE->name; ?>" class="form-control" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -332,7 +332,7 @@ $CUSTOMER = new Customer($id);
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
                                                 <?php $CENTER = new Center($CUSTOMER->center); ?>
-                                                <input type="text"   name="center" value=" <?php echo $CENTER->name; ?>" class="form-control" autocomplete="off">
+                                                <input type="text"   name="registration_type    " value=" <?php echo $CENTER->name; ?>" class="form-control" autocomplete="off">
 
                                             </div>
                                         </div>
