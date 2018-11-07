@@ -6,7 +6,7 @@ jQuery(document).ready(function () {
         var year = parseInt(jQuery('#year').val(), 10);
 
         if (this.id == 'next') {
-            if (month == 12) {
+            if (month == 13) {
                 month = 0;
                 jQuery('#year').val(year + 1);
             }
