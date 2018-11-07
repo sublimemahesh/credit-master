@@ -44,95 +44,22 @@ include_once(dirname(__FILE__) . './auth.php');
             <a class="navbar-brand" href="index.php">Micro Credit System</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse">
-            <ul class="nav navbar-nav navbar-right">
-                <!-- Call Search -->
-                <li><a href="javascript:void(0);" class="js-search" data-close="true"><i class="material-icons">search</i></a></li>
-                <!-- #END# Call Search -->
-                <!-- Notifications -->
-                <li class="dropdown">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">notifications</i>
-                        <span class="label-count">4</span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">NOTIFICATIONS</li>
-                        <li class="body">
-                            <ul class="menu">
-                                <li>
-                                    <a href="manage-messages-member.php">
-                                        <div class="icon-circle bg-light-green">
-                                            <i class="material-icons">person_add</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>6&nbsp;<span>Member Messages</span></h4>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="manage-messages-company.php">
-                                        <div class="icon-circle bg-cyan">
-                                            <i class="material-icons">recent_actors</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>5 &nbsp;<span>Company Messages</span></h4>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="manage-messages-vacancy.php">  
-                                        <div class="icon-circle bg-red">
-                                            <i class="material-icons">next_week</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>2 &nbsp;<span>Vacancy Messages</span></h4>       
-                                        </div>
-
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
-                        <li class="footer">
-                            <a href="javascript:void(0);">View All Notifications</a>
-                        </li>
-                    </ul>
-                </li>
-                <!-- #END# Notifications -->
-                <!-- Tasks -->
+            <ul class="nav navbar-nav navbar-right"> 
                 <li class="dropdown">
                     <a href="javascript:void(0);" class="dropdown-toggle" data-toggle="dropdown" role="button">
-                        <i class="material-icons">flag</i>
+                        <i class="material-icons">settings</i>
                         <span class="label-count"></span>
                     </a>
-                    <ul class="dropdown-menu">
-                        <li class="header">FEED BACK</li>
-                        <li class="body">
-                            <ul class="menu tasks">
-                                <li>
-                                    <a href="manage-messages-company.php">
-                                        <div class="icon-circle bg-cyan">
-                                            <i class="material-icons">recent_actors</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>3 &nbsp;<span>Active Feedback</span></h4>
-                                        </div>
-                                    </a>
-                                </li>
-                                <li>
-                                    <a href="manage-messages-vacancy.php">  
-                                        <div class="icon-circle bg-red">
-                                            <i class="material-icons">next_week</i>
-                                        </div>
-                                        <div class="menu-info">
-                                            <h4>4 &nbsp;<span>Inactive Feedback</span></h4>       
-                                        </div>
-
-                                    </a>
-                                </li>
-                            </ul>
+                    <ul class="dropdown-menu pull-right">
+                        <li>
+                            <a href="profile.php?id=<?php echo $_SESSION['id']; ?>">
+                                <i class="material-icons">person</i>Profile</a>
                         </li>
-                        <li class="footer">
-                            <a href="javascript:void(0);">View Feedback All</a>
-                        </li>
+                        <li role="seperator" class="divider"></li>
+                        <li><a href="edit-profile.php?id=<?php echo $_SESSION['id']; ?>"><i class="material-icons">edit</i>Edit My Profile</a></li>
+                        <li><a href="change-password.php?id=<?php echo $_SESSION['id']; ?>"><i class="material-icons">vpn_key</i>Change Password</a></li> 
+                        <li role="seperator" class="divider"></li>
+                        <li><a href="post-and-get/log-out.php"><i class="material-icons">input</i>Sign Out</a></li>
                     </ul>
                 </li>
             </ul>
@@ -183,6 +110,59 @@ include_once(dirname(__FILE__) . './auth.php');
 
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            subtitles
+                        </i>
+                        <span>Loan</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="create-loan.php">
+                                <i class="material-icons">add</i>
+                                <span>Create New</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-pending-loans.php">
+                                <i class="material-icons">report_off</i>
+                                <span>Pending Loans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-verified-loans.php">
+                                <i class="material-icons">report</i>
+                                <span>Verified Loans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-approved-loans.php">
+                                <i class="material-icons">playlist_add_check</i>
+                                <span>Approved Loans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-active-loans.php">
+                                <i class="material-icons">directions_bike</i>
+                                <span>Active Loans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-rejected-loans.php">
+                                <i class="material-icons">remove_circle_outline</i>
+                                <span>Rejected Loans</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-loan.php">
+                                <i class="material-icons">list</i>
+                                <span>View All Loans</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> 
+
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">group</i>
                         <span>Customer</span>
                     </a>
@@ -192,13 +172,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <i class="material-icons">add</i>
                                 <span>Add New</span>
                             </a>
-                        </li>
-                        <!--                        <li>
-                                                    <a href="manage-customers.php">
-                                                        <i class="material-icons">list</i>
-                                                        <span>Manage</span>
-                                                    </a>
-                                                </li>-->
+                        </li> 
                         <li>
                             <a href="view-active-customer.php">
                                 <i class="material-icons">
@@ -213,28 +187,6 @@ include_once(dirname(__FILE__) . './auth.php');
                                     person_add_disabled
                                 </i>
                                 <span>Inactive Customer</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> 
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">
-                            subtitles
-                        </i>
-                        <span>Loan</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="create-loan.php">
-                                <i class="material-icons">add</i>
-                                <span>Add New</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="manage-loan.php">
-                                <i class="material-icons">list</i>
-                                <span>Manage</span>
                             </a>
                         </li>
                     </ul>
