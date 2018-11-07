@@ -112,7 +112,7 @@ class PostponeDate {
         $calendar .= '</tr>';
 
         /* days and weeks vars now ... */
-        $running_day = date('w', mktime(0, 0, 0, $month, 1, $year));
+        $running_day = date('w', mktime(0, 0, 0, $month, 1, $year)); 
         $days_in_month = date('t', mktime(0, 0, 0, $month, 1, $year));
         $days_in_this_week = 1;
         $day_counter = 0;
@@ -125,30 +125,28 @@ class PostponeDate {
         for ($x = 0; $x < $running_day; $x++):
             $calendar .= '<td> </td>';
             $days_in_this_week++;
+            
+            
         endfor;
 
-
-        $bookings = PostponeDate::getPostPoneDateByMonth($month, $year);
+        $post_pone_date = PostponeDate::getPostPoneDateByMonth($month, $year);
+         
         /* keep going with days.... */
-        for ($list_day = 1; $list_day <= $days_in_month; $list_day++):
-
+        for ($list_day = 1; $list_day <=$days_in_month; $list_day++):
 
             /* add in the day number */
 
-            if (in_array($list_day, $bookings)) {
+            if (in_array($list_day, $post_pone_date)) {
 
                 $calendar .= '<td class="date-td booking">';
                 $calendar .= $list_day;
                 $calendar .= '</td>';
             } else {
-
                 $calendar .= '<td class="date-td">';
                 $calendar .= $list_day;
                 $calendar .= '</td>';
+               
             }
-
-
-
 
             if ($running_day == 6):
                 $calendar .= '</tr>';
@@ -188,20 +186,20 @@ class PostponeDate {
 
         $db = new Database();
 
-        $sql = "SELECT `id`as id, DAY(`date`)as date FROM `postpone_date` WHERE `date` BETWEEN '" . $y . "-" . $m . "-01' AND '" . $y . "-" . $m . "-31'";
+        $sql = "SELECT `id`as id,`date`as date FROM `postpone_date` WHERE `date` BETWEEN '" . $m . "/01/" . $y . "' AND '" . $m . "/31/" . $y . "'";
 
         $result = $db->readQuery($sql);
 
-        $bookings = array();
+        $post_pone_date = array();
 
         while ($row = mysql_fetch_assoc($result)) {
 
             $row['date'] . '<br>';
 
-            array_push($bookings, $row['date']);
+            array_push($post_pone_date, $row['date']);
         }
 
-        return $bookings;
+        return $post_pone_date;
     }
 
 }
