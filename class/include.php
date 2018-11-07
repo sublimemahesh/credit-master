@@ -14,10 +14,10 @@ include_once(dirname(__FILE__) . '/Center.php');
 include_once(dirname(__FILE__) . '/Route.php');
 include_once(dirname(__FILE__) . '/Users.php');
 include_once(dirname(__FILE__) . '/Loan.php');
-include_once(dirname(__FILE__) . '/DefultData.php');
-include_once(dirname(__FILE__) . '/LoanIssueMode.php');
+include_once(dirname(__FILE__) . '/DefaultData.php');
 include_once(dirname(__FILE__) . '/Installment.php');
 include_once(dirname(__FILE__) . '/PostponeDate.php');
+include_once(dirname(__FILE__) . '/EffectiveDate.php');
 
 function dd($data) {
     var_dump($data);

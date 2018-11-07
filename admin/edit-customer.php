@@ -126,7 +126,13 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="profile_picture" class="hidden-lg hidden-md">Profile Picture</label>
                                             <input type="file" id="profile_picture"  name="profile_picture"  value="<?php echo $CUSTOMER->profile_picture ?>" class="form-control" autocomplete="off">
-                                            <img src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
+                                            <?php
+                                            if ($CUSTOMER->profile_picture) {
+                                                ?>
+                                                <img src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
+                                                <?php
+                                            }
+                                            ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +161,15 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
                                             <input type="file" id="nic_photo_front"  name="nic_photo_front"  class="form-control" autocomplete="off">
-                                            <img src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_front" alt="old image">
+
+                                            <?php
+                                            if ($CUSTOMER->nic_photo_front) {
+                                                ?>
+                                                <img src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_front" alt="old image">
+                                                <?php
+                                            }
+                                            ?> 
+
 
                                         </div>
                                     </div>
@@ -165,8 +179,14 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                             <input type="file" id="nic_photo_back"  name="nic_photo_back"  class="form-control" autocomplete="off">
-                                            <img src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_back" alt="old image">
 
+                                            <?php
+                                            if ($CUSTOMER->nic_photo_back) {
+                                                ?>
+                                                <img src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_back" alt="old image">
+                                                <?php
+                                            }
+                                            ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -485,7 +505,13 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                             <input type="file" id="br_picture"  name="br_picture" class="form-control" autocomplete="off">
-                                            <img src="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>">
+                                            <?php
+                                            if ($CUSTOMER->br_picture) {
+                                                ?>
+                                                <img src="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>">
+                                                <?php
+                                            }
+                                            ?> 
                                         </div>
                                     </div>
                                 </div>
@@ -570,7 +596,13 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                             <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
-                                            <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="bank_book_picture" alt="old image">
+                                            <?php
+                                            if ($CUSTOMER->bank_book_picture) {
+                                                ?>
+                                                <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="bank_book_picture" alt="old image">
+                                                <?php
+                                            }
+                                            ?> 
 
                                         </div>
                                     </div>
