@@ -86,5 +86,4 @@ if (isset($_POST['update'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-}
-
+} 

@@ -21,3 +21,17 @@ if ($_POST['action'] == 'GETREGTYPE') {
 }
 
 
+if ($_POST['action'] == 'GETCUSTOMER') {
+ header('Content-type: application/json');
+    if ($_POST['type'] == 'route') {
+        $CUSTOMER = new Customer(NULL);
+        $result = $CUSTOMER->getCustomerByRoute($_POST['value']);
+        echo json_encode(['type' => 'route', 'data' => $result]);
+        exit();
+    } else if ($_POST['type'] == 'center') {
+        $CUSTOMER = new Customer(NULL);
+        $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
+        echo json_encode(['type' => 'center', 'data' => $result]);
+        exit();
+    }
+}
