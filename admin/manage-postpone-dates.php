@@ -57,12 +57,13 @@ $POSTPONE_DATE = new PostponeDate(NULL);
                             </div> 
                             <div class="body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example" id="postpone_date">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Postpone Date</th>  
-                                                <th>Reason</th>                                                        
+                                                <th>Postpone Date</th>                                                       
+                                                <th>Type</th>  
+                                                <th>Reason</th>                                                         
                                                 <th>Option</th> 
                                             </tr>
                                         </thead>
@@ -72,12 +73,23 @@ $POSTPONE_DATE = new PostponeDate(NULL);
                                                 ?>
                                                 <tr id="row_<?php echo $postpone_date['id']; ?>">
                                                     <td>#<?php echo $postpone_date['id']; ?></td> 
-                                                    <td><?php echo $postpone_date['date']; ?></td> 
+                                                    <td><?php echo $postpone_date['date']; ?></td>
+                                                    <td><?php
+                                                        if ($postpone_date['all']) {
+                                                            echo 'All';
+                                                        } elseif ($postpone_date['route']) {
+                                                            $ROUTE = new Route($postpone_date['route']);
+                                                            echo 'Route - ' . $ROUTE->name;
+                                                        } else {
+                                                            $CENTER = new Center($postpone_date['center']);
+                                                            echo 'Center - ' . $CENTER->name;
+                                                        }
+                                                        ?>
+                                                    </td> 
                                                     <td><?php echo $postpone_date['reason']; ?></td>  
-
                                                     <td>     
                                                         <a href="view-postponedate.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn" title="View"></button></a> |
-                                                        <a href="edit-postpone-date.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
+    <!--                                                        <a href="edit-postpone-date.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | -->
                                                         <a href="#"  class="delete-postponedate" data-id="<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>
@@ -88,7 +100,8 @@ $POSTPONE_DATE = new PostponeDate(NULL);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Postpone Date</th>  
+                                                <th>Postpone Date</th>                                               
+                                                <th>Type</th>    
                                                 <th>Reason</th>                                                 
                                                 <th>Option</th>  
                                             </tr>
@@ -120,12 +133,17 @@ $POSTPONE_DATE = new PostponeDate(NULL);
 
 
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
-        <script src="js/admin.js"></script>
-        <script src="js/pages/tables/jquery-datatable.js"></script>
+        <script src="js/admin.js"></script> 
         <script src="js/demo.js"></script>
-        <script src="delete/js/postponedate.js" type="text/javascript"></script>
-        
-        
-        
+        <script src="delete/js/postponedate.js" type="text/javascript"></script> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#postpone_date').DataTable({
+                    "order": [[1, "desc"]]
+                });
+            });
+        </script>
+
+
     </body> 
 </html> 

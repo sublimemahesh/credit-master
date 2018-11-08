@@ -298,7 +298,6 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
 
                                 <?php
-                              
                             } else {
                                 ?>
                                 <div class="row">
@@ -309,10 +308,10 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                <div class="form-control"><?php  
-                                                $CENTER = new Center($CUSTOMER->center);
-                                              echo $CENTER->name;
-                                                ?></div>
+                                                <div class="form-control"><?php
+                                                    $CENTER = new Center($CUSTOMER->center);
+                                                    echo $CENTER->name;
+                                                    ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -327,7 +326,10 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city" class="hidden-lg hidden-md">City</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->city; ?></div>
+                                            <div class="form-control"><?php
+                                                $CITY = new City($CUSTOMER->city); 
+                                                echo $CITY->name;
+                                                ?></div>
                                         </div>
                                     </div>
                                 </div>

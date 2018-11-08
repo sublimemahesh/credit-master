@@ -8,8 +8,11 @@ $(document).ready(function () {
             $('#route_row').hide();
             $('#center_row').hide();
             $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+            $('#customer-in-postpon-date').empty().append('<option value=""> -- Please Select  Type First--  </option>');
             $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
             $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+            $('#customer-in-postpon-date').empty().append('<option value=""> -- Please Select  Type First--  </option>');
+
         }
 
         $.ajax({
@@ -32,9 +35,11 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
+                    $('#customer-in-postpon-date').empty().append('<option value=""> -- Please Select  Type First--  </option>');
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+
                 } else if (jsonStr.type == 'center') {
                     var html = '<option value=""> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
@@ -47,6 +52,7 @@ $(document).ready(function () {
                     $('#center_row').show();
                     $('#route_row').hide();
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#customer-in-postpon-date').empty().append('<option value=""> -- Please Select    Type First--  </option>');
                     $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                 }
@@ -68,7 +74,7 @@ $(document).ready(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                var html = '<option value=""> -- Please Select a Center -- </option>';
+                var html = '<option value=""> -- Please Select a Customer -- </option>';
                 $.each(jsonStr.data, function (i, data) {
                     html += '<option value="' + data.id + '">';
                     html += data.title + ' ' + data.first_name + ' ' + data.last_name;
@@ -76,10 +82,39 @@ $(document).ready(function () {
                 });
                 $('#customer').empty();
                 $('#customer').append(html);
+                $('#customer-in-postpon-date').empty();
+                $('#customer-in-postpon-date').append(html);
                 $('#guarantor').empty();
                 $('#guarantor').append(html);
                 $('#guarantor-02').empty();
                 $('#guarantor-02').append(html);
+            }
+        });
+    });
+
+    $('.customer-ref-postpone-date').change(function () {
+
+        var type = this.id;
+        var value = $(this).val();
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                type: type,
+                value: value,
+                action: 'GETCUSTOMER'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                var html = '<option value=""> -- Please Select a Customer in Postpon Date -- </option>';
+                var html = '<option value="">  All  </option>';
+                $.each(jsonStr.data, function (i, data) {
+                    html += '<option value="' + data.id + '">';
+                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
+                    html += '</option>';
+                });
+                $('#customer-in-postpon-date').empty();
+                $('#customer-in-postpon-date').append(html);
             }
         });
     });

@@ -218,7 +218,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="address" class="hidden-lg hidden-md">Address</label>
                                             <input type="text" id="address"  name="address_line_1" required="TRUE" placeholder=" Address Line 1" class="form-control" autocomplete="off">
-                                            <input type="text" id="address"  name="address_line_2" required="TRUE" placeholder=" Address Line 2" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_2"   placeholder=" Address Line 2" class="form-control" autocomplete="off">
                                             <input type="text" id="address"  name="address_line_3" placeholder=" Address Line 3" class="form-control" autocomplete="off">
                                             <input type="text" id="address"  name="address_line_4" placeholder=" Address Line 4" class="form-control" autocomplete="off">
                                             <input type="text" id="address"  name="address_line_5" placeholder=" Address Line 5" class="form-control" autocomplete="off">
@@ -235,7 +235,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city_name" class="hidden-lg hidden-md">City</label>
-                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"  required="TRUE" >
+                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"   >
                                                 <option selected=""> - Select the City - </option>
                                                 <?php
                                                 $CITY = City::all();
@@ -250,6 +250,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>

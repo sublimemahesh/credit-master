@@ -50,6 +50,73 @@ include_once(dirname(__FILE__) . './auth.php');
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/postpone_date.php" method="post"  enctype="multipart/form-data"> 
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Select the Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <select class="form-control" autocomplete="off" id="registration_type" name="all"  required="TRUE">
+                                                <option value=""> -- Please Select the Type -- </option>
+                                                <option  value="1"  > All </option>
+                                                <option value="route"> Route </option>
+                                                <option value="center"> Center </option> 
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row" style="display: none" id="route_row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="route">Route</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="route" class="hidden-lg hidden-md">Route</label>
+                                            <select class="form-control customer-ref-postpone-date" autocomplete="off" id="route"  name="route">  
+                                                <option> -- Please Select a Route -- </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="center_row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="center">Center</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="center" class="hidden-lg hidden-md">Center</label>
+                                            <select class="form-control customer-ref-postpone-date" autocomplete="off" id="center"  name="center">  
+                                                <option> -- Please Select a Center -- </option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="customer">Customer</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="customer" class="hidden-lg hidden-md">Customer</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="customer-in-postpon-date" name="customer"  >
+                                                <option value=""> -- Please Select  Type First-- </option>
+                                                <option value="0"> All </option> 
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -59,7 +126,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md">Date</label>
-                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE">
                                         </div>
                                     </div>
                                 </div>
@@ -70,11 +137,10 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <label for="description">Description</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
+                                    <div class="form-group"> 
                                         <div class="form-line">
-                                            <textarea rows="4" cols="80" name="reason"> 
-                                            </textarea>  
-                                        </div>
+                                            <textarea rows="4" name="reason" class="form-control "> </textarea>   
+                                        </div>     
                                     </div>
                                 </div>
                             </div> 
@@ -103,37 +169,10 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker();
+                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
             });
-        </script>
-        <script src="tinymce/js/tinymce/tinymce.min.js"></script>
-        <script>
-            tinymce.init({
-                selector: "#description",
-                // ===========================================
-                // INCLUDE THE PLUGIN
-                // ===========================================
-
-                plugins: [
-                    "advlist autolink lists link image charmap print preview anchor",
-                    "searchreplace visualblocks code fullscreen",
-                    "insertdatetime media table contextmenu paste"
-                ],
-                // ===========================================
-                // PUT PLUGIN'S BUTTON on the toolbar
-                // ===========================================
-
-                toolbar: "insertfile undo redo | styleselect | bold italic | alignleft aligncenter alignright alignjustify | bullist numlist outdent indent | link image jbimages",
-                // ===========================================
-                // SET RELATIVE_URLS to FALSE (This is required for images to display properly)
-                // ===========================================
-
-                relative_urls: false
-
-            });
-
-
-        </script>
+        </script> 
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
     </body>
 
 </html>

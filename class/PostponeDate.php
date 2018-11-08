@@ -13,6 +13,7 @@ class PostponeDate {
     public $all;
     public $route;
     public $center;
+    public $customer;
     public $by;
 
     public function __construct($id) {
@@ -30,6 +31,7 @@ class PostponeDate {
             $this->all = $result['all'];
             $this->route = $result['route'];
             $this->center = $result['center'];
+            $this->customer = $result['customer'];
             $this->by = $result['by'];
 
 
@@ -40,12 +42,13 @@ class PostponeDate {
     public function create() {
 
 
-        $query = "INSERT INTO `postpone_date` (`date`,`reason`,`all`,`route`,`center`,`by`) VALUES  ('"
+        $query = "INSERT INTO `postpone_date` (`date`,`reason`,`all`,`route`,`center`,`customer`,`by`) VALUES  ('"
                 . $this->date . "','"
                 . $this->reason . "', '"
                 . $this->all . "', '"
                 . $this->route . "', '"
                 . $this->center . "', '"
+                . $this->customer . "', '"
                 . $this->by . "')";
 
 
@@ -66,7 +69,7 @@ class PostponeDate {
     public function all() {
 
 
-        $query = "SELECT * FROM `postpone_date` ";
+        $query = "SELECT * FROM `postpone_date`  ";
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -86,6 +89,7 @@ class PostponeDate {
                 . "`all` ='" . $this->all . "', "
                 . "`route` ='" . $this->route . "', "
                 . "`center` ='" . $this->center . "', "
+                . "`customer` ='" . $this->customer . "', "
                 . "`by` ='" . $this->by . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
