@@ -76,13 +76,13 @@ $POSTPONE_DATE = new PostponeDate(NULL);
                                                     <td><?php echo $postpone_date['date']; ?></td>
                                                     <td><?php
                                                         if ($postpone_date['all']) {
-                                                            echo 'All';
+                                                            echo "<b>".'All'."<b>";
                                                         } elseif ($postpone_date['route']) {
                                                             $ROUTE = new Route($postpone_date['route']);
-                                                            echo 'Route - ' . $ROUTE->name;
+                                                            echo "<b>".'Route - '."</b>" . $ROUTE->name;
                                                         } else {
                                                             $CENTER = new Center($postpone_date['center']);
-                                                            echo 'Center - ' . $CENTER->name;
+                                                            echo "<b>".'Center - '."<b>" . $CENTER->name;
                                                         }
                                                         ?>
                                                     </td> 

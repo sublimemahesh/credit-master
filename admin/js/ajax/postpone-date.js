@@ -9,7 +9,7 @@ $(document).ready(function () {
         }
 
         $.ajax({
-            url: "post-and-get/ajax/customer.php",
+            url: "post-and-get/ajax/postpone-date.php",
             type: "POST",
             data: {
                 type: type,
@@ -47,7 +47,35 @@ $(document).ready(function () {
     });
 });
 
+$('.customer-ref-postpone-date').change(function () {
 
 
 
-  
+    var type = this.id;
+
+    var value = $(this).val();
+
+    $.ajax({
+        url: "post-and-get/ajax/postpone-date.php",
+        type: "POST",
+        data: {
+            type: type,
+            value: value,
+            action: 'GETCUSTOMER'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+
+
+            var html = '<option value=""> -- Please Select a Customer -- </option>';
+            $.each(jsonStr.data, function (i, data) {
+                html += '<option value="' + data.id + '">';
+                html += data.title + ' ' + data.first_name + ' ' + data.last_name;
+                html += '</option>';
+            });
+            $('#customer-postpone-date').empty();
+            $('#customer-postpone-date').append(html); 
+
+        }
+    });
+}); 

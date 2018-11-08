@@ -65,7 +65,7 @@ $CUSTOMER = new Customer(NULL)
                                                 <th>NIC Number</th>
                                                 <th>Address</th>
                                                 <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Route/Center </th>
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -79,13 +79,19 @@ $CUSTOMER = new Customer(NULL)
                                                     <td><?php echo $customer['nic_number']; ?></td>  
                                                     <td><?php echo $customer['address_line_1'] . ' ' . $customer['address_line_2']; ?></td>
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                    <td>
 
+
+                                                    <td>
                                                         <?php
-                                                        $CITY = new City($customer['city']);
-                                                         
-                                                        echo   $CITY->name;
-                                                        ?></td>
+                                                        if ($customer['route']) {
+                                                            $ROUTE = new Route($customer['route']);
+                                                            echo '<b>' . 'Route - ' . '</b>' . $ROUTE->name;
+                                                        } else {
+                                                            $CENTER = new Center($customer['center']);
+                                                            echo '<b>' . 'Center - ' . '</b>' . $CENTER->name;
+                                                        }
+                                                        ?>
+                                                    </td> 
 
                                                     </td>
                                                     <td>
@@ -106,7 +112,7 @@ $CUSTOMER = new Customer(NULL)
                                                 <th>NIC Number</th>
                                                 <th>Address</th>
                                                 <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Route/Center </th>
                                                 <th>Options</th>
                                             </tr>
                                         </tfoot>

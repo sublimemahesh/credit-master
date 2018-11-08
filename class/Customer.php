@@ -231,8 +231,8 @@ class Customer {
 
     public function getCustomrByCenter($center) {
 
-        $query = "SELECT * FROM `customer` WHERE `center` =$center";
-
+        $query = "SELECT * FROM `customer` WHERE `center` ='" . $center . "'";
+ 
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -243,8 +243,8 @@ class Customer {
 
         return $array_res;
     }
-    
-     public function getCustomerByRoute($route) {
+
+    public function getCustomerByRoute($route) {
 
         $query = "SELECT * FROM `customer` WHERE `route` =$route";
 
@@ -258,7 +258,6 @@ class Customer {
 
         return $array_res;
     }
-    
 
     public function update() {
 

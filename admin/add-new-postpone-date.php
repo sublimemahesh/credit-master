@@ -58,7 +58,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
-                                            <select class="form-control" autocomplete="off" id="registration_type" name="all"  required="TRUE">
+                                            <select class="form-control " autocomplete="off" id="registration_type" name="all"  required="TRUE">
                                                 <option value=""> -- Please Select the Type -- </option>
                                                 <option  value="1"  > All </option>
                                                 <option value="route"> Route </option>
@@ -78,7 +78,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control customer-ref-postpone-date" autocomplete="off" id="route"  name="route">  
+                                            <select class="form-control  customer-ref-postpone-date" autocomplete="off" id="route"  name="route">  
                                                 <option> -- Please Select a Route -- </option>
                                             </select>
                                         </div>
@@ -95,7 +95,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control customer-ref-postpone-date" autocomplete="off" id="center"  name="center">  
-                                                <option> -- Please Select a Center -- </option>
+                                                <option value=""> -- Please Select a Center -- </option>
                                             </select>
                                         </div>
                                     </div>
@@ -109,9 +109,9 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="customer-in-postpon-date" name="customer"  >
-                                                <option value=""> -- Please Select  Type First-- </option>
-                                                <option value="0"> All </option> 
+                                            <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE">
+                                                <option value="0" id="ss"> -- All Customers --  </option> 
+                                                
                                             </select> 
                                         </div>
                                     </div>
@@ -172,7 +172,8 @@ include_once(dirname(__FILE__) . './auth.php');
                 $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
             });
         </script> 
-        <script src="js/ajax/loan.js" type="text/javascript"></script>
+        <script src="js/ajax/postpone-date.js" type="text/javascript"></script> 
+
     </body>
 
 </html>
