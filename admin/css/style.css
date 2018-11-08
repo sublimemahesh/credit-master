@@ -8082,6 +8082,13 @@ html.ie11 .bs-searchbox .form-control {
     border: 0;
 }
 
+.delete-btn{
+    padding: 5px 8px;
+    color: #fff;
+    background-color: red;
+    border-radius: 3px;
+    border: 0;
+}
 .arrange-btn{
     padding: 5px 8px;
     color: #fff;
