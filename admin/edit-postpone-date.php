@@ -3,8 +3,8 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
 
 
-$id ='';
-$id =$_GET['id'];
+$id = '';
+$id = $_GET['id'];
 $POSTPONE_DATE = new PostponeDate($id);
 ?>
 
@@ -64,21 +64,19 @@ $POSTPONE_DATE = new PostponeDate($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md">Date</label>
-                                            <input type="text" id="paid_date"  name="date" value="<?php echo $POSTPONE_DATE->date?>" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="paid_date"  name="date" value="<?php echo $POSTPONE_DATE->date ?>" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                   <label for="description">Description</label>
+                                    <label for="description">Description</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                           <textarea id="description" name="reason" class="form-control" rows="5"><?php echo $POSTPONE_DATE->reason?></textarea> 
-                                        </div>
+                                    <div class="form-group"> 
+                                        <textarea rows="4" cols="80" name="reason"> <?php echo $POSTPONE_DATE->reason ?> </textarea>   
                                     </div>
                                 </div>
                             </div> 
@@ -87,7 +85,7 @@ $POSTPONE_DATE = new PostponeDate($id);
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <input type="hidden" value="<?php echo $id?>" name="id">
+                                    <input type="hidden" value="<?php echo $id ?>" name="id">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
                                 </div>
                             </div>

@@ -64,15 +64,16 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                   <label for="description">Description</label>
+                                    <label for="description">Description</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                           <textarea id="description" name="reason" class="form-control" rows="5"></textarea> 
+                                            <textarea rows="4" cols="80" name="reason"> 
+                                            </textarea>  
                                         </div>
                                     </div>
                                 </div>
