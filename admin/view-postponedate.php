@@ -80,6 +80,63 @@ $POSTPONEDATE = new PostponeDate($id);
                                 </div>
                             </div>
                         </div>
+
+                        <?php if ($POSTPONEDATE->all) {
+                            ?>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="all">All</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="all" class="hidden-lg hidden-md">All</label>
+                                            <div class="form-control"> 
+                                                <?php echo 'All'?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } elseif ($POSTPONEDATE->route) { ?>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="route">Route</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="route" class="hidden-lg hidden-md">Route</label>
+                                            <div class="form-control"> 
+                                                <?php
+                                                $ROUTE = new Route($POSTPONEDATE->route);
+                                                echo $ROUTE->name;
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } elseif ($POSTPONEDATE->center) { ?>
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="center">Center</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="center" class="hidden-lg hidden-md">Center</label>
+                                            <div class="form-control"> 
+                                                <?php
+                                                $CENTER = new Center($POSTPONEDATE->center);
+                                                echo $CENTER->name;
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
                     </div>
                 </div>
             </div>

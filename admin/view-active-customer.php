@@ -81,11 +81,10 @@ $CUSTOMER = new Customer(NULL)
                                                     <td><?php echo $customer['mobile']; ?></td>
                                                     <td>
 
-                                                        <?php 
- 
+                                                        <?php
                                                         $CITY = new City($customer['city']);
-                                                     
-                                                        echo $CITY->name;
+                                                         
+                                                        echo   $CITY->name;
                                                         ?></td>
 
                                                     </td>
