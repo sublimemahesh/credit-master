@@ -314,6 +314,7 @@ if (isset($_POST['update'])) {
     }
     /////////////////////////////////////////////////
 
+  
     $CUSTOMER = new Customer($_POST['id']);
          
     $CUSTOMER->title = $_POST['title'];

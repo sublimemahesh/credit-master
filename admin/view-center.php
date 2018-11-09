@@ -75,12 +75,12 @@ $CENTER = new Center($id);
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                        <label for="address">Address</label>
+                                        <label for="address">Center Address</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="address" class="hidden-lg hidden-md"> Address</label>
+                                                <label for="address" class="hidden-lg hidden-md">Center Address</label>
                                                 <div class="form-control"><?php echo $CENTER->address; ?></div>
                                             </div>
                                         </div>
@@ -129,11 +129,9 @@ $CENTER = new Center($id);
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>  
-                                                <th>NIC Number</th>
+                                                <th>Full Name</th>   
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -144,22 +142,20 @@ $CENTER = new Center($id);
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td>#<?php echo $customer['id']; ?></td> 
-                                                    <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
-                                                    <td><?php echo $customer['nic_number']; ?></td>  
-                                                    <td><?php echo $customer['address_line_1'] . ' ' . $customer['address_line_2']; ?></td>
+                                                    <td> <i class="glyphicon glyphicon-user"></i>
+                                                        <b>: 
+                                                            <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></b><br/>
+                                                        <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
+                                                    </td>
+
+                                                    <td>   
+                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?></td>
+
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                    <td>
-
-                                                        <?php
-                                                        $ROUTE = new Route($customer['route']);
-                                                        $ROUTE = new Center($customer['route']);
-                                                        $ROUTE = new City($customer['city']);
-
-                                                        echo $ROUTE->name . ' | ' . $ROUTE->name . ' | ' . $ROUTE->name
-                                                        ?></td>
+                                                     
 
                                                     </td>
-                                                    <td>
+                                                    <td class="text-center" >
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
                                                         <a href="#"  class="delete-customer" data-id="<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
@@ -173,11 +169,9 @@ $CENTER = new Center($id);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>  
-                                                <th>NIC Number</th>
+                                                <th>Full Name</th>   
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th>
                                             </tr>
                                         </tfoot>

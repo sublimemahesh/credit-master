@@ -181,12 +181,12 @@ class PostponeDate {
                 $calendar .= '<div class="row">';
                 $calendar .= '<div class="col-md-6">';
                 $calendar .= '<a href="manage-postpone-dates.php?date=' . $date . '" >';
-                $calendar .= 'View';
+                $calendar .= '<button class="calendar-btn-view glyphicon glyphicon-info-sign"></button>';
                 $calendar .= '</a>';
                 $calendar .= '</div>';
                 $calendar .= '<div class="col-md-6">';
                 $calendar .= '<a href="add-new-postpone-date.php?date=' . $date . '" >';
-                $calendar .= 'Add';
+                $calendar .= ' <button class="glyphicon glyphicon-plus-sign calendar-btn "></button>';
                 $calendar .= '</a>';
                 $calendar .= '</div>';
                 $calendar .= '</div>';
@@ -202,11 +202,10 @@ class PostponeDate {
 
                 $calendar .= '<div class="row">';
                 $calendar .= '<div class="col-md-6">';
-                $calendar .= 'View';
                 $calendar .= '</div>';
                 $calendar .= '<div class="col-md-6">';
                 $calendar .= '<a href="add-new-postpone-date.php?date=' . $date . '" >';
-                $calendar .= 'Add';
+                $calendar .= ' <button class="glyphicon glyphicon-plus-sign calendar-btn "></button>';
                 $calendar .= '</a>';
                 $calendar .= '</div>';
                 $calendar .= '</div>';
