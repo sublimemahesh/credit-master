@@ -67,7 +67,7 @@ $('.customer-ref-postpone-date').change(function () {
         success: function (jsonStr) {
 
 
-            var html = '<option value=""> -- Please Select a Customer -- </option>';
+            var html = '<option value="0"> -- All Customers -- </option>';
             $.each(jsonStr.data, function (i, data) {
                 html += '<option value="' + data.id + '">';
                 html += data.title + ' ' + data.first_name + ' ' + data.last_name;

@@ -1,6 +1,13 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
+$date = NULL;
+if (isset($_GET['date'])) {
+    $date = $_GET['date'];
+    $title = 'Add New Postpone Date : ' . $date;
+} else {
+    $title = 'Add New Postpone Date  ';
+}
 ?>
 
 <!DOCTYPE html>
@@ -39,7 +46,7 @@ include_once(dirname(__FILE__) . './auth.php');
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Add New Postpone Date</h2>
+                        <h2><?php echo $title?></h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-postpone-dates.php">
@@ -110,8 +117,8 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
                                             <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE">
-                                                <option value="0" id="ss"> -- All Customers --  </option> 
-                                                
+                                                <option value="0"> -- All Customers --  </option> 
+
                                             </select> 
                                         </div>
                                     </div>
@@ -126,7 +133,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md">Date</label>
-                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE">
+                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE" value="<?php echo $date ?>">
                                         </div>
                                     </div>
                                 </div>

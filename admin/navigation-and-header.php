@@ -212,6 +212,12 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Manage</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="calender.php">
+                                <i class="material-icons">insert_invitation</i>
+                                <span>Calendar</span>
+                            </a>
+                        </li>
 
                     </ul>
                 </li> 
