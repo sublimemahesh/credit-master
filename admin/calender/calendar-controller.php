@@ -18,5 +18,5 @@ echo $CALENDER->draw_calendar($_POST['year'],$_POST['month'], 1, 12);
 ?>
 
 <div style="float: left; margin: 8px 0px -10px -1px; overflow: hidden;">
-    Not available: <div style="width: 10px; height: 10px; background-color: rgb(211, 0, 0) ;display: inline-flex;"></div>
+    Not available: <div style="width: 10px; height: 10px; background-color: rgb(249, 75, 54) ;display: inline-flex;"></div>
 </div>

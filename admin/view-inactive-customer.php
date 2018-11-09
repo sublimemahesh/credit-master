@@ -61,11 +61,9 @@ $CUSTOMER = new Customer(NULL)
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>  
-                                                <th>NIC Number</th>
+                                                <th>Full Name</th>   
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route / Center</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -75,21 +73,25 @@ $CUSTOMER = new Customer(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td>#<?php echo $customer['id']; ?></td> 
-                                                    <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
-                                                    <td><?php echo $customer['nic_number']; ?></td>  
-                                                    <td><?php echo $customer['address_line_1'] . ' ' . $customer['address_line_2']; ?></td>
-                                                    <td><?php echo $customer['mobile']; ?></td>
                                                     <td>
+                                                        <i class="glyphicon glyphicon-user"></i>
+                                                        <b>: <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?> </b><br>
+                                                        <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
+                                                    </td>
+
+                                                    <td>
+                                                        <i class="glyphicon glyphicon-road"></i> : 
                                                         <?php
                                                         if ($customer['route']) {
                                                             $ROUTE = new Route($customer['route']);
-                                                            echo '<b>'.'Route - '.'</b>'.$ROUTE->name;
+                                                            echo '<b>' . 'Route - ' . '</b>' . $ROUTE->name;
                                                         } else {
-                                                            $CENTER = new Center($customer['route']);
-                                                            echo '<b>'.'Center - '.'</b>'.$CENTER->name;
+                                                            $CENTER = new Center($customer['center']);
+                                                            echo '<b>' . 'Center - ' . '</b>' . $CENTER->name;
                                                         }
-                                                        ?>
-                                                    </td>
+                                                        ?><br/>
+                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?></td><td><?php echo $customer['mobile']; ?></td>
+
                                                     </td>
                                                     <td>
 
@@ -106,10 +108,8 @@ $CUSTOMER = new Customer(NULL)
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Full Name</th>  
-                                                <th>NIC Number</th>
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route / Center</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th>
                                             </tr>
                                         </tfoot>

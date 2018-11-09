@@ -74,12 +74,12 @@ $ROUTE = new Route($id);
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                        <label for="Code">Code</label>
+                                        <label for="Code">Route Code</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="Code" class="hidden-lg hidden-md"> Code</label>
+                                                <label for="Code" class="hidden-lg hidden-md"> Route Code</label>
                                                 <div class="form-control"><?php echo $ROUTE->code; ?></div>
                                             </div>
                                         </div>
@@ -88,13 +88,13 @@ $ROUTE = new Route($id);
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                        <label for="Code">Code</label>
+                                        <label for="start-location">Start Location</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="Code" class="hidden-lg hidden-md"> Code</label>
-                                                <div class="form-control"><?php echo $ROUTE->code; ?></div>
+                                                <label for="start-location" class="hidden-lg hidden-md"> Start Location</label>
+                                                <div class="form-control"><?php echo $ROUTE->start_location; ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -140,11 +140,9 @@ $ROUTE = new Route($id);
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>  
-                                                <th>NIC Number</th>
+                                                <th>Full Name</th>   
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -155,21 +153,19 @@ $ROUTE = new Route($id);
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td>#<?php echo $customer['id']; ?></td> 
-                                                    <td><?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></td>
-                                                    <td><?php echo $customer['nic_number']; ?></td>  
-                                                    <td><?php echo $customer['address_line_1'] . ' ' . $customer['address_line_2']; ?></td>
-                                                    <td><?php echo $customer['mobile']; ?></td>
-                                                    <td>
-
-                                                        <?php
-                                                        $ROUTE = new Route($customer['route']);
-                                                        $ROUTE = new Center($customer['route']);
-                                                        $ROUTE = new City($customer['city']);
-
-                                                        echo $ROUTE->name . ' | ' . $ROUTE->name . ' | ' . $ROUTE->name
-                                                        ?></td>
-
+                                                    <td> <i class="glyphicon glyphicon-user"></i>
+                                                        <b>: 
+                                                            <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></b><br/>
+                                                        <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
+                                                    </td>                                                    
+                                                    <td>   
+                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?>
                                                     </td>
+
+                                                    <td>
+                                                        <?php echo $customer['mobile']; ?>
+                                                    </td>
+  
                                                     <td>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
@@ -184,11 +180,9 @@ $ROUTE = new Route($id);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>  
-                                                <th>NIC Number</th>
+                                                <th>Full Name</th>   
                                                 <th>Address</th>
-                                                <th>Mobile</th>
-                                                <th>Route/Center/City</th>
+                                                <th>Mobile</th> 
                                                 <th>Options</th>
                                             </tr>
                                         </tfoot>
