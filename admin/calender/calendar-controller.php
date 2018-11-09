@@ -12,8 +12,9 @@
 include '../../class/include.php';
 
 
-$CALENDER = new PostponeDate(Null);
-echo $CALENDER->draw_calendar($_POST['month'], $_POST['year'], 1, 12);
+$CALENDER = new PostponeDate(Null); 
+echo $CALENDER->draw_calendar($_POST['year'],$_POST['month'], 1, 12);
+
 ?>
 
 <div style="float: left; margin: 8px 0px -10px -1px; overflow: hidden;">

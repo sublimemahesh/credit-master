@@ -2,17 +2,8 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$POSTPONE_DATE = new PostponeDate(NULL);
-$postpone_dates = NULL;
 
-if (isset($_GET['date'])) {
-    $postpone_dates = $POSTPONE_DATE->getPostPoneDateByDate($_GET['date']);
-    $title= 'Manage Postpone Date : '.$_GET['date'];
-    
-} else {
-    $postpone_dates = $POSTPONE_DATE->all();
-     $title= 'Manage Postpone Date';
-}
+$POSTPONE_DATE = new PostponeDate(NULL);
 ?> 
 <!DOCTYPE html>
 <html>
@@ -55,7 +46,7 @@ if (isset($_GET['date'])) {
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                   <?php echo $title?>
+                                    Manage Postpone Date
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -65,42 +56,30 @@ if (isset($_GET['date'])) {
                                     </li>
                                 </ul>
                             </div> 
-                            <div class = "body">
-                                <div class = "table-responsive">
-                                    <table class = "table table-bordered table-striped table-hover js-basic-example" id = "postpone_date">
+                            <div class="body">
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example" id="postpone_date">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Postpone Date</th>
-                                                <th>Type</th>
-                                                <th>Reason</th>
-                                                <th>Option</th>
+                                                <th>Postpone Date</th>                                                       
+                                                <th>Type</th>  
+                                                <th>Reason</th>                                                         
+                                                <th>Option</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($postpone_dates as $key => $postpone_date) {
+                                            foreach ($POSTPONE_DATE->getPostPoneDateByDate($date) as $key => $postpone_date) {
                                                 ?>
                                                 <tr id="row_<?php echo $postpone_date['id']; ?>">
                                                     <td>#<?php echo $postpone_date['id']; ?></td> 
                                                     <td><?php echo $postpone_date['date']; ?></td>
-                                                    <td>
-                                                        <?php
-                                                        if ($postpone_date['all']) {
-                                                            echo 'All';
-                                                        } elseif ($postpone_date['route']) {
-                                                            $ROUTE = new Route($postpone_date['route']);
-                                                            echo "<b>" . 'Route - ' . "</b>" . $ROUTE->name;
-                                                        } else {
-                                                            $CENTER = new Center($postpone_date['center']);
-                                                            echo "<b>" . 'Center - ' . "</b>" . $CENTER->name;
-                                                        }
-                                                        ?>
-                                                    </td> 
+                                                     
                                                     <td><?php echo $postpone_date['reason']; ?></td>  
                                                     <td>     
                                                         <a href="view-postponedate.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn" title="View"></button></a> |
-                    <!--                                                        <a href="edit-postpone-date.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | -->
+    <!--                                                        <a href="edit-postpone-date.php?id=<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | -->
                                                         <a href="#"  class="delete-postponedate" data-id="<?php echo $postpone_date['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>
@@ -119,7 +98,7 @@ if (isset($_GET['date'])) {
                                         </tfoot>
                                     </table>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
                 </div>

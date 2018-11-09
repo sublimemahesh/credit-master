@@ -25,7 +25,7 @@ jQuery(document).ready(function() {
         var data = {
             "month": jQuery('#month').val(),
             "year": jQuery('#year').val(),
-            "hotel": jQuery('#hotel').val()
+            
         };
 
         jQuery.post("calendar/calendar-controller.php", data, function(data) {
@@ -40,7 +40,7 @@ jQuery(document).ready(function() {
     var data = {
         "month": jQuery('#month').val(),
         "year": jQuery('#year').val(),
-        "hotel": jQuery('#hotel').val()
+        
     };
 
     jQuery.post("calendar/calendar-controller.php", data, function(data) {
