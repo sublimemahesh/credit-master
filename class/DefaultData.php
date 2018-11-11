@@ -17,7 +17,7 @@ class DefaultData {
 
     public function getNumOfInstlByPeriodAndType($period, $type) {
 
-        return $type * ($period / 30);
+        return intval($type * ($period / 30));
     }
 
     public function getLoanIssueMode() {
