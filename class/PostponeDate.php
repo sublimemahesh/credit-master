@@ -269,4 +269,18 @@ class PostponeDate {
         return $post_pone_date;
     }
 
+    public function CheckIsPostPoneByDateAndCustomer($date, $customer) {
+ 
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `customer`= '" . $customer . "'";
+       
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+        
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 }
