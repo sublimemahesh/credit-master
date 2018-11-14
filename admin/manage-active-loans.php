@@ -139,8 +139,8 @@ $LOAN->status = 'issued';
                                                         <br/>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
-                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-info" title="View Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
+                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a> | 
+                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="View Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php

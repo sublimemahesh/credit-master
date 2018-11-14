@@ -18,7 +18,6 @@ class Installment {
     public $paid_date;
     public $paid_amount;
     public $additional_interest;
-    public $paid_by;
 
     public function __construct($id) {
         if ($id) {
@@ -34,7 +33,6 @@ class Installment {
             $this->paid_date = $result['paid_date'];
             $this->paid_amount = $result['paid_amount'];
             $this->additional_interest = $result['additional_interest'];
-            $this->paid_by = $result['paid_by'];
 
 
             return $this;
@@ -44,12 +42,11 @@ class Installment {
     public function create() {
 
 
-        $query = "INSERT INTO `installment` (`loan`,`paid_date`,`paid_amount`,`additional_interest`,`paid_by`) VALUES  ('"
+        $query = "INSERT INTO `installment` (`loan`,`paid_date`,`paid_amount`,`additional_interest`) VALUES  ('"
                 . $this->loan . "','"
                 . $this->paid_date . "', '"
                 . $this->paid_amount . "', '"
-                . $this->additional_interest . "', '"
-                . $this->paid_by . "')";
+                . $this->additional_interest . "')";
 
 
         $db = new Database();
@@ -102,8 +99,7 @@ class Installment {
         $query = "UPDATE  `installment` SET "
                 . "`paid_date` ='" . $this->paid_date . "', "
                 . "`paid_amount` ='" . $this->paid_amount . "', "
-                . "`additional_interest` ='" . $this->additional_interest . "',"
-                . "`paid_by` ='" . $this->paid_by . "' "
+                . "`additional_interest` ='" . $this->additional_interest . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
@@ -124,6 +120,19 @@ class Installment {
         $db = new Database();
 
         return $db->readQuery($query);
+    }
+
+    public function getInstallmentByLoanAndDate($loan, $date) {
+
+        $query = "SELECT * FROM `installment` WHERE `loan`= '" . $loan . "' AND `paid_date`= '" . $date . "' LIMIT 1";
+
+        $db = new Database();
+        
+        $result = $db->readQuery($query);
+       
+        $row = mysql_fetch_array($result);
+        
+        return $row;
     }
 
 }

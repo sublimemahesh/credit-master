@@ -4,7 +4,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 
 $id = $_GET['id'];
 $EFFECTIVE_DATE = new Loan($id);
-$effect_date = $EFFECTIVE_DATE->effective_date;
 ?> 
 <!DOCTYPE html>
 <html>
@@ -27,23 +26,9 @@ $effect_date = $EFFECTIVE_DATE->effective_date;
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
-    <style>
-        .padd-td{
-            padding: 10px;
-        }
-        .red{
-            background-color: red;
-            color: white;
-            font-size: 16px;
-            border-color: black;
-        }
-        .f-style{
-            color: black;
-            font-size: 16px;
-            border-color: black;
-        }
-    </style>
+
 
     <body class="theme-red">
         <?php
@@ -76,96 +61,114 @@ $effect_date = $EFFECTIVE_DATE->effective_date;
 
                             <div class="body">
 
+
+                                <div> 
+
+                                    <h5> ID  # : <?php echo str_pad($EFFECTIVE_DATE->id, 6, '0', STR_PAD_LEFT) ?>  </h5>
+                                    <h5>
+                                        Customer Name : 
+                                        <?php
+                                        $customer = new Customer($EFFECTIVE_DATE->customer);
+                                        echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Loan Amount : <?php echo $EFFECTIVE_DATE->loan_amount ?> </h5>
+
+                                    <h5>Installment Type : 
+                                        <?php
+                                        $IT = DefaultData::getInstallmentType();
+
+                                        echo $IT[$EFFECTIVE_DATE->installment_type];
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Loan Period : 
+                                        <?php
+                                        $LP = DefaultData::getLoanPeriod();
+                                        echo $LP[$EFFECTIVE_DATE->loan_period];
+                                        ?> 
+                                    </h5>
+                                </div> 
                                 <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>Dates</th> 
+                                                <th>Installment Amount</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
 
-                                    <div> <h5> ID  # : <?php echo str_pad($EFFECTIVE_DATE->id, 6, '0', STR_PAD_LEFT) ?>  </h5>
-                                        <h5>Customer Name : <?php
-                                            $customer = new Customer($EFFECTIVE_DATE->customer);
-                                            echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
-                                            ?> </h5>
+                                            <?php
+                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($EFFECTIVE_DATE->loan_period, $EFFECTIVE_DATE->installment_type);
 
-                                         <h5>Loan Amount : <?php echo $EFFECTIVE_DATE->loan_amount ?> </h5>
-                                         <h5>installment type : <?php 
-                                          $PR = DefaultData::getLoanPeriod();
-                                          echo $PR[$EFFECTIVE_DATE->installment_type] ?> </h5>
-                                         <h5>Loan Period : <?php echo $EFFECTIVE_DATE->loan_period ?> </h5>
-                                    </div> 
+                                            $start_date = $EFFECTIVE_DATE->effective_date;
+                                            $start = new DateTime("$start_date");
 
-                                    <?php
-                                    echo '<table class="table table-bordered table-hover">';
-                                    echo '<thead>';
-                                    echo '<tr>';
-                                    echo '<th class="text-center padd-td">Dates </th>';
-                                    echo '<th class="text-center padd-td">Installment Amount </th>';
-                                    echo '</tr>';
+                                            $x = 0;
+                                            while ($x < $defultdata) {
+                                                if ($defultdata == 4) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 30) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 8) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 60) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 2) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 1) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 90) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 12) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 3) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 100) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 13) {
+                                                    $add_dates = '+7 day';
+                                                }
 
+                                                $date = $start->format('Y-m-d');
+                                                $customer = $EFFECTIVE_DATE->customer;
+                                                $amount = $EFFECTIVE_DATE->installment_amount;
+                                                echo '<tr>';
+                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer)) {
 
-                                    $defultdata = DefaultData::getNumOfInstlByPeriodAndType($EFFECTIVE_DATE->loan_period, $EFFECTIVE_DATE->installment_type);
+                                                    echo '<td class="padd-td red">';
+                                                    echo $date;
+                                                    echo '</td>';
+                                                    echo '<td class="padd-td red">';
+                                                    echo 'Rs: ' . $amount.'.00';
+                                                    echo '</td>';
 
-                                    $start_date = $EFFECTIVE_DATE->effective_date;
-                                    $start = new DateTime("$start_date");
+                                                    $start->modify($add_dates);
+                                                } else {
 
-                                    $x = 0;
-                                    while ($x < $defultdata) {
-                                        if ($defultdata == 4) {
-                                            $add_dates = '+7 day';
-                                        } elseif ($defultdata == 30) {
-                                            $add_dates = '+1 day';
-                                        } elseif ($defultdata == 8) {
-                                            $add_dates = '+7 day';
-                                        } elseif ($defultdata == 60) {
-                                            $add_dates = '+1 day';
-                                        } elseif ($defultdata == 2) {
-                                            $add_dates = '+1 months';
-                                        } elseif ($defultdata == 1) {
-                                            $add_dates = '+1 months';
-                                        } elseif ($defultdata == 90) {
-                                            $add_dates = '+1 day';
-                                        } elseif ($defultdata == 12) {
-                                            $add_dates = '+7 day';
-                                        } elseif ($defultdata == 3) {
-                                            $add_dates = '+1 months';
-                                        } elseif ($defultdata == 100) {
-                                            $add_dates = '+1 day';
-                                        } elseif ($defultdata == 13) {
-                                            $add_dates = '+7 day';
-                                        }
+                                                    echo '<td class="padd-td f-style">';
+                                                    echo $date;
+                                                    echo '</td>';
+                                                    $start->modify($add_dates);
+                                                    $x++;
+                                                    echo '<td class="f-style">';
+                                                    echo 'Rs: ' . $amount . '.00';
+                                                    echo '</td>';
+                                                }
+                                                echo '</tr>';
+                                            }
+                                            ?>
 
-                                        $date = $start->format('Y-m-d');
-                                        $customer = $EFFECTIVE_DATE->customer;
-                                        $amount = $EFFECTIVE_DATE->installment_amount;
-
-                                        if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer)) {
-
-                                            echo '<td class="padd-td red">';
-                                            echo $date;
-                                            echo '</td>';
-                                            echo '<td class="padd-td red">';
-                                            echo 'Rs: ' . $amount;
-                                            echo '</td>';
-
-                                            $start->modify($add_dates);
-                                        } else {
-
-                                            echo '<td class="padd-td f-style">';
-                                            echo $date;
-                                            echo '</td>';
-                                            $start->modify($add_dates);
-                                            $x++;
-                                            echo '<td class="f-style">';
-                                            echo 'Rs: ' . $amount;
-                                            echo '</td>';
-                                        }
-                                        echo '</tr>';
-                                    }
-
-                                    echo '</table>';
-                                    ?>
-
-
-
-
-
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th>Dates</th> 
+                                                <th>Installment Amount</th> 
+                                            </tr>   
+                                        </tfoot>
+                                    </table>  
                                 </div>
                             </div>
                         </div>

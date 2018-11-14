@@ -66,12 +66,12 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="address">Address</label>
+                                    <label for="address">Center Address</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="address" class="hidden-lg hidden-md">Address</label>
+                                            <label for="address" class="hidden-lg hidden-md">Center Address</label>
                                             <input type="text" id="address"  name="address" placeholder="Enter Address" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
