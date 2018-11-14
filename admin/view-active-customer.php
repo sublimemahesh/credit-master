@@ -89,14 +89,15 @@ $CUSTOMER = new Customer(NULL)
                                                             $CENTER = new Center($customer['center']);
                                                             echo '<b>' . 'Center - ' . '</b>' . $CENTER->name;
                                                         }
-                                                        ?><br/>
-                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2']. '</br>' . $customer['address_line_3']. '</br>' . $customer['address_line_4']. '</br>' . $customer['address_line_5']; ?></td>
-                                                    
-                                                    <td><?php echo $customer['mobile']; ?></td>
-
-
-
+                                                        ?>
+                                                        <br/>
+                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?>
                                                     </td>
+
+                                                    <td>
+                                                        <?php echo $customer['mobile']; ?>
+                                                    </td>
+
                                                     <td>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |

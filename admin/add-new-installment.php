@@ -1,9 +1,13 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
-
-$id = '';
-$id = $_GET['id'];
+$date = null;
+$id = null;
+if (isset($_GET['date'])) {
+    $date = $_GET['date'];
+} if (isset($_GET['loan'])) {
+    $loan = $_GET['loan'];
+}
 ?>
 
 <!DOCTYPE html>
@@ -42,13 +46,8 @@ $id = $_GET['id'];
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Add New Installment</h2>
-                        <ul class="header-dropdown">
-                            <li class="">
-                                <a href="manage-loan.php">
-                                    <i class="material-icons">list</i> 
-                                </a>
-                            </li>
+                        <h2>Paid Installment</h2>
+                        <ul class="header-dropdown"> 
                         </ul>
                     </div>
                     <div class="body">
@@ -62,7 +61,7 @@ $id = $_GET['id'];
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
-                                            <input type="text" id="paid_date"  name="paid_date" placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -76,7 +75,7 @@ $id = $_GET['id'];
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md">Paid Amount</label>
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off">
+                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0">
                                         </div>
                                     </div>
                                 </div>
@@ -90,42 +89,17 @@ $id = $_GET['id'];
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="additional_interest" class="hidden-lg hidden-md">Additional Interest</label>
-                                            <input type="number" id="additional_interest"  name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off">
+                                            <input type="number" id="additional_interest"  name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0">
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="paid_by">Paid By</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="paid_by" class="hidden-lg hidden-md">Paid By</label>
-                                            <select class="form-control" autocomplete="off" id="paid_by"  name="paid_by">
-                                                <option selected=""> -- Customer -- </option>
-                                                <?php
-                                                $CUSTOMER = Customer::all();
-                                                foreach ($CUSTOMER as $customer) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $customer['id'] ?>"> <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <input type="hidden" value="<?php echo $id ?>" name="loan">
+                                    <input type="hidden" value="<?php echo $loan ?>" name="loan">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
                                 </div>
                             </div>
@@ -146,9 +120,9 @@ $id = $_GET['id'];
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker();
+                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
             });
-        </script>
+        </script> 
     </body>
 
 </html>

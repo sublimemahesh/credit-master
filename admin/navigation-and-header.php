@@ -163,6 +163,22 @@ include_once(dirname(__FILE__) . './auth.php');
 
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">hourglass_full</i>
+                        <span>Installment</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="today-installment.php">
+                                <i class="material-icons">event_available</i>
+                                <span>Today Collection</span>
+                            </a>
+                        </li> 
+                        
+                         
+                    </ul>
+                </li> 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">group</i>
                         <span>Customer</span>
                     </a>

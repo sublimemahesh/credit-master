@@ -2,11 +2,11 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-//$COUNT_COMMENT = count(Comments::pendingComments());
-//$COUNT_ACTIVITY = count(Activities::all());
-//$COUNT_ATTRACTION = count(Attraction::all());
-//$COUNT_ROOM = count(Room::all());
-//$SLIDER_IMAGES = count(Slider::all());
+
+$LOANS = count(Loan::all());
+$CUSTOMER = count(Customer::all());
+$CENTER = count(Center::all());
+$ROUTE = count(Route::all());
 //$COUNT_TOUR = count(TourPackage::all());
 //$COUNT_GALLERY = count(AlbumPhoto::getAlbumPhotosById(6));
 ?> 
@@ -117,8 +117,10 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <div class="card">
                             <div class="header bg-blue-grey">
                                 <h2>
-                                    LOAN <small>   
+                                    LOANS
 
+                                    <small class="pull-right">   
+                                        <?php echo $LOANS ?>
                                     </small>
                                 </h2>
 
@@ -136,7 +138,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             <div class="header bg-blue-grey">
                                 <h2>
                                     CUSTOMER
-                                    <small>  </small>
+                                    <small class="pull-right"><?php echo $CUSTOMER ?></small>                                    
                                 </h2>
 
                             </div>
@@ -154,6 +156,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             <div class="header bg-blue-grey">
                                 <h2>
                                     CENTER
+                                    <small class="pull-right"><?php echo $CENTER ?> </small>
                                 </h2>
 
                             </div>
@@ -173,7 +176,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             <div class="header bg-blue-grey">
                                 <h2>
                                     ROUTE
-                                    <small></small>
+                                    <small class="pull-right"><?php echo $ROUTE ?></small>
                                 </h2>
 
                             </div>
@@ -454,7 +457,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                         <button class="glyphicon glyphicon-random arrange-btn"></button> <span class="icon-name">Arrange</span> 
                                     </div>
                                     <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3">
-                                        <button class="glyphicon glyphicon-picture arrange-btn"></button> <span class="icon-name">Add Photos</span>
+                                        <button class="glyphicon glyphicon-info-sign btn btn-info"></button> <span class="icon-name">Infomation</span>
                                     </div>                                                         
                                 </div>
                             </div>

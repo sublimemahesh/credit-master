@@ -1,0 +1,15 @@
+.padd-td{
+    padding: 10px;
+}
+.red{
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border-color: black;
+}
+.f-style{
+    color: black;
+    font-size: 16px;
+    border-color: black;
+}
+

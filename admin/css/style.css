@@ -1,4 +1,20 @@
 ﻿/* Navbar ====================================== */
+
+.padd-td{
+    padding: 10px;
+}
+.red{
+    background-color: red;
+    color: white;
+    font-size: 16px;
+    border-color: black;
+}
+.f-style{
+    color: black;
+    font-size: 16px;
+    border-color: black;
+}
+
 @import url(materialize.css);
 .navbar {
     font-family: "Roboto", sans-serif;

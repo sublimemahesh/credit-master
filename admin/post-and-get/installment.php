@@ -1,9 +1,10 @@
 <?php
+
 include_once(dirname(__FILE__) . '/../../class/include.php');
 
 
 if (isset($_POST['create'])) {
-    
+
     $INSTALLMENT = new Installment(NULL);
     $VALID = new Validator();
 
@@ -11,14 +12,11 @@ if (isset($_POST['create'])) {
     $INSTALLMENT->paid_date = $_POST['paid_date'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
-    $INSTALLMENT->paid_by = $_POST['paid_by'];
 
 
     $VALID->check($INSTALLMENT, [
         'paid_date' => ['required' => TRUE],
-        'paid_by' => ['required' => TRUE],
-        
-
+        'paid_amount' => ['required' => TRUE],
     ]);
 
 
@@ -27,14 +25,12 @@ if (isset($_POST['create'])) {
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your data was saved successfully", 'success');
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -44,29 +40,26 @@ if (isset($_POST['create'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
 
 
 
 if (isset($_POST['update'])) {
 
-    
+
     $INSTALLMENT = new Installment($_POST['id']);
 
     $INSTALLMENT->paid_date = $_POST['paid_date'];
-    $INSTALLMENT->paid_amount =$_POST['paid_amount'];
+    $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
-    $INSTALLMENT->paid_by = $_POST['paid_by'];
+ 
 
 
     $VALID = new Validator();
     $VALID->check($INSTALLMENT, [
         'paid_date' => ['required' => TRUE],
-        'paid_by' => ['required' => TRUE],
-
+         
     ]);
 
 
@@ -76,7 +69,6 @@ if (isset($_POST['update'])) {
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your changes saved successfully", 'success');
@@ -84,7 +76,6 @@ if (isset($_POST['update'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -93,8 +84,6 @@ if (isset($_POST['update'])) {
 
         $_SESSION['ERRORS'] = $VALID->errors();
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
 
