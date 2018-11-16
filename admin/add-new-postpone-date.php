@@ -43,7 +43,7 @@ if (isset($_GET['date'])) {
 
                 $vali->show_message();
                 ?>
-                <!-- Vertical Layout -->
+              
                 <div class="card">
                     <div class="header">
                         <h2><?php echo $title?></h2>
@@ -67,7 +67,7 @@ if (isset($_GET['date'])) {
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
                                             <select class="form-control " autocomplete="off" id="registration_type" name="all"  required="TRUE">
                                                 <option value=""> -- Please Select the Type -- </option>
-                                                <option  value="1"  > All </option>
+                                                <option  value="0"  > All </option>
                                                 <option value="route"> Route </option>
                                                 <option value="center"> Center </option> 
                                             </select> 
@@ -117,7 +117,7 @@ if (isset($_GET['date'])) {
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
                                             <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE">
-                                                <option value="0"> -- All Customers --  </option> 
+                                                <option value="1"> -- All Customers --  </option> 
 
                                             </select> 
                                         </div>

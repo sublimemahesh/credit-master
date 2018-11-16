@@ -8,17 +8,15 @@ $LOAN->status = 'issued';
 
 if (isset($_GET['date'])) {
     $today = $_GET['date'];
-} elseif (isset($_GET['back'])) {
-
-    $BD = new DateTime($today);
-    $BD->modify('-1 day');
-    $today = $BD->format('Y-m-d');
-} elseif (isset($_GET['next'])) {
-
-    $ND = new DateTime($today);
-    $ND->modify('+1 day');
-    $today = $ND->format('Y-m-d');
 }
+
+$BD = new DateTime($today);
+$BD->modify('-1 day');
+$back = $BD->format('Y-m-d');
+
+$ND = new DateTime($today);
+$ND->modify('+1 day');
+$next = $ND->format('Y-m-d');
 ?> 
 <!DOCTYPE html>
 <html> 
@@ -68,12 +66,12 @@ if (isset($_GET['date'])) {
                                 </h2>
 
                                 <ul class="header-dropdown"> 
-                                    <a href="today-installment.php?back">
+                                    <a href="today-installment.php?date=<?php echo $back ?>">
                                         <i class="material-icons" >
                                             arrow_back_ios
                                         </i>
                                     </a>
-                                    <a href="today-installment.php?next">
+                                    <a href="today-installment.php?date=<?php echo $next ?>">
                                         <i class="material-icons">
                                             arrow_forward_ios
                                         </i>
@@ -130,12 +128,15 @@ if (isset($_GET['date'])) {
 
                                                     $date = $start->format('Y-m-d');
                                                     $customer = $loan['customer'];
-                                                    $customer_name = new Customer($customer);
+                                                    $CUSTOMER = new Customer($customer);
+                                                    $route = $CUSTOMER->route;
+                                                    $center = $CUSTOMER->center;
                                                     $LP = DefaultData::getLoanPeriod();
                                                     $IT = DefaultData::getInstallmentType();
                                                     $installment_amount = $loan['installment_amount'];
 
-                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer)) {
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center)|| PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+
                                                         $start->modify($add_dates);
                                                     } else {
                                                         if ($date == $today) {
@@ -144,14 +145,14 @@ if (isset($_GET['date'])) {
                                                                 <td>
                                                                     <i class="glyphicon glyphicon-user"></i>
                                                                     <?php
-                                                                    echo $customer_name->surname . ' ' . $customer_name->first_name . ' ' . $customer_name->last_name;
-                                                                    echo '</br><b>Mo No: </b> ' . $customer_name->mobile;
-                                                                    $CENTER = new Center($customer_name->center);
+                                                                    echo $CUSTOMER->surname . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                                    echo '</br><b>Mo No: </b> ' . $CUSTOMER->mobile;
+                                                                    $CENTER = new Center($CUSTOMER->center);
 
-                                                                    if ($customer_name->center = $CENTER->id) {
+                                                                    if ($CUSTOMER->center = $CENTER->id) {
                                                                         echo '</br><b>' . 'Center - ' . '</b>' . $CENTER->name;
                                                                     } else {
-                                                                        $ROUTE = new Route($customer_name->route);
+                                                                        $ROUTE = new Route($CUSTOMER->route);
                                                                         echo '</br><b>' . 'Route - ' . '</b>' . $ROUTE->name;
                                                                     }
                                                                     ?>
@@ -165,7 +166,7 @@ if (isset($_GET['date'])) {
                                                                 </td> 
                                                                 <td>
                                                                     <?php
-                                                                    echo '<b>In Amount: </b>'.$installment_amount.'.00';
+                                                                    echo '<b>In Amount: </b>' . $installment_amount . '.00';
                                                                     if ($INSTALLMENT = Installment::getInstallmentByLoanAndDate($loan['id'], $date)) {
                                                                         echo '<h5>Paid - ' . $INSTALLMENT['paid_amount'] . '.00</h5>';
                                                                     } else {
