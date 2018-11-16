@@ -283,6 +283,46 @@ class PostponeDate {
         }
     }
 
-  
+    public function CheckIsPostPoneByDateAndRoute($date, $route) {
+
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '" . $route . "'";
+
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckIsPostPoneByDateAndCenter($date, $center) {
+
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '" . $center . "'";
+
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckIsPostPoneByDateAndAll($date) {
+
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `all`= '1'";
+
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
 }

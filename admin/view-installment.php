@@ -3,7 +3,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
 $id = $_GET['id'];
-$EFFECTIVE_DATE = new Loan($id);
+$LOAN = new Loan($id);
 ?> 
 <!DOCTYPE html>
 <html>
@@ -64,29 +64,29 @@ $EFFECTIVE_DATE = new Loan($id);
 
                                 <div> 
 
-                                    <h5> ID  # : <?php echo str_pad($EFFECTIVE_DATE->id, 6, '0', STR_PAD_LEFT) ?>  </h5>
+                                    <h5> ID  # : <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT) ?>  </h5>
                                     <h5>
                                         Customer Name : 
                                         <?php
-                                        $customer = new Customer($EFFECTIVE_DATE->customer);
+                                        $customer = new Customer($LOAN->customer);
                                         echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
                                         ?> 
                                     </h5>
 
-                                    <h5>Loan Amount : <?php echo $EFFECTIVE_DATE->loan_amount ?> </h5>
+                                    <h5>Loan Amount : <?php echo $LOAN->loan_amount ?> </h5>
 
                                     <h5>Installment Type : 
                                         <?php
                                         $IT = DefaultData::getInstallmentType();
 
-                                        echo $IT[$EFFECTIVE_DATE->installment_type];
+                                        echo $IT[$LOAN->installment_type];
                                         ?> 
                                     </h5>
 
                                     <h5>Loan Period : 
                                         <?php
                                         $LP = DefaultData::getLoanPeriod();
-                                        echo $LP[$EFFECTIVE_DATE->loan_period];
+                                        echo $LP[$LOAN->loan_period];
                                         ?> 
                                     </h5>
                                 </div> 
@@ -99,11 +99,10 @@ $EFFECTIVE_DATE = new Loan($id);
                                             </tr>
                                         </thead>
                                         <tbody>
-
                                             <?php
-                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($EFFECTIVE_DATE->loan_period, $EFFECTIVE_DATE->installment_type);
+                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                            $start_date = $EFFECTIVE_DATE->effective_date;
+                                            $start_date = $LOAN->effective_date;
                                             $start = new DateTime("$start_date");
 
                                             $x = 0;
@@ -133,16 +132,19 @@ $EFFECTIVE_DATE = new Loan($id);
                                                 }
 
                                                 $date = $start->format('Y-m-d');
-                                                $customer = $EFFECTIVE_DATE->customer;
-                                                $amount = $EFFECTIVE_DATE->installment_amount;
+                                                $customer = $LOAN->customer;
+                                                $CUSTOMER = new Customer($customer);
+                                                $route = $CUSTOMER->route;
+                                                $center = $CUSTOMER->center;
+                                                $amount = $LOAN->installment_amount;
                                                 echo '<tr>';
-                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer)) {
+                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center)|| PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
                                                     echo '<td class="padd-td red">';
                                                     echo $date;
                                                     echo '</td>';
                                                     echo '<td class="padd-td red">';
-                                                    echo 'Rs: ' . $amount.'.00';
+                                                    echo 'Rs: ' . $amount . '.00';
                                                     echo '</td>';
 
                                                     $start->modify($add_dates);
@@ -160,7 +162,6 @@ $EFFECTIVE_DATE = new Loan($id);
                                                 echo '</tr>';
                                             }
                                             ?>
-
                                         </tbody>
                                         <tfoot>
                                             <tr>
