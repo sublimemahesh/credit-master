@@ -223,11 +223,11 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label  class="hidden-lg hidden-md">Address</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->address_line_1; ?></div>
-                                            <div class="form-control"><?php echo $CUSTOMER->address_line_2; ?></div>
-                                            <div class="form-control"><?php echo $CUSTOMER->address_line_3; ?></div>
-                                            <div class="form-control"><?php echo $CUSTOMER->address_line_4; ?></div>
-                                            <div class="form-control"><?php echo $CUSTOMER->address_line_5; ?></div>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_1; ?></div>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_2; ?></div>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_3; ?></div>
+                                            <div class="form-control " id="addres-bar"><?php echo $CUSTOMER->address_line_4; ?></div>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_5; ?></div>
                                         </div>
                                     </div>
                                 </div>

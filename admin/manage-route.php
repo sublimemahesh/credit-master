@@ -71,9 +71,10 @@ $ROUTE = new Route(NULL)
                                         <tbody>
                                             <?php
                                             foreach ($ROUTE->all() as $key => $route) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $route['id']; ?>">
-                                                    <td>#<?php echo $route['id']; ?></td> 
+                                                    <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $route['name']; ?></td>  
                                                     <td><?php echo $route['code']; ?></td>
                                                     <td><?php echo $route['start_location']; ?></td>

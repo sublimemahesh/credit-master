@@ -1,16 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
-$date = null;
-
-$id = null;
-if (isset($_GET['date'])) {
-    $date = $_GET['date'];
-} if(isset($_GET['loan'])) {
-    $loan = $_GET['loan'];
-    
-}
-
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +9,7 @@ if (isset($_GET['date'])) {
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Add New Installment || Credit Master</title>
+        <title>Add New Customer || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -31,8 +21,9 @@ if (isset($_GET['date'])) {
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
         <!-- Bootstrap Spinner Css -->
-        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     </head>
 
     <body class="theme-red">
@@ -47,98 +38,94 @@ if (isset($_GET['date'])) {
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <div class="card">
-                    <div class="header">
-                        <h2>Paid Installment</h2>
-                        <ul class="header-dropdown"> 
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <form class="" action="post-and-get/installment.php" method="post"  enctype="multipart/form-data"> 
+                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data"> 
 
+                    <div class="card">
+                        <div class="header">
+                            <h2>Add Business Details</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="installment_date">Installment Date</label>
+                                    <label for="business_name">Business Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control " disabled="true" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="paid_date">Paid Date</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
-                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="paid_amount"> Amount </label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="additional_interest">Additional Interest</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="additional_interest" class="hidden-lg hidden-md">Additional Interest</label>
-                                            <input type="number" id="additional_interest"  name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0">
+                                            <label for="business_name" class="hidden-lg hidden-md">Business Name</label>
+                                            <input type="text" id="business_name"  name="business_name" placeholder="Enter Business Name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
-                                </div>  
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <input type="hidden" value="<?php echo $loan ?>" name="loan">
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="br_number">BR Number</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="br_number" class="hidden-lg hidden-md">BR Number</label>
+                                            <input type="text" id="br_number"  name="br_number" placeholder="Enter BR Number" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
-                        </form> 
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="nature_of_business">Nature of Bsiness</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Bsiness</label>
+                                            <input type="text" id="nature_of_business"  name="nature_of_business" placeholder="Enter Nature of Bsiness" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="br_picture">BR Photo</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
+                                            <input type="file" id="br_picture"  name="br_picture" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form> 
             </div>
         </section>
 
         <!-- Jquery Core Js -->
         <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+
         <script src="js/admin.js"></script>
-        <script src="js/demo.js"></script> 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-        <script>
-            $(function () {
-                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-            });
-        </script> 
+        <script src="js/demo.js"></script>  
+        <script src="js/birthday_script.js" type="text/javascript"></script>
+        <script src="js/ajax/customer.js" type="text/javascript"></script> 
     </body>
 
-</html>
+</html> 

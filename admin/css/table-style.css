@@ -2,14 +2,22 @@
     padding: 10px;
 }
 .red{
-    background-color: red;
+    background-color: #908f8f;
     color: white;
     font-size: 16px;
     border-color: black;
+    text-align: right;
 }
 .f-style{
     color: black;
     font-size: 16px;
     border-color: black;
+    text-align: right;
 }
 
+.gray{
+    background-color: #908f8f;
+    color: white;
+    font-size: 16px;
+    border-color: black;
+}

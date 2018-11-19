@@ -127,12 +127,29 @@ class Installment {
         $query = "SELECT * FROM `installment` WHERE `loan`= '" . $loan . "' AND `paid_date`= '" . $date . "' LIMIT 1";
 
         $db = new Database();
-        
+
         $result = $db->readQuery($query);
-       
+
         $row = mysql_fetch_array($result);
-        
+
         return $row;
+    }
+
+    public function CheckInstallmetByPaidDate($date, $loan_id) {
+
+        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
+
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
     }
 
 }

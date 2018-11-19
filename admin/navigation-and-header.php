@@ -168,9 +168,9 @@ include_once(dirname(__FILE__) . './auth.php');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="today-installment.php">
+                            <a href="day-installment.php">
                                 <i class="material-icons">event_available</i>
-                                <span>Today Collection</span>
+                                <span>Day Installment</span>
                             </a>
                         </li> 
                         

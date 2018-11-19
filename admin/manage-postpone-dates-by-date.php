@@ -71,6 +71,7 @@ $POSTPONE_DATE = new PostponeDate(NULL);
                                         <tbody>
                                             <?php
                                             foreach ($POSTPONE_DATE->getPostPoneDateByDate($date) as $key => $postpone_date) {
+                                              
                                                 ?>
                                                 <tr id="row_<?php echo $postpone_date['id']; ?>">
                                                     <td>#<?php echo $postpone_date['id']; ?></td> 

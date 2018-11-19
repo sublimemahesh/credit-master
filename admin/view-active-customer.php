@@ -70,9 +70,10 @@ $CUSTOMER = new Customer(NULL)
                                         <tbody>
                                             <?php
                                             foreach ($CUSTOMER->activeCustomer() as $key => $customer) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
-                                                    <td>#<?php echo $customer['id']; ?></td> 
+                                                    <td>#<?php echo  $key ?></td> 
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?> </b><br>
@@ -106,6 +107,7 @@ $CUSTOMER = new Customer(NULL)
                                                 </tr>
                                                 <?php
                                             }
+                                            
                                             ?>   
                                         </tbody>
                                         <tfoot>
