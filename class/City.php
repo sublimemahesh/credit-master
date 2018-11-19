@@ -13,7 +13,7 @@ class City {
     public $name;
     public $sort;
 
-    public function __construct($id) {
+    public function __construct($id = NULL) {
         if ($id) {
 
             $query = "SELECT `id`,`name`,`sort` FROM `city` WHERE `id`=" . $id;
@@ -29,7 +29,7 @@ class City {
         }
     }
 
-   public function create() {
+    public function create() {
 
 
         $query = "INSERT INTO `city` (`name`) VALUES  ('"
@@ -86,7 +86,5 @@ class City {
 
         return $db->readQuery($query);
     }
-
-   
 
 }

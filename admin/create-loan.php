@@ -1,6 +1,8 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
+
+$DEFDATA = new DefaultData();
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +62,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
-                                            <input type="text" id="create_date"  name="create_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select Date" class="form-control datepicker" autocomplete="off" required="TRUE">
+                                            <input type="text" id="create_date"  name="create_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select Date" class="form-control" autocomplete="off" required="TRUE" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
@@ -76,8 +78,8 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
                                             <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" required="TRUE">
                                                 <option value=""> -- Please Select Registration Type -- </option>
+                                                <option value="center"> Center </option>
                                                 <option value="route"> Route </option>
-                                                <option value="center"> Center </option> 
                                             </select> 
                                         </div>
                                     </div>
@@ -135,13 +137,13 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="guarantor">Guarantor 01</label>
+                                    <label for="guarantor_1">Guarantor 01</label>
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="guarantor" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor"  name="guarantor_1"  required="TRUE">
+                                            <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_1"  name="guarantor_1"  required="TRUE">
                                                 <option value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
 
@@ -152,80 +154,15 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="guarantor-02">Guarantor 02</label>
+                                    <label for="guarantor_2">Guarantor 02</label>
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="guarantor-02" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor-02"  name="guarantor_2" required="TRUE">
+                                            <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" required="TRUE">
                                                 <option value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_amount">Loan Amount</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
-                                            <input type="number" id="loan_amount"  name="loan_amount" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="interest_rate">Interest Rate (%)</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="number" id="interest_rate"  name="interest_rate" placeholder="Enter The Interest Rate" value="<?php echo DefaultData::getDefaultInstallmentRate(); ?>"class="form-control interest_rate"  required="TRUE" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_period">Loan Period</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
-                                            <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE">
-                                                <option value=""> -- Please Select Loan Period -- </option>
-                                                <?php
-                                                $LOAN_PERIODS = DefaultData::getLoanPeriod();
-                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>" ><?php echo $loan_period ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="period_price">Net Amount</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label class="hidden-lg hidden-md" for="period_price">Net Amount</label>
-                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="00.00"  required="TRUE" readonly="readonly" > 
                                         </div>
                                     </div>
                                 </div>
@@ -242,7 +179,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE">
                                                 <option value=""> -- Please Select Installment Type -- </option>
                                                 <?php
-                                                $INSTALLMENT_TYPES = DefaultData::getInstallmentType();
+                                                $INSTALLMENT_TYPES = $DEFDATA->getInstallmentType();
                                                 foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
                                                     ?>
                                                     <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
@@ -250,6 +187,72 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 }
                                                 ?>
                                             </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_period">Loan Period</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
+                                            <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE">
+                                                <option value=""> -- Please Select Loan Period -- </option>
+                                                <?php
+                                                $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
+                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_amount">Loan Amount</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
+                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="interest_rate">Interest Rate (%)</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
+                                            <input type="number" id="interest_rate"  name="interest_rate" placeholder="Enter The Interest Rate" value="<?php echo $DEFDATA->getDefaultInterestRate(); ?>"class="form-control interest_rate"  required="TRUE" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="period_price">Net Amount</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label class="hidden-lg hidden-md" for="period_price">Net Amount</label>
+                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="00.00"  required="TRUE" readonly="readonly" > 
                                         </div>
                                     </div>
                                 </div>

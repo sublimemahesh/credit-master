@@ -8,8 +8,8 @@ $(document).ready(function () {
             $('#route_row').hide();
             $('#center_row').hide();
             $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-            $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-            $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+            $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+            $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
 
         }
 
@@ -34,8 +34,8 @@ $(document).ready(function () {
                     $('#route_row').show();
                     $('#center_row').hide();
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-                    $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-                    $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
 
                 } else if (jsonStr.type == 'center') {
                     var html = '<option value=""> -- Please Select a Center -- </option>';
@@ -49,8 +49,8 @@ $(document).ready(function () {
                     $('#center_row').show();
                     $('#route_row').hide();
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-                    $('#guarantor').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-                    $('#guarantor-02').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                 }
             }
         });
@@ -72,20 +72,28 @@ $(document).ready(function () {
             success: function (jsonStr) {
                 var html = '<option value=""> -- Please Select a Customer -- </option>';
                 $.each(jsonStr.data, function (i, data) {
-                    html += '<option value="' + data.id + '">';
+                    html += '<option value="' + data.id + '"  id="cu_' + data.id + '" credit_limit="' + data.credit_limit + '">';
                     html += data.title + ' ' + data.first_name + ' ' + data.last_name;
                     html += '</option>';
                 });
                 $('#customer').empty();
                 $('#customer').append(html);
-                $('#guarantor').empty();
-                $('#guarantor').append(html);
-                $('#guarantor-02').empty();
-                $('#guarantor-02').append(html);
+                $('#guarantor_1').empty();
+                $('#guarantor_1').append(html);
+                $('#guarantor_2').empty();
+                $('#guarantor_2').append(html);
+                $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
+  
             }
         });
     });
 
+
+    $('#customer').change(function () {
+        var credit_limit = $('option:selected', this).attr('credit_limit');
+        $('#loan_amount').val(credit_limit);
+        $("#loan_amount").attr("max", credit_limit);
+    });
 
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {

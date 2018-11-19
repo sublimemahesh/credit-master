@@ -75,6 +75,25 @@ $CENTER = new Center($id);
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="center_leader_name">Leader</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center_leader_name" class="hidden-lg hidden-md">Leader</label>
+                                                <div class="form-control"> 
+                                                    <?php
+                                                    $CUSTOMER = new Customer($CENTER->leader);
+                                                    echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="address">Center Address</label>
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
@@ -86,21 +105,6 @@ $CENTER = new Center($id);
                                         </div>
                                     </div>
                                 </div>
-
-                                <div class="row">
-                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                        <label for="center_leader_name">Center leader Name</label>
-                                    </div>
-                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="center_leader_name" class="hidden-lg hidden-md"> Center leader Name</label>
-                                                <div class="form-control"><?php echo $CENTER->center_leader_name; ?></div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
 
                             </div>
                         </div>
@@ -152,7 +156,7 @@ $CENTER = new Center($id);
                                                         <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?></td>
 
                                                     <td><?php echo $customer['mobile']; ?></td>
-                                                     
+
 
                                                     </td>
                                                     <td class="text-center" >
