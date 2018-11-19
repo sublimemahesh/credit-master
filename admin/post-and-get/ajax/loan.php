@@ -30,7 +30,10 @@ if ($_POST['action'] == 'GETCUSTOMER') {
     } else if ($_POST['type'] == 'center') {
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
-        echo json_encode(['type' => 'center', 'data' => $result]);
+
+        $CENTER = new Center($_POST['value']);
+        $leader = $CENTER->leader;
+        echo json_encode(['type' => 'center', 'data' => $result, 'leader' => $leader]);
         exit();
     }
 }

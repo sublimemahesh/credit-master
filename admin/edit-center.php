@@ -66,7 +66,70 @@ $CENTER = new Center($id);
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>  
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="leader">Leader</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="leader" class="hidden-lg hidden-md">Leader</label> 
+                                            <select id="leader"  name="leader" class="form-control" required="TRUE">
+                                                <option value=""> -- Please Select -- </option>
+                                                <?php
+                                                foreach (Customer::all()as $customer) {
+
+                                                    $addres = $customer['address_line_1'];
+
+                                                    if (!empty($customer['address_line_2'])) {
+                                                        if (strpos($customer['address_line_1'], ',') != TRUE) {
+                                                            $addres .= ', ';
+                                                        }
+                                                        $addres .= $customer['address_line_2'];
+                                                    }
+
+                                                    if (!empty($customer['address_line_3'])) {
+                                                        if (strpos($customer['address_line_2'], ',') != TRUE) {
+                                                            $addres .= ', ';
+                                                        }
+                                                        $addres .= $customer['address_line_3'];
+                                                    }
+
+                                                    if (!empty($customer['address_line_4'])) {
+                                                        if (strpos($customer['address_line_3'], ',') != TRUE) {
+                                                            $addres .= ', ';
+                                                        }
+                                                        $addres .= $customer['address_line_4'];
+                                                    }
+
+                                                    if (!empty($customer['address_line_5'])) {
+                                                        if (strpos($customer['address_line_4'], ',') != TRUE) {
+                                                            $addres .= ', ';
+                                                        }
+                                                        $addres .= $customer['address_line_5'];
+                                                    }
+                                                    if ($CENTER->leader == $customer['id']) {
+                                                        ?> 
+                                                        <option value="<?php echo $customer['id']; ?>" data-address="<?php echo $addres; ?>" selected="TRUE"> 
+                                                            <?php echo $customer['first_name'] . ' ' . $customer['last_name']; ?> 
+                                                        </option>
+                                                        <?php
+                                                    } else {
+                                                        ?> 
+                                                        <option value="<?php echo $customer['id']; ?>" data-address="<?php echo $addres; ?>"> 
+                                                            <?php echo $customer['first_name'] . ' ' . $customer['last_name']; ?> 
+                                                        </option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -77,20 +140,6 @@ $CENTER = new Center($id);
                                         <div class="form-line">
                                             <label for="address" class="hidden-lg hidden-md">Address</label>
                                             <input type="text" id="address"  name="address" value="<?php echo $CENTER->address ?>"  class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center_leader_name">Center Leader Name</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="center_leader_name" class="hidden-lg hidden-md">Center Leader Name</label>
-                                            <input type="text" id="center_leader_name"  name="center_leader_name" value="<?php echo $CENTER->center_leader_name ?>"  class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -119,6 +168,14 @@ $CENTER = new Center($id);
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+        <script>
+            $(document).ready(function () {
+                $('#leader').change(function () {
+                    var address = $('option:selected', this).attr('data-address');
+                    $('#address').val(address);
+                })
+            });
+        </script>
     </body>
 
 </html>

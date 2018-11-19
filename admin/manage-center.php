@@ -62,8 +62,8 @@ $CENTER = new Center(NULL)
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
+                                                <th>Leader</th>
                                                 <th>Address</th>
-                                                <th>Center Leader Name</th>
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -74,8 +74,13 @@ $CENTER = new Center(NULL)
                                                 <tr id="row_<?php echo $center['id']; ?>">
                                                     <td>#<?php echo $center['id']; ?></td> 
                                                     <td><?php echo $center['name']; ?></td>  
+                                                    <td>
+                                                        <?php
+                                                        $CUSTOMER = new Customer($center['leader']);
+                                                        echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                        ?>
+                                                    </td>
                                                     <td><?php echo $center['address']; ?></td>
-                                                    <td><?php echo $center['center_leader_name']; ?></td>
                                                     <td>
                                                         <a href="view-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
@@ -91,8 +96,8 @@ $CENTER = new Center(NULL)
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
+                                                <th>Leader</th>
                                                 <th>Address</th>
-                                                <th>Center Leader Name</th>
                                                 <th>Options</th> 
                                             </tr>
                                         </tfoot>

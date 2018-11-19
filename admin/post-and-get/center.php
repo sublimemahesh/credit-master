@@ -9,13 +9,13 @@ if (isset($_POST['add-center'])) {
 
     $CENTER->name = $_POST['name'];
     $CENTER->address = $_POST['address'];
-    $CENTER->center_leader_name = $_POST['center_leader_name'];
+    $CENTER->leader = $_POST['leader'];
 
 
     $VALID->check($CENTER, [
         'name' => ['required' => TRUE],
         'address' => ['required' => TRUE],
-        'center_leader_name' => ['required' => TRUE],
+        'leader' => ['required' => TRUE],
 
     ]);
 
@@ -47,9 +47,7 @@ if (isset($_POST['add-center'])) {
     }
 
 }
-
-
-
+ 
 if (isset($_POST['update'])) {
 
     
@@ -57,14 +55,14 @@ if (isset($_POST['update'])) {
 
     $CENTER->name = $_POST['name'];
     $CENTER->address =$_POST['address'];
-    $CENTER->center_leader_name = $_POST['center_leader_name'];
+    $CENTER->leader = $_POST['leader'];
 
 
     $VALID = new Validator();
     $VALID->check($CENTER, [
         'name' => ['required' => TRUE],
         'address' => ['required' => TRUE],
-        'center_leader_name' => ['required' => TRUE]
+        'leader' => ['required' => TRUE]
 
     ]);
 

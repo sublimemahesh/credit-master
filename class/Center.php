@@ -10,7 +10,7 @@ class Center {
     public $id;
     public $name;
     public $address;
-    public $center_leader_name;
+    public $leader;
 
     public function __construct($id) {
         if ($id) {
@@ -24,7 +24,7 @@ class Center {
             $this->id = $result['id'];
             $this->name = $result['name'];
             $this->address = $result['address'];
-            $this->center_leader_name = $result['center_leader_name'];
+            $this->leader = $result['leader'];
 
 
             return $this;
@@ -33,11 +33,10 @@ class Center {
 
     public function create() {
 
-
-        $query = "INSERT INTO `center` (`name`,`address`,`center_leader_name`) VALUES  ('"
+        $query = "INSERT INTO `center` (`name`,`address`,`leader`) VALUES  ('"
                 . $this->name . "','"
                 . $this->address . "', '"
-                . $this->center_leader_name . "')";
+                . $this->leader . "')";
 
 
         $db = new Database();
@@ -68,8 +67,8 @@ class Center {
         }
         return $array_res;
     }
-    
-     public function getCenterIdByCustomer() {
+
+    public function getCenterIdByCustomer() {
 
 
         $query = "SELECT * FROM `center` ";
@@ -83,15 +82,13 @@ class Center {
         }
         return $array_res;
     }
-    
-    
 
     public function update() {
 
         $query = "UPDATE  `center` SET "
                 . "`name` ='" . $this->name . "', "
                 . "`address` ='" . $this->address . "', "
-                . "`center_leader_name` ='" . $this->center_leader_name . "' "
+                . "`leader` ='" . $this->leader . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
@@ -105,7 +102,7 @@ class Center {
         }
     }
 
-      public function delete() {
+    public function delete() {
 
         $query = 'DELETE FROM `center` WHERE id="' . $this->id . '"';
 
