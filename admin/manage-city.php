@@ -68,9 +68,10 @@ $CITY = new City(NULL)
                                         <tbody>
                                             <?php
                                             foreach ($CITY->all() as $key => $city) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $city['id']; ?>">
-                                                    <td>#<?php echo $city['id']; ?></td> 
+                                                    <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $city['name']; ?></td>  
                                                     
                                                     <td>

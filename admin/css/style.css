@@ -8175,3 +8175,6 @@ html.ie11 .bs-searchbox .form-control {
     background-color: #f44336 !important;
     color: white!important;
 }
+#addres-bar{
+   border-bottom: 1px solid #dddddd;
+}

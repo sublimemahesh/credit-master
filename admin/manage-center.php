@@ -70,9 +70,10 @@ $CENTER = new Center(NULL)
                                         <tbody>
                                             <?php
                                             foreach ($CENTER->all() as $key => $center) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $center['id']; ?>">
-                                                    <td>#<?php echo $center['id']; ?></td> 
+                                                    <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $center['name']; ?></td>  
                                                     <td>
                                                         <?php

@@ -66,12 +66,12 @@ $next = $ND->format('Y-m-d');
                                 </h2>
 
                                 <ul class="header-dropdown"> 
-                                    <a href="today-installment.php?date=<?php echo $back ?>">
+                                    <a href="day-installment.php?date=<?php echo $back ?>">
                                         <i class="material-icons" >
                                             arrow_back_ios
                                         </i>
                                     </a>
-                                    <a href="today-installment.php?date=<?php echo $next ?>">
+                                    <a href="day-installment.php?date=<?php echo $next ?>">
                                         <i class="material-icons">
                                             arrow_forward_ios
                                         </i>
@@ -93,6 +93,7 @@ $next = $ND->format('Y-m-d');
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
+                                                $amount = $loan['installment_amount'];
 
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
@@ -100,6 +101,8 @@ $next = $ND->format('Y-m-d');
                                                 $start = new DateTime("$start_date");
 
                                                 $x = 0;
+                                                $ins_total = 0;
+                                                $total_paid = 0;
                                                 while ($x < $defultdata) {
                                                     if ($defultdata == 4) {
                                                         $add_dates = '+7 day';
@@ -135,7 +138,15 @@ $next = $ND->format('Y-m-d');
                                                     $IT = DefaultData::getInstallmentType();
                                                     $installment_amount = $loan['installment_amount'];
 
-                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center)|| PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                                                    $Installment = new Installment(NULL);
+                                                    $paid_amount = 0;
+
+                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
+
+                                                        $paid_amount += $paid['paid_amount'];
+                                                    }
+
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
                                                         $start->modify($add_dates);
                                                     } else {
@@ -159,24 +170,29 @@ $next = $ND->format('Y-m-d');
                                                                 </td> 
                                                                 <td>  
                                                                     <?php
-                                                                    echo '<b>Amount: ' . $loan['loan_amount'] . '.00</b>';
+                                                                    echo '<b>Amount: ' . number_format($loan['loan_amount'], 2) . '</b>';
                                                                     echo '</br><b>Period: </b>' . $LP[$loan['loan_period']];
                                                                     echo '</br><b>Type: </b>' . $IT[$loan['installment_type']];
                                                                     ?>
                                                                 </td> 
                                                                 <td>
                                                                     <?php
-                                                                    echo '<b>In Amount: </b>' . $installment_amount . '.00';
+                                                                    echo '<b>In Amount: </b>' . number_format($installment_amount, 2);
                                                                     if ($INSTALLMENT = Installment::getInstallmentByLoanAndDate($loan['id'], $date)) {
-                                                                        echo '<h5>Paid - ' . $INSTALLMENT['paid_amount'] . '.00</h5>';
+                                                                        echo '<h5>Paid - ' . number_format($INSTALLMENT['paid_amount'], 2) . '</h5>';
                                                                     } else {
                                                                         'xxx';
                                                                     }
+                                                                    $ins_total += $installment_amount;
+                                                                    $total_paid += $paid_amount;
+                                                                    echo number_format($total_paid - $ins_total, 2);
                                                                     ?>
+
+
                                                                 </td>
 
                                                                 <td class="text-center"> 
-                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan<?php echo $loan['id'] ?>">
+                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>">
                                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                                     </a> 
                                                                 </td> 

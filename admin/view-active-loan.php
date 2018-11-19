@@ -459,7 +459,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="city" class="hidden-lg hidden-md">City</label>
-                                                <div class="form-control"><?php echo $CUSTOMER->city; ?></div>
+                                                <div class="form-control"><?php 
+                                                $CITY = new City($CUSTOMER->city);
+                                                echo $CITY->name; ?></div>
                                             </div>
                                         </div>
                                     </div>

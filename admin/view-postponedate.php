@@ -42,7 +42,7 @@ $POSTPONEDATE = new PostponeDate($id);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>View Loan (# <?php echo $POSTPONEDATE->id; ?>)</h2>
+                        <h2>View Postpone Date  </h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-postpone-dates.php">
