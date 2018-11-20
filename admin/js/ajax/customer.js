@@ -45,6 +45,65 @@ $(document).ready(function () {
             }
         });
     });
+
+
+
+    $('.check-customer').click(function () {
+
+        var nicNumber = $('#customer-nic').val();
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                NicNumber: nicNumber,
+                action: 'CHECKNICNUMBERINCUSTOMER'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "Duplicate NIC Number.!",
+                        text: "You entered the duplicate NIC Number..",
+                        type: "info",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter again.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+        });
+    });
+
+
+    $('.check-customer').click(function () {
+
+        var mobileNumber = $('#moblie_number').val();
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                MobileNumber: mobileNumber,
+                action: 'CHECKMOBILENUMBERINCUSTOMER'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "Duplicate Mobile Number.!",
+                        text: "You entered the duplicate Mobile Number..",
+                        type: "info",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter again.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+        });
+    });
 });
 
 

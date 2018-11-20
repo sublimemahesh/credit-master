@@ -21,3 +21,35 @@ if ($_POST['action'] == 'GETREGTYPE') {
 }
 
 
+if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
+
+    $CUSTOMER_NIC = new Customer(NULL);
+
+    $result = $CUSTOMER_NIC->CheckNicNumberInCustomer($_POST["NicNumber"]);
+
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
+    
+    $CUSTOMER_MOBILE_NUMBER = new Customer(NULL);
+
+    $result = $CUSTOMER_MOBILE_NUMBER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+
