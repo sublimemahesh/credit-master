@@ -150,7 +150,9 @@ $LOAN = new Loan($loan_id);
                                                 foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
                                                     $paid_amount += $paid['paid_amount'];
+                                                    
                                                 }
+                                               
 
 
                                                 echo '<tr>';
@@ -200,6 +202,7 @@ $LOAN = new Loan($loan_id);
 
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
+                                                  
                                                     echo number_format($total_paid - $ins_total, 2);
 
                                                     echo '</td>';

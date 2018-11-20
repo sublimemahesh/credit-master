@@ -64,7 +64,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control " disabled="true" autocomplete="off">
+                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -116,6 +116,7 @@ if (isset($_GET['date'])) {
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <input type="hidden" value="<?php echo $loan ?>" name="loan">
+                                    <input type="hidden" value="<?php echo $date ?>" name="installment_date">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
                                 </div>
                             </div>
