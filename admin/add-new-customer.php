@@ -136,7 +136,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="nic_number" class="hidden-lg hidden-md">NIC Number</label>
-                                            <input type="text" id="nic_number" required="TRUE" name="nic_number" placeholder="Enter NIC Number" class="form-control" autocomplete="off">
+                                            <input type="text" id="customer-nic" required="TRUE" name="nic_number" placeholder="Enter NIC Number" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +250,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>
@@ -287,7 +287,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
-                                            <input type="text" id="mobile"  name="mobile" required="TRUE" placeholder="Enter Mobile" class="form-control" autocomplete="off">
+                                            <input type="text" id="moblie_number"  name="mobile" required="TRUE" placeholder="Enter Mobile" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -544,7 +544,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="add-customer">Save Details</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer" type="submit" name="add-customer">Save Details</button>
 
                                     <input type="hidden" name="add-customer" value="add-customer"/>
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
@@ -565,11 +565,12 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
+      
     </body>
 
 </html> 

@@ -317,4 +317,34 @@ class Customer {
         return $db->readQuery($query);
     }
 
+    public function CheckNicNumberInCustomer($nic) {
+
+        $query = "SELECT * FROM `customer` WHERE `nic_number` = '" . $nic . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckMobileNumberInCustomer($mobile) {
+
+
+        $query = "SELECT * FROM `customer` WHERE `mobile` = '" . $mobile . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
 }
