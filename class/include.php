@@ -18,6 +18,7 @@ include_once(dirname(__FILE__) . '/Installment.php');
 include_once(dirname(__FILE__) . '/PostponeDate.php');
 include_once(dirname(__FILE__) . '/EffectiveDate.php');
 include_once(dirname(__FILE__) . '/DefaultData.php');
+include_once(dirname(__FILE__) . '/CustomerDocument.php');
 
 function dd($data) {
     var_dump($data);

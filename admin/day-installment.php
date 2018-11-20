@@ -93,7 +93,7 @@ $next = $ND->format('Y-m-d');
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
-                                                $amount = $loan['installment_amount'];
+
 
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
@@ -136,15 +136,17 @@ $next = $ND->format('Y-m-d');
                                                     $center = $CUSTOMER->center;
                                                     $LP = DefaultData::getLoanPeriod();
                                                     $IT = DefaultData::getInstallmentType();
-                                                    $installment_amount = $loan['installment_amount'];
-
+                                                    $amount = $loan['installment_amount'];
                                                     $Installment = new Installment(NULL);
                                                     $paid_amount = 0;
 
-                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
 
+                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
                                                         $paid_amount += $paid['paid_amount'];
                                                     }
+
+                                                    $ins_total += $amount;
+                                                    $total_paid += $paid_amount;
 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
@@ -168,6 +170,7 @@ $next = $ND->format('Y-m-d');
                                                                     }
                                                                     ?>
                                                                 </td> 
+
                                                                 <td>  
                                                                     <?php
                                                                     echo '<b>Amount: ' . number_format($loan['loan_amount'], 2) . '</b>';
@@ -177,18 +180,14 @@ $next = $ND->format('Y-m-d');
                                                                 </td> 
                                                                 <td>
                                                                     <?php
-                                                                    echo '<b>In Amount: </b>' . number_format($installment_amount, 2);
+                                                                    echo '<b>In Amount: </b>' . number_format($amount, 2);
                                                                     if ($INSTALLMENT = Installment::getInstallmentByLoanAndDate($loan['id'], $date)) {
-                                                                        echo '<h5>Paid - ' . number_format($INSTALLMENT['paid_amount'], 2) . '</h5>';
+                                                                        echo '<h5>Paid - ' . number_format($paid_amount, 2) . '</h5>';
                                                                     } else {
-                                                                        'xxx';
+                                                                        echo '</br><b>Payble </b></br>';
                                                                     }
-                                                                    $ins_total += $installment_amount;
-                                                                    $total_paid += $paid_amount;
-                                                                    echo number_format($total_paid - $ins_total, 2);
+                                                                    echo '<b>Due and Excess: </b>' . number_format($total_paid - $ins_total, 2);
                                                                     ?>
-
-
                                                                 </td>
 
                                                                 <td class="text-center"> 

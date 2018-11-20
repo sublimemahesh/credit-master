@@ -156,8 +156,7 @@ if (isset($_POST['add-customer'])) {
         }
         $VALID->addError("Your data was saved successfully", 'success');
         $_SESSION['ERRORS'] = $VALID->errors();
-
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header("location: ../add-new-customer-document.php?id=" . $CUSTOMER->id);
     } else {
 
         if (!isset($_SESSION)) {
@@ -165,7 +164,6 @@ if (isset($_POST['add-customer'])) {
         }
 
         $_SESSION['ERRORS'] = $VALID->errors();
-
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
@@ -314,9 +312,9 @@ if (isset($_POST['update'])) {
     }
     /////////////////////////////////////////////////
 
-  
+
     $CUSTOMER = new Customer($_POST['id']);
-         
+
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
@@ -325,11 +323,11 @@ if (isset($_POST['update'])) {
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
-    $CUSTOMER->address_line_1 =  $_POST['address_line_1'];
-    $CUSTOMER->address_line_2 =  $_POST['address_line_2'];
-    $CUSTOMER->address_line_3 =  $_POST['address_line_3'];
-    $CUSTOMER->address_line_4 =  $_POST['address_line_4'];
-    $CUSTOMER->address_line_5 =  $_POST['address_line_5'];
+    $CUSTOMER->address_line_1 = $_POST['address_line_1'];
+    $CUSTOMER->address_line_2 = $_POST['address_line_2'];
+    $CUSTOMER->address_line_3 = $_POST['address_line_3'];
+    $CUSTOMER->address_line_4 = $_POST['address_line_4'];
+    $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];

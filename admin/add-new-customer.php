@@ -94,7 +94,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="last_name" class="hidden-lg hidden-md">Last Name</label>
-                                            <input type="text" id="last_name"  name="last_name" required="TRUE" placeholder="Enter Last Name" class="form-control" autocomplete="off">
+                                            <input type="text" id="last_name"  name="last_name"   placeholder="Enter Last Name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -301,7 +301,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
-                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" required="TRUE" >
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type"   >
                                                 <option value=""> -- Select Registration Type -- </option>
                                                 <option  value="route">Route</option>
                                                 <option value="center">Center</option>

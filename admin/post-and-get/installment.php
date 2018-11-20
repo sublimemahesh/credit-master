@@ -7,8 +7,9 @@ if (isset($_POST['create'])) {
 
     $INSTALLMENT = new Installment(NULL);
     $VALID = new Validator();
-    
+ 
     $INSTALLMENT->loan = $_POST['loan'];
+    $INSTALLMENT->installment_date = $_POST['installment_date'];
     $INSTALLMENT->paid_date = $_POST['paid_date'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
@@ -48,20 +49,17 @@ if (isset($_POST['create'])) {
 if (isset($_POST['update'])) {
 
 
-    $INSTALLMENT = new Installment($_POST['id']);
-
+    $INSTALLMENT = new Installment($_POST['id']); 
+    $INSTALLMENT->installment_date = $_POST['installment_date'];
     $INSTALLMENT->paid_date = $_POST['paid_date'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
- 
-
 
     $VALID = new Validator();
     $VALID->check($INSTALLMENT, [
         'paid_date' => ['required' => TRUE],
-         
+       
     ]);
-
 
 
     if ($VALID->passed()) {
