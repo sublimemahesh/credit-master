@@ -4,22 +4,6 @@ include_once(dirname(__FILE__) . './auth.php');
 ?>
 
 
-<!-- Page Loader -->
-<!--<div class="page-loader-wrapper">
-    <div class="loader">
-        <div class="preloader">
-            <div class="spinner-layer pl-red">
-                <div class="circle-clipper left">
-                    <div class="circle"></div>
-                </div>
-                <div class="circle-clipper right">
-                    <div class="circle"></div>
-                </div>
-            </div>
-        </div>
-        <p>Please wait...</p>
-    </div>
-</div>-->
 <!-- #END# Page Loader -->
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -173,8 +157,8 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <span>Day Installment</span>
                             </a>
                         </li> 
-                        
-                         
+
+
                     </ul>
                 </li> 
                 <li>
@@ -237,6 +221,39 @@ include_once(dirname(__FILE__) . './auth.php');
 
                     </ul>
                 </li> 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            assignment_turned_in
+                        </i>
+                        <span>Petty Cash</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="add-new-petty-cash.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-petty-cash.php">
+                                <i class="material-icons">list</i>
+                                <span>Manage</span>
+                            </a>
+                        </li> 
+                    </ul>
+                </li> 
+
+                <li>
+                    <a href="cash-book.php" class="menu-toggle">
+                        <i class="material-icons">
+                          import_contacts
+                        </i>
+                        <span>Cash Book</span>
+                    </a>
+                    
+                </li>
+
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">

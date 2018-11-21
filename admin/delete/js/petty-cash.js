@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.delete-vehicle-photo').click(function () {
+    $('.delete-petty-cash').click(function () {
 
         var id = $(this).attr("data-id");
 
@@ -14,16 +14,19 @@ $(document).ready(function () {
         }, function () {
 
             $.ajax({
-                url: "delete/ajax/vehicle-photos.php",
+                url: "delete/ajax/petty-cash.php",
                 type: "POST",
-                data: {id: id, option: 'delete'},
+                data: {
+                    id: id,
+                    option: 'delete'
+                },
                 dataType: "JSON",
                 success: function (jsonStr) {
                     if (jsonStr.status) {
 
                         swal({
                             title: "Deleted!",
-                            text: "Vehicale Photo has been deleted.",
+                            text: "Petty Cash has been deleted.",
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false

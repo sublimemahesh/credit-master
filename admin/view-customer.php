@@ -19,6 +19,7 @@ $CUSTOMER = new Customer($_GET['id']);
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="plugins/node-waves/waves.css" rel="stylesheet" />
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+        <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
@@ -124,25 +125,46 @@ $CUSTOMER = new Customer($_GET['id']);
                                         </div>
                                     </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label" style="margin-bottom: 0px;">
-                                            <label for="nic_photo_front">NIC Photos</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group" style="margin-bottom: 2px;">
-                                                <div class="form-line">
-                                                    <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
-                                                    <div class="form-control">
-                                                        <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>">Front</a>  |  
-                                                        <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" >Back</a> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div> 
-                                    </div> 
                                 </div>
-                                <div class="col-md-4">
-                                    <img src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" class="img-thumbnail img-responsive"/>
+                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs  ">
+                                    <label for="nic_photo_front">NIC Photo</label>
+                                </div>
+
+                                <div class="p-bottom">
+                                    <div class="form-group">                                         
+                                        <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
+                                        <div   class="list-unstyled row clearfix aniimated-thumbnials ">
+                                            <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html="Demo Description">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
+                                            </a> 
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" class="list-unstyled   clearfix col-md-4">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="nic_photo_front">NIC Photos</label>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
+                                    <div class="form-group">
+                                        <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                            <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
+                                            <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html="Demo Description">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                            </a> 
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
+                                    <div class="form-group">
+                                        <div  class="list-unstyled  clearfix aniimated-thumbnials">
+                                            <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
+                                            <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html="Demo Description">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                            </a> 
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -155,8 +177,8 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <div class="">
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
-                                                <div class="col-md-3">
-                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month">
+                                                <div class="col-md-4">
+                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month" disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
                                                             if ($CUSTOMER->dob_month == 1) {
                                                                 echo 'Jan';
@@ -199,13 +221,13 @@ $CUSTOMER = new Customer($_GET['id']);
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <select id="day"  name="day" class="form-control ">
+                                                    <select id="day"  name="day" class="form-control " disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
 
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <select name="year" onchange="call()" class="form-control ">
+                                                <div class="col-md-4">
+                                                    <select name="year" onchange="call()" class="form-control " disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
                                                     </select>
                                                 </div>
@@ -216,7 +238,7 @@ $CUSTOMER = new Customer($_GET['id']);
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <div class="col-lg-2 col-md-2hidden-sm hidden-xs form-control-label">
                                     <label >Address</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
@@ -327,7 +349,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <div class="form-line">
                                             <label for="city" class="hidden-lg hidden-md">City</label>
                                             <div class="form-control"><?php
-                                                $CITY = new City($CUSTOMER->city); 
+                                                $CITY = new City($CUSTOMER->city);
                                                 echo $CITY->name;
                                                 ?></div>
                                         </div>
@@ -399,10 +421,10 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                            <img src="../upload/customer/br/<?php
-                                            echo $CUSTOMER->br_picture;
-                                            ;
-                                            ?>" class="img-thumbnail img-responsive"/>
+                                            <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture; ?>" data-sub-html="Demo Description">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/br/<?php echo $CUSTOMER->br_picture; ?>">
+                                            </a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -484,10 +506,11 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        <div class="form-line clearfix aniimated-thumbnials">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                            <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" class="img-thumbnail img-responsive"/>
-
+                                            <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html="Demo Description">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>">
+                                            </a>  
                                         </div>
                                     </div>
                                 </div>
@@ -504,6 +527,8 @@ $CUSTOMER = new Customer($_GET['id']);
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+        <script src="js/image.js" type="text/javascript"></script>
+        <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="js/birthday_script.js" type="text/javascript"></script>

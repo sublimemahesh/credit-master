@@ -146,7 +146,7 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="nic_number" class="hidden-lg hidden-md">NIC Number</label>
-                                            <input type="text" id="nic_number"  name="nic_number" value="<?php echo $CUSTOMER->nic_number ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="customer-nic"  name="nic_number" value="<?php echo $CUSTOMER->nic_number ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -179,7 +179,6 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                             <input type="file" id="nic_photo_back"  name="nic_photo_back"  class="form-control" autocomplete="off">
-
                                             <?php
                                             if ($CUSTOMER->nic_photo_back) {
                                                 ?>
@@ -316,17 +315,44 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
-                                            <input type="text" id="mobile"  name="mobile" value="<?php echo $CUSTOMER->mobile ?>" class="form-control" autocomplete="off">
+                                            <input type="text" id="moblie_number"  name="mobile" value="<?php echo $CUSTOMER->mobile ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Registration Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type"   >
+                                                <option value=""> -- Select Registration Type -- </option>
+                                                <option  value="route" <?php
+                                                if ($CUSTOMER->route) {
+                                                    echo 'selected';
+                                                }
+                                                ?>>Route</option>
+                                                <option value="center" <?php
+                                                if ($CUSTOMER->center) {
+                                                    echo 'selected';
+                                                }
+                                                ?>>Center</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                          
                             <?php
                             if ($CUSTOMER->route) {
                                 ?>
-                                <div class="row">
+
+
+                                <div class="row" >
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="route">Route</label>
                                     </div>
@@ -334,18 +360,15 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <select class="form-control" autocomplete="off" id="registration_type"  name="route">
-                                                    <option value="<?php echo $ROUTE->id ?>" selected="">
-                                                        <?php
-                                                        $ROUTE = new Route($CUSTOMER->route);
-                                                        echo $ROUTE->name;
-                                                        ?>
-                                                    </option>   
+                                                <select class="form-control" autocomplete="off" >
                                                     <?php
-                                                    $ROUTE = Route::all();
-                                                    foreach ($ROUTE as $route) {
-                                                        ?>
-                                                        <option   value="<?php echo $route['id'] ?>"> <?php echo $route['name'] ?></option>
+                                                    if ($route['id'] == $CUSTOMER->route) {
+                                                        ?> 
+                                                        <option value="<?php echo $route['id'] ?>" selected=""><?php echo $route['name'] ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?> 
+                                                        <option value="<?php echo $route['id'] ?>"><?php echo $route['name'] ?></option>
                                                         <?php
                                                     }
                                                     ?>
@@ -358,7 +381,7 @@ $CUSTOMER = new Customer($id);
                                 <?php
                             } else {
                                 ?>
-
+ 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="center">Center</label>
@@ -367,19 +390,19 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                <select class="form-control" autocomplete="off" id="registration_type"  name="center">
-                                                    <option value="<?php echo $CUSTOMER->center ?>" selected="">
-                                                        <?php
-                                                        $CENTER = new Center($CUSTOMER->center);
-                                                        echo $CENTER->name
-                                                        ?>                                                    
-                                                    </option>   
+                                                <select class="form-control" autocomplete="off" id="registration_type"  name="center"> 
                                                     <?php
                                                     $CENTER = Center::all();
                                                     foreach ($CENTER as $center) {
-                                                        ?>
-                                                        <option   value="<?php echo $center['id'] ?>"> <?php echo $center['name'] ?></option>
-                                                        <?php
+                                                        if ($center['id'] == $CUSTOMER->center) {
+                                                            ?>
+                                                            <option value="<?php echo $center['id'] ?>" selected=""> <?php echo $center['name'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $center['id'] ?>" > <?php echo $center['name'] ?></option>
+                                                            <?php
+                                                        }
                                                     }
                                                     ?>
                                                 </select>
@@ -390,7 +413,7 @@ $CUSTOMER = new Customer($id);
                             <?php } ?> 
 
 
-                             
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -584,7 +607,7 @@ $CUSTOMER = new Customer($id);
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer" type="submit" name="update">Update</button>
                                     <input type="hidden" id="id" value="<?php echo $CUSTOMER->id; ?>" name="id"/>
                                     <input type="hidden" id="oldImageName" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageName"/>
                                     <input type="hidden" id="oldImageNameBank" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBank"/>
@@ -609,7 +632,9 @@ $CUSTOMER = new Customer($id);
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+                <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/ajax/customer.js" type="text/javascript"></script> 
         <script src="js/birthday_script.js" type="text/javascript"></script>
 
 
