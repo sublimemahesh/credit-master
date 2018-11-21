@@ -49,9 +49,9 @@ $(document).ready(function () {
 
 
     $('.check-customer').click(function () {
-
+ 
         var nicNumber = $('#customer-nic').val();
-
+     
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",

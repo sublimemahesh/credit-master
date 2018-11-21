@@ -544,7 +544,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer" type="submit" name="add-customer">Save Details</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer " type="submit" name="add-customer">Save Details</button>
 
                                     <input type="hidden" name="add-customer" value="add-customer"/>
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 

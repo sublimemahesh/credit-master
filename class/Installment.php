@@ -142,8 +142,8 @@ class Installment {
     public function CheckInstallmetByPaidDate($date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
-       
-      
+
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -154,6 +154,20 @@ class Installment {
         }
 
         return $array_res;
+    }
+
+    public function getAllAmountByPaidDate($date) {
+
+
+        $query = "SELECT SUM(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
+        dd($query);
+        $db = new Database();
+
+        $result = $db->readQuery($query); 
+
+        $row = mysql_fetch_array($result);
+
+        return $row;
     }
 
 }
