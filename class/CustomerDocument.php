@@ -11,7 +11,7 @@
  *
  * @author sublime
  */
-class CustomerDocument  {
+class CustomerDocument {
 
     public $id;
     public $customer_id;
@@ -62,6 +62,20 @@ class CustomerDocument  {
     public function all() {
 
         $query = "SELECT * FROM `customer_document` ";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
+    public function getDocumentByCustomer($id) {
+
+        $query = "SELECT * FROM `customer_document` WHERE `customer_id` ='" . $id . "'";
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();

@@ -69,14 +69,23 @@ $CUSTOMER = new Customer(NULL)
                                         </thead>
                                         <tbody>
                                             <?php
+
+                                            function get_first_letters($string) {
+                                                return preg_replace('/(\B.|\s+)/', '', $string);
+                                            }
+
                                             foreach ($CUSTOMER->activeCustomer() as $key => $customer) {
                                                 $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
-                                                    <td>#<?php echo  $key ?></td> 
+                                                    <td>#<?php echo $key ?></td> 
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
-                                                        <b>: <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?> </b><br>
+                                                        <b>: 
+                                                            <?php
+                                                            $first_name = ucwords(substr(get_first_letters($customer['surname'] . ' ' .ucwords($customer['first_name'])), 0, 2));
+                                                            echo $first_name.' '. $customer['last_name']
+                                                            ?> </b><br>
                                                         <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
                                                     </td>
 
@@ -108,7 +117,6 @@ $CUSTOMER = new Customer(NULL)
                                                 </tr>
                                                 <?php
                                             }
-                                            
                                             ?>   
                                         </tbody>
                                         <tfoot>

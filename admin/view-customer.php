@@ -134,7 +134,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">                                         
                                         <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                         <div   class="list-unstyled row clearfix aniimated-thumbnials ">
-                                            <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html="Demo Description">
+                                            <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
                                                 <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
                                             </a> 
                                         </div>
@@ -150,8 +150,8 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                             <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
-                                            <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html="Demo Description">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                            <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
                                             </a> 
                                         </div>
                                     </div>
@@ -160,8 +160,8 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div  class="list-unstyled  clearfix aniimated-thumbnials">
                                             <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
-                                            <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html="Demo Description">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                            <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
                                             </a> 
                                         </div>
                                     </div>
@@ -255,6 +255,21 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
 
+                            <div class="row" class="list-unstyled   clearfix col-md-4">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="billing_proof_image">Billing Proof Image</label>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
+                                    <div class="form-group">
+                                        <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                            <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
+                                            <a href="../upload/customer/billing-proof/<?php echo $CUSTOMER->billing_proof_image ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
+                                            </a> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>
@@ -371,6 +386,24 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
 
+                            <div class="row" class="list-unstyled   clearfix col-md-4">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="signature_photo">Signature Photo</label>
+                                </div>
+                                <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
+                                    <div class="form-group">
+                                        <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                            <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
+                                            <a href="../upload/customer/signature/<?php echo $CUSTOMER->signature_image; ?>" data-sub-html="Signature Photo">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
+                                            </a> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="business_name">Business Name</label>
@@ -420,11 +453,13 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                            <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture; ?>" data-sub-html="Demo Description">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/br/<?php echo $CUSTOMER->br_picture; ?>">
-                                            </a>
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                                <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
+                                                <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
+                                                </a>
 
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -508,8 +543,8 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line clearfix aniimated-thumbnials">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                            <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html="Demo Description">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>">
+                                            <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
                                             </a>  
                                         </div>
                                     </div>

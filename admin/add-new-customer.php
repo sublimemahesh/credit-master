@@ -23,8 +23,8 @@ include_once(dirname(__FILE__) . './auth.php');
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
 
-    </head>
 
     <body class="theme-red">
         <?php
@@ -229,6 +229,21 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="billing_proof_image">Billing Proof Image</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
+                                            <input type="file" id="billing_proof_image"  name="billing_proof_image" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="city_name">City</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
@@ -352,6 +367,20 @@ include_once(dirname(__FILE__) . './auth.php');
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
                                             <input type="number" id="credit_limit" value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off" max="100000">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="signature_image">Signature Image</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="signature_image" class="hidden-lg hidden-md">Signature Image</label>
+                                            <input type="file" id="signature_image"  name="signature_image" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -533,7 +562,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class=" p-top ">
                                             <input class="filled-in chk-col-pink" type="checkbox" name="is_active" value="1" id="rememberme" checked="TRUE"/>
-                                            <label for="rememberme">Activate</label>
+                                            <label for="rememberme" id="lable-active">Activate</label>
                                         </div>
                                     </div>
                                 </div>
@@ -570,7 +599,7 @@ include_once(dirname(__FILE__) . './auth.php');
         <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
-      
+
     </body>
 
 </html> 

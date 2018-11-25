@@ -94,6 +94,8 @@ $(document).ready(function () {
         $('#loan_amount').val(credit_limit);
         $("#loan_amount").attr("max", credit_limit);
     });
+    
+     
 
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
