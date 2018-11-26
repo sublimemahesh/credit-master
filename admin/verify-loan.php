@@ -1473,7 +1473,11 @@ $GR2 = new Customer($LOAN->guarantor_2);
     <script src="js/ajax/loan.js"></script> 
     <script>
         $(function () {
-            $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+            $(".datepicker").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: '-3D',
+                maxDate: '+3D',
+            });
         });
     </script>
 </body> 

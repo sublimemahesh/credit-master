@@ -327,8 +327,14 @@ $DEFDATA = new DefaultData();
         <script src="js/ajax/loan.js" type="text/javascript"></script>
         <script>
             $(function () {
-                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: '-3D',
+                    maxDate: '+3D',
+
+                });
             });
+
         </script>
     </body>
 

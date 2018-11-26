@@ -247,11 +247,29 @@ include_once(dirname(__FILE__) . './auth.php');
                 <li>
                     <a href="cash-book.php" class="menu-toggle">
                         <i class="material-icons">
-                          import_contacts
+                            import_contacts
                         </i>
                         <span>Cash Book</span>
                     </a>
-                    
+
+                </li>
+
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                           store_mall_directory
+                        </i>
+                        <span>Bank</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="add-new-bank.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+                      
+                    </ul>
                 </li>
 
                 <li>

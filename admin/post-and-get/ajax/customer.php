@@ -37,8 +37,22 @@ if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
     }
 }
 
+if ($_POST['action'] == 'GETBANKNAME') {
+    $BANK_NAME = new Branch(NULL);
+
+    $result = $BANK_NAME->getBrachByBank($_POST["bank_id"]);
+   
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);       
+        echo json_encode(['type' => 'name', 'data' => $result]);
+        header('Content-type: application/json');
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
 if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
-    
+
     $CUSTOMER_MOBILE_NUMBER = new Customer(NULL);
 
     $result = $CUSTOMER_MOBILE_NUMBER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);

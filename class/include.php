@@ -20,6 +20,8 @@ include_once(dirname(__FILE__) . '/EffectiveDate.php');
 include_once(dirname(__FILE__) . '/DefaultData.php');
 include_once(dirname(__FILE__) . '/CustomerDocument.php');
 include_once(dirname(__FILE__) . '/PettyCash.php');
+include_once(dirname(__FILE__) . '/Bank.php');
+include_once(dirname(__FILE__) . '/Branch.php');
 
 function dd($data) {
     var_dump($data);

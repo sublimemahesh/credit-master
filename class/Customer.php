@@ -359,4 +359,8 @@ class Customer {
         }
     }
 
+    public function get_first_letters($string) {
+        return preg_replace('/(\B.|\s+)/', '', $string);
+    }
+
 }

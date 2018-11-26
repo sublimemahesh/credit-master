@@ -198,7 +198,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Effective Date</label>
-                                                <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date; ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date; ?>" placeholder="Please Select The Effective Date" class="form-control datepicker-effective" autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1529,6 +1529,16 @@ $GR2 = new Customer($LOAN->guarantor_2);
     <script>
         $(function () {
             $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+        });
+    </script>
+    <script>
+        $(function () {
+            $(".datepicker-effective").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: '-3D',
+                maxDate: '+3D',
+
+            });
         });
     </script>
 </body> 
