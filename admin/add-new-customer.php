@@ -385,8 +385,15 @@ include_once(dirname(__FILE__) . './auth.php');
                                     </div>
                                 </div>
                             </div>
+
+
+
+
                         </div>
                     </div>
+
+
+
                     <div class="card">
                         <div class="header">
                             <h2>Add Business Details</h2>
@@ -472,27 +479,40 @@ include_once(dirname(__FILE__) . './auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="bank">Bank</label>
+                                    <label for="bank">Bank  </label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="bank" class="hidden-lg hidden-md">Bank</label>
-                                            <input type="text" id="bank"  name="bank" placeholder="Enter Bank" class="form-control" autocomplete="off">
+                                            <label for="bank" class="hidden-lg hidden-md">Bank  </label>
+                                            <select class="form-control" autocomplete="off" id="bank_id"  name="bank" >
+                                                <option value=""> -- Select the Bank -- </option> 
+                                                <?php
+                                                $BANK = new Bank(NULL);
+                                                foreach ($BANK->all() as $bank) {
+                                                    ?>
+
+                                                    <option value="<?php echo $bank['id'] ?>"><?php echo $bank['name'] ?> </option> 
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" style="display: none" id="branch_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="branch">Branch</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
+                                    <div class="form-group"branch>
                                         <div class="form-line">
                                             <label for="branch" class="hidden-lg hidden-md">Branch</label>
-                                            <input type="text" id="branch"  name="branch" placeholder="Enter Branch" class="form-control" autocomplete="off">
+                                            <select class="form-control" autocomplete="off" id="branch"  name="branch">  
+                                                <option> -- Please Select a Branch -- </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

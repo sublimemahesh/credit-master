@@ -3,6 +3,7 @@ $(document).ready(function () {
     $('#registration_type').change(function () {
 
         var type = $(this).val();
+
         if (!type) {
             $('#route_row').hide();
             $('#center_row').hide();
@@ -48,10 +49,88 @@ $(document).ready(function () {
 
 
 
+
+    $('#edit_registration_type').change(function () {
+
+        var type = $(this).val();
+
+        if (!type) {
+            $('#route_row').hide();
+            $('#center_row').hide();
+        }
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                type: type,
+                action: 'GETREGTYPE'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.type == 'route') {
+                    var html = '<option> -- Please Select a Route -- </option>';
+                    $.each(jsonStr.data, function (i, data) {
+                        html += '<option value="' + data.id + '">';
+                        html += data.name;
+                        html += '</option>';
+                    });
+                    $('#route').empty();
+                    $('#route').append(html);
+                    $('#route_row').show();
+                    $('#center_row').hide();
+
+                } else if (jsonStr.type == 'center') {
+                    var html = '<option> -- Please Select a Center -- </option>';
+                    $.each(jsonStr.data, function (i, data) {
+                        html += '<option value="' + data.id + '">';
+                        html += data.name;
+                        html += '</option>';
+                    });
+                    $('#center').empty();
+                    $('#center').append(html);
+                    $('#center_row').show();
+                    $('#route_row').hide();
+                }
+
+            }
+        });
+    });
+
+
+
+    $('#bank_id').change(function () {
+
+        var bank_id = $(this).val();
+
+        $.ajax({
+
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                bank_id: bank_id,
+                action: 'GETBANKNAME'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                var html = '<option> -- Please Select a Branch -- </option>';
+                $.each(jsonStr.data, function (i, data) {
+                    html += '<option value="' + data.id + '">';
+                    html += data.name;
+                    html += '</option>';
+                });
+                $('#branch').empty();
+                $('#branch').append(html);
+                $('#branch_row').show();
+            }
+        });
+
+    });
+
     $('.check-customer').click(function () {
- 
+
         var nicNumber = $('#customer-nic').val();
-     
+
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",
