@@ -25,6 +25,7 @@ class Customer {
     public $address_line_3;
     public $address_line_4;
     public $address_line_5;
+    public $billing_proof_image;
     public $email;
     public $telephone;
     public $mobile;
@@ -32,6 +33,7 @@ class Customer {
     public $center;
     public $city;
     public $credit_limit;
+    public $signature_image;
     public $rank;
     /////////////
     public $business_name;
@@ -74,6 +76,7 @@ class Customer {
             $this->address_line_3 = $result['address_line_3'];
             $this->address_line_4 = $result['address_line_4'];
             $this->address_line_5 = $result['address_line_5'];
+            $this->billing_proof_image = $result['billing_proof_image'];
             $this->email = $result['email'];
             $this->telephone = $result['telephone'];
             $this->mobile = $result['mobile'];
@@ -81,6 +84,7 @@ class Customer {
             $this->center = $result['center'];
             $this->city = $result['city'];
             $this->credit_limit = $result['credit_limit'];
+            $this->signature_image = $result['signature_image'];
             $this->rank = $result['rank'];
             $this->business_name = $result['business_name'];
             $this->br_number = $result['br_number'];
@@ -118,6 +122,7 @@ class Customer {
                 . "`address_line_3`,"
                 . "`address_line_4`,"
                 . "`address_line_5`,"
+                . "`billing_proof_image`,"
                 . "`email`,"
                 . "`telephone`,"
                 . "`mobile`,"
@@ -125,6 +130,7 @@ class Customer {
                 . "`center`,"
                 . "`city`,"
                 . "`credit_limit`,"
+                . "`signature_image`,"
                 . "`rank`,"
                 . "`business_name`,"
                 . "`br_number`,"
@@ -154,6 +160,7 @@ class Customer {
                 . $this->address_line_3 . "','"
                 . $this->address_line_4 . "','"
                 . $this->address_line_5 . "','"
+                . $this->billing_proof_image . "','"
                 . $this->email . "','"
                 . $this->telephone . "','"
                 . $this->mobile . "','"
@@ -161,6 +168,7 @@ class Customer {
                 . $this->center . "','"
                 . $this->city . "','"
                 . $this->credit_limit . "','"
+                . $this->signature_image . "','"
                 . $this->rank . "','"
                 . $this->business_name . "','"
                 . $this->br_number . "','"
@@ -275,6 +283,7 @@ class Customer {
                 . "`address_line_3` ='" . $this->address_line_3 . "', "
                 . "`address_line_4` ='" . $this->address_line_4 . "', "
                 . "`address_line_5` ='" . $this->address_line_5 . "', "
+                . "`billing_proof_image` ='" . $this->billing_proof_image . "', "
                 . "`email` ='" . $this->email . "', "
                 . "`telephone` ='" . $this->telephone . "', "
                 . "`mobile` ='" . $this->mobile . "', "
@@ -282,7 +291,9 @@ class Customer {
                 . "`center` ='" . $this->center . "', "
                 . "`city` ='" . $this->city . "', "
                 . "`credit_limit` ='" . $this->credit_limit . "', "
+                . "`signature_image` ='" . $this->signature_image . "', "
                 . "`business_name` ='" . $this->business_name . "', "
+                . "`br_picture` ='" . $this->br_picture . "', "
                 . "`br_number` ='" . $this->br_number . "', "
                 . "`nature_of_business` ='" . $this->nature_of_business . "', "
                 . "`bank` ='" . $this->bank . "', "
@@ -310,6 +321,7 @@ class Customer {
         unlink(Helper::getSitePath() . "upload/customer/nfp/" . $this->nic_photo_front);
         unlink(Helper::getSitePath() . "upload/customer/nbp/" . $this->nic_photo_back);
         unlink(Helper::getSitePath() . "upload/customer/br/" . $this->br_picture);
+        unlink(Helper::getSitePath() . "upload/customer/signature/" . $this->signature_image);
 
         $query = 'DELETE FROM `customer` WHERE id="' . $this->id . '"';
 

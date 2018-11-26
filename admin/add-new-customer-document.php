@@ -3,6 +3,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
 
 $id = $_GET['id'];
+$CUSTOMER = new Customer($id);
 ?> 
 
 <!DOCTYPE html>
@@ -22,6 +23,7 @@ $id = $_GET['id'];
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -44,7 +46,7 @@ $id = $_GET['id'];
 
                     <div class="card">
                         <div class="header">
-                            <h2>Add Customer Details</h2>
+                            <h2><?php echo $CUSTOMER->surname.' '.$CUSTOMER->first_name.' '.$CUSTOMER->last_name?>  Customer Details</h2>
                             <ul class="header-dropdown">
                                 <li class="">
                                     <a href="view-active-customer.php">
@@ -87,15 +89,41 @@ $id = $_GET['id'];
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
-                                    <input type="hidden" name="id" value="<?php echo $id?>"/>
+                                    <input type="hidden" name="id" value="<?php echo $id ?>"/>
                                     <div class="text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
                             </div>
-
                         </div>
                     </div>
                 </form> 
-            </div>
+
+
+                <div class="card">
+                    <div class="header">
+                        <h2>Customer Document</h2>
+
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="form-line clearfix aniimated-thumbnials"> 
+                                <?php
+                                $COUSTMER_DOCUMENT = new CustomerDocument(NUll);
+                                foreach ($COUSTMER_DOCUMENT->getDocumentByCustomer($id) as $customerdocument) {
+                                    ?>
+                                    <div class="col-md-3"> 
+                                        <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption']?>">
+                                            <img class="img-responsive thumbnail" src="../upload/customer/document/thumb/<?php echo $customerdocument['image_name'] ?>">
+                                        </a> 
+
+
+
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
         </section>
 
         <!-- Jquery Core Js -->
@@ -105,7 +133,8 @@ $id = $_GET['id'];
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-
+        <script src="js/image.js" type="text/javascript"></script>
+        <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>

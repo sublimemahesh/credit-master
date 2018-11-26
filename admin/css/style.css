@@ -1,5 +1,7 @@
 ﻿/* Navbar ====================================== */
-
+#lable-active{
+    font-size: 22px;
+}
 .padd-td{
     padding: 10px;
 }

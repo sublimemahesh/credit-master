@@ -23,6 +23,7 @@ class City {
             $result = mysql_fetch_array($db->readQuery($query));
 
             $this->id = $result['id'];
+            $this->name = $result['name'];
             $this->sort = $result['sort'];
 
             return $this;

@@ -11,10 +11,11 @@ if (isset($_POST['create'])) {
     $CUSTOMER_DETAILS->caption = filter_input(INPUT_POST, 'caption');
 
     $dir_dest = '../../upload/customer/document/';
-
+    $dir_dest_thumb = '../../upload/customer/document/thumb/';
     $handle = new Upload($_FILES['image_name']);
-
     $imgName = null;
+
+
     $img = Helper::randamId();
 
     if ($handle->uploaded) {
@@ -24,18 +25,44 @@ if (isset($_POST['create'])) {
         $handle->file_new_name_ext = 'jpg';
         $handle->image_ratio_crop = 'C';
         $handle->file_new_name_body = $img;
-        $handle->image_x = 500;
-        $handle->image_y = 500;
+        $image_dst_x = $handle->image_dst_x;
+        $image_dst_y = $handle->image_dst_y;
+        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+
+        $image_x = (int) $newSize[0];
+        $image_y = (int) $newSize[1];
+
+        $handle->image_x = $image_x;
+        $handle->image_y = $image_y;
 
         $handle->Process($dir_dest);
-
         if ($handle->processed) {
             $info = getimagesize($handle->file_dst_pathname);
-            $imgName = $handle->file_dst_name;
+            $img_name = $handle->file_dst_name;
+        }
+
+        $handle->image_resize = true;
+        $handle->file_new_name_body = TRUE;
+        $handle->file_overwrite = TRUE;
+        $handle->file_new_name_ext = 'jpg';
+        $handle->image_ratio_crop = 'C';
+        $handle->file_new_name_body = $img;
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_thumb);
+
+        if ($handle->processed) {
+
+            $info = getimagesize($handle->file_dst_pathname);
+
+            $img_name = $handle->file_dst_name;
         }
     }
 
-    $CUSTOMER_DETAILS->image_name = $imgName;
+
+    $CUSTOMER_DETAILS->image_name = $img_name;
+
 
     $VALID->check($CUSTOMER_DETAILS, [
         'caption' => ['required' => TRUE],

@@ -1,3 +1,4 @@
+
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
@@ -22,6 +23,8 @@ include_once(dirname(__FILE__) . './auth.php');
         <link href="css/themes/all-themes.css" rel="stylesheet" />
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
+        
     </head>
 
     <body class="theme-red">
