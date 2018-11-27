@@ -294,6 +294,31 @@ include_once(dirname(__FILE__) . './auth.php');
                         </li>
                     </ul>
                 </li> 
+                
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            monetization_on
+                        </i>
+                        <span>Expenses</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="add-new-expenses.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-expenses.php">
+                                <i class="material-icons">list</i>
+                                <span>Manage</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> 
+                
+                
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
