@@ -83,7 +83,7 @@ $(document).ready(function () {
                 $('#guarantor_2').empty();
                 $('#guarantor_2').append(html);
                 $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
-  
+
             }
         });
     });
@@ -94,8 +94,8 @@ $(document).ready(function () {
         $('#loan_amount').val(credit_limit);
         $("#loan_amount").attr("max", credit_limit);
     });
-    
-     
+
+
 
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
@@ -352,6 +352,16 @@ $(document).ready(function () {
                     }
                 });
             });
+        }
+    });
+
+    $('#installment_type').change(function () {
+        var installment_type = $('#installment_type').val();
+
+        if (installment_type == 1) {
+            $('#period_100').hide();
+        } else {
+            $('#period_100').show();
         }
     });
 
