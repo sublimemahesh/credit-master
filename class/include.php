@@ -22,6 +22,7 @@ include_once(dirname(__FILE__) . '/CustomerDocument.php');
 include_once(dirname(__FILE__) . '/PettyCash.php');
 include_once(dirname(__FILE__) . '/Bank.php');
 include_once(dirname(__FILE__) . '/Branch.php');
+include_once(dirname(__FILE__) . '/Expenses.php');
 
 function dd($data) {
     var_dump($data);
