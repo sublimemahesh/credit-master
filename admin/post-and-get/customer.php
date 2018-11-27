@@ -27,6 +27,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];
+    $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];
     $CUSTOMER->center = $_POST['center'];
     $CUSTOMER->city = $_POST['city'];
@@ -747,7 +748,7 @@ if (isset($_POST['update'])) {
 
 
     $CUSTOMER = new Customer($_POST['id']);
-
+   
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
@@ -764,6 +765,7 @@ if (isset($_POST['update'])) {
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];
+    $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];
     $CUSTOMER->center = $_POST['center'];
     $CUSTOMER->city = $_POST['city'];

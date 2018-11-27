@@ -355,17 +355,36 @@ $CUSTOMER = new Customer($id);
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
-                                                <option value=""> -- Select Registration Type -- </option>
-                                                <option  value="route" <?php
-                                                if ($CUSTOMER->route) {
-                                                    echo 'selected';
-                                                }
-                                                ?>>Route</option>
-                                                <option value="center" <?php
-                                                if ($CUSTOMER->center) {
-                                                    echo 'selected';
-                                                }
-                                                ?>>Center</option>
+                                                <option value="" selected=""> -- Select Registration Type -- </option>
+
+                                                <?php if ($CUSTOMER->registration_type == "route") {
+                                                    ?>
+                                                    <option value="route" selected="">Route</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="1">Center Leader</option>
+
+
+                                                <?php } elseif ($CUSTOMER->registration_type == "center") {
+                                                    ?>
+                                                    <option value="center"  selected="">Center</option>
+                                                    <option value="route" >Route</option>
+                                                    <option value="1">Center Leader</option>
+
+                                                <?php } elseif ($CUSTOMER->registration_type == 1) {
+                                                    ?>
+                                                    <option value="1" selected="">Center Leader</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="route" >Route</option>
+
+
+                                                <?php } else { ?>
+                                                    <option value="route" >Route</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="1">Center Leader</option>
+
+                                                    <?php }
+                                                ?>
+
                                             </select>
                                         </div>
                                     </div>
@@ -442,7 +461,7 @@ $CUSTOMER = new Customer($id);
                                                             <?php
                                                         } else {
                                                             ?>
-                                                            <option value="<?php echo $center['id'] ?>" > <?php echo $center['name'] ?></option>
+                                                            <option value="<?php echo $center['id'] ?>"> <?php echo $center['name'] ?></option>
                                                             <?php
                                                         }
                                                     }
@@ -453,21 +472,21 @@ $CUSTOMER = new Customer($id);
                                     </div>
                                 </div>
 
-<div class="row" style="display: none" id="route_row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route">Route</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control" autocomplete="off" id="route"  name="route">  
-                                                <option> -- Please Select a Route -- </option>
-                                            </select>
+                                <div class="row" style="display: none" id="route_row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                    <option> -- Please Select a Route -- </option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
                             <?php } ?> 
 
 

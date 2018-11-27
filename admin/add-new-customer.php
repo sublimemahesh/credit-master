@@ -320,6 +320,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                                 <option value=""> -- Select Registration Type -- </option>
                                                 <option  value="route">Route</option>
                                                 <option value="center">Center</option>
+                                                <option value="1">Center Leader</option>
                                             </select>
                                         </div>
                                     </div>
