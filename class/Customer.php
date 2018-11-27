@@ -7,7 +7,7 @@
  */
 class Customer {
 
-    /////////////
+/////////////
     public $id;
     public $title;
     public $surname;
@@ -29,18 +29,19 @@ class Customer {
     public $email;
     public $telephone;
     public $mobile;
+    public $registration_type;
     public $route;
     public $center;
     public $city;
     public $credit_limit;
     public $signature_image;
     public $rank;
-    /////////////
+/////////////
     public $business_name;
     public $br_number;
     public $nature_of_business;
     public $br_picture;
-    /////////////
+/////////////
     public $bank;
     public $branch;
     public $branch_code;
@@ -80,6 +81,7 @@ class Customer {
             $this->email = $result['email'];
             $this->telephone = $result['telephone'];
             $this->mobile = $result['mobile'];
+            $this->registration_type = $result['registration_type'];
             $this->route = $result['route'];
             $this->center = $result['center'];
             $this->city = $result['city'];
@@ -126,6 +128,7 @@ class Customer {
                 . "`email`,"
                 . "`telephone`,"
                 . "`mobile`,"
+                . "`registration_type`,"
                 . "`route`,"
                 . "`center`,"
                 . "`city`,"
@@ -164,6 +167,7 @@ class Customer {
                 . $this->email . "','"
                 . $this->telephone . "','"
                 . $this->mobile . "','"
+                . $this->registration_type . "','"
                 . $this->route . "','"
                 . $this->center . "','"
                 . $this->city . "','"
@@ -267,6 +271,20 @@ class Customer {
         return $array_res;
     }
 
+    public function getCustomerByCenterLeader() {
+
+        $query = "SELECT * FROM `customer`WHERE `registration_type` = 1";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
     public function update() {
 
         $query = "UPDATE  `customer` SET "
@@ -287,6 +305,7 @@ class Customer {
                 . "`email` ='" . $this->email . "', "
                 . "`telephone` ='" . $this->telephone . "', "
                 . "`mobile` ='" . $this->mobile . "', "
+                . "`registration_type` ='" . $this->registration_type . "', "
                 . "`route` ='" . $this->route . "', "
                 . "`center` ='" . $this->center . "', "
                 . "`city` ='" . $this->city . "', "
@@ -359,8 +378,18 @@ class Customer {
         }
     }
 
-    public function get_first_letters($string) {
-        return preg_replace('/(\B.|\s+)/', '', $string);
+    public function updateCustomerCenter($center, $customer) {
+        $query = "UPDATE `customer` SET `center` ='" . $center . "' WHERE `id` = '" . $customer . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return TRUE;
+        } else {
+
+            return FALSE;
+        }
     }
 
 }

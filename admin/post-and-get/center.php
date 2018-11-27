@@ -1,9 +1,10 @@
 <?php
+
 include_once(dirname(__FILE__) . '/../../class/include.php');
 
 
 if (isset($_POST['add-center'])) {
-    
+
     $CENTER = new Center(NULL);
     $VALID = new Validator();
 
@@ -16,24 +17,27 @@ if (isset($_POST['add-center'])) {
         'name' => ['required' => TRUE],
         'address' => ['required' => TRUE],
         'leader' => ['required' => TRUE],
-
     ]);
 
 
 
     if ($VALID->passed()) {
-        $CENTER->create();
+
+        $RESULT = $CENTER->create();
+
+        $CUSTOMER = new Customer(NULL);
+        $CUSTOMER->updateCustomerCenter($RESULT->id, $RESULT->leader);
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your data was saved successfully", 'success');
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -43,18 +47,16 @@ if (isset($_POST['add-center'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
- 
+
 if (isset($_POST['update'])) {
 
-    
+
     $CENTER = new Center($_POST['id']);
 
     $CENTER->name = $_POST['name'];
-    $CENTER->address =$_POST['address'];
+    $CENTER->address = $_POST['address'];
     $CENTER->leader = $_POST['leader'];
 
 
@@ -63,7 +65,6 @@ if (isset($_POST['update'])) {
         'name' => ['required' => TRUE],
         'address' => ['required' => TRUE],
         'leader' => ['required' => TRUE]
-
     ]);
 
 
@@ -73,7 +74,6 @@ if (isset($_POST['update'])) {
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your changes saved successfully", 'success');
@@ -81,7 +81,6 @@ if (isset($_POST['update'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -90,8 +89,6 @@ if (isset($_POST['update'])) {
 
         $_SESSION['ERRORS'] = $VALID->errors();
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
 
