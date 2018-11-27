@@ -176,7 +176,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
-                                            <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE">
+                                            <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE" id="installment_type">
                                                 <option value=""> -- Please Select Installment Type -- </option>
                                                 <?php
                                                 $INSTALLMENT_TYPES = $DEFDATA->getInstallmentType();
@@ -200,13 +200,13 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
-                                            <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE">
+                                            <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE" >
                                                 <option value=""> -- Please Select Loan Period -- </option>
                                                 <?php
                                                 $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
                                                     ?>
-                                                    <option value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
+                                                    <option  id="<?php echo 'period_'.$key ?>" value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
                                                     <?php
                                                 }
                                                 ?>
