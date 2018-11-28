@@ -50,13 +50,7 @@ $LOAN = new Loan($loan_id);
                                 <h2>
                                     View Installment
                                 </h2>
-                                <ul class="header-dropdown">
-                                    <li>
-                                        <a href="create-loan.php">
-                                            <i class="material-icons">add</i> 
-                                        </a>
-                                    </li>
-                                </ul>
+                                 
                             </div>
 
                             <div class="body">
@@ -150,9 +144,8 @@ $LOAN = new Loan($loan_id);
                                                 foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
                                                     $paid_amount += $paid['paid_amount'];
-                                                    
                                                 }
-                                               
+
 
 
                                                 echo '<tr>';
@@ -202,7 +195,7 @@ $LOAN = new Loan($loan_id);
 
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
-                                                  
+
                                                     echo number_format($total_paid - $ins_total, 2);
 
                                                     echo '</td>';
@@ -226,6 +219,7 @@ $LOAN = new Loan($loan_id);
                                                 <th class="text-center">Status</th> 
                                                 <th class="text-center">Paid Amount</th> 
                                                 <th class="text-center">Due and Excess</th> 
+                                                <th class="text-center">Options</th> 
                                             </tr>   
                                         </tfoot>
                                     </table>  

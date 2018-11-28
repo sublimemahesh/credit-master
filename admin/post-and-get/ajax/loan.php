@@ -142,3 +142,18 @@ if ($_POST['action'] == 'ISSUE') {
     header('Content-type: application/json');
     exit();
 }
+if ($_POST['action'] == 'CHECKGUARANTER') {
+    $CHECKGUARANTER = new Loan(NULl);
+
+    $result = $CHECKGUARANTER->CheckGuarantor($_POST["guarantor_2"]);
+
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+ 

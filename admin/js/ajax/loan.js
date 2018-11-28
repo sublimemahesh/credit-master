@@ -10,6 +10,7 @@ $(document).ready(function () {
             $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
             $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
             $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+            $('#guarantor_3').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
 
         }
 
@@ -36,6 +37,7 @@ $(document).ready(function () {
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_3').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
 
                 } else if (jsonStr.type == 'center') {
                     var html = '<option value=""> -- Please Select a Center -- </option>';
@@ -51,6 +53,7 @@ $(document).ready(function () {
                     $('#customer').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                     $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
+                    $('#guarantor_3').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
                 }
             }
         });
@@ -82,6 +85,8 @@ $(document).ready(function () {
                 $('#guarantor_1').append(html);
                 $('#guarantor_2').empty();
                 $('#guarantor_2').append(html);
+                $('#guarantor_3').empty();
+                $('#guarantor_3').append(html);
                 $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
 
             }
@@ -123,7 +128,11 @@ $(document).ready(function () {
         var installment_price = installmentAmount / Month;
         var number_of_installments = installmentType * (period / 30);
 
+        if (number_of_installments == 13.333333333333334) {
+            alert(s);
+        }
         $('#number_of_installments').val(number_of_installments.toFixed(0))
+
         $('#installment_price').val(installment_price.toFixed(2));
     });
 

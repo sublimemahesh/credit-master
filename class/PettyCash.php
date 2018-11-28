@@ -102,10 +102,25 @@ class PettyCash {
     public function delete() {
 
         $query = 'DELETE FROM `petty_cash` WHERE id="' . $this->id . '"';
-       
+
         $db = new Database();
 
         return $db->readQuery($query);
+    }
+
+    public function getPettyCashAmountByDate($date) {
+
+
+        $query = "SELECT sum(`amount`)  FROM `petty_cash` WHERE `date` ='" . $date . "'";
+
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_row($result);
+         
+        return $row;
     }
 
 }

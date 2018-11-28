@@ -54,4 +54,8 @@ class DefaultData {
         return 100000;
     }
 
+    function get_first_letters($string) {
+        return preg_replace('/(\B.|\s+)/', '', $string );
+    }
+
 }

@@ -91,7 +91,7 @@ $EXPENSES = new Expenses($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="amount" class="hidden-lg hidden-md">Amount</label>
-                                            <input type="number" id="paid_date"  name="amount" placeholder="Enter Amount" class="form-control  " autocomplete="off" required="TRUE" min="0" value="<?php echo $EXPENSES->amount ?>">
+                                            <input type="number" id="paid_date"  name="amount" placeholder="Enter Amount" class="form-control  " autocomplete="off" required="TRUE" min="0" value="<?php echo $EXPENSES->amount ?>" step="0.001" >
                                         </div>
                                     </div>
                                 </div>

@@ -6,6 +6,8 @@ $id = '';
 $id = $_GET['id'];
 
 $CUSTOMER = new Customer($id);
+$ROUTE = Route::all();
+$CENTER = Center::all();
 ?>
 
 <!DOCTYPE html>
@@ -382,7 +384,7 @@ $CUSTOMER = new Customer($id);
                                                     <option value="center"  >Center</option>
                                                     <option value="1">Center Leader</option>
 
-                                                    <?php }
+                                                <?php }
                                                 ?>
 
                                             </select>
@@ -392,7 +394,6 @@ $CUSTOMER = new Customer($id);
                             </div>
 
                             <?php
-                            $ROUTE = Route::all();
                             if ($CUSTOMER->route != 0) {
                                 ?>
                                 <div class="row" id="route_row">
@@ -453,7 +454,6 @@ $CUSTOMER = new Customer($id);
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
                                                 <select class="form-control" autocomplete="off" id="center"  name="center">  
                                                     <?php
-                                                    $CENTER = Center::all();
                                                     foreach ($CENTER as $center) {
                                                         if ($center['id'] == $CUSTOMER->center) {
                                                             ?>
@@ -528,7 +528,7 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
-                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo $CUSTOMER->credit_limit ?>" class="form-control" max="" autocomplete="off" min="0">
+                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo number_format($CUSTOMER->credit_limit, 2) ?>" class="form-control" max="" autocomplete="off" min="0"  step="0.001">
                                         </div>
                                     </div>
                                 </div>

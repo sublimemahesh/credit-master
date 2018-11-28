@@ -367,7 +367,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
-                                            <input type="number" id="credit_limit" value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off" max="100000">
+                                            <input type="number" id="credit_limit" value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off" max="100000" step="0.001" >
                                         </div>
                                     </div>
                                 </div>

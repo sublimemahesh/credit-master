@@ -2,6 +2,9 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
+$INSTALLMENT = new Installment(NULL);
+$PRTTYCASH = new PettyCash(NULL);
+
 $today = date("Y-m-d");
 
 if (isset($_GET['date'])) {
@@ -84,34 +87,54 @@ $next = $ND->format('Y-m-d');
                                         <thead>
                                             <tr>
                                                 <th>Date</th> 
-                                                <th>Amount</th>                                                   
+                                                <th>Cash</th>                                                   
+                                                <th>Pay</th>                                                   
+                                                <th>Balance</th>                                                   
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $INSTALLMENT = new Installment(NULL);
-                                            foreach ($INSTALLMENT->getAllAmountByPaidDate($today) as $paid_amount) {
-                                                ?>
-                                                <tr>
-                                                    <td>
-                                                        <?php
-                                                        echo $paid_amount['paid_amount'];
-                                                        ?>
-                                                    </td>
+                                            $pattycash_amount = $PRTTYCASH->getPettyCashAmountByDate($today);
+                                            $paid_amount = $INSTALLMENT->getAllAmountByPaidDate($today);
+                                            $balance = $pattycash_amount[0] - $paid_amount[0];
+                                           
+                                            ?>
+                                            <tr>
+                                                <td>
+                                                    <?php  echo $today; ?>
+                                                </td>
+                                                <td>
+                                                    <?php echo '<b>  Rs: ' . number_format($pattycash_amount[0], 2) . '</b>' ?> 
+                                                </td>
+                                                <td>
+                                                    <?php echo '<b>  Rs: ' . number_format($paid_amount[0], 2) . '</b>' ?> 
 
-                                                    <td class="text-center"> 
-                                                        <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>">
-                                                            <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                        </a> 
-                                                    </td> 
-                                                </tr>
-                                            <?php } ?>
+                                                </td>
+                                                <td>
+                                                    <?php
+                                                     
+                                                    echo '<b>  Rs: ' . number_format($balance, 2) . '</b>'
+                                                    ?> 
+
+                                                </td>
+
+                                                <td class="text-center"> 
+                                                    <a href=" ">
+                                                        <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a> 
+                                                </td> 
+                                            </tr>
+
+
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Customer Details</th> 
-                                                <th>Loan Details</th>     
+                                                <th>Date</th> 
+                                                <th>Cash</th>  
+                                                <th>Pay</th> 
+                                                <th>Balance</th>                                                   
+                                                <th class="text-center">Options</th> 
                                             </tr>
                                         </tfoot>
                                     </table> 

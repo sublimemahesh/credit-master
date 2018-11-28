@@ -170,6 +170,22 @@ $DEFDATA = new DefaultData();
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="guarantor_3">Guarantor 03</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3" required="TRUE">
+                                                <option value=""> -- Please Select Registration Type First-- </option> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="installment_type">Installment Type</label>
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
@@ -206,7 +222,7 @@ $DEFDATA = new DefaultData();
                                                 $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
                                                     ?>
-                                                    <option  id="<?php echo 'period_'.$key ?>" value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
+                                                    <option  id="<?php echo 'period_' . $key ?>" value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -224,7 +240,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
-                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0">
+                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0" step="0.001">
                                         </div>
                                     </div>
                                 </div>
@@ -279,7 +295,8 @@ $DEFDATA = new DefaultData();
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="number_of_installments" class="hidden-lg hidden-md">Number of Installments</label>
+                                            <label for="number_of_installments" class="hidden-lg hidden-md">Nu. of Installments</label>
+
                                             <input type="text" class="form-control" name="number_of_installments" autocomplete="nope" id="number_of_installments"  placeholder="Number of Installments" required="TRUE"  readonly="readonly" >
                                         </div>
                                     </div>
@@ -322,9 +339,11 @@ $DEFDATA = new DefaultData();
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="plugins/jquery-ui/jquery-ui.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/ajax/loan.js" type="text/javascript"></script>
+        <script src="js/check-gareanter.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $(".datepicker").datepicker({
