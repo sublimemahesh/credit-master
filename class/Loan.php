@@ -12,6 +12,7 @@ class Loan {
     public $customer;
     public $guarantor_1;
     public $guarantor_2;
+    public $guarantor_3;
     public $loan_amount;
     public $interest_rate;
     public $loan_period;
@@ -39,6 +40,7 @@ class Loan {
             $this->customer = $result['customer'];
             $this->guarantor_1 = $result['guarantor_1'];
             $this->guarantor_2 = $result['guarantor_2'];
+            $this->guarantor_3 = $result['guarantor_3'];
             $this->loan_amount = $result['loan_amount'];
             $this->interest_rate = $result['interest_rate'];
             $this->loan_period = $result['loan_period'];
@@ -63,6 +65,7 @@ class Loan {
                 . "`customer`,"
                 . "`guarantor_1`,"
                 . "`guarantor_2`,"
+                . "`guarantor_3`,"
                 . "`loan_amount`,"
                 . "`issue_mode`,"
                 . "`loan_period`,"
@@ -77,6 +80,7 @@ class Loan {
                 . $this->customer . "', '"
                 . $this->guarantor_1 . "', '"
                 . $this->guarantor_2 . "', '"
+                . $this->guarantor_3 . "', '"
                 . $this->loan_amount . "', '"
                 . $this->issue_mode . "', '"
                 . $this->loan_period . "', '"
@@ -137,6 +141,7 @@ class Loan {
                 . "`customer` ='" . $this->customer . "', "
                 . "`guarantor_1` ='" . $this->guarantor_1 . "', "
                 . "`guarantor_2` ='" . $this->guarantor_2 . "', "
+                . "`guarantor_3` ='" . $this->guarantor_3 . "', "
                 . "`loan_amount` ='" . $this->loan_amount . "', "
                 . "`interest_rate` ='" . $this->interest_rate . "', "
                 . "`loan_period` ='" . $this->loan_period . "', "
@@ -168,6 +173,22 @@ class Loan {
         $db = new Database();
 
         return $db->readQuery($query);
+    }
+
+    public function CheckGuarantor($guarantor) {
+
+
+        $query = "SELECT count(`guarantor_2`)>=2 as count FROM `loan` WHERE `guarantor_2` = '" . $guarantor . "'";
+
+        $db = new Database();
+        $res = $db->readQuery($query);
+        $result = mysql_fetch_assoc($res);
+        
+        if ($result['count']== 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }

@@ -88,7 +88,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="amount" class="hidden-lg hidden-md">Amount</label>
-                                            <input type="number" id="paid_date"  name="amount" placeholder="Enter Amount" class="form-control  " autocomplete="off" required="TRUE" min="0" >
+                                            <input type="number" id="paid_date"  name="amount" placeholder="Enter Amount" class="form-control  " autocomplete="off" required="TRUE" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>

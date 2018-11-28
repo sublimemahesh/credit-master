@@ -69,10 +69,7 @@ $CUSTOMER = new Customer(NULL)
                                         </thead>
                                         <tbody>
                                             <?php
-
-                                            function get_first_letters($string) {
-                                                return preg_replace('/(\B.|\s+)/', '', $string);
-                                            }
+                                            $FIRST_NAME = new DefaultData(NULl);
 
                                             foreach ($CUSTOMER->activeCustomer() as $key => $customer) {
                                                 $key++;
@@ -83,9 +80,11 @@ $CUSTOMER = new Customer(NULL)
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 
                                                             <?php
-                                                            $first_name = ucwords(substr(get_first_letters($customer['surname'] . ' ' .ucwords($customer['first_name'])), 0, 2));
-                                                            echo $first_name.' '. $customer['last_name']
-                                                            ?> </b><br>
+                                                            $first_name = ucwords(substr($FIRST_NAME->get_first_letters($customer['surname'] . ' ' . ucwords($customer['first_name'])), 0, 2));
+                                                            echo $first_name . ' ' . $customer['last_name']
+                                                            ?> 
+                                                        </b>
+                                                        <br>
                                                         <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
                                                     </td>
 

@@ -147,7 +147,7 @@ $(document).ready(function () {
                         type: "info",
                         showCancelButton: false,
                         confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter again.!",
+                        confirmButtonText: "Enter Again.!",
                         closeOnConfirm: false
                     });
                 }
@@ -176,7 +176,7 @@ $(document).ready(function () {
                         type: "info",
                         showCancelButton: false,
                         confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter again.!",
+                        confirmButtonText: "Enter Again.!",
                         closeOnConfirm: false
                     });
                 }

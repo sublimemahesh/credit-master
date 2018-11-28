@@ -323,6 +323,7 @@ class Customer {
                 . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -377,6 +378,8 @@ class Customer {
             return FALSE;
         }
     }
+
+  
 
     public function updateCustomerCenter($center, $customer) {
         $query = "UPDATE `customer` SET `center` ='" . $center . "' WHERE `id` = '" . $customer . "'";

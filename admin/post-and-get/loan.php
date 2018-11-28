@@ -12,6 +12,7 @@ if (isset($_POST['create-new-loan'])) {
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
     $LOAN->guarantor_2 = $_POST['guarantor_2'];
+    $LOAN->guarantor_3 = $_POST['guarantor_3'];
     $LOAN->loan_amount = $_POST['loan_amount'];
     $LOAN->interest_rate = $_POST['interest_rate'];
     $LOAN->loan_period = $_POST['loan_period'];
@@ -69,6 +70,7 @@ if (isset($_POST['update'])) {
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
     $LOAN->guarantor_2 = $_POST['guarantor_2'];
+    $LOAN->guarantor_3 = $_POST['guarantor_3'];
     $LOAN->loan_amount = $_POST['loan_amount'];
     $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->loan_period = $_POST['loan_period'];

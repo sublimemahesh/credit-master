@@ -311,6 +311,20 @@ $CUSTOMER = new Customer($_GET['id']);
                                     </div>
                                 </div>
                             </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Registration Type</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <div class="form-control"><?php echo $CUSTOMER->registration_type; ?></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <?php
                             $ROUTE = new Route($CUSTOMER->route);
                             if ($ROUTE->id == $CUSTOMER->route) {

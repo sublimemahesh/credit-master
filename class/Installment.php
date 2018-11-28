@@ -159,14 +159,15 @@ class Installment {
     public function getAllAmountByPaidDate($date) {
 
 
-        $query = "SELECT SUM(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
-       
+        $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
+
+
         $db = new Database();
 
-        $result = $db->readQuery($query); 
+        $result = $db->readQuery($query);
 
-        $row = mysql_fetch_array($result);
-
+        $row =  mysql_fetch_row($result);
+        
         return $row;
     }
 

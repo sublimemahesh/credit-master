@@ -43,7 +43,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 
         <!-- Animation Css -->
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
-
+  <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
         <!-- Custom Css -->
         <link href="css/style.css" rel="stylesheet">
     </head> 
