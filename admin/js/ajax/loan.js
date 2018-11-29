@@ -419,7 +419,7 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#guarantor_2').change(function () {
         var guarantor_2 = $(this).val();
-        ;
+
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -449,9 +449,6 @@ $(document).ready(function () {
     });
 
 
-});
-
-$(document).ready(function () {
     $('#guarantor_3').change(function () {
         var guarantor_3 = $(this).val();
 
@@ -479,4 +476,37 @@ $(document).ready(function () {
         });
 
     });
+
+
+    //check loan processing free
+
+    $(`#issue_mode`).change(function () {
+
+        var issue_mode = $(this).val();
+        var loan_amount = $(`#loan_amount`).val();
+
+        if (issue_mode) {
+            $(`#loan_processing_pre`).show();
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
+
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#loan_processing_pre_amount').val(jsonStr.data);
+                }
+            });
+
+        } else {
+            $(`#loan_processing_pre`).hide()();
+        }
+    });
+
+
 });
