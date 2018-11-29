@@ -54,8 +54,35 @@ class DefaultData {
         return 100000;
     }
 
-    function get_first_letters($string) {
-        return preg_replace('/(\B.|\s+)/', '', $string );
+    public function getFirstLetterName($string) {
+        return preg_replace('/(\B.|\s+)/', '', $string);
+    }
+
+    public function loanProcessingPreCash($amount) {
+
+        $document_free = 50;
+        $total = ($amount * 0.1 / 100) + $document_free;
+        return $total;
+    }
+
+    public function loanProcessingPreBank($amount) {
+
+        $document_free = 50;
+        $count = $amount / 100000;
+        $full_document_charge = $count * $document_free;
+        $total = ($amount * 0.1 / 100) + $full_document_charge;
+
+        return $total;
+    }
+
+    public function loanProcessingPreCheque($amount) {
+        
+        $document_free = 50;
+        $cheque_free = 30;
+        $full_document_charge = $cheque_free + $document_free;
+        $total = ($amount * 0.1 / 100) + $full_document_charge;
+
+        return $total;
     }
 
 }

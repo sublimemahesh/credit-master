@@ -80,7 +80,7 @@ $CUSTOMER = new Customer(NULL)
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 
                                                             <?php
-                                                            $first_name = ucwords(substr($FIRST_NAME->get_first_letters($customer['surname'] . ' ' . ucwords($customer['first_name'])), 0, 2));
+                                                            $first_name = ucwords(substr($FIRST_NAME->getFirstLetterName($customer['surname'] . ' ' . ucwords($customer['first_name'])), 0, 2));
                                                             echo $first_name . ' ' . $customer['last_name']
                                                             ?> 
                                                         </b>

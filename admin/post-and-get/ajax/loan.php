@@ -144,8 +144,8 @@ if ($_POST['action'] == 'ISSUE') {
 }
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $CHECKGUARANTER = new Loan(NULl);
-    
-    
+
+
     $result = $CHECKGUARANTER->CheckGuarantor_2($_POST["guarantor_2"]);
 
 
@@ -169,6 +169,36 @@ if ($_POST['action'] == 'CHECKGUARANTER_3') {
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+if ($_POST['action'] == 'lOANPROCESSINGPRE') {
+    $amount = $_POST['loan_amount'];
+
+    if ($_POST['issue_mode'] == 'cash') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $result = $DEFULTDATA->loanProcessingPreCash($amount);
+
+        echo json_encode(['data' => $result]);
+        header('Content-type: application/json');
+        exit();
+    } else if ($_POST['issue_mode'] == 'bank') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $result = $DEFULTDATA->loanProcessingPreBank($amount);
+
+        echo json_encode(['data' => $result]);
+        header('Content-type: application/json');
+        exit();
+    } else if ($_POST['issue_mode'] == 'cheque') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $result = $DEFULTDATA->loanProcessingPreCheque($amount);
+
+        echo json_encode(['data' => $result]);
         header('Content-type: application/json');
         exit();
     }

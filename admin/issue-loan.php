@@ -88,11 +88,12 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Loan Amount</label>
-                                                <div class="form-control">
+                                                <div class="form-control"  >
                                                     <?php
                                                     echo number_format($LOAN->loan_amount, 2);
                                                     ?>
                                                 </div>
+                                                <input type="hidden" value="<?php echo  $LOAN->loan_amount?>" id="loan_amount">
                                             </div>
                                         </div>
                                     </div>
@@ -234,6 +235,8 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                 </div>
 
+
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issue_mode">Issue Mode</label>
@@ -253,6 +256,20 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     }
                                                     ?>
                                                 </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" style="display: none" id="loan_processing_pre">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="loan_processing_pre">loan Processing Pre</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="issued_date" class="hidden-lg hidden-md">loan Processing Pre</label>
+                                                <input type="text" id="loan_processing_pre_amount"  name="loan_processing_pre"  placeholder="loan Processing Pre" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
