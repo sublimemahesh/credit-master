@@ -16,6 +16,7 @@ class Loan {
     public $loan_amount;
     public $interest_rate;
     public $loan_period;
+    public $loan_processing_pre;
     public $installment_type;
     public $installment_amount;
     public $number_of_installments;
@@ -42,6 +43,7 @@ class Loan {
             $this->guarantor_2 = $result['guarantor_2'];
             $this->guarantor_3 = $result['guarantor_3'];
             $this->loan_amount = $result['loan_amount'];
+            $this->loan_processing_pre = $result['loan_processing_pre'];
             $this->interest_rate = $result['interest_rate'];
             $this->loan_period = $result['loan_period'];
             $this->installment_type = $result['installment_type'];
@@ -145,6 +147,7 @@ class Loan {
                 . "`loan_amount` ='" . $this->loan_amount . "', "
                 . "`interest_rate` ='" . $this->interest_rate . "', "
                 . "`loan_period` ='" . $this->loan_period . "', "
+                . "`loan_processing_pre` ='" . $this->loan_processing_pre . "', "
                 . "`installment_type` ='" . $this->installment_type . "', "
                 . "`installment_amount` ='" . $this->installment_amount . "', "
                 . "`number_of_installments` ='" . $this->number_of_installments . "', "
@@ -166,6 +169,8 @@ class Loan {
         }
     }
 
+   
+
     public function delete() {
 
         $query = 'DELETE FROM `loan` WHERE id="' . $this->id . '"';
@@ -179,7 +184,7 @@ class Loan {
 
 
         $query = "SELECT count(`guarantor_2`)>=2 as count FROM `loan` WHERE `guarantor_2` = '" . $guarantor_2 . "'";
-       
+
         $db = new Database();
         $res = $db->readQuery($query);
         $result = mysql_fetch_assoc($res);
