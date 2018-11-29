@@ -59,8 +59,6 @@ if (isset($_POST['create-new-loan'])) {
     }
 }
 
-
-
 if (isset($_POST['update'])) {
 
 
@@ -110,4 +108,6 @@ if (isset($_POST['update'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
+
+ 
 
