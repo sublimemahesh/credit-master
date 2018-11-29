@@ -329,6 +329,7 @@ $(document).ready(function () {
 
         var result = validateForIssue(effective_date, issued_date, issue_mode);
 
+
         if (result) {
             swal({
                 title: "Issue!",
