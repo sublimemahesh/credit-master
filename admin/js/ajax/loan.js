@@ -412,3 +412,71 @@ $(document).ready(function () {
     }
 
 });
+
+
+// Check guarantor
+
+$(document).ready(function () {
+    $('#guarantor_2').change(function () {
+        var guarantor_2 = $(this).val();
+        ;
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                guarantor_2: guarantor_2,
+                action: 'CHECKGUARANTER_2'
+            },
+
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "You can not enter this Guarantor .!",
+                        text: "You entered this Guarantor in two loans..",
+                        type: "info",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter Again.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+
+        });
+
+
+    });
+
+
+});
+
+$(document).ready(function () {
+    $('#guarantor_3').change(function () {
+        var guarantor_3 = $(this).val();
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                guarantor_3: guarantor_3,
+                action: 'CHECKGUARANTER_3'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "You can not enter this Guarantor .!",
+                        text: "You entered this Guarantor in two loans..",
+                        type: "info",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter Again.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+        });
+
+    });
+});

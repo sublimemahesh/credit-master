@@ -343,7 +343,7 @@ $DEFDATA = new DefaultData();
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/ajax/loan.js" type="text/javascript"></script>
-        <script src="js/check-gareanter.js" type="text/javascript"></script>
+
         <script>
             $(function () {
                 $(".datepicker").datepicker({

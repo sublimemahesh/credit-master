@@ -175,16 +175,32 @@ class Loan {
         return $db->readQuery($query);
     }
 
-    public function CheckGuarantor($guarantor) {
+    public function CheckGuarantor_2($guarantor_2) {
 
 
-        $query = "SELECT count(`guarantor_2`)>=2 as count FROM `loan` WHERE `guarantor_2` = '" . $guarantor . "'";
+        $query = "SELECT count(`guarantor_2`)>=2 as count FROM `loan` WHERE `guarantor_2` = '" . $guarantor_2 . "'";
+       
+        $db = new Database();
+        $res = $db->readQuery($query);
+        $result = mysql_fetch_assoc($res);
+
+        if ($result['count'] == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckGuarantor_3($guarantor_3) {
+
+
+        $query = "SELECT count(`guarantor_3`)>=2 as count FROM `loan` WHERE `guarantor_3` = '" . $guarantor_3 . "'";
 
         $db = new Database();
         $res = $db->readQuery($query);
         $result = mysql_fetch_assoc($res);
-        
-        if ($result['count']== 1) {
+
+        if ($result['count'] == 1) {
             return TRUE;
         } else {
             return FALSE;
