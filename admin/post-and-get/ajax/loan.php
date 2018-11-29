@@ -115,13 +115,16 @@ if ($_POST['action'] == 'PENDING') {
 }
 
 if ($_POST['action'] == 'ISSUE') {
-
+   
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->issued_date = $_POST['issued_date'];
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->issue_note = $_POST['issue_note'];
+    $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
     $LOAN->status = 'issued';
+
+
     $result = $LOAN->update();
 
     $EffectiveDate = New EffectiveDate(NULL);

@@ -325,8 +325,10 @@ $(document).ready(function () {
         var issue_mode = $('#issue_mode').val();
         var issue_note = $('#issue_note').val();
         var effective_date = $('#effective_date').val();
+        var loan_processing_pre_amount = $('#loan_processing_pre_amount').val();
 
         var result = validateForIssue(effective_date, issued_date, issue_mode);
+
 
         if (result) {
             swal({
@@ -347,6 +349,7 @@ $(document).ready(function () {
                         issued_date: issued_date,
                         issue_mode: issue_mode,
                         issue_note: issue_note,
+                        loan_processing_pre_amount: loan_processing_pre_amount,
                         effective_date: effective_date,
                         action: 'ISSUE'
                     },
