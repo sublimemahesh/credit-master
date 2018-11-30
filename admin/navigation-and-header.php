@@ -36,7 +36,8 @@ include_once(dirname(__FILE__) . './auth.php');
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
-                            <a href="profile.php?id=<?php echo $_SESSION['id']; ?>">
+                            
+                            <a href="profile.php?id=<?php   echo $_SESSION['id']; ?>">
                                 <i class="material-icons">person</i>Profile</a>
                         </li>
                         <li role="seperator" class="divider"></li>

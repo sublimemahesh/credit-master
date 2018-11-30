@@ -3,8 +3,12 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
 $id = '';
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
+
+    dd($id);
+    exit();
 }
 $USER = new User($id);
 ?> 
@@ -106,7 +110,7 @@ $USER = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="picture" class="hidden-lg hidden-md">Picture</label>
-                                                    
+
                                                     <input type="file" id="picture" class="form-control" name="picture">
                                                 </div>
                                             </div>

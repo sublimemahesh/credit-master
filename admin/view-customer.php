@@ -487,7 +487,10 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="bank" class="hidden-lg hidden-md">Bank</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->bank; ?></div>
+                                            <div class="form-control"><?php
+                                                $BANK = new Bank($CUSTOMER->bank);
+                                                echo $BANK->name;
+                                                ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -501,7 +504,9 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="branch" class="hidden-lg hidden-md">Branch</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->branch; ?></div>
+                                            <div class="form-control"><?php
+                                            $BRANCH = new Branch($CUSTOMER->branch);
+                                            echo $BRANCH->name; ?></div>
                                         </div>
                                     </div>
                                 </div>
