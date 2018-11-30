@@ -127,12 +127,12 @@ $CUSTOMER = new Customer($_GET['id']);
 
                                 </div>
                                 <div class="col-lg-4 col-md-4 hidden-sm hidden-xs  ">
-                                    <label for="nic_photo_front">NIC Photo</label>
+                                    <label for="nic_photo_front">Profile Picture</label>
                                 </div>
 
                                 <div class="p-bottom">
                                     <div class="form-group">                                         
-                                        <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
+                                        <label for="nic_photo_back" class="hidden-lg hidden-md">Profile Picture</label>
                                         <div   class="list-unstyled row clearfix aniimated-thumbnials ">
                                             <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
                                                 <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
@@ -178,7 +178,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
                                                 <div class="col-md-4">
-                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month" disabled="">
+                                                    <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month" disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
                                                             if ($CUSTOMER->dob_month == 1) {
                                                                 echo 'Jan';
@@ -221,13 +221,13 @@ $CUSTOMER = new Customer($_GET['id']);
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <select id="day"  name="day" class="form-control " disabled="">
+                                                    <select id="day"  name="day" class="form-control form-line" disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
 
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4">
-                                                    <select name="year" onchange="call()" class="form-control " disabled="">
+                                                    <select name="year" onchange="call()" class="form-control form-line" disabled="">
                                                         <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
                                                     </select>
                                                 </div>
@@ -466,14 +466,21 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
-                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
-                                                <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
+
+                                        <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                            <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
+                                            <?php if (empty($CUSTOMER->br_picture)) {
+                                                ?>
+                                                <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+
+                                            <?php } else { ?>
+
                                                 <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
                                                     <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
                                                 </a>
-
-                                            </div>
+                                                <?php
+                                            }
+                                            ?>
                                         </div>
                                     </div>
                                 </div>
@@ -505,8 +512,9 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <div class="form-line">
                                             <label for="branch" class="hidden-lg hidden-md">Branch</label>
                                             <div class="form-control"><?php
-                                            $BRANCH = new Branch($CUSTOMER->branch);
-                                            echo $BRANCH->name; ?></div>
+                                                $BRANCH = new Branch($CUSTOMER->branch);
+                                                echo $BRANCH->name;
+                                                ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -560,7 +568,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line clearfix aniimated-thumbnials">
+                                        <div class=" clearfix aniimated-thumbnials">
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                             <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
                                                 <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
