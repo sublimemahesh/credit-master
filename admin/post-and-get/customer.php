@@ -423,7 +423,7 @@ if (isset($_POST['update'])) {
     $handle = new Upload($_FILES['profile_picture']);
 
     $imgName = null;
-
+    
 
     if ($handle->uploaded) {
         $handle->image_resize = true;

@@ -126,7 +126,7 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                       
                                             <label for="profile_picture" class="hidden-lg hidden-md">Profile Picture</label>
                                             <input type="file" id="profile_picture"  name="profile_picture"  value="<?php echo $CUSTOMER->profile_picture ?>" class="form-control" autocomplete="off">
                                             <?php
@@ -136,7 +136,7 @@ $CENTER = Center::all();
                                                 <?php
                                             }
                                             ?> 
-                                        </div>
+                                       
                                     </div>
                                 </div>
                             </div>
@@ -161,35 +161,33 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        
                                             <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
                                             <input type="file" id="nic_photo_front"  name="nic_photo_front"  class="form-control" autocomplete="off">
 
                                             <?php
                                             if ($CUSTOMER->nic_photo_front) {
                                                 ?>
-                                                <img src="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_front" alt="old image">
+                                                <img src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_front" alt="old image">
                                                 <?php
                                             }
                                             ?> 
-
-
-                                        </div>
+ 
                                     </div>
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                         
                                             <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                             <input type="file" id="nic_photo_back"  name="nic_photo_back"  class="form-control" autocomplete="off">
                                             <?php
                                             if ($CUSTOMER->nic_photo_back) {
                                                 ?>
-                                                <img src="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_back" alt="old image">
+                                                <img src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="nic_photo_back" alt="old image">
                                                 <?php
                                             }
                                             ?> 
-                                        </div>
+                                         
                                     </div>
                                 </div>
                             </div>
@@ -198,70 +196,70 @@ $CENTER = Center::all();
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="dob">Date of Birthday</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                
                                     <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                            <div class="register-form-row-col">
-                                                <div class="col-md-3">
-                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month">
-                                                        <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
-                                                            if ($CUSTOMER->dob_month == 1) {
-                                                                echo 'Jan';
-                                                            } elseif ($CUSTOMER->dob_month == 2) {
-                                                                echo 'Feb';
-                                                            } elseif ($CUSTOMER->dob_month == 3) {
-                                                                echo 'Mar';
-                                                            } elseif ($CUSTOMER->dob_month == 4) {
-                                                                echo 'Apr';
-                                                            } elseif ($CUSTOMER->dob_month == 5) {
-                                                                echo 'May';
-                                                            } elseif ($CUSTOMER->dob_month == 6) {
-                                                                echo 'Jun';
-                                                            } elseif ($CUSTOMER->dob_month == 7) {
-                                                                echo 'Jul';
-                                                            } elseif ($CUSTOMER->dob_month == 8) {
-                                                                echo 'Aug';
-                                                            } elseif ($CUSTOMER->dob_month == 9) {
-                                                                echo 'Sep';
-                                                            } elseif ($CUSTOMER->dob_month == 10) {
-                                                                echo 'Oct';
-                                                            } elseif ($CUSTOMER->dob_month == 11) {
-                                                                echo 'Nov';
-                                                            } else {
-                                                                echo 'Dec';
-                                                            }
-                                                            ?></option>
-                                                        <option value="1">Jan</option>
-                                                        <option value="2">Feb</option>
-                                                        <option value="3">Mar</option>
-                                                        <option value="4">Apr</option>
-                                                        <option value="5">May</option>
-                                                        <option value="6">Jun</option>
-                                                        <option value="7">Jul</option>
-                                                        <option value="8">Aug</option>
-                                                        <option value="9">Sep</option>
-                                                        <option value="10">Oct</option>
-                                                        <option value="11">Nov</option>
-                                                        <option value="12">Dec</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <select id="day"  name="day" class="form-control ">
-                                                        <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
 
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3">
-                                                    <select name="year" onchange="call()" class="form-control ">
-                                                        <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
-                                                    </select>
-                                                </div>
+                                        <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
+                                        <div class="register-form-row-col">
+                                            <div class="col-md-3">
+                                                <select name="month" onchange="call()" class="form-control form-line " id="month"  name="month">
+                                                    <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
+                                                        if ($CUSTOMER->dob_month == 1) {
+                                                            echo 'Jan';
+                                                        } elseif ($CUSTOMER->dob_month == 2) {
+                                                            echo 'Feb';
+                                                        } elseif ($CUSTOMER->dob_month == 3) {
+                                                            echo 'Mar';
+                                                        } elseif ($CUSTOMER->dob_month == 4) {
+                                                            echo 'Apr';
+                                                        } elseif ($CUSTOMER->dob_month == 5) {
+                                                            echo 'May';
+                                                        } elseif ($CUSTOMER->dob_month == 6) {
+                                                            echo 'Jun';
+                                                        } elseif ($CUSTOMER->dob_month == 7) {
+                                                            echo 'Jul';
+                                                        } elseif ($CUSTOMER->dob_month == 8) {
+                                                            echo 'Aug';
+                                                        } elseif ($CUSTOMER->dob_month == 9) {
+                                                            echo 'Sep';
+                                                        } elseif ($CUSTOMER->dob_month == 10) {
+                                                            echo 'Oct';
+                                                        } elseif ($CUSTOMER->dob_month == 11) {
+                                                            echo 'Nov';
+                                                        } else {
+                                                            echo 'Dec';
+                                                        }
+                                                        ?></option>
+                                                    <option value="1">Jan</option>
+                                                    <option value="2">Feb</option>
+                                                    <option value="3">Mar</option>
+                                                    <option value="4">Apr</option>
+                                                    <option value="5">May</option>
+                                                    <option value="6">Jun</option>
+                                                    <option value="7">Jul</option>
+                                                    <option value="8">Aug</option>
+                                                    <option value="9">Sep</option>
+                                                    <option value="10">Oct</option>
+                                                    <option value="11">Nov</option>
+                                                    <option value="12">Dec</option>
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select id="day"  name="day" class="form-control form-line">
+                                                    <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
+
+                                                </select>
+                                            </div>
+                                            <div class="col-md-3">
+                                                <select name="year" onchange="call()" class="form-control form-line">
+                                                    <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
+                                                </select>
                                             </div>
                                         </div>
+
                                     </div>
                                 </div>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -289,7 +287,7 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        
                                             <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                             <input type="file" id="billing_proof_image"  name="billing_proof_image"  class="form-control" autocomplete="off">
                                             <?php
@@ -299,8 +297,7 @@ $CENTER = Center::all();
                                                 <?php
                                             }
                                             ?> 
-
-                                        </div>
+ 
                                     </div>
                                 </div>
                             </div>
@@ -540,7 +537,7 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                         
                                             <label for="signature_image" class="hidden-lg hidden-md">Signature Image</label>
                                             <input type="file" id="bank_book_picture"  name="signature_image"  class="form-control" autocomplete="off">
                                             <?php
@@ -550,8 +547,7 @@ $CENTER = Center::all();
                                                 <?php
                                             }
                                             ?> 
-
-                                        </div>
+ 
                                     </div>
                                 </div>
                             </div>
@@ -602,7 +598,7 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                        
                                             <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                             <input type="file" id="bank_book_picture"  name="br_picture"  class="form-control" autocomplete="off">
                                             <?php
@@ -612,8 +608,7 @@ $CENTER = Center::all();
                                                 <?php
                                             }
                                             ?> 
-
-                                        </div>
+ 
                                     </div>
                                 </div>
                             </div>
@@ -729,18 +724,17 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
+                                         
                                             <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                             <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
                                             <?php
                                             if ($CUSTOMER->bank_book_picture) {
                                                 ?>
-                                                <img src="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="bank_book_picture" alt="old image">
+                                            <img src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="bank_book_picture" alt="old image">
                                                 <?php
                                             }
                                             ?> 
-
-                                        </div>
+                                        
                                     </div>
                                 </div>
                             </div>
