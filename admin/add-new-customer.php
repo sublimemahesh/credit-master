@@ -168,14 +168,14 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="dob">Date of Birthday</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="p-bottom">
                                     <div class="form-group">
                                         <div >
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
 
                                             <div class="register-form-row-col">
-                                                <div class="col-md-3">
-                                                    <select name="month" onchange="call()" class="form-control " id="month"  name="month"  required="TRUE">
+                                                <div class="col-md-3 ">
+                                                    <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month"  required="TRUE">
                                                         <option value=""> - Select Month - </option>
                                                         <option value="1">Jan</option>
                                                         <option value="2">Feb</option>
@@ -192,13 +192,13 @@ include_once(dirname(__FILE__) . './auth.php');
                                                     </select>
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <select id="day"  name="day" class="form-control "  required="TRUE" >
+                                                    <select id="day"  name="day" class="form-control form-line"  required="TRUE" >
                                                         <option value=""> - Select Day - </option>
 
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
-                                                    <select name="year" onchange="call()" class="form-control " required="TRUE" >
+                                                <div class="col-md-4">
+                                                    <select name="year" onchange="call()" class="form-control form-line" required="TRUE" >
                                                         <option value=""> - Select  Year - </option>
                                                     </select>
                                                 </div>
