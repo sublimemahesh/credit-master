@@ -174,7 +174,7 @@ include_once(dirname(__FILE__) . './auth.php');
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
 
                                             <div class="register-form-row-col">
-                                                <div class="col-md-3 ">
+                                                <div class="col-md-3 mar-gin">
                                                     <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month"  required="TRUE">
                                                         <option value=""> - Select Month - </option>
                                                         <option value="1">Jan</option>
@@ -191,13 +191,13 @@ include_once(dirname(__FILE__) . './auth.php');
                                                         <option value="12">Dec</option>
                                                     </select>
                                                 </div>
-                                                <div class="col-md-3">
+                                                <div class="col-md-3 mar-gin">
                                                     <select id="day"  name="day" class="form-control form-line"  required="TRUE" >
                                                         <option value=""> - Select Day - </option>
 
                                                     </select>
                                                 </div>
-                                                <div class="col-md-4">
+                                                <div class="col-md-4 mar-gin">
                                                     <select name="year" onchange="call()" class="form-control form-line" required="TRUE" >
                                                         <option value=""> - Select  Year - </option>
                                                     </select>
@@ -385,15 +385,9 @@ include_once(dirname(__FILE__) . './auth.php');
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
-
-
+                            </div> 
                         </div>
                     </div>
-
-
 
                     <div class="card">
                         <div class="header">
@@ -592,19 +586,15 @@ include_once(dirname(__FILE__) . './auth.php');
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
 
                                 </div>  
-                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer " type="submit" name="add-customer">Save Details</button>
-
                                     <input type="hidden" name="add-customer" value="add-customer"/>
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
                             </div>
                         </div>
                     </div>
-
-                </form> 
-
+                </form>
             </div>
         </section>
 

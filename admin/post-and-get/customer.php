@@ -121,50 +121,50 @@ if (isset($_POST['add-customer'])) {
     $dir_dest_nfp = '../../upload/customer/nfp/';
     $dir_dest_nfp_thumb = '../../upload/customer/nfp/thumb/';
 
-    $handle = new Upload($_FILES['nic_photo_front']);
+    $handle_nfp = new Upload($_FILES['nic_photo_front']);
 
     $img_name_nfp = null;
     $img = Helper::randamId();
 
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
+    if ($handle_nfp->uploaded) {
+        $handle_nfp->image_resize = true;
+        $handle_nfp->file_new_name_body = TRUE;
+        $handle_nfp->file_overwrite = TRUE;
+        $handle_nfp->file_new_name_ext = 'jpg';
+        $handle_nfp->image_ratio_crop = 'C';
+        $handle_nfp->file_new_name_body = $img;
+        $image_dst_x = $handle_nfp->image_dst_x;
+        $image_dst_y = $handle_nfp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
+        $handle_nfp->image_x = $image_x;
+        $handle_nfp->image_y = $image_y;
 
-        $handle->Process($dir_dest_nfp);
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $img_name_nfp = $handle->file_dst_name;
+        $handle_nfp->Process($dir_dest_nfp);
+        if ($handle_nfp->processed) {
+            $info = getimagesize($handle_nfp->file_dst_pathname);
+            $img_name_nfp = $handle_nfp->file_dst_name;
         }
 
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+        $handle_nfp->image_resize = true;
+        $handle_nfp->file_new_name_body = TRUE;
+        $handle_nfp->file_overwrite = TRUE;
+        $handle_nfp->file_new_name_ext = 'jpg';
+        $handle_nfp->image_ratio_crop = 'C';
+        $handle_nfp->file_new_name_body = $img;
+        $handle_nfp->image_x = 250;
+        $handle_nfp->image_y = 250;
 
-        $handle->Process($dir_dest_nfp_thumb);
+        $handle_nfp->Process($dir_dest_nfp_thumb);
 
-        if ($handle->processed) {
+        if ($handle_nfp->processed) {
 
-            $info = getimagesize($handle->file_dst_pathname);
+            $info = getimagesize($handle_nfp->file_dst_pathname);
 
-            $img_name_nfp = $handle->file_dst_name;
+            $img_name_nfp = $handle_nfp->file_dst_name;
         }
     }
 
@@ -173,51 +173,52 @@ if (isset($_POST['add-customer'])) {
 
 
 //////////////////////////////////////////////////////////////////////
+   
     $dir_dest_nbp = '../../upload/customer/nbp/';
     $dir_dest_nbp_thumb = '../../upload/customer/nbp/thumb/';
     $handle_nbp = new Upload($_FILES['nic_photo_back']);
     $img_name_nbp = null;
     $img = Helper::randamId();
 
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
+    if ($handle_nbp->uploaded) {
+        $handle_nbp->image_resize = true;
+        $handle_nbp->file_new_name_body = TRUE;
+        $handle_nbp->file_overwrite = TRUE;
+        $handle_nbp->file_new_name_ext = 'jpg';
+        $handle_nbp->image_ratio_crop = 'C';
+        $handle_nbp->file_new_name_body = $img;
+        $image_dst_x = $handle_nbp->image_dst_x;
+        $image_dst_y = $handle_nbp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
+        $handle_nbp->image_x = $image_x;
+        $handle_nbp->image_y = $image_y;
 
-        $handle->Process($dir_dest_nbp);
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $img_name_nbp = $handle->file_dst_name;
+        $handle_nbp->Process($dir_dest_nbp);
+        if ($handle_nbp->processed) {
+            $info = getimagesize($handle_nbp->file_dst_pathname);
+            $img_name_nbp = $handle_nbp->file_dst_name;
         }
 
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+        $handle_nbp->image_resize = true;
+        $handle_nbp->file_new_name_body = TRUE;
+        $handle_nbp->file_overwrite = TRUE;
+        $handle_nbp->file_new_name_ext = 'jpg';
+        $handle_nbp->image_ratio_crop = 'C';
+        $handle_nbp->file_new_name_body = $img;
+        $handle_nbp->image_x = 250;
+        $handle_nbp->image_y = 250;
 
-        $handle->Process($dir_dest_nbp_thumb);
+        $handle_nbp->Process($dir_dest_nbp_thumb);
 
-        if ($handle->processed) {
+        if ($handle_nbp->processed) {
 
-            $info = getimagesize($handle->file_dst_pathname);
+            $info = getimagesize($handle_nbp->file_dst_pathname);
 
-            $img_name_nbp = $handle->file_dst_name;
+            $img_name_nbp = $handle_nbp->file_dst_name;
         }
     }
 
@@ -695,7 +696,7 @@ if (isset($_POST['update_input'])) {
             $imgName = $handle_sp->file_dst_name;
         }
     }
-    /////////////////////////////
+    
     /////////////////////////////////////////////////
 
     $dir_dest_bi = '../../upload/customer/billing-proof/';
@@ -749,6 +750,8 @@ if (isset($_POST['update_input'])) {
  
     $CUSTOMER = new Customer($_POST['id']);
 
+    
+   
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
