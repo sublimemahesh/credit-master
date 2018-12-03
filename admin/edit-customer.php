@@ -420,6 +420,7 @@ $CENTER = Center::all();
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row" style="display: none" id="center_row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="center">Center</label>
@@ -436,9 +437,8 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
 
-
                                 <?php
-                            } else {
+                            } elseif ($CUSTOMER->center) {
                                 ?>
 
                                 <div class="row" id="center_row">
@@ -484,10 +484,8 @@ $CENTER = Center::all();
                                         </div>
                                     </div>
                                 </div>
-                            <?php } ?> 
 
-
-
+                            <?php } ?>  
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -525,7 +523,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
-                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo number_format($CUSTOMER->credit_limit, 2) ?>" class="form-control" max="" autocomplete="off" min="0"  step="0.001">
+                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo $CUSTOMER->credit_limit ?>" class="form-control" max="" autocomplete="off" min="0"   >
                                         </div>
                                     </div>
                                 </div>

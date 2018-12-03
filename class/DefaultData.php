@@ -51,11 +51,17 @@ class DefaultData {
 
     public function getCreditLimit() {
 
-        return 100000;
+        return 40000;
     }
 
     public function getFirstLetterName($string) {
-        return preg_replace('/(\B.|\s+)/', '', $string);
+        $words = explode(" ", $string);
+        $result = '';
+        foreach ($words as $word) {
+            $result .= $word[0].'. ';
+        }
+
+        return $result;
     }
 
     public function loanProcessingPreCash($amount) {
@@ -70,13 +76,14 @@ class DefaultData {
         $document_free = 50;
         $count = $amount / 100000;
         $full_document_charge = $count * $document_free;
-        $total = ($amount * 0.1 / 100) + $full_document_charge;
+
+        $total = ($amount * 0.1 / 100) + $document_free;
 
         return $total;
     }
 
     public function loanProcessingPreCheque($amount) {
-        
+
         $document_free = 50;
         $cheque_free = 30;
         $full_document_charge = $cheque_free + $document_free;
