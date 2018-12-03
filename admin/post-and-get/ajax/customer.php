@@ -23,9 +23,9 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
 if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
 
-    $CUSTOMER_NIC = new Customer(NULL);
+    $CUSTOMER = new Customer(NULL);
 
-    $result = $CUSTOMER_NIC->CheckNicNumberInCustomer($_POST["NicNumber"]);
+    $result = $CUSTOMER->CheckNicNumberInCustomer($_POST["NicNumber"]);
 
     if ($result == TRUE) {
         $data = array("status" => TRUE);
@@ -33,6 +33,45 @@ if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
         echo json_encode($data);
     } else {
         header('Content-type: application/json');
+        exit();
+    }
+}
+
+if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
+
+    $CUSTOMER = new Customer(NULL);
+
+    $result = $CUSTOMER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+
+if ($_POST['action'] == 'CHECKNIC&MOBILEEXISTCUSTOMER') {
+
+    $CUSTOMER = new Customer(NULL);
+
+    $result1 = $CUSTOMER->CheckNicNumberInCustomerExist($_POST["nicNumber"], $_POST["id"]);
+    $result2 = $CUSTOMER->CheckMobileNumberInCustomerExist($_POST["mobileNumber"], $_POST["id"]);
+
+    if ($result1 == TRUE) {
+        $data = array("status" => 'nicIsExist');
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else if ($result2 == TRUE) {
+        $data = array("status" => 'mobileIsExist');
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        $data = array("status" => 'fales');
+        header('Content-type: application/json');
+        echo json_encode($data);
         exit();
     }
 }
@@ -41,9 +80,9 @@ if ($_POST['action'] == 'GETBANKNAME') {
     $BANK_NAME = new Branch(NULL);
 
     $result = $BANK_NAME->getBrachByBank($_POST["bank_id"]);
-   
+
     if ($result == TRUE) {
-        $data = array("status" => TRUE);       
+        $data = array("status" => TRUE);
         echo json_encode(['type' => 'name', 'data' => $result]);
         header('Content-type: application/json');
     } else {
@@ -51,19 +90,6 @@ if ($_POST['action'] == 'GETBANKNAME') {
         exit();
     }
 }
-if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
 
-    $CUSTOMER_MOBILE_NUMBER = new Customer(NULL);
-
-    $result = $CUSTOMER_MOBILE_NUMBER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
-    if ($result == TRUE) {
-        $data = array("status" => TRUE);
-        header('Content-type: application/json');
-        echo json_encode($data);
-    } else {
-        header('Content-type: application/json');
-        exit();
-    }
-}
 
 

@@ -415,7 +415,7 @@ if (isset($_POST['add-customer'])) {
 }
 
 
-if (isset($_POST['update'])) {
+if (isset($_POST['update_input'])) {
 /////////////////////////////////////
 
     $dir_dest_p = '../../upload/customer/profile';

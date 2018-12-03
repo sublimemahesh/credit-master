@@ -3,7 +3,6 @@ $(document).ready(function () {
     $('#registration_type').change(function () {
 
         var type = $(this).val();
-
         if (!type) {
             $('#route_row').hide();
             $('#center_row').hide();
@@ -29,7 +28,6 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
-
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
@@ -46,14 +44,9 @@ $(document).ready(function () {
             }
         });
     });
-
-
-
-
     $('#edit_registration_type').change(function () {
 
         var type = $(this).val();
-
         if (!type) {
             $('#route_row').hide();
             $('#center_row').hide();
@@ -79,7 +72,6 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
-
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
@@ -96,13 +88,10 @@ $(document).ready(function () {
             }
         });
     });
-
-
 
     $('#bank_id').change(function () {
 
         var bank_id = $(this).val();
-
         $.ajax({
 
             url: "post-and-get/ajax/customer.php",
@@ -124,13 +113,11 @@ $(document).ready(function () {
                 $('#branch_row').show();
             }
         });
-
     });
 
     $('.check-customer').click(function () {
 
         var nicNumber = $('#customer-nic').val();
-
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",
@@ -152,14 +139,13 @@ $(document).ready(function () {
                     });
                 }
             }
+
         });
     });
-
 
     $('.check-customer').click(function () {
 
         var mobileNumber = $('#moblie_number').val();
-
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",
@@ -183,7 +169,76 @@ $(document).ready(function () {
             }
         });
     });
+
+    $("#form").submit(function (e) {
+        var errors = $('#errors').val();
+        if (errors == 1) {
+            e.preventDefault();
+            $('#errors').val(0);
+        }
+
+        var id = $('#id').val();
+        var nicNumber = $('#customer_nic_number').val();
+        var mobileNumber = $('#customer_moblie_number').val();
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                id: id,
+                nicNumber: nicNumber,
+                mobileNumber: mobileNumber,
+                action: 'CHECKNIC&MOBILEEXISTCUSTOMER'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+
+                if (jsonStr.status == 'nicIsExist') {
+                    $('#errors').val(1);
+                    swal({
+                        title: "Duplicate NIC Number.!",
+                        text: "You entered the duplicate NIC number..",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter Again.!",
+                        closeOnConfirm: false
+                    }, function () {
+                        swal.close();
+                        $('html, body').animate({
+                            scrollTop: $("#surname").offset().top
+                        }, 1000);
+                        $('#customer_nic_number').focus();
+                    });
+
+                } else if (jsonStr.status == 'mobileIsExist') {
+                    $('#errors').val(1);
+                    swal({
+                        title: "Duplicate Mobile Number.!",
+                        text: "You entered the duplicate mobile number..",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter Again.!",
+                        closeOnConfirm: false
+                    }, function () {
+                        swal.close();
+                        $('html, body').animate({
+                            scrollTop: $("#email").offset().top
+                        }, 1000);
+                        $('#customer_moblie_number').focus();
+                    });
+                } else if (jsonStr.status == 'fales') {
+                    $('#errors').val(0);
+                    $('#form').unbind().submit();
+                }
+            }
+        });
+
+
+    });
 });
+
 
 
 

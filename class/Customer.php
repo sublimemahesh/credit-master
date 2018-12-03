@@ -379,7 +379,35 @@ class Customer {
         }
     }
 
-  
+    public function CheckNicNumberInCustomerExist($nic, $id) {
+
+        $query = "SELECT * FROM `customer` WHERE `nic_number` = '" . $nic . "'  AND `id` <> '" . $id . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckMobileNumberInCustomerExist($mobile, $id) {
+
+
+        $query = "SELECT * FROM `customer` WHERE `mobile` = '" . $mobile . "' AND `id` <> '" . $id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
     public function updateCustomerCenter($center, $customer) {
         $query = "UPDATE `customer` SET `center` ='" . $center . "' WHERE `id` = '" . $customer . "'";
