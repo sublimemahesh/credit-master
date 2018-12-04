@@ -126,7 +126,7 @@ $(document).ready(function () {
 
 
         var number_of_installments = installmentType * (period / 30);
-       
+
         if (number_of_installments == 12) {
 
             var week_of_installment_type = number_of_installments + 1;
@@ -248,8 +248,8 @@ $(document).ready(function () {
 
     $('#approve').click(function () {
 
-        var loan_id = $('#loan_id').val();        
-        var approved_by = $('#approved_by').val();    
+        var loan_id = $('#loan_id').val();
+        var approved_by = $('#approved_by').val();
         var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
 
@@ -504,11 +504,12 @@ $(document).ready(function () {
         var issue_mode = $(this).val();
         var loan_amount = $(`#loan_amount`).val();
 
-        if (issue_mode) {
+        if (issue_mode == 'bank') {
+
             $(`#document_free`).show();
             $(`#stamp_fee_amount`).show();
             $(`#loan_processing_pre`).show();
-            $(`#cheque_free`).show();
+
 
 
             $.ajax({
@@ -523,22 +524,57 @@ $(document).ready(function () {
                 dataType: "JSON",
                 success: function (jsonStr) {
                     $('#document_free_amount').val(jsonStr.result['document_free']);
-                    if (jsonStr.result['cheque_free']) {
-                        $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
-                    }
-
                     $('#stamp_fee').val(jsonStr.result['stamp_fee']);
                     $('#loan_processing_pre_amount').val(jsonStr.result['total']);
                 }
             });
 
-        } else {
+        } else if (issue_mode == 'cash') {
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
+            $(`#loan_processing_pre`).show();
 
-            $(`#document_free`).hide();              
-            $(`#cheque_free`).hide();
-            $(`#stamp_fee_amount`).hide();
-            $(`#loan_processing_pre`).hide();
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
 
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#document_free_amount').val(jsonStr.result['document_free']); 
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+                }
+            });
+
+        } else if (issue_mode == 'cheque') {
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
+            $(`#loan_processing_pre`).show();
+            $(`#cheque_free`).show();
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
+
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
+                    $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
+
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+                }
+            });
         }
     });
 

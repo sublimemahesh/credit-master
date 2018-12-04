@@ -69,7 +69,7 @@ $CUSTOMER = new Customer(NULL)
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $FIRST_NAME = new DefaultData(NULl);
+                                            $DefaultData = new DefaultData(NULl);
                                             foreach ($CUSTOMER->inactiveCustomer() as $key => $customer) {
                                                 $key++;
                                                 ?>
@@ -79,8 +79,8 @@ $CUSTOMER = new Customer(NULL)
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 
                                                             <?php
-                                                            $first_name = ucwords(substr($FIRST_NAME->getFirstLetterName($customer['surname'] . ' ' . ucwords($customer['first_name'])), 0, 2));
-                                                            echo $first_name . ' ' . $customer['last_name']
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($customer['surname']));
+                                                            echo $first_name . ' ' . $customer['first_name'] . ' ' . $customer['last_name']
                                                             ?> 
                                                         </b><br>
                                                         <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
