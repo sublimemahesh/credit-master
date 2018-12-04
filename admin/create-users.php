@@ -16,6 +16,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -108,7 +109,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class=" p-top ">
                                                     <input class="filled-in chk-col-pink" type="checkbox" name="is_active" value="1" id="rememberme" />
-                                                    <label for="rememberme">Activate</label>
+                                                    <label for="rememberme" id="lable-active">Activate</label>
                                                 </div>
                                             </div>
                                         </div>
@@ -120,10 +121,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="add-user" value="submit">Create User</button>
                                         </div>
                                     </div>
-
-
                                 </form>
-
                             </div>
                         </div>
                     </div>

@@ -1,13 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
-$date = NULL;
-if (isset($_GET['date'])) {
-    $date = $_GET['date'];
-    $title = 'Add New Postpone Date : ' . $date;
-} else {
-    $title = 'Add New Postpone Date  ';
-}
 ?>
 
 <!DOCTYPE html>
@@ -16,7 +9,7 @@ if (isset($_GET['date'])) {
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Add New Postpone Date || Credit Master</title>
+        <title>Add New Collector Payment Detail || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -30,6 +23,7 @@ if (isset($_GET['date'])) {
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
     </head>
 
     <body class="theme-red">
@@ -43,10 +37,10 @@ if (isset($_GET['date'])) {
 
                 $vali->show_message();
                 ?>
-              
+
                 <div class="card">
                     <div class="header">
-                        <h2><?php echo $title?></h2>
+                        <h2>Collector Payment Detail</h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-postpone-dates.php">
@@ -59,66 +53,17 @@ if (isset($_GET['date'])) {
                         <form class="" action="post-and-get/postpone_date.php" method="post"  enctype="multipart/form-data"> 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="registration_type">Select the Type</label>
+                                    <label for="collector">Select Collector </label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="registration_type" class="hidden-lg hidden-md">Select the Type</label>
-                                            <select class="form-control " autocomplete="off" id="registration_type" name="all"  required="TRUE">
-                                                <option value=""> -- Please Select the Type -- </option>
-                                                <option  value="0"  > All </option>
-                                                <option value="route"> Route </option>
-                                                <option value="center"> Center </option> 
-                                            </select> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row" style="display: none" id="route_row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route">Route</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control  customer-ref-postpone-date" autocomplete="off" id="route"  name="route">  
-                                                <option> -- Please Select a Route -- </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="display: none" id="center_row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center">Center</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <select class="form-control customer-ref-postpone-date" autocomplete="off" id="center"  name="center">  
-                                                <option value=""> -- Please Select a Center -- </option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="customer">Customer</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE">
-                                                <option value="1"> -- All Customers --  </option> 
-
+                                            <label for="collector" class="hidden-lg hidden-md">Select Collector</label>
+                                            <select class="form-control " autocomplete="off" id="collector" name="all"  required="TRUE">
+                                                <option value=""> -- Please Select the Collector -- </option>
+                                                <?php foreach (Users::all() as $users) { ?>
+                                                    <option  value="<?php echo $users['id']; ?>"  > <?php echo $users['name']; ?> </option>
+                                                <?php } ?>
                                             </select> 
                                         </div>
                                     </div>
@@ -133,7 +78,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md">Date</label>
-                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE" value="<?php echo $date ?>">
+                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE"  >
                                         </div>
                                     </div>
                                 </div>
@@ -146,7 +91,7 @@ if (isset($_GET['date'])) {
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group"> 
                                         <div class="form-line">
-                                            <textarea rows="4" name="reason" class="form-control "> </textarea>   
+                                            <input type="text" id="paid_date"  name="date" placeholder="Enter Date" class="form-control datepicker" autocomplete="off" required="TRUE"  >
                                         </div>     
                                     </div>
                                 </div>
