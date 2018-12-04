@@ -100,9 +100,6 @@ $(document).ready(function () {
         $("#loan_amount").attr("max", credit_limit);
     });
 
-
-
-
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
 
 //Variables to assign  values 
@@ -126,18 +123,24 @@ $(document).ready(function () {
         //echo  installment type
 
         var installment_price = installmentAmount / Month;
+
+
         var number_of_installments = installmentType * (period / 30);
+       
+        if (number_of_installments == 12) {
 
-        if (number_of_installments == 13.333333333333334) {
-            alert(s);
+            var week_of_installment_type = number_of_installments + 1;
+            $('#number_of_installments').val(week_of_installment_type.toFixed(0));
+            $('#installment_price').val(installment_price.toFixed(2));
+        } else {
+            $('#number_of_installments').val(number_of_installments.toFixed(0));
+            $('#installment_price').val(installment_price.toFixed(2));
         }
-        $('#number_of_installments').val(number_of_installments.toFixed(0))
-
-        $('#installment_price').val(installment_price.toFixed(2));
     });
 
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
+        var verify_by = $('#verify_by').val();
         var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
 
@@ -156,6 +159,7 @@ $(document).ready(function () {
                 type: "POST",
                 data: {
                     loan_id: loan_id,
+                    verify_by: verify_by,
                     effective_date: effective_date,
                     verify_comments: comments,
                     action: 'VERIFY'
@@ -244,7 +248,8 @@ $(document).ready(function () {
 
     $('#approve').click(function () {
 
-        var loan_id = $('#loan_id').val();
+        var loan_id = $('#loan_id').val();        
+        var approved_by = $('#approved_by').val();    
         var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
 
@@ -263,6 +268,7 @@ $(document).ready(function () {
                 type: "POST",
                 data: {
                     loan_id: loan_id,
+                    approved_by: approved_by,
                     effective_date: effective_date,
                     verify_comments: comments,
                     action: 'APPROVE'
@@ -321,6 +327,7 @@ $(document).ready(function () {
     $('#issue').click(function () {
 
         var loan_id = $('#loan_id').val();
+        var issue_by = $('#issue_by').val();
         var issued_date = $('#issued_date').val();
         var issue_mode = $('#issue_mode').val();
         var issue_note = $('#issue_note').val();
@@ -346,6 +353,7 @@ $(document).ready(function () {
                     type: "POST",
                     data: {
                         loan_id: loan_id,
+                        issue_by: issue_by,
                         issued_date: issued_date,
                         issue_mode: issue_mode,
                         issue_note: issue_note,
@@ -367,15 +375,22 @@ $(document).ready(function () {
         }
     });
 
+
+///remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
 
         if (installment_type == 1) {
             $('#period_100').hide();
+
+        } else if (installment_type == 4) {
+            $('#period_100').hide();
         } else {
             $('#period_100').show();
         }
     });
+
+
 
     function validateForIssue(effective_date, issued_date, issue_mode) {
 
@@ -417,7 +432,7 @@ $(document).ready(function () {
 });
 
 
-// Check guarantor
+// Check guarantor 2
 
 $(document).ready(function () {
     $('#guarantor_2').change(function () {
@@ -437,7 +452,7 @@ $(document).ready(function () {
                     swal({
                         title: "You can not enter this Guarantor .!",
                         text: "You entered this Guarantor in two loans..",
-                        type: "info",
+                        type: "error",
                         showCancelButton: false,
                         confirmButtonColor: "#00b0e4",
                         confirmButtonText: "Enter Again.!",
@@ -451,6 +466,7 @@ $(document).ready(function () {
 
     });
 
+// Check guarantor 3
 
     $('#guarantor_3').change(function () {
         var guarantor_3 = $(this).val();
@@ -468,7 +484,7 @@ $(document).ready(function () {
                     swal({
                         title: "You can not enter this Guarantor .!",
                         text: "You entered this Guarantor in two loans..",
-                        type: "info",
+                        type: "error",
                         showCancelButton: false,
                         confirmButtonColor: "#00b0e4",
                         confirmButtonText: "Enter Again.!",
@@ -489,7 +505,11 @@ $(document).ready(function () {
         var loan_amount = $(`#loan_amount`).val();
 
         if (issue_mode) {
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
             $(`#loan_processing_pre`).show();
+            $(`#cheque_free`).show();
+
 
             $.ajax({
                 url: "post-and-get/ajax/loan.php",
@@ -502,12 +522,23 @@ $(document).ready(function () {
                 },
                 dataType: "JSON",
                 success: function (jsonStr) {
-                    $('#loan_processing_pre_amount').val(jsonStr.data);
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
+                    if (jsonStr.result['cheque_free']) {
+                        $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
+                    }
+
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
                 }
             });
 
         } else {
-            $(`#loan_processing_pre`).hide()();
+
+            $(`#document_free`).hide();              
+            $(`#cheque_free`).hide();
+            $(`#stamp_fee_amount`).hide();
+            $(`#loan_processing_pre`).hide();
+
         }
     });
 

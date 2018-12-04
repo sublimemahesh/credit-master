@@ -25,6 +25,10 @@ class Loan {
     public $verify_comments;
     public $issued_date;
     public $issue_note;
+    public $create_by;
+    public $verify_by;
+    public $approved_by;
+    public $issue_by;
     public $status;
 
     public function __construct($id) {
@@ -54,6 +58,10 @@ class Loan {
             $this->issued_date = $result['issued_date'];
             $this->issue_note = $result['issue_note'];
             $this->verify_comments = $result['verify_comments'];
+            $this->create_by = $result['create_by'];
+            $this->verify_by = $result['verify_by'];
+            $this->approved_by = $result['approved_by'];
+            $this->issue_by = $result['issue_by'];
             $this->status = $result['status'];
 
             return $this;
@@ -76,6 +84,7 @@ class Loan {
                 . "`installment_amount`,"
                 . "`number_of_installments`,"
                 . "`effective_date`,"
+                . "`create_by`,"
                 . "`status`"
                 . ") VALUES  ('"
                 . $this->create_date . "','"
@@ -91,9 +100,10 @@ class Loan {
                 . $this->installment_amount . "', '"
                 . $this->number_of_installments . "', '"
                 . $this->effective_date . "', '"
+                . $this->create_by . "', '"
                 . "pending')";
 
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -153,12 +163,15 @@ class Loan {
                 . "`number_of_installments` ='" . $this->number_of_installments . "', "
                 . "`issue_mode` ='" . $this->issue_mode . "', "
                 . "`effective_date` ='" . $this->effective_date . "', "
+                . "`verify_by` ='" . $this->verify_by . "', "
+                . "`approved_by` ='" . $this->approved_by . "', "
+                . "`issue_by` ='" . $this->issue_by . "', "
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`issue_note` ='" . $this->issue_note . "', "
                 . "`verify_comments` ='" . $this->verify_comments . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+        
         $db = new Database();
         $result = $db->readQuery($query);
 

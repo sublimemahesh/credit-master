@@ -1443,6 +1443,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                                         <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
+                                     <input type="hidden" value="<?php   echo $_SESSION['id']; ?>" id="verify_by">
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                         <input type="submit" id="verify" class="btn btn-success" value="Verify Now"/> | 

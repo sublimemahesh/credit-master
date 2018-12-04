@@ -176,7 +176,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3" required="TRUE">
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
                                                 <option value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
                                         </div>
@@ -323,6 +323,7 @@ $DEFDATA = new DefaultData();
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
+                                        <input type="hidden" value="<?php   echo $_SESSION['id']; ?>" name="create_by">
                                     </div> 
                                 </div> 
                             </div>
