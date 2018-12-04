@@ -51,14 +51,14 @@ class DefaultData {
 
     public function getCreditLimit() {
 
-        return 40000;
+        return 0;
     }
 
     public function getFirstLetterName($string) {
         $words = explode(" ", $string);
         $result = '';
         foreach ($words as $word) {
-            $result .= $word[0].'. ';
+            $result .= $word[0] . '. ';
         }
 
         return $result;
@@ -67,29 +67,40 @@ class DefaultData {
     public function loanProcessingPreCash($amount) {
 
         $document_free = 50;
-        $total = ($amount * 0.1 / 100) + $document_free;
-        return $total;
+        $stamp_fee = ($amount * 0.1 / 100);
+        $total = $stamp_fee + $document_free;
+        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee);
+
+        return $loan_free;
     }
 
     public function loanProcessingPreBank($amount) {
 
         $document_free = 50;
+
         $count = $amount / 100000;
+
+        $stamp_fee = ($amount * 0.1 / 100);       
         $full_document_charge = $count * $document_free;
+       
+        $total = $stamp_fee + $full_document_charge;
+        
+        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee);
 
-        $total = ($amount * 0.1 / 100) + $document_free;
-
-        return $total;
+        return $loan_free;
     }
 
     public function loanProcessingPreCheque($amount) {
 
         $document_free = 50;
         $cheque_free = 30;
+        $stamp_fee = ($amount * 0.1 / 100);
         $full_document_charge = $cheque_free + $document_free;
-        $total = ($amount * 0.1 / 100) + $full_document_charge;
+        $total = $stamp_fee + $full_document_charge;
+        
+        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee,"cheque_free" => $cheque_free);
 
-        return $total;
+        return $loan_free;
     }
 
 }

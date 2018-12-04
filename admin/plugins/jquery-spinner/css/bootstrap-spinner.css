@@ -58,4 +58,14 @@
   font-size: 12px;
   top: -6px;
 }
+
+.add-buuton{
+    padding: 7px;
+    color: black;
+}
+.add-buuton:hover{
+    color:blue;
+    background-color: white;
+    border-radius: 6px;
+}
 /*# sourceMappingURL=bootstrap-spinner.css.map */

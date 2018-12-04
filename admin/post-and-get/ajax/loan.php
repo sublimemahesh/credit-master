@@ -42,6 +42,7 @@ if ($_POST['action'] == 'VERIFY') {
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->verify_comments = $_POST['verify_comments'];
+    $LOAN->verify_by = $_POST['verify_by'];
     $LOAN->status = 'verified';
     $result = $LOAN->update();
 
@@ -83,8 +84,10 @@ if ($_POST['action'] == 'DELETE') {
 }
 
 if ($_POST['action'] == 'APPROVE') {
+   
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
+    $LOAN->approved_by = $_POST['approved_by'];
     $LOAN->verify_comments = $_POST['verify_comments'];
     $LOAN->status = 'approve';
     $result = $LOAN->update();
@@ -115,9 +118,10 @@ if ($_POST['action'] == 'PENDING') {
 }
 
 if ($_POST['action'] == 'ISSUE') {
-   
+
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->issued_date = $_POST['issued_date'];
+    $LOAN->issue_by = $_POST['issue_by'];
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->issue_note = $_POST['issue_note'];
@@ -185,23 +189,23 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreCash($amount);
 
-        echo json_encode(['data' => $result]);
+        echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
     } else if ($_POST['issue_mode'] == 'bank') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreBank($amount);
-
-        echo json_encode(['data' => $result]);
+      
+        echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
     } else if ($_POST['issue_mode'] == 'cheque') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreCheque($amount);
-
-        echo json_encode(['data' => $result]);
+       
+        echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
     }

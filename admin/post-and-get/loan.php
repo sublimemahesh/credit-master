@@ -7,7 +7,8 @@ if (isset($_POST['create-new-loan'])) {
 
     $LOAN = new Loan(NULL);
     $VALID = new Validator();
-
+     
+    $LOAN->create_by = $_POST['create_by'];
     $LOAN->create_date = $_POST['create_date'];
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
