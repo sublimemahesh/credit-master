@@ -1,7 +1,7 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-
+$DefaultData = new DefaultData(NULl);
 $today = date("Y-m-d");
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -156,9 +156,12 @@ $next = $ND->format('Y-m-d');
                                                             ?>
                                                             <tr>
                                                                 <td>
-                                                                    <i class="glyphicon glyphicon-user"></i>
+                                                                    <i class = "glyphicon glyphicon-user"></i >
+
                                                                     <?php
-                                                                    echo $CUSTOMER->surname . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                                    echo '<b>' . $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name . '</b>';
+
                                                                     echo '</br><b>Mo No: </b> ' . $CUSTOMER->mobile;
                                                                     $CENTER = new Center($CUSTOMER->center);
 
