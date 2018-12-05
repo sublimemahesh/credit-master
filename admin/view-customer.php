@@ -44,7 +44,7 @@ $CUSTOMER = new Customer($_GET['id']);
                         <h2>View Customer (# <?php echo $CUSTOMER->id; ?>)</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-customers.php">
+                                <a href="view-active-customer.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -320,7 +320,15 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
-                                            <div class="form-control"><?php echo $CUSTOMER->registration_type; ?></div>
+                                            <div class="form-control"><?php
+                                                if ($CUSTOMER->registration_type == 1) {
+                                                    echo " Center Leader";
+                                                } else {
+                                                    echo $CUSTOMER->registration_type;
+                                                }
+                                                ?>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -349,7 +357,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
 
                                 <?php
-                            } else {
+                            } elseif ($CUSTOMER->center) {
                                 ?>
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
