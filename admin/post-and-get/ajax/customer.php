@@ -90,6 +90,3 @@ if ($_POST['action'] == 'GETBANKNAME') {
         exit();
     }
 }
-
-
-

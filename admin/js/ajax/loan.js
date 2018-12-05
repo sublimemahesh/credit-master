@@ -361,7 +361,7 @@ $(document).ready(function () {
                     dataType: "JSON",
                     success: function (jsonStr) {
                         if (jsonStr.status == 'issued') {
-                            window.location = 'CollectorPaymentDetail.php';
+                            window.location = 'add-collector-payment-detail.php';
                         } else {
                             alert('Error');
                         }
@@ -575,5 +575,34 @@ $(document).ready(function () {
         }
     });
 
+  
+
+    ///Before delete Check Customer '
+    $('.delete-customer').click(function () {
+        var customer = $(this).attr("data-id");
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                customer: customer,
+                action: 'CHECKCUSTOMERHASLOAN'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "This Customer Can Not Be Deleted ..!",
+                        text: "The customer already exists in a loan",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Ok.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+        });
+    });
 
 });

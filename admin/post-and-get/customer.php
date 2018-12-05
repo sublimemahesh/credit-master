@@ -234,45 +234,45 @@ if (isset($_POST['add-customer'])) {
 
     $img = Helper::randamId();
 
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
+    if ($handle_bbp->uploaded) {
+        $handle_bbp->image_resize = true;
+        $handle_bbp->file_new_name_body = TRUE;
+        $handle_bbp->file_overwrite = TRUE;
+        $handle_bbp->file_new_name_ext = 'jpg';
+        $handle_bbp->image_ratio_crop = 'C';
+        $handle_bbp->file_new_name_body = $img;
+        $image_dst_x = $handle_bbp->image_dst_x;
+        $image_dst_y = $handle_bbp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
+        $handle_bbp->image_x = $image_x;
+        $handle_bbp->image_y = $image_y;
 
-        $handle->Process($dir_dest_bbp);
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $img_name_bbp = $handle->file_dst_name;
+        $handle_bbp->Process($dir_dest_bbp);
+        if ($handle_bbp->processed) {
+            $info = getimagesize($handle_bbp->file_dst_pathname);
+            $img_name_bbp = $handle_bbp->file_dst_name;
         }
 
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = 'jpg';
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $img;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+        $handle_bbp->image_resize = true;
+        $handle_bbp->file_new_name_body = TRUE;
+        $handle_bbp->file_overwrite = TRUE;
+        $handle_bbp->file_new_name_ext = 'jpg';
+        $handle_bbp->image_ratio_crop = 'C';
+        $handle_bbp->file_new_name_body = $img;
+        $handle_bbp->image_x = 250;
+        $handle_bbp->image_y = 250;
 
-        $handle->Process($dir_dest_bbp_thumb);
+        $handle_bbp->Process($dir_dest_bbp_thumb);
 
-        if ($handle->processed) {
+        if ($handle_bbp->processed) {
 
-            $info = getimagesize($handle->file_dst_pathname);
+            $info = getimagesize($handle_bbp->file_dst_pathname);
 
-            $img_name_bbp = $handle->file_dst_name;
+            $img_name_bbp = $handle_bbp->file_dst_name;
         }
     }
 

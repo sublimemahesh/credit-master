@@ -84,7 +84,7 @@ if ($_POST['action'] == 'DELETE') {
 }
 
 if ($_POST['action'] == 'APPROVE') {
-   
+
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->approved_by = $_POST['approved_by'];
@@ -196,7 +196,7 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreBank($amount);
-      
+
         echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
@@ -204,10 +204,28 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreCheque($amount);
-       
+
         echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
     }
 }
+
+//Before Delete CustomerCheck in loan
+
+if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
+
+    $LOAN = new Loan(NULL);
+
+    $result = $LOAN->CheckCustomerHasLoan($_POST["customer"]);
+
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+} 
  
