@@ -79,9 +79,9 @@ $CUSTOMER = new Customer(NULL)
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 
-                                                            <?php 
+                                                            <?php
                                                             $first_name = $DefaultData->getFirstLetterName(ucwords($customer['surname']));
-                                                            echo $first_name . ' ' . $customer['first_name']. ' ' . $customer['last_name']
+                                                            echo $first_name . ' ' . $customer['first_name'] . ' ' . $customer['last_name']
                                                             ?> 
                                                         </b>
                                                         <br>
@@ -111,7 +111,8 @@ $CUSTOMER = new Customer(NULL)
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
                                                         <a href="add-new-customer-document.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-picture arrange-btn-2" title="Customer Document"></button></a> |
-                                                        <a href="#"  class="delete-customer" data-id="<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
+                                                        <a href="#"   class="delete-customer"   data-id="<?php echo $customer['id']; ?>"  > <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
+                                                         
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -157,7 +158,7 @@ $CUSTOMER = new Customer(NULL)
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
-
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
         <script src="delete/js/customer.js" type="text/javascript"></script>
 
     </body> 
