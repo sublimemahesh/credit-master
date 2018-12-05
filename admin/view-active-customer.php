@@ -94,9 +94,11 @@ $CUSTOMER = new Customer(NULL)
                                                         if ($customer['route']) {
                                                             $ROUTE = new Route($customer['route']);
                                                             echo '<b>' . 'Route - ' . '</b>' . $ROUTE->name;
-                                                        } else {
+                                                        } elseif ($customer['center']) {
                                                             $CENTER = new Center($customer['center']);
                                                             echo '<b>' . 'Center - ' . '</b>' . $CENTER->name;
+                                                        } elseif ($customer['registration_type'] == 1) {
+                                                            echo '<b>' . 'Center leader ' . '</b>';
                                                         }
                                                         ?>
                                                         <br/>
@@ -112,7 +114,7 @@ $CUSTOMER = new Customer(NULL)
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
                                                         <a href="add-new-customer-document.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-picture arrange-btn-2" title="Customer Document"></button></a> |
                                                         <a href="#"   class="delete-customer"   data-id="<?php echo $customer['id']; ?>"  > <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
-                                                         
+
                                                     </td> 
                                                 </tr>
                                                 <?php

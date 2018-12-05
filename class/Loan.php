@@ -103,7 +103,7 @@ class Loan {
                 . $this->create_by . "', '"
                 . "pending')";
 
-       
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -171,7 +171,7 @@ class Loan {
                 . "`verify_comments` ='" . $this->verify_comments . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-        
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -181,8 +181,6 @@ class Loan {
             return FALSE;
         }
     }
-
-   
 
     public function delete() {
 
@@ -219,6 +217,21 @@ class Loan {
         $result = mysql_fetch_assoc($res);
 
         if ($result['count'] == 1) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function CheckCustomerHasLoan($customer) {
+
+        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' OR `guarantor_1` = '" . $customer . "' OR `guarantor_2` = '" . $customer . "' OR `guarantor_3` = '" . $customer . "'";
+        
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
             return TRUE;
         } else {
             return FALSE;

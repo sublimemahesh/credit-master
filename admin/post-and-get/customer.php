@@ -8,7 +8,9 @@ if (isset($_POST['add-customer'])) {
 
     $CUSTOMER = New Customer(NULL);
     $VALID = new Validator();
-
+    
+    $telephone_number = null;
+    $telephone_number = $_POST['telephone1'] . $_POST['telephone2'] . $_POST['telephone3'];
 
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
@@ -25,7 +27,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->billing_proof_image = $_POST['billing_proof_image'];
     $CUSTOMER->email = $_POST['email'];
-    $CUSTOMER->telephone = $_POST['telephone'];
+    $CUSTOMER->telephone = $telephone_number;
     $CUSTOMER->mobile = $_POST['mobile'];
     $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];
@@ -173,7 +175,7 @@ if (isset($_POST['add-customer'])) {
 
 
 //////////////////////////////////////////////////////////////////////
-   
+
     $dir_dest_nbp = '../../upload/customer/nbp/';
     $dir_dest_nbp_thumb = '../../upload/customer/nbp/thumb/';
     $handle_nbp = new Upload($_FILES['nic_photo_back']);
@@ -424,7 +426,7 @@ if (isset($_POST['update_input'])) {
     $handle = new Upload($_FILES['profile_picture']);
 
     $imgName = null;
-    
+
 
     if ($handle->uploaded) {
         $handle->image_resize = true;
@@ -696,7 +698,7 @@ if (isset($_POST['update_input'])) {
             $imgName = $handle_sp->file_dst_name;
         }
     }
-    
+
     /////////////////////////////////////////////////
 
     $dir_dest_bi = '../../upload/customer/billing-proof/';
@@ -747,11 +749,11 @@ if (isset($_POST['update_input'])) {
     }
     /////////////////////////////
 
- 
+
     $CUSTOMER = new Customer($_POST['id']);
 
-    
-   
+
+
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
