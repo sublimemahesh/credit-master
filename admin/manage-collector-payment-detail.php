@@ -47,7 +47,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
-                                        <a href="CollectorPaymentDetail.php">
+                                        <a href="add-collector-payment-detail.php">
                                             <i class="material-icons">add</i> 
                                         </a>
                                     </li>
@@ -102,7 +102,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                                     </td>   
 
                                                     <td>     
-                                                         <a href="edit-CollectorPaymentDetail.php?id=<?php echo $collecter_payment_details['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
+                                                        <a href="edit-collector-payment-detail.php?id=<?php echo $collecter_payment_details['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
                                                         <a href="#"  class="delete-collector" data-id="<?php echo $collecter_payment_details['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>
