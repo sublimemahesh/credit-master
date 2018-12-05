@@ -7,6 +7,7 @@ if (isset($_POST['create'])) {
 
     $INSTALLMENT = new Installment(NULL);
     $VALID = new Validator();
+
  
     $INSTALLMENT->loan = $_POST['loan'];
     $INSTALLMENT->installment_date = $_POST['installment_date'];

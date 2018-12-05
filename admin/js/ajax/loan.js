@@ -107,30 +107,27 @@ $(document).ready(function () {
         var installmentType = Number($('#installment_type').val());
         var numVal = Number($('#loan_amount').val());
         var numVa2 = Number($('#interest_rate').val()) / 100;
-        var Month = (period / 30);
-
+        var month = (period / 30);
 
 
         //cal Total value in month
-        var totalValue = numVal + (Month * (numVal * numVa2));
+        var totalValue = numVal + (month * (numVal * numVa2));
 
         //echo Total
         $('#total').val(totalValue.toFixed(2));
 
-        //cal installment type
+        //cal installment type 
         var installmentAmount = (totalValue / installmentType);
 
-        //echo  installment type
-
-        var installment_price = installmentAmount / Month;
-
+        //echo  installment type 
+        var installment_price = installmentAmount / month;
 
         var number_of_installments = installmentType * (period / 30);
 
         if (number_of_installments == 12) {
-
             var week_of_installment_type = number_of_installments + 1;
             $('#number_of_installments').val(week_of_installment_type.toFixed(0));
+            installment_price = (installment_price * 12) / 13;
             $('#installment_price').val(installment_price.toFixed(2));
         } else {
             $('#number_of_installments').val(number_of_installments.toFixed(0));
@@ -364,7 +361,7 @@ $(document).ready(function () {
                     dataType: "JSON",
                     success: function (jsonStr) {
                         if (jsonStr.status == 'issued') {
-                            window.location = 'manage-approved-loans.php';
+                            window.location = 'CollectorPaymentDetail.php';
                         } else {
                             alert('Error');
                         }
@@ -545,7 +542,7 @@ $(document).ready(function () {
                 },
                 dataType: "JSON",
                 success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']); 
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
                     $('#stamp_fee').val(jsonStr.result['stamp_fee']);
                     $('#loan_processing_pre_amount').val(jsonStr.result['total']);
                 }

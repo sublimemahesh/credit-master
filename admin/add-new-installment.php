@@ -6,9 +6,11 @@ $date = null;
 $id = null;
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
+
 } if(isset($_GET['loan'])) {
+
+} elseif (isset($_GET['loan'])) {
     $loan = $_GET['loan'];
-    
 }
 
 ?>
@@ -36,16 +38,16 @@ if (isset($_GET['date'])) {
     </head>
 
     <body class="theme-red">
-        <?php
-        include './navigation-and-header.php';
-        ?> 
+<?php
+include './navigation-and-header.php';
+?> 
         <section class="content">
             <div class="container-fluid"> 
-                <?php
-                $vali = new Validator();
+        <?php
+        $vali = new Validator();
 
-                $vali->show_message();
-                ?>
+        $vali->show_message();
+        ?>
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
@@ -64,7 +66,11 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
+
                                             <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
+
+                                            <input type="text" id="installment_date"   value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control " disabled="true" autocomplete="off">
+ 
                                         </div>
                                     </div>
                                 </div>
@@ -91,7 +97,11 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
+
                                             <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0" step="0.001" >
+
+                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0">
+
                                         </div>
                                     </div>
                                 </div>

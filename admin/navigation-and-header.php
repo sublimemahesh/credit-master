@@ -259,7 +259,7 @@ include_once(dirname(__FILE__) . './auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-petty-cash.php">
+                            <a href="manage-CollectorPaymentDetail.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
