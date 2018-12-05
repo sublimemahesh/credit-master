@@ -1,9 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$id = '';
-$id = $_GET['id'];
-$COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
 ?>
 
 <!DOCTYPE html>
@@ -12,7 +9,7 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Edit Collector Payment Detail || Credit Master</title>
+        <title>Add New Collector Payment Detail || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -44,10 +41,10 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
 
                 <div class="card">
                     <div class="header">
-                        <h2>Edit Collector Payment Detail</h2>
+                        <h2>Collector Payment Detail</h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-CollectorPaymentDetail.php">
+                                <a href="manage-collector-payment-detail.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -65,19 +62,9 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
                                             <label for="collector" class="hidden-lg hidden-md">Select Collector</label>
                                             <select class="form-control " autocomplete="off" id="collector_id" name="collector_id"  required="TRUE">
                                                 <option value=""> -- Please Select the Collector -- </option>
-                                                <?php
-                                                $USERS = new Users(NULL);
-                                                foreach ($USERS->all() as $users) {
-                                                    if ($COLLECTORPYMENTDETAILS->collector_id == $users['id']) {
-                                                        ?>
-                                                        <option  value="<?php echo $users['id']; ?>" selected="TRUE" > <?php echo $users['name']; ?> </option>
-                                                    <?php } else {
-                                                        ?>
-                                                        <option  value="<?php echo $users['id']; ?>"   > <?php echo $users['name']; ?> </option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
+                                                <?php foreach (Users::all() as $users) { ?>
+                                                    <option  value="<?php echo $users['id']; ?>"  > <?php echo $users['name']; ?> </option>
+                                                <?php } ?>
                                             </select> 
                                         </div>
                                     </div>
@@ -86,13 +73,13 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="date">Date & Time</label>
+                                    <label for="date">Date</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="date" class="hidden-lg hidden-md">Date & Time</label>
-                                            <input type="text" id="search-from-date"  name="date" placeholder="Enter Date" class="form-control  " value="<?php echo $COLLECTORPYMENTDETAILS->date ?>"autocomplete="off" required="TRUE"  >
+                                            <label for="date" class="hidden-lg hidden-md">Date</label>
+                                            <input type="text" id="search-from-date"  name="date" placeholder="Enter Date" class="form-control  " autocomplete="off" required="TRUE"  >
                                         </div>
                                     </div>
                                 </div>
@@ -106,7 +93,7 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="amount" class="hidden-lg hidden-md">Amount</label>
-                                            <input type="number" id="amount"  name="ammount" placeholder="Enter Amount" class="form-control " value="<?php echo $COLLECTORPYMENTDETAILS->ammount ?>" autocomplete="off" required="TRUE"  >
+                                            <input type="number" id="amount"  name="ammount" placeholder="Enter Amount" class="form-control  " autocomplete="off" required="TRUE"  >
                                         </div>
                                     </div>
                                 </div>
@@ -122,28 +109,9 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
                                             <label for="select_type" class="hidden-lg hidden-md">Select Type</label>
                                             <select class="form-control " autocomplete="off" id="Select Type" name="select_type"  required="TRUE">
                                                 <option value=""> -- Please Select Select Type -- </option>
-                                                <?php
-                                                if ($COLLECTORPYMENTDETAILS->is_recived == 1) {
-                                                    ?>
-                                                    <option value="is_recived" selected="TRUE" >Recived </option>
-                                                    <option value="is_issuied"> Issuied </option>
-                                                    <option value="is_settled">  Settled </option>
-                                                    <?php
-                                                } elseif ($COLLECTORPYMENTDETAILS->is_issuied == 1) {
-                                                    ?>
-                                                    <option value="is_issuied" selected="TRUE"  > Issuied </option>
-                                                    <option value="is_recived">  Recived </option>
-                                                    <option value="is_settled">  Settled </option>
-                                                    <?php
-                                                } elseif ($COLLECTORPYMENTDETAILS->is_settled == 1) {
-                                                    ?>
-                                                    <option value="is_settled" selected="TRUE"  >  Settled </option>
-                                                    <option value="is_issuied"> Issuied </option>
-                                                    <option value="is_recived">  Recived </option>
-                                                    <?php
-                                                }
-                                                ?>
-
+                                                <option value="is_recived">  Recived </option>
+                                                <option value="is_issuied"> Issuied </option>
+                                                <option value="is_settled">  Settled </option>
 
                                             </select> 
                                         </div>
@@ -155,9 +123,7 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
-                                    <input type="hidden" name="id" value="<?php echo $id ?>">
-
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
                                 </div>
                             </div>
                         </form> 
@@ -175,7 +141,7 @@ $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail($id);
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
-
+         
         <script>
 
             jQuery(document).ready(function () {

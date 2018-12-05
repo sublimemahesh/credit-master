@@ -253,13 +253,13 @@ include_once(dirname(__FILE__) . '/auth.php');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href="CollectorPaymentDetail.php">
+                            <a href="add-collector-payment-detail.php">
                                 <i class="material-icons">add</i>
                                 <span>Add New</span>
                             </a>
                         </li>
                         <li>
-                            <a href="manage-CollectorPaymentDetail.php">
+                            <a href="manage-collector-payment-detail.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
