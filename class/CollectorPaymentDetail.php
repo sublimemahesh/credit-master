@@ -9,10 +9,11 @@ class CollectorPaymentDetail {
 
     public $id;
     public $collector_id;
+    public $date;
     public $ammount;
     public $is_recived;
     public $is_issuied;
-    public $is_settle;
+    public $is_settled;
 
     public function __construct($id) {
         if ($id) {
@@ -25,10 +26,11 @@ class CollectorPaymentDetail {
 
             $this->id = $result['id'];
             $this->collector_id = $result['collector_id'];
+            $this->date = $result['date'];
             $this->ammount = $result['ammount'];
             $this->is_recived = $result['is_recived'];
             $this->is_issuied = $result['is_issuied'];
-            $this->is_settle = $result['is_settle'];
+            $this->is_settled = $result['is_settled'];
 
 
             return $this;
@@ -37,12 +39,13 @@ class CollectorPaymentDetail {
 
     public function create() {
 
-        $query = "INSERT INTO `collector_payment_detail` (`collector_id`,`ammount`,`is_recived`,`is_issuied`,`is_settle`) VALUES  ('"
+        $query = "INSERT INTO `collector_payment_detail` (`collector_id`,`date`,`ammount`,`is_recived`,`is_issuied`,`is_settled`) VALUES  ('"
                 . $this->collector_id . "', '"
+                . $this->date . "', '"
                 . $this->ammount . "', '"
                 . $this->is_recived . "', '"
                 . $this->is_issuied . "', '"
-                . $this->is_settle . "')";
+                . $this->is_settled . "')";
 
 
         $db = new Database();
@@ -79,13 +82,15 @@ class CollectorPaymentDetail {
     public function update() {
 
         $query = "UPDATE  `collector_payment_detail` SET "
-                . "`collector_id` ='" . $this->collector_id . "' , "
+                . "`collector_id` ='" . $this->collector_id . "', "
+                . "`date` ='" . $this->date . "', "
                 . "`ammount` ='" . $this->ammount . "',  "
                 . "`is_recived` ='" . $this->is_recived . "',  "
                 . "`is_issuied` ='" . $this->is_issuied . "',  "
-                . "`is_settle` ='" . $this->is_settle . "'  "
+                . "`is_settled` ='" . $this->is_settled . "'  "
                 . "WHERE `id` = '" . $this->id . "'";
 
+        dd($query);
         $db = new Database();
         $result = $db->readQuery($query);
 
