@@ -24,6 +24,7 @@ include_once(dirname(__FILE__) . '/Bank.php');
 include_once(dirname(__FILE__) . '/Branch.php');
 include_once(dirname(__FILE__) . '/Expenses.php');
 include_once(dirname(__FILE__) . '/CollectorPaymentDetail.php');
+include_once(dirname(__FILE__) . '/GeneralAccounts.php');
 
 function dd($data) {
     var_dump($data);
