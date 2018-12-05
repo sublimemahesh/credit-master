@@ -284,11 +284,27 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="telephone">Telephone</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="telephone" class="hidden-lg hidden-md">Telephone</label>
-                                            <input type="text" id="telephone"  name="telephone" placeholder="Enter telephone" class="form-control" autocomplete="off">
+                                            <input type="text" id="telephone"  name="telephone1" placeholder="Enter telephone" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="telephone" class="hidden-lg hidden-md">Telephone</label>
+                                            <input type="text" id="telephone"  name="telephone2" placeholder="Enter telephone" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="telephone" class="hidden-lg hidden-md">Telephone</label>
+                                            <input type="text" id="telephone"  name="telephone3" placeholder="Enter telephone" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -496,7 +512,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-lg-1">
-                                    <a href="add-new-bank.php">  <button class="glyphicon glyphicon-plus add-buuton" title="Add Bank"></button></a>
+                                    <a href="add-new-bank.php" class="btn btn-md">+</a>
                                 </div>
                             </div>
 
