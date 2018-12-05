@@ -80,11 +80,11 @@ class DefaultData {
 
         $count = $amount / 100000;
 
-        $stamp_fee = ($amount * 0.1 / 100);       
+        $stamp_fee = ($amount * 0.1 / 100);
         $full_document_charge = $count * $document_free;
-       
+
         $total = $stamp_fee + $full_document_charge;
-        
+
         $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee);
 
         return $loan_free;
@@ -97,10 +97,13 @@ class DefaultData {
         $stamp_fee = ($amount * 0.1 / 100);
         $full_document_charge = $cheque_free + $document_free;
         $total = $stamp_fee + $full_document_charge;
-        
-        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee,"cheque_free" => $cheque_free);
+
+        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee, "cheque_free" => $cheque_free);
 
         return $loan_free;
     }
 
+    public function generalLedgerAccounts() {
+        return array("1" => "Assets", "2" => "Liabilities", "3" => "Operating Revenues", "4" => "Operating expenses", "5" => "Non-Operating Revenues and Gains", "6" => "Non-Operating Expenses and Losses");
+    }
 }
