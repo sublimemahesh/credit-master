@@ -1,6 +1,6 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
-include_once(dirname(__FILE__) . './auth.php');
+include_once(dirname(__FILE__) . '/auth.php');
 
 $LOAN = new Loan($_GET['id']);
 $CUSTOMER = new Customer($LOAN->customer);
