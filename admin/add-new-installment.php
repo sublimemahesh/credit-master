@@ -66,15 +66,12 @@ include './navigation-and-header.php';
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-
-                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
-
-                                            <input type="text" id="installment_date"   value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control " disabled="true" autocomplete="off">
- 
+                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">                                          
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_date">Paid Date</label>
@@ -96,12 +93,8 @@ include './navigation-and-header.php';
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0" step="0.001" >
-
+                                            <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label> 
                                             <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0">
-
                                         </div>
                                     </div>
                                 </div>
