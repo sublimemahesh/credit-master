@@ -79,7 +79,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md">Date</label>
-                                            <input type="text" id="search-from-date"  name="date" placeholder="Enter Date" class="form-control  " autocomplete="off" required="TRUE"  >
+                                            <input type="text" id="search-from-date"  name="date" placeholder="Enter Date" class="form-control  date-time-picker" autocomplete="off" required="TRUE"  >
                                         </div>
                                     </div>
                                 </div>
@@ -143,11 +143,8 @@ include_once(dirname(__FILE__) . '/auth.php');
         <script src="js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
          
         <script>
-
             jQuery(document).ready(function () {
-
-
-                jQuery('#filter-date, #search-from-date, #search-to-date').datetimepicker({
+                jQuery('.date-time-picker').datetimepicker({
                     dateFormat: 'yy-mm-dd'
                 });
             });

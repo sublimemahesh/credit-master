@@ -17,6 +17,7 @@ class Installment {
     public $loan;
     public $installment_date;
     public $paid_date;
+    public $time;
     public $paid_amount;
     public $additional_interest;
 
@@ -33,6 +34,7 @@ class Installment {
             $this->loan = $result['loan'];
             $this->installment_date = $result['installment_date'];
             $this->paid_date = $result['paid_date'];
+            $this->time = $result['time'];
             $this->paid_amount = $result['paid_amount'];
             $this->additional_interest = $result['additional_interest'];
 
@@ -44,10 +46,11 @@ class Installment {
     public function create() {
 
 
-        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`paid_amount`,`additional_interest`) VALUES  ('"
+        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`time`,`paid_amount`,`additional_interest`) VALUES  ('"
                 . $this->loan . "','"
                 . $this->installment_date . "','"
                 . $this->paid_date . "', '"
+                . $this->time . "', '"
                 . $this->paid_amount . "', '"
                 . $this->additional_interest . "')";
 
@@ -141,9 +144,9 @@ class Installment {
 
     public function CheckInstallmetByPaidDate($date, $loan_id) {
 
-        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
+        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date ."' AND `loan`= '" . $loan_id . "'";
 
-
+      
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();

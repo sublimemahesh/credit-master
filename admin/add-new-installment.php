@@ -1,18 +1,14 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
-include_once(dirname(__FILE__) . '/auth.php');
+include_once(dirname(__FILE__) . './auth.php');
 $date = null;
 
 $id = null;
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
-
-} if(isset($_GET['loan'])) {
-
-} elseif (isset($_GET['loan'])) {
+} if (isset($_GET['loan'])) {
     $loan = $_GET['loan'];
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -32,22 +28,23 @@ if (isset($_GET['date'])) {
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="css/jquery.timepicker.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     </head>
 
     <body class="theme-red">
-<?php
-include './navigation-and-header.php';
-?> 
+        <?php
+        include './navigation-and-header.php';
+        ?> 
         <section class="content">
             <div class="container-fluid"> 
-        <?php
-        $vali = new Validator();
+                <?php
+                $vali = new Validator();
 
-        $vali->show_message();
-        ?>
+                $vali->show_message();
+                ?>
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
@@ -66,21 +63,35 @@ include './navigation-and-header.php';
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">                                          
+                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            
+                            </div> 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_date">Paid Date</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
                                             <input type="text" id="paid_date"  name="paid_date" value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-1 col-md-1 hidden-sm hidden-xs form-control-label">
+                                    <label for="time">Time</label>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="paid_date" class="hidden-lg hidden-md">Time</label>
+                                            <input type="text" id="time"  name="time" value="<?php
+                                            date_default_timezone_set("Asia/Calcutta");
+                                            $time = date('h:i:s');
+                                            echo $time;
+                                            ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -93,8 +104,8 @@ include './navigation-and-header.php';
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label> 
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0">
+                                            <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
+                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>
@@ -138,9 +149,12 @@ include './navigation-and-header.php';
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/jquery.timepicker.min.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+
+                $('#time').timepicker();
             });
         </script> 
     </body>
