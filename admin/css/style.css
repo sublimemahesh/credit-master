@@ -2,6 +2,10 @@
 #lable-active{
     font-size: 22px;
 }
+
+.nic-padding{
+    margin-right: -80px;
+}
 .padd-td{
     padding: 10px;
 }
@@ -8185,5 +8189,5 @@ html.ie11 .bs-searchbox .form-control {
     color: white!important;
 }
 #addres-bar{
-   border-bottom: 1px solid #dddddd;
+    border-bottom: 1px solid #dddddd;
 }
