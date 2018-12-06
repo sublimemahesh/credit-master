@@ -350,7 +350,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
-                                            <input type="text" id="document_free_amount"     placeholder="Document Fee" class="form-control  " autocomplete="off">
+                                            <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -364,7 +364,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
-                                            <input type="text" id="cheque_free_amount"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off">
+                                            <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -377,7 +377,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
-                                            <input type="text" id="stamp_fee"     placeholder="Stamp Fee" class="form-control  " autocomplete="off">
+                                            <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -391,7 +391,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                            <input type="text" id="loan_processing_pre_amount"     placeholder="loan Processing Pre" class="form-control  " autocomplete="off">
+                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>

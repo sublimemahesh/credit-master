@@ -4,6 +4,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
+$today = date("Y-m-d");
 ?> 
 <!DOCTYPE html>
 <html>
@@ -50,7 +51,7 @@ $LOAN = new Loan($loan_id);
                                 <h2>
                                     View Installment
                                 </h2>
-                                 
+
                             </div>
 
                             <div class="body">
@@ -72,7 +73,6 @@ $LOAN = new Loan($loan_id);
                                     <h5>Installment Type : 
                                         <?php
                                         $IT = DefaultData::getInstallmentType();
-
                                         echo $IT[$LOAN->installment_type];
                                         ?> 
                                     </h5>
@@ -141,12 +141,10 @@ $LOAN = new Loan($loan_id);
 
                                                 $Installment = new Installment(NULL);
                                                 $paid_amount = 0;
-                                                foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
+                                                foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
-
-
 
                                                 echo '<tr>';
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
@@ -157,8 +155,6 @@ $LOAN = new Loan($loan_id);
                                                     echo '<td class="padd-td gray text-center" colspan=5>';
                                                     echo '-- Postponed --';
                                                     echo '</td>';
-
-
 
                                                     $start->modify($add_dates);
                                                 } else {
@@ -172,8 +168,7 @@ $LOAN = new Loan($loan_id);
                                                     echo '<td class="f-style">';
                                                     if ($paid_amount) {
                                                         echo 'Paid';
-                                                    } elseif ($date < date("Y-m-d")) {
-
+                                                    } elseif ($date < $today) {
                                                         echo 'Unpaid';
                                                     } else {
                                                         echo 'Payble';
@@ -181,18 +176,14 @@ $LOAN = new Loan($loan_id);
                                                     echo '</td>';
 
                                                     echo '<td class="f-style">';
-
-
                                                     if ($paid_amount) {
                                                         echo 'Rs: ' . number_format($paid_amount, 2);
                                                     } else {
                                                         echo '-';
                                                     }
+
                                                     echo '</td>';
-
                                                     echo '<td class="f-style">';
-
-
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
 
@@ -200,9 +191,23 @@ $LOAN = new Loan($loan_id);
 
                                                     echo '</td>';
                                                     echo '<td class="text-center">';
-                                                    echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                    if ($date == $today) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
+                                                    } else {
+                                                        echo ' <button class="glyphicon glyphicon-send btn btn-info disabled" title="Payment"></button>    ';
+                                                    }
+                                                    if ($LOAN->installment_type == 4) {
+                                                        $start = new DateTime("$today");
+                                                        $date = '+7 day';
+                                                        $start->modify($date);
+                                                        $date = $start->format('Y-m-d');
+                                                        echo $date;
+                                                    } else {
+                                                        echo 'echo';
+                                                    }
+
                                                     echo '</td>';
 
                                                     $start->modify($add_dates);

@@ -32,7 +32,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
     </head>
 
-    <body class="theme-red">
+    <body class="theme-red"  >
         <?php
         include './navigation-and-header.php';
         ?> 
@@ -195,13 +195,80 @@ $GR2 = new Customer($LOAN->guarantor_2);
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="">Effective Date</label>
+                                        <label for="effective_date">Effective Date</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Effective Date</label>
                                                 <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date; ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="issue_mode">Issue Mode</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Issue Mode</label>
+                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none" id="document_free">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="Document Fee">Document Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
+                                                <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="cheque_free">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="cheque_free">Cheque Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
+                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none" id="stamp_fee_amount">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="Stamp Fee">Stamp Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
+                                                <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="loan_processing_pre">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="loan_processing_pre_amount">Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -1642,10 +1709,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>
-<?php
-$ROUTE = new Route($GR2->route);
-if ($ROUTE->id == $GR2->route) {
-    ?>
+                                <?php
+                                $ROUTE = new Route($GR2->route);
+                                if ($ROUTE->id == $GR2->route) {
+                                    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="route">Route</label>
@@ -1655,9 +1722,9 @@ if ($ROUTE->id == $GR2->route) {
                                                 <div class="form-line">
                                                     <label for="route" class="hidden-lg hidden-md">Route</label>
                                                     <div class="form-control">
-    <?php
-    echo $ROUTE->name;
-    ?>
+                                                        <?php
+                                                        echo $ROUTE->name;
+                                                        ?>
 
                                                     </div>
                                                 </div>
@@ -1665,9 +1732,9 @@ if ($ROUTE->id == $GR2->route) {
                                         </div>
                                     </div>
 
-    <?php
-} else {
-    ?>
+                                    <?php
+                                } else {
+                                    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="center">Center</label>
@@ -1677,14 +1744,14 @@ if ($ROUTE->id == $GR2->route) {
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                $CENTER = new Center($GR2->center);
-                                echo $CENTER->name;
-    ?></div>
+                                                        $CENTER = new Center($GR2->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-<?php } ?>
+                                <?php } ?>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1695,10 +1762,10 @@ if ($ROUTE->id == $GR2->route) {
                                             <div class="form-line">
                                                 <label for="city" class="hidden-lg hidden-md">City</label>
                                                 <div class="form-control">
-<?php
-$CITY = new City($GR2->city);
-echo $CITY->name;
-?>
+                                                    <?php
+                                                    $CITY = new City($GR2->city);
+                                                    echo $CITY->name;
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1788,18 +1855,18 @@ echo $CITY->name;
                                             <div class="form-line">
                                                 <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                     <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-<?php if (empty($GR2->br_picture)) {
-    ?>
+                                                    <?php if (empty($GR2->br_picture)) {
+                                                        ?>
                                                         <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
 
-<?php } else { ?>
+                                                    <?php } else { ?>
 
                                                         <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
                                                             <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR2->br_picture ?>">
                                                         </a>
-    <?php
-}
-?>
+                                                        <?php
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1815,10 +1882,10 @@ echo $CITY->name;
                                             <div class="form-line">
                                                 <label for="bank" class="hidden-lg hidden-md">Bank</label>
                                                 <div class="form-control">
-<?php
-$BANK = new Bank($GR2->bank);
-echo $BANK->name;
-?>
+                                                    <?php
+                                                    $BANK = new Bank($GR2->bank);
+                                                    echo $BANK->name;
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1834,10 +1901,10 @@ echo $BANK->name;
                                             <div class="form-line">
                                                 <label for="branch" class="hidden-lg hidden-md">Branch</label>
                                                 <div class="form-control">
-<?php
-$BRANCH = new Branch($GR2->branch);
-echo $BRANCH->name;
-?>
+                                                    <?php
+                                                    $BRANCH = new Branch($GR2->branch);
+                                                    echo $BRANCH->name;
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1928,6 +1995,7 @@ echo $BRANCH->name;
     </section>
 
     <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="test_js.js" type="text/javascript"></script>
     <script src="plugins/bootstrap/js/bootstrap.js"></script> 
     <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <script src="plugins/node-waves/waves.js"></script>
@@ -1939,6 +2007,8 @@ echo $BRANCH->name;
     <script src="js/ajax/loan.js"></script> 
     <script src="js/image.js" type="text/javascript"></script>
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+
+    
     <script>
         $(function () {
             $(".datepicker").datepicker({
