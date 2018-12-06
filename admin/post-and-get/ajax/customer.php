@@ -90,3 +90,24 @@ if ($_POST['action'] == 'GETBANKNAME') {
         exit();
     }
 }
+
+if ($_POST['action'] == 'ADDBRANCHNAME') {
+
+    $BRANCH = new Branch(NULL);
+
+    $BRANCH->bank_id = $_POST['bank_id'];
+    $BRANCH->name = $_POST['branch_name'];
+
+    $result = $BRANCH->create();
+    
+    $allbranch = $BRANCH->getBrachByBank($_POST['bank_id']);
+
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        echo json_encode(['result' => $result, 'branches' => $allbranch]);
+        header('Content-type: application/json');
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}

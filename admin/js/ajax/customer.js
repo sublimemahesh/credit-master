@@ -89,9 +89,63 @@ $(document).ready(function () {
         });
     });
 
+    $('#add-new-branch').click(function () {
+
+        var bankId = $("#selected_bank").attr("bankId");
+        var branchName = $('#new_branch').val();
+
+        if (branchName == '') {
+            swal({
+                title: "Branch Name Required .!",
+                text: "Please enter branch name..",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            });
+        } else {
+            $.ajax({
+                url: "post-and-get/ajax/customer.php",
+                type: "POST",
+                data: {
+                    bank_id: bankId,
+                    branch_name: branchName,
+                    action: 'ADDBRANCHNAME'
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+
+                    var html = '<option> -- Please Select a Branch -- </option>';
+                    $.each(jsonStr.branches, function (i, branches) {
+                        if (jsonStr.result['id'] === branches.id) {
+                            html += '<option selected="true" value="' + branches.id + '">';
+                            html += branches.name;
+                            html += '</option>';
+                        } else {
+                            html += '<option value="' + branches.id + '">';
+                            html += branches.name;
+                            html += '</option>';
+                        }
+                    });
+                    $('#branch').empty();
+                    $('#branch').append(html);
+                    $('#branch_row').show();
+                    $('#exampleModalCenter').modal('hide');
+                }
+            });
+        }
+
+    });
+
     $('#bank_id').change(function () {
 
         var bank_id = $(this).val();
+        var bank_name = $(this).find('option:selected').text();
+
+        $('#selected_bank').val(bank_name);
+        $('#selected_bank').attr("bankId", bank_id);
+
         $.ajax({
 
             url: "post-and-get/ajax/customer.php",
@@ -111,6 +165,7 @@ $(document).ready(function () {
                 $('#branch').empty();
                 $('#branch').append(html);
                 $('#branch_row').show();
+
             }
         });
     });
@@ -169,6 +224,8 @@ $(document).ready(function () {
             }
         });
     });
+
+
 
     $("#form").submit(function (e) {
         var errors = $('#errors').val();
