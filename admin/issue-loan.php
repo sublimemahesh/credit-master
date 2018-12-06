@@ -5,6 +5,7 @@ $id = '';
 $id = $_GET['id'];
 
 $LOAN = new Loan($_GET['id']);
+$loan_id = $_GET['id'];
 $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
 $GR2 = new Customer($LOAN->guarantor_2);
@@ -58,6 +59,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                     <div class="header" style="padding: 0px !important;"> 
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
                             <li><a data-toggle="tab" href="#menu1"><h5>Customer Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu2"><h5>Guarantor 01</h5></a></li>
                             <li><a data-toggle="tab" href="#menu3"><h5>Guarantor 02</h5></a></li>
@@ -330,6 +332,147 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             </div>
                                         </div>
                                     </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="menu0" class="tab-pane fade">
+                            <div class="body">
+                                <div class="row">                                  
+                                    <div class="table-responsive">
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>Installment Date</th> 
+                                                    <th>Installment Amount</th> 
+                                                    <th>Status</th> 
+                                                    <th>Paid Amount</th> 
+                                                    <th>Due and Excess</th> 
+
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+
+                                                $start_date = $LOAN->effective_date;
+                                                $start = new DateTime("$start_date");
+
+                                                $x = 0;
+                                                $ins_total = 0;
+                                                $total_paid = 0;
+                                                while ($x < $defultdata) {
+                                                    if ($defultdata == 4) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 30) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 8) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 60) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 2) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 1) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 90) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 12) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 3) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 100) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 13) {
+                                                        $add_dates = '+7 day';
+                                                    }
+
+                                                    $date = $start->format('Y-m-d');
+                                                    $customer = $LOAN->customer;
+
+                                                    $CUSTOMER = new Customer($customer);
+                                                    $route = $CUSTOMER->route;
+                                                    $center = $CUSTOMER->center;
+                                                    $amount = $LOAN->installment_amount;
+
+                                                    $Installment = new Installment(NULL);
+                                                    $paid_amount = 0;
+                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+
+                                                        $paid_amount += $paid['paid_amount'];
+                                                    }
+
+
+
+                                                    echo '<tr>';
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+
+                                                        echo '<td class="padd-td red">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" colspan=5>';
+                                                        echo '-- Postponed --';
+                                                        echo '</td>';
+
+
+
+                                                        $start->modify($add_dates);
+                                                    } else {
+                                                        echo '<td class="padd-td f-style">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="f-style">';
+                                                        echo 'Rs: ' . number_format($amount, 2);
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style">';
+                                                        if ($paid_amount) {
+                                                            echo 'Paid';
+                                                        } elseif ($date < date("Y-m-d")) {
+
+                                                            echo 'Unpaid';
+                                                        } else {
+                                                            echo 'Payble';
+                                                        }
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style">';
+
+
+                                                        if ($paid_amount) {
+                                                            echo 'Rs: ' . number_format($paid_amount, 2);
+                                                        } else {
+                                                            echo '-';
+                                                        }
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style">';
+
+
+                                                        $ins_total += $amount;
+                                                        $total_paid += $paid_amount;
+
+                                                        echo number_format($total_paid - $ins_total, 2);
+
+                                                        echo '</td>';
+
+
+                                                        $start->modify($add_dates);
+                                                        $x++;
+                                                    }
+                                                    echo '</tr>';
+                                                }
+                                                ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>Installment Date</th> 
+                                                    <th>Installment Amount</th> 
+                                                    <th>Status</th> 
+                                                    <th>Paid Amount</th> 
+                                                    <th>Due and Excess</th> 
+                                                </tr>   
+                                            </tfoot>
+                                        </table>  
+                                    </div>                                                                      
                                 </div>
                             </div>
                         </div>

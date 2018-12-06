@@ -139,7 +139,7 @@ $LOAN->status = 'verified';
                                                         <br/>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="approve-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-ok btn btn-info" title="Approve Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a> |  
+                                                        <a href="approve-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="Approve Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a> |  
                                                         <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn btn btn-danger" title="Delete Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
                                                     </td> 
                                                 </tr>

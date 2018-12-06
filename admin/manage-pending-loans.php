@@ -139,7 +139,7 @@ $LOAN->status = 'pending';
                                                         <br/>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="verify-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-info" title="Verify Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a> |  
+                                                        <a href="verify-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="Verify Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a> |  
                                                         <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn btn btn-danger" title="Delete Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
                                                     </td> 
                                                 </tr>
