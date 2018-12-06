@@ -24,7 +24,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
-        
+
     </head>
 
     <body class="theme-red">
