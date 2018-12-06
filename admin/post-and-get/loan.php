@@ -47,7 +47,7 @@ if (isset($_POST['create-new-loan'])) {
         $VALID->addError("Loan was created successfully", 'success');
         $_SESSION['ERRORS'] = $VALID->errors();
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header("location: ../add-loan-document.php?id=" . $LOAN->id);
     } else {
 
         if (!isset($_SESSION)) {

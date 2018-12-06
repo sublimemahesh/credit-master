@@ -239,8 +239,6 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                 </div>
 
-
-
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issue_mode">Issue Mode</label>
@@ -264,7 +262,6 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="row" style="display: none" id="document_free">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">

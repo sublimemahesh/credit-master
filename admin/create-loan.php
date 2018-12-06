@@ -317,13 +317,93 @@ $DEFDATA = new DefaultData();
                                 </div>
                             </div>
 
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="issue_mode">Issue Mode</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
+                                            <select id="issue_mode" name="issue_mode" class="form-control">
+                                                <option value=""> -- Please Select Issue Mode -- </option>
+                                                <?php
+                                                $issueModes = DefaultData::getLoanIssueMode();
+                                                foreach ($issueModes as $key => $issueMode) {
+                                                    ?>
+                                                    <option value="<?php echo $key ?>"><?php echo $issueMode ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="document_free">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="Document Fee">Document Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
+                                            <input type="text" id="document_free_amount"     placeholder="Document Fee" class="form-control  " autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="cheque_free">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="cheque_free">Cheque Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
+                                            <input type="text" id="cheque_free_amount"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row" style="display: none" id="stamp_fee_amount">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="Stamp Fee">Stamp Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
+                                            <input type="text" id="stamp_fee"     placeholder="Stamp Fee" class="form-control  " autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" style="display: none" id="loan_processing_pre">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_processing_pre_amount">Loan Processing Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                            <input type="text" id="loan_processing_pre_amount"     placeholder="loan Processing Pre" class="form-control  " autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
                             <div class="row clearfix">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
-                                        <input type="hidden" value="<?php   echo $_SESSION['id']; ?>" name="create_by">
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                     </div> 
                                 </div> 
                             </div>

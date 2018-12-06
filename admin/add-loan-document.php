@@ -3,7 +3,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
 $id = $_GET['id'];
-$CUSTOMER = new Customer($id);
+$LOAN = new Loan($id);
 ?> 
 
 <!DOCTYPE html>
@@ -12,7 +12,7 @@ $CUSTOMER = new Customer($id);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Add Customer Photo || Credit Master</title>
+        <title>Add Loan Document || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -42,19 +42,14 @@ $CUSTOMER = new Customer($id);
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <form class="" action="post-and-get/customer-document.php" method="post"  enctype="multipart/form-data"> 
+                <form class="" action="post-and-get/loan-document.php" method="post"  enctype="multipart/form-data"> 
 
                     <div class="card">
                         <div class="header">
-                            <h2><?php echo $CUSTOMER->surname.' '.$CUSTOMER->first_name.' '.$CUSTOMER->last_name?>  Customer Details</h2>
-                            <ul class="header-dropdown">
-                                <li class="">
-                                    <a href="view-active-customer.php">
-                                        <i class="material-icons">list</i> 
-                                    </a>
-                                </li>
-                            </ul>
+                            <h2> ID: # 
+                                <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT); ?></h2>
                         </div>
+
                         <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -72,13 +67,13 @@ $CUSTOMER = new Customer($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="customer_photo">Customer Photo</label>
+                                    <label for="loan_photo">Loan Photo</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="customer_photo" class="hidden-lg hidden-md">Customer Photo</label>
-                                            <input type="file" id="customer_photo"  name="image_name" class="form-control" autocomplete="off">
+                                            <label for="loan_photo" class="hidden-lg hidden-md">Loan Photo</label>
+                                            <input type="file" id="loan_photo"  name="image_name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -100,29 +95,25 @@ $CUSTOMER = new Customer($id);
 
                 <div class="card">
                     <div class="header">
-                        <h2>Customer Document</h2>
-
+                        <h2>Loan Document</h2>
                     </div>
                     <div class="body">
                         <div class="row">
                             <div class="form-line clearfix aniimated-thumbnials"> 
                                 <?php
-                                $COUSTMER_DOCUMENT = new CustomerDocument(NUll);
-                                foreach ($COUSTMER_DOCUMENT->getDocumentByCustomer($id) as $customerdocument) {
+                                $LOAN_DOCUMENT = new LoanDocument(NUll);
+                                foreach ($LOAN_DOCUMENT->getDocumentByLoan($id) as $loan_document) {
                                     ?>
                                     <div class="col-md-3"> 
-                                        <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption']?>">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/document/thumb/<?php echo $customerdocument['image_name'] ?>">
+                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
                                         </a> 
-
-
-
                                     </div>
-                                <?php } ?>
+                                    <?php }
+                                ?>
                             </div>
                         </div>
                     </div>
-
                 </div>
         </section>
 
