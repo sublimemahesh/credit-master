@@ -144,7 +144,7 @@ $DEFDATA = new DefaultData();
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
                                             <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="guarantor_1"  required="TRUE">
-                                                <option value=""> -- Please Select Registration Type First-- </option> 
+                                                <option  value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
 
                                         </div>
@@ -161,7 +161,7 @@ $DEFDATA = new DefaultData();
                                         <div class="form-line">
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
                                             <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" required="TRUE">
-                                                <option value=""> -- Please Select Registration Type First-- </option> 
+                                                <option id="emptygr2" value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
                                         </div>
                                     </div>
@@ -177,7 +177,7 @@ $DEFDATA = new DefaultData();
                                         <div class="form-line">
                                             <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
                                             <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
-                                                <option value=""> -- Please Select Registration Type First-- </option> 
+                                                <option id="emptygr3" value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
                                         </div>
                                     </div>
