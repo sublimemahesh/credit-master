@@ -11,7 +11,6 @@ $(document).ready(function () {
             $('#guarantor_1').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
             $('#guarantor_2').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
             $('#guarantor_3').empty().append('<option value=""> -- Please Select Registration Type First--  </option>');
-
         }
 
         $.ajax({
@@ -62,6 +61,7 @@ $(document).ready(function () {
     $('.customer-ref').change(function () {
 
         var type = this.id;
+
         var value = $(this).val();
         $.ajax({
             url: "post-and-get/ajax/loan.php",
@@ -88,7 +88,8 @@ $(document).ready(function () {
                 $('#guarantor_3').empty();
                 $('#guarantor_3').append(html);
                 $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
-
+                $("#guarantor_2 option[id='cu_" + jsonStr.leader + "']").remove();
+                $("#guarantor_3 option[id='cu_" + jsonStr.leader + "']").remove();
             }
         });
     });
@@ -98,6 +99,29 @@ $(document).ready(function () {
         var credit_limit = $('option:selected', this).attr('credit_limit');
         $('#loan_amount').val(credit_limit);
         $("#loan_amount").attr("max", credit_limit);
+
+        var customer = $(this).val();
+
+
+        $('select#guarantor_2').find('option').each(function () {
+            if ($(this).val() === customer) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+
+        $('select#guarantor_3').find('option').each(function () {
+            if ($(this).val() === customer) {
+                $(this).hide();
+            } else {
+                $(this).show();
+            }
+        });
+
+
+
     });
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
@@ -490,8 +514,6 @@ $(document).ready(function () {
         });
 
     });
-
-
     //check loan processing free
 
     $(`#issue_mode`).change(function () {

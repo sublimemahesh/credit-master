@@ -78,14 +78,10 @@ if ($_POST['action'] == 'CHECKNIC&MOBILEINCUSTOMER') {
 
 
 if ($_POST['action'] == 'CHECKNIC&MOBILEEXISTCUSTOMER') {
-
     $CUSTOMER = new Customer(NULL);
-
     $UPPERNIC = strtoupper($_POST["nicNumber"]);
-
     $result1 = $CUSTOMER->CheckNicNumberInCustomerExist($UPPERNIC, $_POST["id"]);
     $result2 = $CUSTOMER->CheckMobileNumberInCustomerExist($_POST["mobileNumber"], $_POST["id"]);
-
     if ($result1 == TRUE) {
         $data = array("status" => 'nicIsExist');
         header('Content-type: application/json');
