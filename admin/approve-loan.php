@@ -222,9 +222,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     <option value=""> -- Please Select Issue Mode -- </option>
                                                     <?php
                                                     $DEFULTDATA = new DefaultData(NULL);
+
                                                     foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
 
-                                                        if ($issuemode == ucfirst($LOAN->issue_mode)) {
+                                                        if ($key == $LOAN->issue_mode) {
                                                             ?>
                                                             <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
                                                             <?php

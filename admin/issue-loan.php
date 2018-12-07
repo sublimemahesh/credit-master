@@ -251,23 +251,21 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
+                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label> 
                                                 <select id="issue_mode" name="issue_mode" class="form-control">
                                                     <option value=""> -- Please Select Issue Mode -- </option>
                                                     <?php
                                                     $DEFULTDATA = new DefaultData(NULL);
 
-
                                                     foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
 
-                                                        if ($issuemode == ucfirst($LOAN->issue_mode)) {
+                                                        if ($key == $LOAN->issue_mode) {
                                                             ?>
-                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo  $issuemode?></option>
+                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
                                                             <?php
                                                         } else {
                                                             ?>
-
-                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
+                                                            <option value ="<?php echo $key ?>"><?php echo $issuemode ?></option>
                                                             <?php
                                                         }
                                                     }
