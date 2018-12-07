@@ -186,30 +186,49 @@ $today = date("Y-m-d");
                                                     echo '<td class="f-style">';
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
+                                                    $due_and_excess = $total_paid - $ins_total;
 
-                                                    echo number_format($total_paid - $ins_total, 2);
-
+                                                    if ($due_and_excess < 0) {
+                                                        echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                    } elseif ($due_and_excess > 0) {
+                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                    } else {
+                                                        echo number_format($due_and_excess, 2);
+                                                    }
                                                     echo '</td>';
                                                     echo '<td class="text-center">';
+
+
+                                                    //check payment button 
+
                                                     if ($date == $today) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+
+                                                        //show week payment button
+
+                                                        $start = new DateTime("$today");
+                                                        $date = '+7 day';
+                                                        $start->modify($date);
+                                                        $date = $start->format('Y-m-d');
+                                                    } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+                                                        //show month payment button  
+                                                        $start = new DateTime("$today");
+                                                        $date = '+1 months';
+                                                        $start->modify($date);
+                                                        $date = $start->format('Y-m-d');
+                                                    } elseif ($LOAN->installment_type == 1 && ($date == $today)) {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } else {
                                                         echo ' <button class="glyphicon glyphicon-send btn btn-info disabled" title="Payment"></button>    ';
                                                     }
-                                                    if ($LOAN->installment_type == 4) {
-                                                        $start = new DateTime("$today");
-                                                        $date = '+7 day';
-                                                        $start->modify($date);
-                                                        $date = $start->format('Y-m-d');
-                                                        echo $date;
-                                                    } else {
-                                                        echo 'echo';
-                                                    }
-
                                                     echo '</td>';
-
                                                     $start->modify($add_dates);
                                                     $x++;
                                                 }

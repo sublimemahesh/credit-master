@@ -86,6 +86,7 @@ if ($_POST['action'] == 'DELETE') {
 if ($_POST['action'] == 'APPROVE') {
 
     $LOAN = new Loan($_POST['loan_id']);
+    $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->approved_by = $_POST['approved_by'];
     $LOAN->verify_comments = $_POST['verify_comments'];

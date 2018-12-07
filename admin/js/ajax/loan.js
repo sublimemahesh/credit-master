@@ -272,6 +272,7 @@ $(document).ready(function () {
         var loan_id = $('#loan_id').val();
         var approved_by = $('#approved_by').val();
         var effective_date = $('#effective_date').val();
+        var issue_mode = $('#issue_mode').val();
         var comments = $('#comments').val();
 
         swal({
@@ -289,6 +290,7 @@ $(document).ready(function () {
                 type: "POST",
                 data: {
                     loan_id: loan_id,
+                    issue_mode: issue_mode,
                     approved_by: approved_by,
                     effective_date: effective_date,
                     verify_comments: comments,
@@ -521,13 +523,14 @@ $(document).ready(function () {
         var issue_mode = $(this).val();
         var loan_amount = $(`#loan_amount`).val();
 
-        if (issue_mode == 'bank') {
+        if (issue_mode == 'cash') {
+
+
 
             $(`#document_free`).show();
             $(`#stamp_fee_amount`).show();
             $(`#loan_processing_pre`).show();
-
-
+            $('#cheque_free').hide();
 
             $.ajax({
                 url: "post-and-get/ajax/loan.php",
@@ -546,10 +549,13 @@ $(document).ready(function () {
                 }
             });
 
-        } else if (issue_mode == 'cash') {
+        } else if (issue_mode == 'bank') {
+
             $(`#document_free`).show();
             $(`#stamp_fee_amount`).show();
             $(`#loan_processing_pre`).show();
+            $('#cheque_free').hide();
+
 
             $.ajax({
                 url: "post-and-get/ajax/loan.php",
@@ -592,6 +598,11 @@ $(document).ready(function () {
                     $('#loan_processing_pre_amount').val(jsonStr.result['total']);
                 }
             });
+        } else {
+            $(`#document_free`).hide();
+            $(`#stamp_fee_amount`).hide();
+            $(`#loan_processing_pre`).hide();
+            $(`#cheque_free`).hide();
         }
     });
 
@@ -626,22 +637,18 @@ $(document).ready(function () {
 
 });
 
+//get other page to issumode prices in onloard
 
-$('#issue_mode_onloard').load(function () {
+window.onload = function () {
+    var issue_mode = document.getElementById("issue_mode_onloard").value;
+    var loan_amount = document.getElementById("loan_amount").value;
 
-    alert();
-    var issue_mode = $(this).val();
-
-    var loan_amount = $(`#loan_amount`).val();
 
     if (issue_mode == 'bank') {
 
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
-
-
-
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -658,12 +665,10 @@ $('#issue_mode_onloard').load(function () {
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
-
     } else if (issue_mode == 'cash') {
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
-
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -680,13 +685,11 @@ $('#issue_mode_onloard').load(function () {
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
-
     } else if (issue_mode == 'cheque') {
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
         $(`#cheque_free`).show();
-
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -700,11 +703,10 @@ $('#issue_mode_onloard').load(function () {
             success: function (jsonStr) {
                 $('#document_free_amount').val(jsonStr.result['document_free']);
                 $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
-
                 $('#stamp_fee').val(jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
     }
-
-});
+};
+ 

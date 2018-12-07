@@ -255,11 +255,21 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <select id="issue_mode" name="issue_mode" class="form-control">
                                                     <option value=""> -- Please Select Issue Mode -- </option>
                                                     <?php
-                                                    $issueModes = DefaultData::getLoanIssueMode();
-                                                    foreach ($issueModes as $key => $issueMode) {
-                                                        ?>
-                                                        <option value="<?php echo $key ?>"><?php echo $issueMode ?></option>
-                                                        <?php
+                                                    $DEFULTDATA = new DefaultData(NULL);
+
+
+                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
+
+                                                        if ($issuemode == ucfirst($LOAN->issue_mode)) {
+                                                            ?>
+                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo  $issuemode?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+
+                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
+                                                            <?php
+                                                        }
                                                     }
                                                     ?>
                                                 </select>
@@ -2056,6 +2066,8 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/>
                                         <input type="hidden" name="id" value="<?php echo $id ?>">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
+                                        <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+
                                     </div>
                                 </div>
                             </div>

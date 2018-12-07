@@ -32,7 +32,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
     </head>
 
-    <body class="theme-red"  >
+    <body class="theme-red"  onLoad="focusOnMyInputBox()">
         <?php
         include './navigation-and-header.php';
         ?> 
@@ -92,11 +92,12 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Loan Amount</label>
-                                                <div class="form-control">
+                                                <div class="form-control" >
                                                     <?php
                                                     echo number_format($LOAN->loan_amount, 2);
                                                     ?>
                                                 </div>
+                                                <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -215,7 +216,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off">
+                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -407,7 +408,6 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                         $total_paid += $paid_amount;
 
                                                         echo number_format($total_paid - $ins_total, 2);
-
                                                         echo '</td>';
 
 
@@ -1448,15 +1448,13 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <label for="bank_book_picture">Bank Book Photo</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <div class=" clearfix aniimated-thumbnials">
-                                                    <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                                    <a href="../upload/customer/bbp/<?php echo $GR1->bank_book_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR1->bank_book_picture; ?>">
-                                                    </a>  
-                                                </div> 
-                                            </div>
+                                        <div class="form-group"> 
+                                            <div class=" clearfix aniimated-thumbnials">
+                                                <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
+                                                <a href="../upload/customer/bbp/<?php echo $GR1->bank_book_picture; ?>" data-sub-html=" ">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR1->bank_book_picture; ?>">
+                                                </a>  
+                                            </div>  
                                         </div>
                                     </div>
                                 </div> 
@@ -1959,16 +1957,14 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <label for="bank_book_picture">Bank Book Photo</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <div class=" clearfix aniimated-thumbnials">
-                                                    <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                                    <a href="../upload/customer/bbp/<?php echo $GR2->bank_book_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR2->bank_book_picture; ?>">
-                                                    </a>  
-                                                </div> 
-                                            </div>
-                                        </div>
+                                        <div class="form-group"> 
+                                            <div class=" clearfix aniimated-thumbnials">
+                                                <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
+                                                <a href="../upload/customer/bbp/<?php echo $GR2->bank_book_picture; ?>" data-sub-html=" ">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR2->bank_book_picture; ?>">
+                                                </a>  
+                                            </div> 
+                                        </div> 
                                     </div>
                                 </div>  
                             </div>
@@ -2016,8 +2012,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
             </div>
         </section>
 
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <script src="test_js.js" type="text/javascript"></script>
+        <script src="plugins/jquery/jquery.min.js"></script> 
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
@@ -2029,16 +2024,16 @@ $GR2 = new Customer($LOAN->guarantor_2);
         <script src="js/ajax/loan.js"></script> 
         <script src="js/image.js" type="text/javascript"></script>
         <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
-
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
 
         <script>
-            $(function () {
-                $(".datepicker").datepicker({
-                    dateFormat: 'yy-mm-dd',
-                    minDate: '-3D',
-                    maxDate: '+3D',
-                });
+        $(function () {
+            $(".datepicker").datepicker({
+                dateFormat: 'yy-mm-dd',
+                minDate: '-3D',
+                maxDate: '+3D',
             });
+        });
         </script>
     </body> 
 </html>

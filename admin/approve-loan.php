@@ -92,10 +92,12 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Loan Amount</label>
-                                                <div class="form-control">
+                                                <div class="form-control" >
                                                     <?php
                                                     echo number_format($LOAN->loan_amount, 2);
                                                     ?>
+                                                    <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
+
                                                 </div>
                                             </div>
                                         </div>
@@ -215,12 +217,31 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off">
+                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
+                                                <select id="issue_mode" name="issue_mode" class="form-control">
+                                                    <option value=""> -- Please Select Issue Mode -- </option>
+                                                    <?php
+                                                    $DEFULTDATA = new DefaultData(NULL);
+                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
+
+                                                        if ($issuemode == ucfirst($LOAN->issue_mode)) {
+                                                            ?>
+                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+
+                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row" style="display: none" id="document_free">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="Document Fee">Document Fee</label>
@@ -275,6 +296,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>
+
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -2008,10 +2030,11 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                         <input type="submit" id="pending" class="btn btn-info" value="Transfer to Verify"/> | 
                                         <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/>
+                                        <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+
                                     </div>
                                 </div>
                             </div>
-
                         </div> 
                     </div>
                 </div>
@@ -2032,6 +2055,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
         <script src="js/image.js" type="text/javascript"></script>
         <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
         <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
         <script>
             $(function () {
                 $(".datepicker").datepicker({
