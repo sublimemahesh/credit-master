@@ -62,6 +62,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                             <li><a data-toggle="tab" href="#menu1"><h5>Customer Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu2"><h5>Guarantor 01</h5></a></li>
                             <li><a data-toggle="tab" href="#menu3"><h5>Guarantor 02</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu4"><h5>Loan Document</h5></a></li>
                         </ul> 
                     </div>
                     <div class="tab-content">  
@@ -1971,52 +1972,73 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                 </div>  
                             </div>
-                        </div>
-
-                        <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
-                            <div class="row">
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-                                        <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
-                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="verify_by">
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                        <input type="submit" id="verify" class="btn btn-success" value="Verify Now"/> | 
-                                        <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
-                                        <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/>
-                                    </div>
+                            <div id="menu4" class="tab-pane fade">
+                                <div class="body"> 
+                                    <div class="row">
+                                        <?php
+                                        $LOAN_DOCUMENT = new LoanDocument(NUll);
+                                        foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
+                                            ?>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class=" clearfix aniimated-thumbnials">
+                                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
+                                                        </a>  
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>                                     
+                                    <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
                                 </div>
                             </div>
-                        </div> 
+
+
+                            <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
+                                <div class="row">
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
+                                            <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
+                                            <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="verify_by">
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
+                                            <input type="submit" id="verify" class="btn btn-success" value="Verify Now"/> | 
+                                            <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
+                                            <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="test_js.js" type="text/javascript"></script>
-    <script src="plugins/bootstrap/js/bootstrap.js"></script> 
-    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script src="plugins/node-waves/waves.js"></script>
-    <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/demo.js"></script> 
-    <script src="plugins/jquery-ui/jquery-ui.js"></script>
-    <script src="plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="js/ajax/loan.js"></script> 
-    <script src="js/image.js" type="text/javascript"></script>
-    <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+        <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="test_js.js" type="text/javascript"></script>
+        <script src="plugins/bootstrap/js/bootstrap.js"></script> 
+        <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <script src="plugins/node-waves/waves.js"></script>
+        <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+        <script src="js/admin.js"></script>
+        <script src="js/demo.js"></script> 
+        <script src="plugins/jquery-ui/jquery-ui.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
+        <script src="js/ajax/loan.js"></script> 
+        <script src="js/image.js" type="text/javascript"></script>
+        <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 
-    
-    <script>
-        $(function () {
-            $(".datepicker").datepicker({
-                dateFormat: 'yy-mm-dd',
-                minDate: '-3D',
-                maxDate: '+3D',
+
+        <script>
+            $(function () {
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: '-3D',
+                    maxDate: '+3D',
+                });
             });
-        });
-    </script>
-</body> 
+        </script>
+    </body> 
 </html>

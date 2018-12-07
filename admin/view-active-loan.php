@@ -61,6 +61,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                             <li><a data-toggle="tab" href="#menu1"><h5>Customer Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu2"><h5>Guarantor 01</h5></a></li>
                             <li><a data-toggle="tab" href="#menu3"><h5>Guarantor 02</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu4"><h5>Loan Document</h5></a></li>
                         </ul> 
                     </div> 
                     <div class="tab-content">  
@@ -1903,7 +1904,27 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                 </div>  
                             </div>
+                            <div id="menu4" class="tab-pane fade">
+                                <div class="body"> 
+                                    <div class="row">
+                                        <?php
+                                        $LOAN_DOCUMENT = new LoanDocument(NUll);
+                                        foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
+                                            ?>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class=" clearfix aniimated-thumbnials">
+                                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
+                                                        </a>  
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        <?php } ?>
 
+                                    </div>
+                                    <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                                                  </div>
+                            </div>
                             <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
                                 <div class="row">
                                     <div class="row">
