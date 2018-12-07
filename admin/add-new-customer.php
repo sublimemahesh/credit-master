@@ -34,11 +34,10 @@ include_once(dirname(__FILE__) . '/auth.php');
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data"> 
+                <form action="post-and-get/customer.php" method="post" id="customerform" enctype="multipart/form-data"> 
                     <div class="card">
                         <div class="header">
                             <h2>Add Customer Details</h2>
@@ -609,7 +608,8 @@ include_once(dirname(__FILE__) . '/auth.php');
 
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer " type="submit" name="add-customer">Save Details</button>
+                                    <input type="hidden" id="errors" value="1"/>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left check-customer" type="submit" name="add-cus">Save Details</button>
                                     <input type="hidden" name="add-customer" value="add-customer"/>
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
@@ -622,56 +622,50 @@ include_once(dirname(__FILE__) . '/auth.php');
         <!-- Modal -->
         <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered" role="document">
-                <form>
-                    <div class="card">
-                        <div class="header">
-                            <h2>Add New Branch</h2>
-                            <ul class="header-dropdown">
-                                <li class="">
-                                    <a href="add-new-bank.php">
-                                        <i class="material-icons">list</i> 
-                                    </a>
-                                </li>
-                            </ul>
-                        </div>
-                        <div class="body">
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="name">Bank Name</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="selected_bank" bankId="" value="" name="selected_bank_name"  class="form-control" autocomplete="off" readonly>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="name">Branch Name</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <input type="text" id="new_branch"  name="newbranchname" placeholder="Enter Branch Name" class="form-control" required autocomplete="off"  >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-                            <div class="row text-right">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="button" id="add-new-branch" class="btn btn-primary">Save changes</button>
+
+                <div class="card">
+                    <div class="header">
+                        <h2>Add New Branch</h2>
+                        <ul class="header-dropdown">
+                            <li class="">
+                                <a href="add-new-bank.php">
+                                    <i class="material-icons">list</i> 
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="body">
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                <label for="name">Bank Name</label>
                             </div>
-
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="selected_bank" bankId="" value="" name="selected_bank_name"  class="form-control" autocomplete="off" readonly>
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row">
+                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                <label for="name">Branch Name</label>
+                            </div>
+                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <input type="text" id="new_branch"  name="newbranchname" placeholder="Enter Branch Name" class="form-control" required autocomplete="off"  >
+                                    </div>
+                                </div>
+                            </div>
+                        </div> 
+                        <div class="row text-right">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" id="add-new-branch" class="btn btn-primary">Save changes</button>
                         </div>
-                    </div> 
-                </form>
 
-
-
-
-
+                    </div>
+                </div> 
 
 
             </div>
