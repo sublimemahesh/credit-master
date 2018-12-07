@@ -46,7 +46,11 @@ $CUSTOMER = new Customer($id);
 
                     <div class="card">
                         <div class="header">
-                            <h2><?php echo $CUSTOMER->surname.' '.$CUSTOMER->first_name.' '.$CUSTOMER->last_name?>  Customer Details</h2>
+                            <h2><?php
+                                $DefaultData = new DefaultData(NULl);
+                                $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                ?>  Document  Details</h2>
                             <ul class="header-dropdown">
                                 <li class="">
                                     <a href="view-active-customer.php">
@@ -72,12 +76,12 @@ $CUSTOMER = new Customer($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="customer_photo">Customer Photo</label>
+                                    <label for="customer_photo">Images</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="customer_photo" class="hidden-lg hidden-md">Customer Photo</label>
+                                            <label for="customer_photo" class="hidden-lg hidden-md">Images</label>
                                             <input type="file" id="customer_photo"  name="image_name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
@@ -111,7 +115,7 @@ $CUSTOMER = new Customer($id);
                                 foreach ($COUSTMER_DOCUMENT->getDocumentByCustomer($id) as $customerdocument) {
                                     ?>
                                     <div class="col-md-3"> 
-                                        <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption']?>">
+                                        <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption'] ?>">
                                             <img class="img-responsive thumbnail" src="../upload/customer/document/thumb/<?php echo $customerdocument['image_name'] ?>">
                                         </a> 
 

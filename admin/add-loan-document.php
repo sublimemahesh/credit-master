@@ -67,12 +67,12 @@ $LOAN = new Loan($id);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_photo">Loan Photo</label>
+                                    <label for="Images">Images</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="loan_photo" class="hidden-lg hidden-md">Loan Photo</label>
+                                            <label for="Images" class="hidden-lg hidden-md">Images</label>
                                             <input type="file" id="loan_photo"  name="image_name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
@@ -99,17 +99,22 @@ $LOAN = new Loan($id);
                     </div>
                     <div class="body">
                         <div class="row">
-                            <div class="form-line clearfix aniimated-thumbnials"> 
+                            <div class="form-line "> 
                                 <?php
                                 $LOAN_DOCUMENT = new LoanDocument(NUll);
                                 foreach ($LOAN_DOCUMENT->getDocumentByLoan($id) as $loan_document) {
                                     ?>
-                                    <div class="col-md-3"> 
-                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
-                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
-                                        </a> 
+                                    <div class="col-md-3 " id="row_<?php echo $loan_document['id']; ?>"> 
+                                        <div class="clearfix aniimated-thumbnials">
+                                            <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                                <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
+                                            </a>                                                                                    
+                                        </div> 
+
+                                        <a href="#"  class="delete-loan-document" data-id="<?php echo $loan_document['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                     </div>
-                                    <?php }
+
+                                <?php }
                                 ?>
                             </div>
                         </div>
@@ -118,18 +123,20 @@ $LOAN = new Loan($id);
         </section>
 
         <!-- Jquery Core Js -->
-        <script src="plugins/jquery/jquery.min.js"></script>
+        <script src="plugins/jquery/jquery.min.js"></script>    
+        <script src="delete/js/loan-document.js" type="text/javascript"></script>
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> 
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script> 
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/image.js" type="text/javascript"></script>
         <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
-        <script src="js/birthday_script.js" type="text/javascript"></script>
-        <script src="js/ajax/customer.js" type="text/javascript"></script> 
+
+
     </body>
 
 </html> 

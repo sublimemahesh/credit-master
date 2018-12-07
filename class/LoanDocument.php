@@ -43,7 +43,7 @@ class LoanDocument {
                 . $this->loan . "','"
                 . $this->caption . "','"
                 . $this->image_name . "')";
-       
+
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -85,6 +85,14 @@ class LoanDocument {
         }
 
         return $array_res;
+    }
+
+    public function delete() { 
+
+        $query = 'DELETE FROM `loan_document` WHERE id="' . $this->id . '"';
+       
+        $db = new Database();
+        return $db->readQuery($query);
     }
 
 }
