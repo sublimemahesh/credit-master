@@ -46,7 +46,7 @@ class DefaultData {
 
     public function getLoanIssueMode() {
 
-        return array("cash" => "Cash", "bank" => "Bank", "cheque" => "Cheque ");
+        return array("cash" => "Cash", "bank" => "Bank", "cheque" => "Cheque");
     }
 
     public function getCreditLimit() {
