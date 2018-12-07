@@ -12,8 +12,7 @@ if (isset($_POST['add-customer'])) {
     $UPPERNIC = strtoupper($_POST['nic_number']);
         
     $telephone_number = null;
-    $telephone_number = $_POST['telephone1'] . $_POST['telephone2'] . $_POST['telephone3'];
-
+    
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
@@ -29,7 +28,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->billing_proof_image = $_POST['billing_proof_image'];
     $CUSTOMER->email = $_POST['email'];
-    $CUSTOMER->telephone = $telephone_number;
+    $CUSTOMER->telephone = $_POST['telephone'];
     $CUSTOMER->mobile = $_POST['mobile'];
     $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];

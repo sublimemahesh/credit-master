@@ -76,16 +76,26 @@ class DefaultData {
 
     public function loanProcessingPreBank($amount) {
 
-        $document_free = 50;
 
-        $count = $amount / 100000;
+        if ($amount < 100000) {
 
-        $stamp_fee = ($amount * 0.1 / 100);
-        $full_document_charge = $count * $document_free;
+            $full_document_charge = 50;
+            $stamp_fee = ($amount * 0.1 / 100);
+            $total = $stamp_fee + $full_document_charge;
+            
+        } else {
+            $count = 0;
+            $document_free = 50;
 
-        $total = $stamp_fee + $full_document_charge;
+            $count = $amount / 100000;
+            
+            $stamp_fee = ($amount * 0.1 / 100);
 
-        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee);
+            $full_document_charge = round($count,0) * $document_free;
+            $total = $stamp_fee + $full_document_charge;
+        }
+
+        $loan_free = array("document_free" => $full_document_charge, "total" => $total, "stamp_fee" => $stamp_fee);
 
         return $loan_free;
     }
@@ -106,4 +116,5 @@ class DefaultData {
     public function generalLedgerAccounts() {
         return array("1" => "Assets", "2" => "Liabilities", "3" => "Operating Revenues", "4" => "Operating expenses", "5" => "Non-Operating Revenues and Gains", "6" => "Non-Operating Expenses and Losses");
     }
+
 }

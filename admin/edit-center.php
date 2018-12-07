@@ -79,7 +79,7 @@ $CENTER = new Center($id);
                                             <select id="leader"  name="leader" class="form-control" required="TRUE">
                                                 <option value=""> -- Please Select -- </option>
                                                 <?php
-                                                foreach (Customer::all()as $customer) {
+                                                foreach (Customer::getCustomerByCenterLeader() as $customer) {
 
                                                     $addres = $customer['address_line_1'];
 
