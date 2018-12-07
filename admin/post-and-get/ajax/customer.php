@@ -20,44 +20,70 @@ if ($_POST['action'] == 'GETREGTYPE') {
     }
 }
 
-
-if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
-
-    $CUSTOMER = new Customer(NULL);
-
-    $result = $CUSTOMER->CheckNicNumberInCustomer($_POST["NicNumber"]);
-
-    if ($result == TRUE) {
-        $data = array("status" => TRUE);
-        header('Content-type: application/json');
-        echo json_encode($data);
-    } else {
-        header('Content-type: application/json');
-        exit();
-    }
-}
-
-if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
+if ($_POST['action'] == 'CHECKNIC&MOBILEINCUSTOMER') {
 
     $CUSTOMER = new Customer(NULL);
 
-    $result = $CUSTOMER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
-    if ($result == TRUE) {
-        $data = array("status" => TRUE);
+    $UPPERNIC = strtoupper($_POST["NicNumber"]);
+
+    $nic = $CUSTOMER->CheckNicNumberInCustomer($UPPERNIC);
+    $mobile = $CUSTOMER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
+
+    if ($nic == TRUE) {
+        $data = array("status" => 'nicIsExist');
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else if ($mobile == TRUE) {
+        $data = array("status" => 'mobileIsExist');
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
+        $data = array("status" => 'false');
         header('Content-type: application/json');
+        echo json_encode($data);
         exit();
     }
 }
+//if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
+//
+//    $CUSTOMER = new Customer(NULL);
+//
+//    $result = $CUSTOMER->CheckNicNumberInCustomer($_POST["NicNumber"]);
+//
+//    if ($result == TRUE) {
+//        $data = array("nicstatus" => TRUE);
+//        header('Content-type: application/json');
+//        echo json_encode($data);
+//    } else {
+//        header('Content-type: application/json');
+//        exit();
+//    }
+//}
+//
+//if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
+//
+//    $CUSTOMER = new Customer(NULL);
+//
+//    $result = $CUSTOMER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
+//   
+//    if ($result == TRUE) {
+//        $data = array("mobilestatus" => TRUE);
+//        header('Content-type: application/json');
+//        echo json_encode($data);
+//    } else {
+//        header('Content-type: application/json');
+//        exit();
+//    }
+//}
 
 
 if ($_POST['action'] == 'CHECKNIC&MOBILEEXISTCUSTOMER') {
 
     $CUSTOMER = new Customer(NULL);
 
-    $result1 = $CUSTOMER->CheckNicNumberInCustomerExist($_POST["nicNumber"], $_POST["id"]);
+    $UPPERNIC = strtoupper($_POST["nicNumber"]);
+
+    $result1 = $CUSTOMER->CheckNicNumberInCustomerExist($UPPERNIC, $_POST["id"]);
     $result2 = $CUSTOMER->CheckMobileNumberInCustomerExist($_POST["mobileNumber"], $_POST["id"]);
 
     if ($result1 == TRUE) {
@@ -99,7 +125,7 @@ if ($_POST['action'] == 'ADDBRANCHNAME') {
     $BRANCH->name = $_POST['branch_name'];
 
     $result = $BRANCH->create();
-    
+
     $allbranch = $BRANCH->getBrachByBank($_POST['bank_id']);
 
     if ($result == TRUE) {

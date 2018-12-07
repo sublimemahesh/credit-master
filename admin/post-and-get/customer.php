@@ -9,6 +9,8 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER = New Customer(NULL);
     $VALID = new Validator();
     
+    $UPPERNIC = strtoupper($_POST['nic_number']);
+        
     $telephone_number = null;
     $telephone_number = $_POST['telephone1'] . $_POST['telephone2'] . $_POST['telephone3'];
 
@@ -16,7 +18,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
     $CUSTOMER->last_name = $_POST['last_name'];
-    $CUSTOMER->nic_number = $_POST['nic_number'];
+    $CUSTOMER->nic_number = $UPPERNIC;
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
@@ -752,13 +754,13 @@ if (isset($_POST['update_input'])) {
 
     $CUSTOMER = new Customer($_POST['id']);
 
-
+   $UPPERNIC = strtoupper($_POST['nic_number']);
 
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
     $CUSTOMER->last_name = $_POST['last_name'];
-    $CUSTOMER->nic_number = $_POST['nic_number'];
+    $CUSTOMER->nic_number = $UPPERNIC;
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];

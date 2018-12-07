@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $('#registration_type').change(function () {
 
@@ -170,62 +169,178 @@ $(document).ready(function () {
         });
     });
 
-    $('.check-customer').click(function () {
+//    $('.check-customer').click(function () {
+//
+//        var nicNumber = $('#customer-nic').val();
+//        var mobileNumber = $('#moblie_number').val();
+//
+//        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
+//            swal({
+//                title: "Space characters not alowded in NIC Number.!",
+//                text: "containing space characters in nic number column..",
+//                type: "info",
+//                showCancelButton: false,
+//                confirmButtonColor: "#00b0e4",
+//                confirmButtonText: "Enter Again.!",
+//                closeOnConfirm: false
+//            });
+//            return false;
+//        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
+//            swal({
+//                title: "Space characters not alowded in Mobile Number.!",
+//                text: "containing space characters in mobile number column..",
+//                type: "info",
+//                showCancelButton: false,
+//                confirmButtonColor: "#00b0e4",
+//                confirmButtonText: "Enter Again.!",
+//                closeOnConfirm: false
+//            });
+//            return false;
+//        } else {
+//
+//            $.ajax({
+//                url: "post-and-get/ajax/customer.php",
+//                type: "POST",
+//                data: {
+//                    MobileNumber: mobileNumber,
+//                    NicNumber: nicNumber,
+//                    action: 'CHECKNIC&MOBILEINCUSTOMER'
+//                },
+//                dataType: "JSON",
+//                success: function (jsonStr) {
+//                    if (jsonStr.status == 'nicIsExist') {
+//                        swal({
+//                            title: "Duplicate NIC Number.!",
+//                            text: "You entered the duplicate NIC Number..",
+//                            type: "info",
+//                            showCancelButton: false,
+//                            confirmButtonColor: "#00b0e4",
+//                            confirmButtonText: "Enter Again.!",
+//                            closeOnConfirm: false
+//                        });
+//                        return false;
+//                    } else if (jsonStr.status == 'mobileIsExist') {
+//                        swal({
+//                            title: "Duplicate Mobile Number.!",
+//                            text: "You entered the duplicate Mobile Number..",
+//                            type: "info",
+//                            showCancelButton: false,
+//                            confirmButtonColor: "#00b0e4",
+//                            confirmButtonText: "Enter Again.!",
+//                            closeOnConfirm: false
+//                        });
+//                        return false;
+//                    } else {
+//                        return true;
+//                    }
+//                }
+//
+//            });
+//
+//        }
+//    });
+
+    $("#customerform").submit(function (e) {
+
+        var errors = $('#errors').val();
+        if (errors == 1) {
+            e.preventDefault();
+            $('#errors').val(0);
+        }
 
         var nicNumber = $('#customer-nic').val();
-        $.ajax({
-            url: "post-and-get/ajax/customer.php",
-            type: "POST",
-            data: {
-                NicNumber: nicNumber,
-                action: 'CHECKNICNUMBERINCUSTOMER'
-            },
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "Duplicate NIC Number.!",
-                        text: "You entered the duplicate NIC Number..",
-                        type: "info",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    });
-                }
-            }
-
-        });
-    });
-
-    $('.check-customer').click(function () {
-
         var mobileNumber = $('#moblie_number').val();
-        $.ajax({
-            url: "post-and-get/ajax/customer.php",
-            type: "POST",
-            data: {
-                MobileNumber: mobileNumber,
-                action: 'CHECKMOBILENUMBERINCUSTOMER'
-            },
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "Duplicate Mobile Number.!",
-                        text: "You entered the duplicate Mobile Number..",
-                        type: "info",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
+
+        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
+            $('#errors').val(1);
+            swal({
+                title: "Space characters not alowded in NIC Number.!",
+                text: "containing space characters in nic number column..",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false},
+                    function () {
+                        swal.close();
+                        $('html, body').animate({
+                            scrollTop: $("#surname").offset().top
+                        }, 1000);
+                        $('#customer-nic').focus();
                     });
+        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
+            $('#errors').val(1);
+            swal({
+                title: "Space characters not alowded in Mobile Number.!",
+                text: "containing space characters in mobile number column..",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            }, function () {
+                swal.close();
+                $('html, body').animate({
+                    scrollTop: $("#email").offset().top
+                }, 1000);
+                $('#moblie_number').focus();
+            });
+        } else {
+            $.ajax({
+                url: "post-and-get/ajax/customer.php",
+                type: "POST",
+                data: {
+                    MobileNumber: mobileNumber,
+                    NicNumber: nicNumber,
+                    action: 'CHECKNIC&MOBILEINCUSTOMER'
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    if (jsonStr.status == 'nicIsExist') {
+                        $('#errors').val(1);
+                        swal({
+                            title: "Duplicate NIC Number.!",
+                            text: "You entered the duplicate NIC number..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Enter Again.!",
+                            closeOnConfirm: false
+                        }, function () {
+                            swal.close();
+                            $('html, body').animate({
+                                scrollTop: $("#surname").offset().top
+                            }, 1000);
+                            $('#customer-nic').focus();
+                        });
+
+                    } else if (jsonStr.status == 'mobileIsExist') {
+                        $('#errors').val(1);
+                        swal({
+                            title: "Duplicate Mobile Number.!",
+                            text: "You entered the duplicate mobile number..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Enter Again.!",
+                            closeOnConfirm: false
+                        }, function () {
+                            swal.close();
+                            $('html, body').animate({
+                                scrollTop: $("#email").offset().top
+                            }, 1000);
+                            $('#moblie_number').focus();
+                        });
+                    } else if (jsonStr.status == 'false') {
+                        $('#errors').val(0);
+                        $('#customerform').unbind().submit();
+                    }
                 }
-            }
-        });
+            });
+
+        }
+
     });
-
-
 
     $("#form").submit(function (e) {
         var errors = $('#errors').val();
@@ -238,61 +353,98 @@ $(document).ready(function () {
         var nicNumber = $('#customer_nic_number').val();
         var mobileNumber = $('#customer_moblie_number').val();
 
-        $.ajax({
-            url: "post-and-get/ajax/customer.php",
-            type: "POST",
-            data: {
-                id: id,
-                nicNumber: nicNumber,
-                mobileNumber: mobileNumber,
-                action: 'CHECKNIC&MOBILEEXISTCUSTOMER'
-            },
-            dataType: "JSON",
-            success: function (jsonStr) {
 
-                if (jsonStr.status == 'nicIsExist') {
-                    $('#errors').val(1);
-                    swal({
-                        title: "Duplicate NIC Number.!",
-                        text: "You entered the duplicate NIC number..",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    }, function () {
-                        swal.close();
-                        $('html, body').animate({
-                            scrollTop: $("#surname").offset().top
-                        }, 1000);
-                        $('#customer_nic_number').focus();
-                    });
 
-                } else if (jsonStr.status == 'mobileIsExist') {
-                    $('#errors').val(1);
-                    swal({
-                        title: "Duplicate Mobile Number.!",
-                        text: "You entered the duplicate mobile number..",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    }, function () {
-                        swal.close();
-                        $('html, body').animate({
-                            scrollTop: $("#email").offset().top
-                        }, 1000);
-                        $('#customer_moblie_number').focus();
-                    });
-                } else if (jsonStr.status == 'fales') {
-                    $('#errors').val(0);
-                    $('#form').unbind().submit();
+        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
+            $('#errors').val(1);
+            swal({
+                title: "Space characters not alowded in NIC Number.!",
+                text: "containing space characters in nic number column..",
+                type: "info",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            }, function () {
+                swal.close();
+                $('html, body').animate({
+                    scrollTop: $("#surname").offset().top
+                }, 1000);
+                $('#customer_nic_number').focus();
+            });
+
+        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
+            $('#errors').val(1);
+            swal({
+                title: "Space characters not alowded in Mobile Number.!",
+                text: "containing space characters in mobile number column..",
+                type: "info",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            }, function () {
+                swal.close();
+                $('html, body').animate({
+                    scrollTop: $("#email").offset().top
+                }, 1000);
+                $('#customer_moblie_number').focus();
+            });
+        } else {
+            $.ajax({
+                url: "post-and-get/ajax/customer.php",
+                type: "POST",
+                data: {
+                    id: id,
+                    nicNumber: nicNumber,
+                    mobileNumber: mobileNumber,
+                    action: 'CHECKNIC&MOBILEEXISTCUSTOMER'
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+
+                    if (jsonStr.status == 'nicIsExist') {
+                        $('#errors').val(1);
+                        swal({
+                            title: "Duplicate NIC Number.!",
+                            text: "You entered the duplicate NIC number..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Enter Again.!",
+                            closeOnConfirm: false
+                        }, function () {
+                            swal.close();
+                            $('html, body').animate({
+                                scrollTop: $("#surname").offset().top
+                            }, 1000);
+                            $('#customer_nic_number').focus();
+                        });
+
+                    } else if (jsonStr.status == 'mobileIsExist') {
+                        $('#errors').val(1);
+                        swal({
+                            title: "Duplicate Mobile Number.!",
+                            text: "You entered the duplicate mobile number..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Enter Again.!",
+                            closeOnConfirm: false
+                        }, function () {
+                            swal.close();
+                            $('html, body').animate({
+                                scrollTop: $("#email").offset().top
+                            }, 1000);
+                            $('#customer_moblie_number').focus();
+                        });
+                    } else if (jsonStr.status == 'fales') {
+                        $('#errors').val(0);
+                        $('#form').unbind().submit();
+                    }
                 }
-            }
-        });
-
-
+            });
+        }
     });
 });
 

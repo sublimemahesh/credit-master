@@ -366,8 +366,10 @@ class Customer {
 
     public function CheckMobileNumberInCustomer($mobile) {
 
+        $uniquenumbers = substr($mobile, -8);
 
-        $query = "SELECT * FROM `customer` WHERE `mobile` = '" . $mobile . "'";
+        $query = "SELECT * FROM `customer` WHERE right(mobile,8) = '" . $uniquenumbers . "'";
+
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -380,6 +382,7 @@ class Customer {
     }
 
     public function CheckNicNumberInCustomerExist($nic, $id) {
+
 
         $query = "SELECT * FROM `customer` WHERE `nic_number` = '" . $nic . "'  AND `id` <> '" . $id . "'";
 
@@ -396,8 +399,9 @@ class Customer {
 
     public function CheckMobileNumberInCustomerExist($mobile, $id) {
 
+        $uniquenumbers = substr($mobile, -8);
 
-        $query = "SELECT * FROM `customer` WHERE `mobile` = '" . $mobile . "' AND `id` <> '" . $id . "'";
+        $query = "SELECT * FROM `customer` WHERE right(mobile,8) = '" . $uniquenumbers . "' AND `id` <> '" . $id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
