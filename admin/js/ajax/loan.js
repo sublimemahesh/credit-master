@@ -458,6 +458,15 @@ $(document).ready(function () {
 $(document).ready(function () {
     $('#guarantor_2').change(function () {
         var guarantor_2 = $(this).val();
+        $('select#guarantor_3').find('option').each(function () {
+            if ($(this).val() === guarantor_2) {
+                $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide();
+                $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
+            } else {
+                $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide().show();
+                $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
+            }
+        });
 
         $.ajax({
             url: "post-and-get/ajax/loan.php",
@@ -492,6 +501,16 @@ $(document).ready(function () {
     $('#guarantor_3').change(function () {
         var guarantor_3 = $(this).val();
 
+        $('select#guarantor_2').find('option').each(function () {
+            if ($(this).val() === guarantor_3) {
+                $("#guarantor_2 option[id='cu_" + $(this).val() + "']").hide();
+                $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
+            } else {
+                $("#guarantor_2 option[id='cu_" + $(this).val() + "']").show();
+                $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
+            }
+        });
+
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -516,6 +535,8 @@ $(document).ready(function () {
         });
 
     });
+
+
     //check loan processing free
 
     $(`#issue_mode`).change(function () {
