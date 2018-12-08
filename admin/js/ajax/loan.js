@@ -87,6 +87,7 @@ $(document).ready(function () {
                 $('#guarantor_2').append(html);
                 $('#guarantor_3').empty();
                 $('#guarantor_3').append(html);
+                $('#guarantor_1_id').val(jsonStr.leader);
                 $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
                 $("#guarantor_2 option[id='cu_" + jsonStr.leader + "']").remove();
                 $("#guarantor_3 option[id='cu_" + jsonStr.leader + "']").remove();

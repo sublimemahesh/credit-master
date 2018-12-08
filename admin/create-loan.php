@@ -143,7 +143,8 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="guarantor_1"  required="TRUE">
+                                            <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
+                                            <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
                                                 <option  value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
 
