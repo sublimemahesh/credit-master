@@ -152,7 +152,8 @@ $next = $ND->format('Y-m-d');
 
                                                         $start->modify($add_dates);
                                                     } else {
-                                                        if ($date == $today) {
+                                                        $ITYPE = $loan['installment_type'];
+                                                        if ($date == $today && $ITYPE == 30) {
                                                             ?>
                                                             <tr>
                                                                 <td>

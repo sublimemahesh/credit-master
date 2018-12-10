@@ -124,15 +124,14 @@ if ($_POST['action'] == 'ACTIVE') {
     $LOAN->collector = $_POST['collector'];
     $LOAN->status = 'actived';
 
-    $result = $LOAN->update();
-
-    $VALID = new Validator();
-    $VALID->addError("Loan was successfully backed to pending!...", 'success');
-    $_SESSION['ERRORS'] = $VALID->errors();
-
-    echo json_encode(['status' => 'actived', 'data' => $result]);
-    header('Content-type: application/json');
-    exit();
+    $result = $LOAN->update(); 
+    if ($result == TRUE) {
+        header('Content-type: application/json');
+        echo json_encode(['status' => 'actived', 'data' => $result]);
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
 }
 
 if ($_POST['action'] == 'ISSUE') {
