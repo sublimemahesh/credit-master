@@ -6,7 +6,7 @@ $id = '';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
-$USERS = new Users($id);
+$USERS = new User($id);
 ?> 
 ﻿<!DOCTYPE html>
 <html> 
@@ -71,7 +71,7 @@ $USERS = new Users($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="Username" class="hidden-lg hidden-md">Username</label>
-                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username" value="<?php echo $USERS->user_name; ?>" name="user_name" required="TRUE">
+                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username" value="<?php echo $USERS->username; ?>" name="user_name" required="TRUE">
                                                 </div>
                                             </div>
                                         </div>
@@ -92,7 +92,7 @@ $USERS = new Users($id);
                                     </div>
 
 
-                                    <div class="row clearfix">
+<!--                                    <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="picture">Picture</label>
                                         </div>
@@ -105,7 +105,7 @@ $USERS = new Users($id);
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -115,7 +115,7 @@ $USERS = new Users($id);
                                             <div class="form-group">
                                                 <div class=" p-top ">
                                                     <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                                    if ($USERS->is_active == 1) {
+                                                    if ($USERS->isActive == 1) {
                                                         echo 'checked';
                                                     }
                                                     ?> name="is_active" value="1" id="rememberme" />
@@ -133,9 +133,9 @@ $USERS = new Users($id);
                                         </div>
                                     </div>
                                 </form>
-                                <div class="col-sm-3 col-md-3">
+<!--                                <div class="col-sm-3 col-md-3">
                                     <img src="../upload/users/<?php echo $USERS->image_name ?>" class="img img-responsive img-thumbnail"/>
-                                </div>
+                                </div>-->
                             </div>
                         </div>
                     </div>
