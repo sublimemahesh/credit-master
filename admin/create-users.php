@@ -16,7 +16,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
-         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -28,7 +28,6 @@ include_once(dirname(__FILE__) . '/auth.php');
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
 
@@ -39,11 +38,9 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <h2>
                                     Create users
                                 </h2>
-
                             </div>
                             <div class="body row">
                                 <form class=" col-sm-9 col-md-9" method="post" action="post-and-get/users.php" enctype="multipart/form-data"> 
-
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="name">Name</label>
@@ -57,7 +54,6 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             </div>
                                         </div>
                                     </div>
-
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="username">Username</label>
@@ -71,7 +67,6 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             </div>
                                         </div>
                                     </div> 
-
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="email">Email</label>
@@ -85,35 +80,34 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             </div>
                                         </div>
                                     </div>
-
-
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            <label for="picture">Picture</label>
+                                            <label for="password">Password</label>
                                         </div>
                                         <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
-                                                    <label for="picture" class="hidden-lg hidden-md">Picture</label>
-
-                                                    <input type="file" id="picture" class="form-control" name="image_name">
+                                                    <label for="password" class="hidden-lg hidden-md">Password</label>
+                                                    <input type="password" id="password" class="form-control" placeholder="Enter password"  name="password" required="TRUE">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row clearfix">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
-                                            <div class="form-group">
-                                                <div class=" p-top ">
-                                                    <input class="filled-in chk-col-pink" type="checkbox" name="is_active" value="1" id="rememberme" />
-                                                    <label for="rememberme" id="lable-active">Activate</label>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <!--                                    <div class="row clearfix">
+                                                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                                                                <label for="picture">Picture</label>
+                                                                            </div>
+                                                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                                                                <div class="form-group">
+                                                                                    <div class="form-line p-top ">
+                                                                                        <label for="picture" class="hidden-lg hidden-md">Picture</label>
+                                    
+                                                                                        <input type="file" id="picture" class="form-control" name="image_name">
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>
+                                    -->
 
                                     <div class="row clearfix">
                                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
