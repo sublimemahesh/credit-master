@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
 
     $('#registration_type').change(function () {
@@ -94,7 +93,6 @@ $(document).ready(function () {
             }
         });
     });
-
 
     $('#customer').change(function () {
         var credit_limit = $('option:selected', this).attr('credit_limit');

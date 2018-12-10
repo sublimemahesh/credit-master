@@ -66,12 +66,12 @@ $next = $ND->format('Y-m-d');
                                 </h2>
 
                                 <ul class="header-dropdown"> 
-                                    <a href="day-installment.php?date=<?php echo $back ?>">
+                                    <a href="weekly-installment.php?date=<?php echo $back ?>">
                                         <i class="material-icons" >
                                             arrow_back_ios
                                         </i>
                                     </a>
-                                    <a href="day-installment.php?date=<?php echo $next ?>">
+                                    <a href="weekly-installment.php?date=<?php echo $next ?>">
                                         <i class="material-icons">
                                             arrow_forward_ios
                                         </i>
@@ -152,7 +152,9 @@ $next = $ND->format('Y-m-d');
 
                                                         $start->modify($add_dates);
                                                     } else {
-                                                        if ($date == $today) {
+                                                        $ITYPE = $loan['installment_type'];
+
+                                                        if ($date == $today && $ITYPE == 4) {
                                                             ?>
                                                             <tr>
                                                                 <td>

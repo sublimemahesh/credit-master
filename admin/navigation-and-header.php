@@ -36,8 +36,8 @@ include_once(dirname(__FILE__) . '/auth.php');
                     </a>
                     <ul class="dropdown-menu pull-right">
                         <li>
-                            
-                            <a href="profile.php?id=<?php   echo $_SESSION['id']; ?>">
+
+                            <a href="profile.php?id=<?php echo $_SESSION['id']; ?>">
                                 <i class="material-icons">person</i>Profile</a>
                         </li>
                         <li role="seperator" class="divider"></li>
@@ -153,31 +153,29 @@ include_once(dirname(__FILE__) . '/auth.php');
                     </a>
                     <ul class="ml-menu">
                         <li>
-                            <a href=" ">
+                            <a href="all-installments.php">
                                 <i class="material-icons">event_available</i>
                                 <span>All Installments</span>
                             </a>
                         </li> 
                         <li>
                             <a href="day-installment.php">
-                                <i class="material-icons">event_available</i>
+                                <i class="material-icons">calendar_today</i>
                                 <span>Daily Installments</span>
                             </a>
                         </li> 
                         <li>
                             <a href="weekly-installment.php">
-                                <i class="material-icons">event_available</i>
+                                <i class="material-icons">date_range</i>
                                 <span>Weekly Installments</span>
                             </a>
                         </li> 
                         <li>
                             <a href="monthly-installment.php">
-                                <i class="material-icons">event_available</i>
+                                <i class="material-icons">event</i>
                                 <span>Monthly Installments</span>
                             </a>
                         </li> 
-
-
                     </ul>
                 </li> 
                 <li>
@@ -298,7 +296,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                           store_mall_directory
+                            store_mall_directory
                         </i>
                         <span>Bank</span>
                     </a>
@@ -309,7 +307,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <span>Add New</span>
                             </a>
                         </li>
-                      
+
                     </ul>
                 </li>
 
@@ -335,7 +333,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li>
                     </ul>
                 </li> 
-                
+
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
@@ -358,8 +356,8 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li>
                     </ul>
                 </li> 
-                
-                
+
+
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
