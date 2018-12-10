@@ -190,7 +190,15 @@ $next = $ND->format('Y-m-d');
                                                                     } else {
                                                                         echo '</br><b>Payble </b></br>';
                                                                     }
-                                                                    echo '<b>Due and Excess: </b>' . number_format($total_paid - $ins_total, 2);
+
+                                                                    $due_and_excess = $total_paid - $ins_total;
+                                                                    if ($due_and_excess < 0) {
+                                                                        echo '<b>Due and Excess: </b>' . '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                                    } elseif ($due_and_excess > 0) {
+                                                                        echo '<b>Due and Excess: </b>' . '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                                    } else {
+                                                                        echo '<b>Due and Excess: </b>' . number_format($due_and_excess, 2);
+                                                                    }
                                                                     ?>
                                                                 </td>
 

@@ -2,7 +2,9 @@
 #lable-active{
     font-size: 22px;
 }
-
+.m-bottom{
+    margin-bottom: 0px; 
+}
 .nic-padding{
     margin-right: -80px;
 }
