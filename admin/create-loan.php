@@ -405,6 +405,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                     </div> 
                                 </div> 
                             </div>

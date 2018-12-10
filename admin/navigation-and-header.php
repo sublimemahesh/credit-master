@@ -149,13 +149,31 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">hourglass_full</i>
-                        <span>Installment</span>
+                        <span>Installments</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
+                            <a href=" ">
+                                <i class="material-icons">event_available</i>
+                                <span>All Installments</span>
+                            </a>
+                        </li> 
+                        <li>
                             <a href="day-installment.php">
                                 <i class="material-icons">event_available</i>
-                                <span>Day Installment</span>
+                                <span>Daily Installments</span>
+                            </a>
+                        </li> 
+                        <li>
+                            <a href="weekly-installment.php">
+                                <i class="material-icons">event_available</i>
+                                <span>Weekly Installments</span>
+                            </a>
+                        </li> 
+                        <li>
+                            <a href="monthly-installment.php">
+                                <i class="material-icons">event_available</i>
+                                <span>Monthly Installments</span>
                             </a>
                         </li> 
 

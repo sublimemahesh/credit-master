@@ -46,8 +46,16 @@ $LOAN = new Loan($id);
 
                     <div class="card">
                         <div class="header">
-                            <h2> ID: # 
-                                <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT); ?></h2>
+                            <h2> ID:  
+                                <?php
+                                if ($LOAN->installment_type == 30) {
+                                    echo 'BLD' . $id;
+                                } elseif ($LOAN->installment_type == 4) {
+                                    echo 'BLW' . $id;
+                                } else {
+                                    echo 'BLM' . $id;
+                                }
+                                ?></h2>
                         </div>
 
                         <div class="body">

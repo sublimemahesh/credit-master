@@ -28,6 +28,7 @@ class Loan {
     public $create_by;
     public $verify_by;
     public $approved_by;
+    public $collector;
     public $issue_by;
     public $status;
 
@@ -61,6 +62,7 @@ class Loan {
             $this->create_by = $result['create_by'];
             $this->verify_by = $result['verify_by'];
             $this->approved_by = $result['approved_by'];
+            $this->collector = $result['collector'];
             $this->issue_by = $result['issue_by'];
             $this->status = $result['status'];
 
@@ -86,6 +88,7 @@ class Loan {
                 . "`number_of_installments`,"
                 . "`effective_date`,"
                 . "`create_by`,"
+                . "`collector`,"
                 . "`status`"
                 . ") VALUES  ('"
                 . $this->create_date . "','"
@@ -103,6 +106,7 @@ class Loan {
                 . $this->number_of_installments . "', '"
                 . $this->effective_date . "', '"
                 . $this->create_by . "', '"
+                . $this->collector . "', '"
                 . "pending')";
 
 
@@ -166,6 +170,7 @@ class Loan {
                 . "`issue_mode` ='" . $this->issue_mode . "', "
                 . "`effective_date` ='" . $this->effective_date . "', "
                 . "`verify_by` ='" . $this->verify_by . "', "
+                . "`collector` ='" . $this->collector . "', "
                 . "`approved_by` ='" . $this->approved_by . "', "
                 . "`issue_by` ='" . $this->issue_by . "', "
                 . "`issued_date` ='" . $this->issued_date . "', "

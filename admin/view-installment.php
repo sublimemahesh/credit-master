@@ -217,15 +217,20 @@ $today = date("Y-m-d");
                                                         $date = '+7 day';
                                                         $start->modify($date);
                                                         $date = $start->format('Y-m-d');
+                                                        
                                                     } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
+
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
+                                                        
+                                                        
                                                         //show month payment button  
                                                         $start = new DateTime("$today");
                                                         $date = '+1 months';
                                                         $start->modify($date);
                                                         $date = $start->format('Y-m-d');
+                                                        
                                                     } elseif ($LOAN->installment_type == 1 && ($date == $today)) {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 

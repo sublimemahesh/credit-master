@@ -159,7 +159,7 @@ $(document).ready(function () {
             $('#installment_price').val(installment_price.toFixed(2));
         }
     });
-
+//loan type
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
         var verify_by = $('#verify_by').val();
@@ -399,6 +399,49 @@ $(document).ready(function () {
         }
     });
 
+    $('#active').click(function () {
+
+        var loan_id = $('#loan_id').val();
+        var collector = $('#collector').val();
+
+
+        swal({
+            title: "Active!",
+            text: "Do you really want to active this loan?...",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#00b0e4",
+            confirmButtonText: "Yes, Active It!",
+            closeOnConfirm: false
+        }, function () {
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    loan_id: loan_id,
+                    collector: collector,
+                    action: 'ACTIVE'
+                },
+                success: function (jsonStr) {
+                    if (jsonStr.status == 'actived') {
+
+                        swal({
+                            title: "Actived!",
+                            text: "Now Loan has Actived.",
+                            type: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+
+                    }
+                }
+            });
+        });
+
+
+    });
+
 
 ///remove Loan Period in select  installment type
     $('#installment_type').change(function () {
@@ -415,7 +458,6 @@ $(document).ready(function () {
     });
 
     function validateForIssue(effective_date, issued_date, issue_mode) {
-
 
         if (!Date.parse(effective_date)) {
             swal({
@@ -450,6 +492,8 @@ $(document).ready(function () {
 
 
     }
+
+
 
 });
 
