@@ -75,8 +75,17 @@ $LOAN->status = 'approve';
                                                 <tr id="row_<?php echo $loan['id']; ?>">
                                                     <td>
                                                         <b>
-                                                            ID: # 
-                                                            <?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>
+                                                            ID:  
+                                                            <?php
+                                                            $LT = $loan['installment_type'];
+                                                            if ($LT == 30) {
+                                                                echo 'BLD' . $loan['id'];
+                                                            } elseif ($LT == 4) {
+                                                                echo 'BLW' . $loan['id'];
+                                                            } else {
+                                                                echo 'BLM' . $loan['id'];
+                                                            }
+                                                            ?>
                                                         </b>
                                                         <br/>
                                                         <b>Date: </b><?php echo $loan['create_date']; ?>
@@ -140,7 +149,7 @@ $LOAN->status = 'approve';
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="issue-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="Issue Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
- 
+
                                                     </td> 
                                                 </tr>
                                                 <?php

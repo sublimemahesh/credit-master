@@ -55,11 +55,16 @@ $today = date("Y-m-d");
                             </div>
 
                             <div class="body">
-
-
                                 <div> 
-
-                                    <h5> ID  # : <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT) ?>  </h5>
+                                    <h5> ID: <?php
+                                        if ($LOAN->installment_type == 30) {
+                                            echo 'BLD' . $loan_id;
+                                        } elseif ($LOAN->installment_type == 4) {
+                                            echo 'BLW' . $loan_id;
+                                        } else {
+                                            echo 'BLM' . $loan_id;
+                                        }
+                                        ?></h5>
                                     <h5>
                                         Customer Name : 
                                         <?php

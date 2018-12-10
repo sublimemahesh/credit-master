@@ -45,7 +45,15 @@ $GR2 = new Customer($LOAN->guarantor_2);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header"> 
-                        <h2>View Loan : # <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT); ?></h2>
+                        <h2>View Loan : <?php
+                            if ($LOAN->installment_type == 30) {
+                                echo 'BLD' . $loan_id;
+                            } elseif ($LOAN->installment_type == 4) {
+                                echo 'BLW' . $loan_id;
+                            } else {
+                                echo 'BLM' . $loan_id;
+                            }
+                            ?></h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-verified-loans.php">

@@ -46,7 +46,15 @@ $GR2 = new Customer($LOAN->guarantor_2);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header"> 
-                        <h2>Approve Loan : # <?php echo str_pad($LOAN->id, 6, '0', STR_PAD_LEFT); ?></h2>
+                        <h2>Approve Loan :  <?php
+                            if ($LOAN->installment_type == 30) {
+                                echo 'BLD' . $loan_id;
+                            } elseif ($LOAN->installment_type == 4) {
+                                echo 'BLW' . $loan_id;
+                            } else {
+                                echo 'BLM' . $loan_id;
+                            }
+                            ?></h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-verified-loans.php">
@@ -77,7 +85,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Created Date</label>
                                                 <div class="form-control">
-                                                    <?php echo $LOAN->create_date; ?>
+<?php echo $LOAN->create_date; ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -93,9 +101,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Loan Amount</label>
                                                 <div class="form-control" >
-                                                    <?php
-                                                    echo number_format($LOAN->loan_amount, 2);
-                                                    ?>
+<?php
+echo number_format($LOAN->loan_amount, 2);
+?>
                                                     <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
 
                                                 </div>
@@ -113,9 +121,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Interest Rate</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    echo $LOAN->interest_rate;
-                                                    ?>%
+<?php
+echo $LOAN->interest_rate;
+?>%
                                                 </div>
                                             </div>
                                         </div>
@@ -131,10 +139,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Period</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $PR = DefaultData::getLoanPeriod();
-                                                    echo $PR[$LOAN->loan_period];
-                                                    ?>
+<?php
+$PR = DefaultData::getLoanPeriod();
+echo $PR[$LOAN->loan_period];
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -150,10 +158,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Installment Type</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $PR = DefaultData::getInstallmentType();
-                                                    echo $PR[$LOAN->installment_type];
-                                                    ?>
+<?php
+$PR = DefaultData::getInstallmentType();
+echo $PR[$LOAN->installment_type];
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -169,9 +177,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Installment Amount</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    echo number_format($LOAN->installment_amount, 2);
-                                                    ?>
+<?php
+echo number_format($LOAN->installment_amount, 2);
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -187,9 +195,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Number of Installment</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    echo DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
-                                                    ?>
+<?php
+echo DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -220,23 +228,23 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
                                                 <select id="issue_mode" name="issue_mode" class="form-control">
                                                     <option value=""> -- Please Select Issue Mode -- </option>
-                                                    <?php
-                                                    $DEFULTDATA = new DefaultData(NULL);
+<?php
+$DEFULTDATA = new DefaultData(NULL);
 
-                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
+foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
 
-                                                        if ($key == $LOAN->issue_mode) {
-                                                            ?>
+    if ($key == $LOAN->issue_mode) {
+        ?>
                                                             <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
                                                             <?php
                                                         } else {
                                                             ?>
 
                                                             <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
+        <?php
+    }
+}
+?>
                                                 </select>
                                             </div>
                                         </div>
@@ -331,116 +339,116 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 </tr>
                                             </thead>
                                             <tbody>
-                                                <?php
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+<?php
+$defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                                $start_date = $LOAN->effective_date;
-                                                $start = new DateTime("$start_date");
+$start_date = $LOAN->effective_date;
+$start = new DateTime("$start_date");
 
-                                                $x = 0;
-                                                $ins_total = 0;
-                                                $total_paid = 0;
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
-                                                        $add_dates = '+7 day';
-                                                    }
+$x = 0;
+$ins_total = 0;
+$total_paid = 0;
+while ($x < $defultdata) {
+    if ($defultdata == 4) {
+        $add_dates = '+7 day';
+    } elseif ($defultdata == 30) {
+        $add_dates = '+1 day';
+    } elseif ($defultdata == 8) {
+        $add_dates = '+7 day';
+    } elseif ($defultdata == 60) {
+        $add_dates = '+1 day';
+    } elseif ($defultdata == 2) {
+        $add_dates = '+1 months';
+    } elseif ($defultdata == 1) {
+        $add_dates = '+1 months';
+    } elseif ($defultdata == 90) {
+        $add_dates = '+1 day';
+    } elseif ($defultdata == 12) {
+        $add_dates = '+7 day';
+    } elseif ($defultdata == 3) {
+        $add_dates = '+1 months';
+    } elseif ($defultdata == 100) {
+        $add_dates = '+1 day';
+    } elseif ($defultdata == 13) {
+        $add_dates = '+7 day';
+    }
 
-                                                    $date = $start->format('Y-m-d');
-                                                    $customer = $LOAN->customer;
+    $date = $start->format('Y-m-d');
+    $customer = $LOAN->customer;
 
-                                                    $CUSTOMER = new Customer($customer);
-                                                    $route = $CUSTOMER->route;
-                                                    $center = $CUSTOMER->center;
-                                                    $amount = $LOAN->installment_amount;
+    $CUSTOMER = new Customer($customer);
+    $route = $CUSTOMER->route;
+    $center = $CUSTOMER->center;
+    $amount = $LOAN->installment_amount;
 
-                                                    $Installment = new Installment(NULL);
-                                                    $paid_amount = 0;
-                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+    $Installment = new Installment(NULL);
+    $paid_amount = 0;
+    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
-                                                        $paid_amount += $paid['paid_amount'];
-                                                    }
-
-
-
-                                                    echo '<tr>';
-                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-
-                                                        echo '<td class="padd-td red">';
-                                                        echo $date;
-                                                        echo '</td>';
-                                                        echo '<td class="padd-td gray text-center" colspan=5>';
-                                                        echo '-- Postponed --';
-                                                        echo '</td>';
+        $paid_amount += $paid['paid_amount'];
+    }
 
 
 
-                                                        $start->modify($add_dates);
-                                                    } else {
-                                                        echo '<td class="padd-td f-style">';
-                                                        echo $date;
-                                                        echo '</td>';
-                                                        echo '<td class="f-style">';
-                                                        echo 'Rs: ' . number_format($amount, 2);
-                                                        echo '</td>';
+    echo '<tr>';
+    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
-                                                        echo '<td class="f-style">';
-                                                        if ($paid_amount) {
-                                                            echo 'Paid';
-                                                        } elseif ($date < date("Y-m-d")) {
-
-                                                            echo 'Unpaid';
-                                                        } else {
-                                                            echo 'Payble';
-                                                        }
-                                                        echo '</td>';
-
-                                                        echo '<td class="f-style">';
+        echo '<td class="padd-td red">';
+        echo $date;
+        echo '</td>';
+        echo '<td class="padd-td gray text-center" colspan=5>';
+        echo '-- Postponed --';
+        echo '</td>';
 
 
-                                                        if ($paid_amount) {
-                                                            echo 'Rs: ' . number_format($paid_amount, 2);
-                                                        } else {
-                                                            echo '-';
-                                                        }
-                                                        echo '</td>';
 
-                                                        echo '<td class="f-style">';
+        $start->modify($add_dates);
+    } else {
+        echo '<td class="padd-td f-style">';
+        echo $date;
+        echo '</td>';
+        echo '<td class="f-style">';
+        echo 'Rs: ' . number_format($amount, 2);
+        echo '</td>';
+
+        echo '<td class="f-style">';
+        if ($paid_amount) {
+            echo 'Paid';
+        } elseif ($date < date("Y-m-d")) {
+
+            echo 'Unpaid';
+        } else {
+            echo 'Payble';
+        }
+        echo '</td>';
+
+        echo '<td class="f-style">';
 
 
-                                                        $ins_total += $amount;
-                                                        $total_paid += $paid_amount;
+        if ($paid_amount) {
+            echo 'Rs: ' . number_format($paid_amount, 2);
+        } else {
+            echo '-';
+        }
+        echo '</td>';
 
-                                                        echo number_format($total_paid - $ins_total, 2);
-
-                                                        echo '</td>';
+        echo '<td class="f-style">';
 
 
-                                                        $start->modify($add_dates);
-                                                        $x++;
-                                                    }
-                                                    echo '</tr>';
-                                                }
-                                                ?>
+        $ins_total += $amount;
+        $total_paid += $paid_amount;
+
+        echo number_format($total_paid - $ins_total, 2);
+
+        echo '</td>';
+
+
+        $start->modify($add_dates);
+        $x++;
+    }
+    echo '</tr>';
+}
+?>
                                             </tbody>
                                             <tfoot>
                                                 <tr>
@@ -579,32 +587,32 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     <div class="form-group">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                                if ($CUSTOMER->dob_month == 1) {
-                                                                    echo 'Jan';
-                                                                } elseif ($CUSTOMER->dob_month == 2) {
-                                                                    echo 'Feb';
-                                                                } elseif ($CUSTOMER->dob_month == 3) {
-                                                                    echo 'Mar';
-                                                                } elseif ($CUSTOMER->dob_month == 4) {
-                                                                    echo 'Apr';
-                                                                } elseif ($CUSTOMER->dob_month == 5) {
-                                                                    echo 'May';
-                                                                } elseif ($CUSTOMER->dob_month == 6) {
-                                                                    echo 'Jun';
-                                                                } elseif ($CUSTOMER->dob_month == 7) {
-                                                                    echo 'Jul';
-                                                                } elseif ($CUSTOMER->dob_month == 8) {
-                                                                    echo 'Aug';
-                                                                } elseif ($CUSTOMER->dob_month == 9) {
-                                                                    echo 'Sep';
-                                                                } elseif ($CUSTOMER->dob_month == 10) {
-                                                                    echo 'Oct';
-                                                                } elseif ($CUSTOMER->dob_month == 11) {
-                                                                    echo 'Nov';
-                                                                } else {
-                                                                    echo 'Dec';
-                                                                }
-                                                                ?></div>
+                                                if ($CUSTOMER->dob_month == 1) {
+                                                    echo 'Jan';
+                                                } elseif ($CUSTOMER->dob_month == 2) {
+                                                    echo 'Feb';
+                                                } elseif ($CUSTOMER->dob_month == 3) {
+                                                    echo 'Mar';
+                                                } elseif ($CUSTOMER->dob_month == 4) {
+                                                    echo 'Apr';
+                                                } elseif ($CUSTOMER->dob_month == 5) {
+                                                    echo 'May';
+                                                } elseif ($CUSTOMER->dob_month == 6) {
+                                                    echo 'Jun';
+                                                } elseif ($CUSTOMER->dob_month == 7) {
+                                                    echo 'Jul';
+                                                } elseif ($CUSTOMER->dob_month == 8) {
+                                                    echo 'Aug';
+                                                } elseif ($CUSTOMER->dob_month == 9) {
+                                                    echo 'Sep';
+                                                } elseif ($CUSTOMER->dob_month == 10) {
+                                                    echo 'Oct';
+                                                } elseif ($CUSTOMER->dob_month == 11) {
+                                                    echo 'Nov';
+                                                } else {
+                                                    echo 'Dec';
+                                                }
+?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -712,21 +720,21 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
                                                 <div class="form-control"><?php
-                                                    if ($CUSTOMER->registration_type == 1) {
-                                                        echo " Center Leader";
-                                                    } else {
-                                                        echo ucfirst($CUSTOMER->registration_type);
-                                                    }
-                                                    ?></div>
+                                                                if ($CUSTOMER->registration_type == 1) {
+                                                                    echo " Center Leader";
+                                                                } else {
+                                                                    echo ucfirst($CUSTOMER->registration_type);
+                                                                }
+?></div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <?php
-                                $ROUTE = new Route($CUSTOMER->route);
-                                if ($ROUTE->id == $CUSTOMER->route) {
-                                    ?>
+<?php
+$ROUTE = new Route($CUSTOMER->route);
+if ($ROUTE->id == $CUSTOMER->route) {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="route">Route</label>
@@ -736,9 +744,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="route" class="hidden-lg hidden-md">Route</label>
                                                     <div class="form-control">
-                                                        <?php
-                                                        echo $ROUTE->name;
-                                                        ?>
+    <?php
+    echo $ROUTE->name;
+    ?>
 
                                                     </div>
                                                 </div>
@@ -746,9 +754,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
 
-                                    <?php
-                                } else {
-                                    ?>
+    <?php
+} else {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="center">Center</label>
@@ -758,14 +766,14 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                                        $CENTER = new Center($CUSTOMER->center);
-                                                        echo $CENTER->name;
-                                                        ?></div>
+                                $CENTER = new Center($CUSTOMER->center);
+                                echo $CENTER->name;
+    ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
+<?php } ?>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -776,10 +784,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="city" class="hidden-lg hidden-md">City</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $CITY = new City($CUSTOMER->city);
-                                                    echo $CITY->name;
-                                                    ?>
+<?php
+$CITY = new City($CUSTOMER->city);
+echo $CITY->name;
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -867,18 +875,18 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         <div class="form-group">
                                             <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                 <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                                <?php if (empty($CUSTOMER->br_picture)) {
-                                                    ?>
+<?php if (empty($CUSTOMER->br_picture)) {
+    ?>
                                                     <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
 
-                                                <?php } else { ?>
+<?php } else { ?>
 
                                                     <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
                                                         <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
                                                     </a>
-                                                    <?php
-                                                }
-                                                ?>
+    <?php
+}
+?>
                                             </div>
                                         </div>
                                     </div>
@@ -893,9 +901,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="bank" class="hidden-lg hidden-md">Bank</label>
                                                 <div class="form-control"><?php
-                                                    $BANK = new Bank($CUSTOMER->bank);
-                                                    echo $BANK->name;
-                                                    ?></div>
+                                                $BANK = new Bank($CUSTOMER->bank);
+                                                echo $BANK->name;
+?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -912,7 +920,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-control"><?php
                                                     $BRANCH = new Branch($CUSTOMER->branch);
                                                     echo $BRANCH->name;
-                                                    ?></div>
+?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1100,32 +1108,32 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     <div class="form-group">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                                if ($GR1->dob_month == 1) {
-                                                                    echo 'Jan';
-                                                                } elseif ($GR1->dob_month == 2) {
-                                                                    echo 'Feb';
-                                                                } elseif ($GR1->dob_month == 3) {
-                                                                    echo 'Mar';
-                                                                } elseif ($GR1->dob_month == 4) {
-                                                                    echo 'Apr';
-                                                                } elseif ($GR1->dob_month == 5) {
-                                                                    echo 'May';
-                                                                } elseif ($GR1->dob_month == 6) {
-                                                                    echo 'Jun';
-                                                                } elseif ($GR1->dob_month == 7) {
-                                                                    echo 'Jul';
-                                                                } elseif ($GR1->dob_month == 8) {
-                                                                    echo 'Aug';
-                                                                } elseif ($GR1->dob_month == 9) {
-                                                                    echo 'Sep';
-                                                                } elseif ($GR1->dob_month == 10) {
-                                                                    echo 'Oct';
-                                                                } elseif ($GR1->dob_month == 11) {
-                                                                    echo 'Nov';
-                                                                } else {
-                                                                    echo 'Dec';
-                                                                }
-                                                                ?></div>
+                                                    if ($GR1->dob_month == 1) {
+                                                        echo 'Jan';
+                                                    } elseif ($GR1->dob_month == 2) {
+                                                        echo 'Feb';
+                                                    } elseif ($GR1->dob_month == 3) {
+                                                        echo 'Mar';
+                                                    } elseif ($GR1->dob_month == 4) {
+                                                        echo 'Apr';
+                                                    } elseif ($GR1->dob_month == 5) {
+                                                        echo 'May';
+                                                    } elseif ($GR1->dob_month == 6) {
+                                                        echo 'Jun';
+                                                    } elseif ($GR1->dob_month == 7) {
+                                                        echo 'Jul';
+                                                    } elseif ($GR1->dob_month == 8) {
+                                                        echo 'Aug';
+                                                    } elseif ($GR1->dob_month == 9) {
+                                                        echo 'Sep';
+                                                    } elseif ($GR1->dob_month == 10) {
+                                                        echo 'Oct';
+                                                    } elseif ($GR1->dob_month == 11) {
+                                                        echo 'Nov';
+                                                    } else {
+                                                        echo 'Dec';
+                                                    }
+?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -1223,10 +1231,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                                $ROUTE = new Route($GR1->route);
-                                if ($ROUTE->id == $GR1->route) {
-                                    ?>
+<?php
+$ROUTE = new Route($GR1->route);
+if ($ROUTE->id == $GR1->route) {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="route">Route</label>
@@ -1236,9 +1244,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="route" class="hidden-lg hidden-md">Route</label>
                                                     <div class="form-control">
-                                                        <?php
-                                                        echo $ROUTE->name;
-                                                        ?>
+    <?php
+    echo $ROUTE->name;
+    ?>
 
                                                     </div>
                                                 </div>
@@ -1246,9 +1254,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
 
-                                    <?php
-                                } else {
-                                    ?>
+    <?php
+} else {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="center">Center</label>
@@ -1258,14 +1266,14 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                                        $CENTER = new Center($GR1->center);
-                                                        echo $CENTER->name;
-                                                        ?></div>
+                                $CENTER = new Center($GR1->center);
+                                echo $CENTER->name;
+    ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
+<?php } ?>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1276,10 +1284,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="city" class="hidden-lg hidden-md">City</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $CITY = new City($GR1->city);
-                                                    echo $CITY->name;
-                                                    ?>
+<?php
+$CITY = new City($GR1->city);
+echo $CITY->name;
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1370,18 +1378,18 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                     <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                                    <?php if (empty($GR1->br_picture)) {
-                                                        ?>
+<?php if (empty($GR1->br_picture)) {
+    ?>
                                                         <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
 
-                                                    <?php } else { ?>
+<?php } else { ?>
 
                                                         <a href="../upload/customer/br/<?php echo $GR1->br_picture ?>" data-sub-html=" ">
                                                             <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR1->br_picture ?>">
                                                         </a>
-                                                        <?php
-                                                    }
-                                                    ?>
+    <?php
+}
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1398,7 +1406,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-control"><?php
                                                     $BANK = new Bank($GR1->bank);
                                                     echo $BANK->name;
-                                                    ?>
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1414,10 +1422,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="branch" class="hidden-lg hidden-md">Branch</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $BRANCH = new Branch($GR1->branch);
-                                                    echo $BRANCH->name;
-                                                    ?>
+<?php
+$BRANCH = new Branch($GR1->branch);
+echo $BRANCH->name;
+?>
 
                                                 </div>
                                             </div>
@@ -1611,32 +1619,32 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     <div class="form-group">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                                if ($GR2->dob_month == 1) {
-                                                                    echo 'Jan';
-                                                                } elseif ($GR2->dob_month == 2) {
-                                                                    echo 'Feb';
-                                                                } elseif ($GR2->dob_month == 3) {
-                                                                    echo 'Mar';
-                                                                } elseif ($GR2->dob_month == 4) {
-                                                                    echo 'Apr';
-                                                                } elseif ($GR2->dob_month == 5) {
-                                                                    echo 'May';
-                                                                } elseif ($GR2->dob_month == 6) {
-                                                                    echo 'Jun';
-                                                                } elseif ($GR2->dob_month == 7) {
-                                                                    echo 'Jul';
-                                                                } elseif ($GR2->dob_month == 8) {
-                                                                    echo 'Aug';
-                                                                } elseif ($GR2->dob_month == 9) {
-                                                                    echo 'Sep';
-                                                                } elseif ($GR2->dob_month == 10) {
-                                                                    echo 'Oct';
-                                                                } elseif ($GR2->dob_month == 11) {
-                                                                    echo 'Nov';
-                                                                } else {
-                                                                    echo 'Dec';
-                                                                }
-                                                                ?></div>
+                                                    if ($GR2->dob_month == 1) {
+                                                        echo 'Jan';
+                                                    } elseif ($GR2->dob_month == 2) {
+                                                        echo 'Feb';
+                                                    } elseif ($GR2->dob_month == 3) {
+                                                        echo 'Mar';
+                                                    } elseif ($GR2->dob_month == 4) {
+                                                        echo 'Apr';
+                                                    } elseif ($GR2->dob_month == 5) {
+                                                        echo 'May';
+                                                    } elseif ($GR2->dob_month == 6) {
+                                                        echo 'Jun';
+                                                    } elseif ($GR2->dob_month == 7) {
+                                                        echo 'Jul';
+                                                    } elseif ($GR2->dob_month == 8) {
+                                                        echo 'Aug';
+                                                    } elseif ($GR2->dob_month == 9) {
+                                                        echo 'Sep';
+                                                    } elseif ($GR2->dob_month == 10) {
+                                                        echo 'Oct';
+                                                    } elseif ($GR2->dob_month == 11) {
+                                                        echo 'Nov';
+                                                    } else {
+                                                        echo 'Dec';
+                                                    }
+?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -1734,10 +1742,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>
-                                <?php
-                                $ROUTE = new Route($GR2->route);
-                                if ($ROUTE->id == $GR2->route) {
-                                    ?>
+<?php
+$ROUTE = new Route($GR2->route);
+if ($ROUTE->id == $GR2->route) {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="route">Route</label>
@@ -1747,9 +1755,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="route" class="hidden-lg hidden-md">Route</label>
                                                     <div class="form-control">
-                                                        <?php
-                                                        echo $ROUTE->name;
-                                                        ?>
+    <?php
+    echo $ROUTE->name;
+    ?>
 
                                                     </div>
                                                 </div>
@@ -1757,9 +1765,9 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
 
-                                    <?php
-                                } else {
-                                    ?>
+    <?php
+} else {
+    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="center">Center</label>
@@ -1769,14 +1777,14 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                                        $CENTER = new Center($GR2->center);
-                                                        echo $CENTER->name;
-                                                        ?></div>
+                                $CENTER = new Center($GR2->center);
+                                echo $CENTER->name;
+    ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
+<?php } ?>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1787,10 +1795,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="city" class="hidden-lg hidden-md">City</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $CITY = new City($GR2->city);
-                                                    echo $CITY->name;
-                                                    ?>
+<?php
+$CITY = new City($GR2->city);
+echo $CITY->name;
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1880,18 +1888,18 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                     <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                                    <?php if (empty($GR2->br_picture)) {
-                                                        ?>
+<?php if (empty($GR2->br_picture)) {
+    ?>
                                                         <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
 
-                                                    <?php } else { ?>
+<?php } else { ?>
 
                                                         <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
                                                             <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR2->br_picture ?>">
                                                         </a>
-                                                        <?php
-                                                    }
-                                                    ?>
+    <?php
+}
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1907,10 +1915,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="bank" class="hidden-lg hidden-md">Bank</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $BANK = new Bank($GR2->bank);
-                                                    echo $BANK->name;
-                                                    ?>
+<?php
+$BANK = new Bank($GR2->bank);
+echo $BANK->name;
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1926,10 +1934,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <div class="form-line">
                                                 <label for="branch" class="hidden-lg hidden-md">Branch</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    $BRANCH = new Branch($GR2->branch);
-                                                    echo $BRANCH->name;
-                                                    ?>
+<?php
+$BRANCH = new Branch($GR2->branch);
+echo $BRANCH->name;
+?>
                                                 </div>
                                             </div>
                                         </div>
@@ -1999,10 +2007,10 @@ $GR2 = new Customer($LOAN->guarantor_2);
                             <div id="menu4" class="tab-pane fade">
                                 <div class="body"> 
                                     <div class="row">
-                                        <?php
-                                        $LOAN_DOCUMENT = new LoanDocument(NUll);
-                                        foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
-                                            ?>
+<?php
+$LOAN_DOCUMENT = new LoanDocument(NUll);
+foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
+    ?>
                                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                                 <div class="form-group">
                                                     <div class=" clearfix aniimated-thumbnials">
@@ -2012,7 +2020,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                                     </div> 
                                                 </div>
                                             </div>
-                                        <?php } ?>
+<?php } ?>
 
                                     </div>  
                                     <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
