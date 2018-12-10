@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$USERS = new Users(NULL)
+$USERS = new User(NULL);
 ?> 
 <!DOCTYPE html>
 <html>
@@ -11,10 +11,8 @@ $USERS = new Users(NULL)
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
         <title>Active Users || Credit Master</title>
-
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
-
         <!-- Google Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
@@ -33,11 +31,12 @@ $USERS = new Users(NULL)
         ?>
         <section class="content">
             <div class="container-fluid"> 
+                
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
+                
                 <!-- Manage Districts -->
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -74,7 +73,7 @@ $USERS = new Users(NULL)
                                                 <tr id="row_<?php echo $users['id']; ?>">
                                                     <td>#<?php echo $users['id']; ?></td> 
                                                     <td><?php echo $users['name']; ?></td>  
-                                                    <td><?php echo $users['user_name']; ?></td>
+                                                    <td><?php echo $users['username']; ?></td>
                                                     <td><?php echo $users['email']; ?></td>
                                                     <td>
                                                         <a href="edit-users.php?id=<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
