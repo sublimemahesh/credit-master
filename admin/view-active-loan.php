@@ -40,6 +40,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
+
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
@@ -228,6 +229,40 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                         </div>
                                     </div>
                                 </div>  
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="collector">Collector</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="collector" class="hidden-lg hidden-md">Collector</label> 
+                                                <select id="collector" name="collector" class="form-control" required="">
+
+
+                                                    <option value=""> -- Please Select Collector -- </option>
+                                                    <?php
+                                                    $USER = new User(NULL);
+                                                    foreach ($USER->all() as $key => $users) {
+
+                                                        if ($_SESSION['name'] == $users['name']) {
+                                                            ?>
+                                                            <option value="<?php echo $users['id'] ?>" selected="TRUE"><?php echo $users['name'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $users['id'] ?>"  ><?php echo $users['name'] ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                         <div id="menu0" class="tab-pane fade">
@@ -1940,19 +1975,13 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-    <!--                                        <input type="submit" id="approve" class="btn btn-success" value="Approve Now"/> | 
-                                            <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
-                                            <input type="submit" id="pending" class="btn btn-info" value="Transfer to View"/> | 
-                                            <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/>-->
+                                            <input type="submit" id="active" class="btn btn-info" value="Active Now"/> 
                                         </div>
                                     </div>
                                 </div>
-
                             </div> 
                         </div>
-
                     </div>
-
                 </div>
             </div>
         </section>

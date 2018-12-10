@@ -8,7 +8,7 @@ if (isset($_POST['create-new-loan'])) {
     $LOAN = new Loan(NULL);
     $VALID = new Validator();
 
-    $LOAN->create_by = $_POST['create_by'];
+
     $LOAN->create_date = $_POST['create_date'];
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
@@ -23,7 +23,8 @@ if (isset($_POST['create-new-loan'])) {
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
-
+    $LOAN->create_by = $_POST['create_by'];
+    $LOAN->collector = $_POST['collector'];
 
     $VALID->check($LOAN, [
         'create_date' => ['required' => TRUE],

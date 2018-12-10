@@ -1,5 +1,6 @@
 <?php
 
+
 /**
  * Description of User
  *
@@ -61,6 +62,24 @@ class User {
         } else {
             return FALSE;
         }
+    }
+
+    public function all() {
+
+        $query = "SELECT * FROM `user` ";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
+    public function __call($name, $arguments) {
+        ;
     }
 
     public function login($username, $password) {
@@ -349,8 +368,8 @@ class User {
         }
     }
 
+
     public function delete() {
-        
         $query = 'DELETE FROM `user` WHERE id="' . $this->id . '"';
 
         $db = new Database();

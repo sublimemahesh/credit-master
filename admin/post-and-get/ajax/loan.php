@@ -118,6 +118,23 @@ if ($_POST['action'] == 'PENDING') {
     exit();
 }
 
+
+if ($_POST['action'] == 'ACTIVE') {
+    $LOAN = new Loan($_POST['loan_id']);
+    $LOAN->collector = $_POST['collector'];
+    $LOAN->status = 'actived';
+
+    $result = $LOAN->update();
+
+    $VALID = new Validator();
+    $VALID->addError("Loan was successfully backed to pending!...", 'success');
+    $_SESSION['ERRORS'] = $VALID->errors();
+
+    echo json_encode(['status' => 'actived', 'data' => $result]);
+    header('Content-type: application/json');
+    exit();
+}
+
 if ($_POST['action'] == 'ISSUE') {
 
     $LOAN = new Loan($_POST['loan_id']);
@@ -150,6 +167,7 @@ if ($_POST['action'] == 'ISSUE') {
     header('Content-type: application/json');
     exit();
 }
+
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $CHECKGUARANTER = new Loan(NULl);
 
