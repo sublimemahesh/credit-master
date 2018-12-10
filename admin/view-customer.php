@@ -39,20 +39,19 @@ $CUSTOMER = new Customer($_GET['id']);
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <div class="card">
-                    <div class="header">
-                        <h2>View Customer (# <?php echo $CUSTOMER->id; ?>)</h2>
-                        <ul class="header-dropdown">
-                            <li class="">
-                                <a href="view-active-customer.php">
-                                    <i class="material-icons">list</i> 
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data"> 
-
+                
+                    <div class="card">
+                        <div class="header">
+                            <h2>CUSTOMER DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-md-8">
                                     <div class="row">
@@ -324,7 +323,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                                 if ($CUSTOMER->registration_type == 1) {
                                                     echo " Center Leader";
                                                 } else {
-                                                    echo  ucfirst($CUSTOMER->registration_type);
+                                                    echo ucfirst($CUSTOMER->registration_type);
                                                 }
                                                 ?>
 
@@ -425,7 +424,21 @@ $CUSTOMER = new Customer($_GET['id']);
                             </div>
 
 
+                        </div>
+                    </div>
 
+                    <div class="card">
+                        <div class="header">
+                            <h2>BUSINESS DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="business_name">Business Name</label>
@@ -493,7 +506,20 @@ $CUSTOMER = new Customer($_GET['id']);
                                     </div>
                                 </div>
                             </div>
-
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <h2>BANK DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="bank">Bank</label>
@@ -588,10 +614,9 @@ $CUSTOMER = new Customer($_GET['id']);
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </form> 
+                            </div> 
+                        </div>
                     </div>
-                </div>
             </div>
         </section>
 

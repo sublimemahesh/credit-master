@@ -8,11 +8,11 @@ if (isset($_POST['add-customer'])) {
 
     $CUSTOMER = New Customer(NULL);
     $VALID = new Validator();
-    
+
     $UPPERNIC = strtoupper($_POST['nic_number']);
-        
+
     $telephone_number = null;
-    
+
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
@@ -393,8 +393,13 @@ if (isset($_POST['add-customer'])) {
         'title' => ['required' => TRUE],
         'surname' => ['required' => TRUE],
         'first_name' => ['required' => TRUE],
+        'last_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
+        'month' => ['required' => TRUE],
+        'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
+        'address_line_2' => ['required' => TRUE],
+        'credit_limit' => ['required' => TRUE],
         'mobile' => ['required' => TRUE]
     ]);
 
@@ -753,7 +758,7 @@ if (isset($_POST['update_input'])) {
 
     $CUSTOMER = new Customer($_POST['id']);
 
-   $UPPERNIC = strtoupper($_POST['nic_number']);
+    $UPPERNIC = strtoupper($_POST['nic_number']);
 
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
@@ -790,6 +795,15 @@ if (isset($_POST['update_input'])) {
     $VALID = new Validator();
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
+        'surname' => ['required' => TRUE],
+        'first_name' => ['required' => TRUE],
+        'last_name' => ['required' => TRUE],
+        'nic_number' => ['required' => TRUE], 
+        'city' => ['required' => TRUE],
+        'address_line_1' => ['required' => TRUE],
+        'address_line_2' => ['required' => TRUE],
+        'credit_limit' => ['required' => TRUE],
+        'mobile' => ['required' => TRUE]
     ]);
 
 

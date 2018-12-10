@@ -27,6 +27,7 @@ $CENTER = Center::all();
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="css/custom.css" rel="stylesheet" type="text/css"/>
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
@@ -45,28 +46,29 @@ $CENTER = Center::all();
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <div class="card">
-                    <div class="header">
-                        <h2>Edit Customer</h2>
-                        <ul class="header-dropdown">
-                            <li class="">
-                                <a href="view-active-customer.php">
-                                    <i class="material-icons">list</i> 
-                                </a>
-                            </li>
-                        </ul>
-                    </div>
-                    <div class="body">
-                        <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data" id="form"> 
+                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data" id="form"> 
+
+                    <div class="card">
+                        <div class="header">
+                            <h2>CUSTOMER DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="title">Title</label>
+                                    <label for="title">Title<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="title" class="hidden-lg hidden-md">Title</label>
-                                            <select id="title" name="title" class="form-control" >
+                                            <label for="title" class="hidden-lg hidden-md">Title<span class="color-red"> *</span></label>
+                                            <select id="title" name="title" class="form-control" required="TRUE">
                                                 <option value="<?php echo $CUSTOMER->title ?>"><?php echo $CUSTOMER->title ?></option>
                                                 <option value="Mr.">Mr.</option>
                                                 <option value="Mrs.">Mrs.</option>
@@ -80,13 +82,13 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="first_name">First Name</label>
+                                    <label for="first_name">First Name<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="first_name" class="hidden-lg hidden-md">First Name</label>
-                                            <input type="text" id="first_name"  name="first_name" value="<?php echo $CUSTOMER->first_name ?>" class="form-control" autocomplete="off">
+                                            <label for="first_name" class="hidden-lg hidden-md">First Name<span class="color-red"> *</span></label>
+                                            <input type="text" id="first_name"  name="first_name" value="<?php echo $CUSTOMER->first_name ?>" class="form-control" autocomplete="off" required="TRUE">
                                         </div>
                                     </div>
                                 </div>
@@ -94,13 +96,13 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="last_name">Last Name</label>
+                                    <label for="last_name">Last Name<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="last_name" class="hidden-lg hidden-md">Last Name</label>
-                                            <input type="text" id="last_name"  name="last_name" value="<?php echo $CUSTOMER->last_name ?>" class="form-control" autocomplete="off">
+                                            <label for="last_name" class="hidden-lg hidden-md">Last Name<span class="color-red"> *</span></label>
+                                            <input type="text" id="last_name"  name="last_name" value="<?php echo $CUSTOMER->last_name ?>" class="form-control" autocomplete="off" required="TRUE">
                                         </div>
                                     </div>
                                 </div>
@@ -108,13 +110,13 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="surname">Surname</label>
+                                    <label for="surname">Surname<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="surname" class="hidden-lg hidden-md">Surname</label>
-                                            <input type="text" id="surname"  name="surname" value="<?php echo $CUSTOMER->surname ?>" class="form-control" autocomplete="off">
+                                            <label for="surname" class="hidden-lg hidden-md">Surname<span class="color-red"> *</span></label>
+                                            <input type="text" id="surname"  name="surname" value="<?php echo $CUSTOMER->surname ?>" class="form-control" autocomplete="off" required="TRUE">
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +128,6 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-
                                         <label for="profile_picture" class="hidden-lg hidden-md">Profile Picture</label>
                                         <input type="file" id="profile_picture"  name="profile_picture"  value="<?php echo $CUSTOMER->profile_picture ?>" class="form-control" autocomplete="off">
                                         <?php
@@ -143,13 +144,13 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="nic_number">NIC Number</label>
+                                    <label for="nic_number">NIC Number<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="nic_number" class="hidden-lg hidden-md">NIC Number</label>
-                                            <input type="text" id="customer_nic_number"  name="nic_number" value="<?php echo $CUSTOMER->nic_number ?>" class="form-control" autocomplete="off">
+                                            <label for="nic_number" class="hidden-lg hidden-md">NIC Number<span class="color-red"> *</span></label>
+                                            <input type="text" id="customer_nic_number"  name="nic_number" value="<?php echo $CUSTOMER->nic_number ?>" class="form-control" autocomplete="off" required="TRUE">
                                         </div>
                                     </div>
                                 </div>
@@ -194,15 +195,14 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="dob">Date of Birthday</label>
+                                    <label for="dob">Date of Birthday<span class="color-red"> *</span></label>
                                 </div>
 
                                 <div class="form-group">
-
-                                    <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
+                                    <label for="dob" class="hidden-lg hidden-md">Date of Birthday<span class="color-red"> *</span></label>
                                     <div class="register-form-row-col">
                                         <div class="col-md-3">
-                                            <select name="month" onchange="call()" class="form-control form-line " id="month"  name="month">
+                                            <select name="month" onchange="call()" class="form-control form-line " id="month"  name="month" required="TRUE">
                                                 <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
                                                     if ($CUSTOMER->dob_month == 1) {
                                                         echo 'Jan';
@@ -247,7 +247,6 @@ $CENTER = Center::all();
                                         <div class="col-md-3">
                                             <select id="day"  name="day" class="form-control form-line">
                                                 <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
-
                                             </select>
                                         </div>
                                         <div class="col-md-3">
@@ -256,21 +255,18 @@ $CENTER = Center::all();
                                             </select>
                                         </div>
                                     </div>
-
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="address">Address</label>
+                                    <label for="address">Address<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="address" class="hidden-lg hidden-md">Address</label>
-
-                                            <input type="text" id="addres-bar" name="address_line_1" value="<?php echo $CUSTOMER->address_line_1 ?>" class="form-control" autocomplete="off">
+                                            <label for="address" class="hidden-lg hidden-md">Address<span class="color-red"> *</span></label>
+                                            <input type="text" id="addres-bar" name="address_line_1" value="<?php echo $CUSTOMER->address_line_1 ?>" class="form-control" autocomplete="off" required="TRUE">
                                             <input type="text" id="addres-bar"  name="address_line_2" value="<?php echo $CUSTOMER->address_line_2 ?>" class="form-control" autocomplete="off">
                                             <input type="text" id="addres-bar"  name="address_line_3" value="<?php echo $CUSTOMER->address_line_3 ?>" class="form-control" autocomplete="off">
                                             <input type="text" id="addres-bar"  name="address_line_4" value="<?php echo $CUSTOMER->address_line_4 ?>" class="form-control" autocomplete="off">
@@ -280,14 +276,12 @@ $CENTER = Center::all();
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="billing_proof_image">Billing Proof Image</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-
                                         <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                         <input type="file" id="billing_proof_image"  name="billing_proof_image"  class="form-control" autocomplete="off">
                                         <?php
@@ -297,11 +291,9 @@ $CENTER = Center::all();
                                             <?php
                                         }
                                         ?> 
-
                                     </div>
                                 </div>
-                            </div>
-
+                            </div>                     
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -333,12 +325,12 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="mobile">Mobile</label>
+                                    <label for="mobile">Mobile<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
+                                            <label for="mobile" class="hidden-lg hidden-md">Mobile<span class="color-red"> *</span></label>
                                             <input type="text" id="customer_moblie_number"  name="mobile" value="<?php echo $CUSTOMER->mobile ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
@@ -347,12 +339,12 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="registration_type">Registration Type</label>
+                                    <label for="registration_type">Registration Type<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type<span class="color-red"> *</span></label>
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
                                                 <option value="" selected=""> -- Select Registration Type -- </option>
 
@@ -489,12 +481,12 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="city">City </label>
+                                    <label for="city">City <span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="city" class="hidden-lg hidden-md">City</label>
+                                            <label for="city" class="hidden-lg hidden-md">City<span class="color-red"> *</span></label>
                                             <select class="form-control" autocomplete="off" id="city_name"  name="city"   > 
                                                 <?php
                                                 $CITY = new City($CUSTOMER->city);
@@ -504,7 +496,6 @@ $CENTER = Center::all();
                                                 $CITY = City::all();
                                                 foreach ($CITY as $city) {
                                                     ?>
-
                                                     <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
                                                     <?php
                                                 }
@@ -517,12 +508,12 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="credit_limit">Credit Limit</label>
+                                    <label for="credit_limit">Credit Limit<span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
+                                            <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit<span class="color-red"> *</span></label>
                                             <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo $CUSTOMER->credit_limit ?>" class="form-control" max="" autocomplete="off" min="0"   >
                                         </div>
                                     </div>
@@ -535,7 +526,6 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-
                                         <label for="signature_image" class="hidden-lg hidden-md">Signature Image</label>
                                         <input type="file" id="bank_book_picture"  name="signature_image"  class="form-control" autocomplete="off">
                                         <?php
@@ -545,10 +535,25 @@ $CENTER = Center::all();
                                             <?php
                                         }
                                         ?> 
-
                                     </div>
                                 </div>
                             </div>
+
+                        </div>
+                    </div>
+
+                    <div class="card">
+                        <div class="header">
+                            <h2>BUSINESS DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="business_name">Business Name</label>
@@ -579,12 +584,12 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="nature_of_business">Nature of Bsiness</label>
+                                    <label for="nature_of_business">Nature of Business</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Bsiness</label>
+                                            <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Business</label>
                                             <input type="text" id="nature_of_business"  name="nature_of_business" value="<?php echo $CUSTOMER->nature_of_business ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
@@ -606,14 +611,25 @@ $CENTER = Center::all();
                                             <?php
                                         }
                                         ?> 
-
                                     </div>
                                 </div>
                             </div>
 
+                        </div>
+                    </div>
 
-
-
+                    <div class="card">
+                        <div class="header">
+                            <h2>BANK DETAILS</h2>
+                            <ul class="header-dropdown">
+                                <li class="">
+                                    <a href="view-active-customer.php">
+                                        <i class="material-icons">list</i> 
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="body">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="bank">Bank  </label>
@@ -732,14 +748,12 @@ $CENTER = Center::all();
                                             <?php
                                         }
                                         ?> 
-
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
                                     <div class="form-group">
@@ -756,7 +770,6 @@ $CENTER = Center::all();
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
-
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left " type="submit" name="update" >Update</button>
@@ -769,14 +782,14 @@ $CENTER = Center::all();
                                     <input type="hidden" id="oldImageNameBBP" value="<?php echo $CUSTOMER->bank_book_picture; ?>" name="oldImageNameBBP"/> 
                                     <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->signature_image; ?>" name="oldImageNameSP"/> 
                                     <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->billing_proof_image; ?>" name="oldImageNameBI"/> 
-
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
                             </div> 
                             <input type="hidden" id="errors" value="1"/>
-                        </form> 
+
+                        </div>
                     </div>
-                </div>
+                </form> 
             </div>
         </section>
 
