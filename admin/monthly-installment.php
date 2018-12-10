@@ -23,7 +23,7 @@ $next = $ND->format('Y-m-d');
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title> Day Instalment  || Credit Master</title>
+        <title> Monthly Instalment  || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -59,7 +59,7 @@ $next = $ND->format('Y-m-d');
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Day Instalment :
+                                    Monthly Instalment :
                                     <?php
                                     echo $today;
                                     ?>
