@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Description of User
  *
@@ -42,9 +41,9 @@ class User {
         }
     }
 
-    public function create($name, $email, $username, $password) {
+    public function create($name, $email, $username, $passwor) {
 
-        $enPass = md5($password);
+        $enPass = md5($passwor);
 
         date_default_timezone_set('Asia/Colombo');
 
@@ -103,28 +102,6 @@ class User {
         } else {
             return TRUE;
         }
-    }
-
-    public function inctiveUsers() {
-        $query = "SELECT * FROM `user` WHERE `isActive` = 0";
-        $db = new Database();
-        $result = $db->readQuery($query);
-        $array_res = array();
-        while ($row = mysql_fetch_array($result)) {
-            array_push($array_res, $row);
-        }
-        return $array_res;
-    }
-
-    public function activeUsers() {
-        $query = "SELECT * FROM `user` WHERE `isActive` = 1";
-        $db = new Database();
-        $result = $db->readQuery($query);
-        $array_res = array();
-        while ($row = mysql_fetch_array($result)) {
-            array_push($array_res, $row);
-        }
-        return $array_res;
     }
 
     public function changePassword($id, $password) {
@@ -347,15 +324,6 @@ class User {
         } else {
             return FALSE;
         }
-    }
-
-    public function delete() {
-        
-        $query = 'DELETE FROM `user` WHERE id="' . $this->id . '"';
-
-        $db = new Database();
-
-        return $db->readQuery($query);
     }
 
 }

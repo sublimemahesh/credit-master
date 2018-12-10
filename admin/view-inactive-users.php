@@ -2,7 +2,7 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$USERS = new User(NULL)
+$USERS = new Users(NULL)
 ?> 
 <!DOCTYPE html>
 <html>
@@ -74,7 +74,7 @@ $USERS = new User(NULL)
                                                 <tr id="row_<?php echo $users['id']; ?>">
                                                     <td>#<?php echo $users['id']; ?></td> 
                                                     <td><?php echo $users['name']; ?></td>  
-                                                    <td><?php echo $users['username']; ?></td>
+                                                    <td><?php echo $users['user_name']; ?></td>
                                                     <td><?php echo $users['email']; ?></td>
                                                     <td>
                                                         <a href="edit-users.php?id=<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 

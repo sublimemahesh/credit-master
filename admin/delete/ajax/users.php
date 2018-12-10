@@ -6,7 +6,7 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 
 if ($_POST['option'] == 'delete') {
     
-    $USERS = new User($_POST['id']);
+    $USERS = new Users($_POST['id']);
 
     $result = $USERS->delete();
 
