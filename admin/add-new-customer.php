@@ -121,7 +121,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="profile_picture" class="hidden-lg hidden-md">Profile Picture</label>
-                                            <input type="file" id="profile_picture"  name="profile_picture" class="form-control" autocomplete="off" required="">
+                                            <input type="file" id="profile_picture"  name="profile_picture" class="form-control" autocomplete="off"  >
                                         </div>
                                     </div>
                                 </div>
