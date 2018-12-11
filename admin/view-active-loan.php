@@ -230,38 +230,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                 </div>  
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="collector">Collector</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="collector" class="hidden-lg hidden-md">Collector</label> 
-                                                <select id="collector" name="collector" class="form-control" required="">
-
-
-                                                    <option value=""> -- Please Select Collector -- </option>
-                                                    <?php
-                                                    $USER = new User(NULL);
-                                                    foreach ($USER->all() as $key => $users) {
-
-                                                        if ($_SESSION['name'] == $users['name']) {
-                                                            ?>
-                                                            <option value="<?php echo $users['id'] ?>" selected="TRUE"><?php echo $users['name'] ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option value="<?php echo $users['id'] ?>"  ><?php echo $users['name'] ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                 
 
                             </div>
                         </div>
@@ -1968,18 +1937,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                     </div>
                                     <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                                                  </div>
                             </div>
-                            <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
-                                <div class="row">
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
-                                            <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                            <input type="submit" id="active" class="btn btn-info" value="Change Collector"/> 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
+                            
                         </div>
                     </div>
                 </div>

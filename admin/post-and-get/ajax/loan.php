@@ -119,21 +119,6 @@ if ($_POST['action'] == 'PENDING') {
 }
 
 
-if ($_POST['action'] == 'ACTIVE') {
-    $LOAN = new Loan($_POST['loan_id']);
-    $LOAN->collector = $_POST['collector'];
-    $LOAN->status = 'actived';
-
-    $result = $LOAN->update(); 
-    if ($result == TRUE) {
-        header('Content-type: application/json');
-        echo json_encode(['status' => 'actived', 'data' => $result]);
-    } else {
-        header('Content-type: application/json');
-        exit();
-    }
-}
-
 if ($_POST['action'] == 'ISSUE') {
 
     $LOAN = new Loan($_POST['loan_id']);
