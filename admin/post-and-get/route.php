@@ -11,6 +11,7 @@ if (isset($_POST['add-route'])) {
     $ROUTE->code = $_POST['code'];
     $ROUTE->start_location = $_POST['start_location'];
     $ROUTE->end_location = $_POST['end_location'];
+    $ROUTE->collector = $_POST['collector'];
 
 
     $VALID->check($ROUTE, [
@@ -18,6 +19,7 @@ if (isset($_POST['add-route'])) {
         'code' => ['required' => TRUE],
         'start_location' => ['required' => TRUE],
         'end_location' => ['required' => TRUE],
+        'collector' => ['required' => TRUE],
 
     ]);
 
@@ -58,13 +60,14 @@ if (isset($_POST['update'])) {
     $ROUTE->name = $_POST['name'];
     $ROUTE->code =$_POST['code'];
     $ROUTE->start_location = $_POST['start_location'];
-    $ROUTE->end_location = $_POST['end_location'];
+    $ROUTE->collector = $_POST['collector'];
 
 
     $VALID = new Validator();
     $VALID->check($ROUTE, [
         'name' => ['required' => TRUE],
         'code' => ['required' => TRUE],
+        'collector' => ['required' => TRUE],
       
 
     ]);

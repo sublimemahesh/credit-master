@@ -12,6 +12,7 @@ class Route {
     public $code;
     public $start_location;
     public $end_location;
+    public $collector;
 
     public function __construct($id) {
         if ($id) {
@@ -27,6 +28,7 @@ class Route {
             $this->code = $result['code'];
             $this->start_location = $result['start_location'];
             $this->end_location = $result['end_location'];
+            $this->collector = $result['collector'];
 
 
             return $this;
@@ -36,11 +38,12 @@ class Route {
     public function create() {
 
 
-        $query = "INSERT INTO `route` (`name`,`code`,`start_location`,`end_location`) VALUES  ('"
+        $query = "INSERT INTO `route` (`name`,`code`,`start_location`,`end_location`,`collector`) VALUES  ('"
                 . $this->name . "','"
                 . $this->code . "', '"
                 . $this->start_location . "', '"
-                . $this->end_location . "')";
+                . $this->end_location . "', '"
+                . $this->collector. "')";
 
 
         $db = new Database();
@@ -78,7 +81,8 @@ class Route {
                 . "`name` ='" . $this->name . "', "
                 . "`code` ='" . $this->code . "', "
                 . "`start_location` ='" . $this->start_location . "', "
-                . "`end_location` ='" . $this->end_location . "' "
+                . "`end_location` ='" . $this->end_location . "', "
+                . "`collector` ='" . $this->collector . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();

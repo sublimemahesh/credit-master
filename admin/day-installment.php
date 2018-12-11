@@ -59,7 +59,7 @@ $next = $ND->format('Y-m-d');
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Day Instalment :
+                                    Daily Instalments :
                                     <?php
                                     echo $today;
                                     ?>

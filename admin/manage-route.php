@@ -61,6 +61,7 @@ $ROUTE = new Route(NULL)
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Collector</th>
                                                 <th>Route Name</th>  
                                                 <th>Route Code</th>
                                                 <th>Start Location</th>
@@ -75,6 +76,10 @@ $ROUTE = new Route(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $route['id']; ?>">
                                                     <td>#<?php echo $key; ?></td> 
+                                                    <td><?php
+                                                        $USER = new User($route['collector']);
+                                                        echo $USER->name;
+                                                        ?></td>  
                                                     <td><?php echo $route['name']; ?></td>  
                                                     <td><?php echo $route['code']; ?></td>
                                                     <td><?php echo $route['start_location']; ?></td>
@@ -92,6 +97,7 @@ $ROUTE = new Route(NULL)
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Collector</th>
                                                 <th>Route Name</th>  
                                                 <th>Route Code</th>
                                                 <th>Start Location</th>
