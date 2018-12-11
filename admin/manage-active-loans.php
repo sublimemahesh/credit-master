@@ -72,7 +72,7 @@ $LOAN->status = 'issued';
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
                                                 ?>
-                                                <tr id="row_<?php echo $loan['id']; ?>">
+                                                <tr >
                                                     <td>
                                                         <b>
                                                             ID:  
@@ -193,7 +193,6 @@ $LOAN->status = 'issued';
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
-        <script src="js/demo.js"></script>
-        <script src="delete/js/loan.js" type="text/javascript"></script>
+        <script src="js/demo.js"></script> 
     </body> 
 </html> 
