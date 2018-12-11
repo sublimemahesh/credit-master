@@ -66,12 +66,21 @@ $USER = new User($id);
                                             <li class="list-group-item"><b>Name</b> : <?php echo $USER->name; ?></li> 
                                             <li class="list-group-item"><b>Username</b> : <?php echo $USER->username; ?></li> 
                                             <li class="list-group-item"><b>Email</b> : <?php echo $USER->email; ?></li> 
+                                            <li class="list-group-item"><b>User Level</b> : <?php
+                                                if ($USER->user_level == 1) {
+                                                    echo 'level 1';
+                                                } elseif ($USER->user_level == 2) {
+                                                    echo 'level 2';
+                                                } else {
+                                                    echo 'level 3';
+                                                }
+                                                ?></li> 
                                             <li class="list-group-item"><b>Created Date</b> : <?php echo $USER->createdAt; ?></li>
                                             <li class="list-group-item"><b>Last Login</b> : <?php echo $USER->lastLogin; ?></li> 
                                         </ul>
                                     </div>
                                     <div class="col-sm-3 col-md-3">  
-                                        <img src="images/profile/<?php echo $USER->id; ?>.jpg" class="img img-responsive img-thumbnail"/> 
+                                        <img src="../upload/users/<?php echo $USER->image_name ?>" class="img img-responsive img-thumbnail"/> 
                                     </div>
                                 </div>
                             </div>

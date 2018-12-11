@@ -164,7 +164,6 @@ class Installment {
 
         $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
 
-
         $db = new Database();
 
         $result = $db->readQuery($query);

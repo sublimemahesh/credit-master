@@ -1,6 +1,5 @@
 <?php
 
-
 /**
  * Description of User
  *
@@ -17,13 +16,15 @@ class User {
     public $authToken;
     public $lastLogin;
     public $username;
+    public $user_level;
     public $resetCode;
+    public $image_name;
     private $password;
 
     public function __construct($id) {
         if ($id) {
 
-            $query = "SELECT `id`,`name`,`email`,`createdAt`,`isActive`,`authToken`,`lastLogin`,`username`,`resetcode` FROM `user` WHERE `id`=" . $id;
+            $query = "SELECT `id`,`name`,`email`,`createdAt`,`isActive`,`authToken`,`lastLogin`,`username`,`user_level`,`image_name`,`resetcode` FROM `user` WHERE `id`=" . $id;
 
             $db = new Database();
 
@@ -36,6 +37,8 @@ class User {
             $this->isActive = $result['isActive'];
             $this->lastLogin = $result['lastLogin'];
             $this->username = $result['username'];
+            $this->user_level = $result['user_level'];
+            $this->image_name = $result['image_name'];
             $this->authToken = $result['authToken'];
             $this->resetCode = $result['resetcode'];
 
@@ -43,7 +46,7 @@ class User {
         }
     }
 
-    public function create($name, $email, $username, $password) {
+    public function create($name, $email, $username, $userlevel, $imgName, $password) {
 
         $enPass = md5($password);
 
@@ -51,7 +54,8 @@ class User {
 
         $createdAt = date('Y-m-d H:i:s');
 
-        $query = "INSERT INTO `user` (name, email, createdAt, isActive, username, password) VALUES  ('" . $name . "', '" . $email . "', '" . $createdAt . "', '" . 1 . "', '" . $username . "', '" . $enPass . "')";
+        $query = "INSERT INTO `user` (name, email, createdAt, isActive, username,user_level,image_name, password) VALUES  ('" . $name . "', '" . $email . "', '" . $createdAt . "',  '" . 1 . "','" . $username . "', '" . $userlevel . "' , '" . $imgName . "' ,'" . $enPass . "')";
+
 
         $db = new Database();
 
@@ -85,7 +89,7 @@ class User {
     public function login($username, $password) {
 
         $enPass = md5($password);
-        $query = "SELECT `id`,`name`,`email`,`createdAt`,`isActive`,`lastLogin`,`username` FROM `user` WHERE `username`= '" . $username . "' AND `password`= '" . $enPass . "'";
+        $query = "SELECT `id`,`name`,`email`,`createdAt`,`isActive`,`lastLogin`,`username` FROM `user` WHERE `username`= '" . $username . "' AND `password`= '" . $enPass . "' AND `isActive`=1";
 
         $db = new Database();
 
@@ -219,9 +223,11 @@ class User {
                 . "`name` ='" . $this->name . "', "
                 . "`username` ='" . $this->username . "', "
                 . "`email` ='" . $this->email . "', "
-                . "`isActive` ='" . $this->isActive . "' "
+                . "`isActive` ='" . $this->isActive . "', "
+                . "`user_level` ='" . $this->user_level . "', "
+                . "`image_name` ='" . $this->image_name . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+      
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -367,7 +373,6 @@ class User {
             return FALSE;
         }
     }
-
 
     public function delete() {
         $query = 'DELETE FROM `user` WHERE id="' . $this->id . '"';

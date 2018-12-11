@@ -45,7 +45,7 @@ $USERS = new User(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                   Inactive Users
+                                    Inactive Users
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -63,6 +63,7 @@ $USERS = new User(NULL)
                                                 <th>ID</th>
                                                 <th>Name</th>  
                                                 <th>User Name</th>
+                                                <th>User Level</th>
                                                 <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>
@@ -70,11 +71,21 @@ $USERS = new User(NULL)
                                         <tbody>
                                             <?php
                                             foreach ($USERS->inctiveUsers() as $key => $users) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $users['id']; ?>">
-                                                    <td>#<?php echo $users['id']; ?></td> 
+                                                    <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $users['name']; ?></td>  
                                                     <td><?php echo $users['username']; ?></td>
+                                                    <td><?php
+                                                        if ($users['user_level'] == 1) {
+                                                            echo 'level 1';
+                                                        } elseif ($users['user_level'] == 2) {
+                                                            echo 'level 2';
+                                                        } else {
+                                                            echo 'level 3';
+                                                        }
+                                                        ?></td>
                                                     <td><?php echo $users['email']; ?></td>
                                                     <td>
                                                         <a href="edit-users.php?id=<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
@@ -87,10 +98,11 @@ $USERS = new User(NULL)
                                             ?>   
                                         </tbody>
                                         <tfoot>
-                                             <tr>
+                                            <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>  
                                                 <th>User Name</th>
+                                                <th>User Level</th>
                                                 <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>

@@ -31,12 +31,12 @@ $USERS = new User(NULL);
         ?>
         <section class="content">
             <div class="container-fluid"> 
-                
+
                 <?php
                 $vali = new Validator();
                 $vali->show_message();
                 ?>
-                
+
                 <!-- Manage Districts -->
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
@@ -62,6 +62,7 @@ $USERS = new User(NULL);
                                                 <th>ID</th>
                                                 <th>Name</th>  
                                                 <th>User Name</th>
+                                                <th>User Level</th>
                                                 <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>
@@ -69,11 +70,22 @@ $USERS = new User(NULL);
                                         <tbody>
                                             <?php
                                             foreach ($USERS->activeUsers() as $key => $users) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $users['id']; ?>">
-                                                    <td>#<?php echo $users['id']; ?></td> 
+                                                    <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $users['name']; ?></td>  
                                                     <td><?php echo $users['username']; ?></td>
+                                                    <td><?php
+                                                        if ($users['user_level'] == 1) {
+                                                            echo 'level 1';
+                                                        } elseif ($users['user_level'] == 2) {
+                                                            echo 'level 2';
+                                                        } else {
+                                                            echo 'level 3';
+                                                        }
+                                                        ?></td>
+
                                                     <td><?php echo $users['email']; ?></td>
                                                     <td>
                                                         <a href="edit-users.php?id=<?php echo $users['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
@@ -86,7 +98,7 @@ $USERS = new User(NULL);
                                             ?>   
                                         </tbody>
                                         <tfoot>
-                                             <tr>
+                                            <tr>
                                                 <th>ID</th>
                                                 <th>Name</th>  
                                                 <th>User Name</th>
