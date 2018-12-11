@@ -11,6 +11,7 @@ class Center {
     public $name;
     public $address;
     public $leader;
+    public $collector;
 
     public function __construct($id) {
         if ($id) {
@@ -25,6 +26,7 @@ class Center {
             $this->name = $result['name'];
             $this->address = $result['address'];
             $this->leader = $result['leader'];
+            $this->collector = $result['collector'];
 
 
             return $this;
@@ -33,10 +35,11 @@ class Center {
 
     public function create() {
 
-        $query = "INSERT INTO `center` (`name`,`address`,`leader`) VALUES  ('"
+        $query = "INSERT INTO `center` (`name`,`address`,`leader`,`collector`) VALUES  ('"
                 . $this->name . "','"
                 . $this->address . "', '"
-                . $this->leader . "')";
+                . $this->leader . "', '"
+                . $this->collector . "')";
 
 
         $db = new Database();
@@ -88,7 +91,8 @@ class Center {
         $query = "UPDATE  `center` SET "
                 . "`name` ='" . $this->name . "', "
                 . "`address` ='" . $this->address . "', "
-                . "`leader` ='" . $this->leader . "' "
+                . "`leader` ='" . $this->leader . "', "
+                . "`collector` ='" . $this->collector . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();

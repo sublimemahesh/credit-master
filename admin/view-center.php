@@ -91,6 +91,24 @@ $CENTER = new Center($id);
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="collector">Collector</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="collector" class="hidden-lg hidden-md">Collector</label>
+                                                <div class="form-control"> 
+                                                    <?php
+                                                    $USER = new User($CENTER->collector);
+                                                    echo $USER->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -141,6 +159,7 @@ $CENTER = new Center($id);
                                         </thead>
                                         <tbody>
                                             <?php
+                                            $DefaultData = new DefaultData(NULl);
                                             $CUSTOMER = new Customer(Null);
                                             foreach ($CUSTOMER->getCustomrByCenter($CENTER->id)as $key => $customer) {
                                                 ?>
@@ -148,7 +167,10 @@ $CENTER = new Center($id);
                                                     <td>#<?php echo $customer['id']; ?></td> 
                                                     <td> <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 
-                                                            <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name']; ?></b><br/>
+                                                            <?php
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($customer['surname']));
+                                                            echo $first_name . ' ' . $customer['first_name'] . ' ' . $customer['last_name']
+                                                            ?></b><br/>
                                                         <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
                                                     </td>
 
@@ -162,6 +184,7 @@ $CENTER = new Center($id);
                                                     <td class="text-center" >
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
+                                                        <a href="add-new-customer-document.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-picture arrange-btn-2" title="Customer Document"></button></a> |
                                                         <a href="#"  class="delete-customer" data-id="<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
 
                                                     </td> 

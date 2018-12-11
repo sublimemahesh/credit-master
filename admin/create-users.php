@@ -93,21 +93,21 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             </div>
                                         </div>
                                     </div>
-                                    <!--                                    <div class="row clearfix">
-                                                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                                                                <label for="picture">Picture</label>
-                                                                            </div>
-                                                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
-                                                                                <div class="form-group">
-                                                                                    <div class="form-line p-top ">
-                                                                                        <label for="picture" class="hidden-lg hidden-md">Picture</label>
-                                    
-                                                                                        <input type="file" id="picture" class="form-control" name="image_name">
-                                                                                    </div>
-                                                                                </div>
-                                                                            </div>
-                                                                        </div>
-                                    -->
+                                    <div class="row clearfix">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="picture">Picture</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line p-top ">
+                                                    <label for="picture" class="hidden-lg hidden-md">Picture</label>
+
+                                                    <input type="file" id="picture" class="form-control" name="image_name">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
 
                                     <div class="row clearfix">
                                         <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">

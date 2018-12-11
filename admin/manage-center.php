@@ -63,6 +63,7 @@ $CENTER = new Center(NULL)
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
                                                 <th>Leader</th>
+                                                <th>Collector</th>
                                                 <th>Address</th>
                                                 <th>Options</th> 
                                             </tr>
@@ -79,6 +80,12 @@ $CENTER = new Center(NULL)
                                                         <?php
                                                         $CUSTOMER = new Customer($center['leader']);
                                                         echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                        ?>
+                                                    </td>
+                                                    <td>
+                                                        <?php
+                                                        $USER = new User($center['collector']);
+                                                        echo $USER->name;
                                                         ?>
                                                     </td>
                                                     <td><?php echo $center['address']; ?></td>
@@ -98,6 +105,7 @@ $CENTER = new Center(NULL)
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
                                                 <th>Leader</th>
+                                                <th>Collector</th>
                                                 <th>Address</th>
                                                 <th>Options</th> 
                                             </tr>

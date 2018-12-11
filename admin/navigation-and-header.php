@@ -380,45 +380,6 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li>
                     </ul>
                 </li> 
-                <li>
-                    <a href="javascript:void(0);" class="menu-toggle">
-                        <i class="material-icons">
-                            perm_identity
-                        </i>
-
-                        <span>Users</span>
-                    </a>
-                    <ul class="ml-menu">
-                        <li>
-                            <a href="create-users.php">
-                                <i class="material-icons">add</i>
-                                <span>Add New</span>
-                            </a>
-                        </li>
-                        <!--                        <li>
-                                                    <a href="manage-users.php">
-                                                        <i class="material-icons">list</i>
-                                                        <span>Manage</span>
-                                                    </a>
-                                                </li>-->
-                        <li>
-                            <a href="view-active-users.php">
-                                <i class="material-icons">
-                                    how_to_reg
-                                </i>
-                                <span>Active Users</span>
-                            </a>
-                        </li>
-                        <li>
-                            <a href="view-inactive-users.php">
-                                <i class="material-icons">
-                                    person_add_disabled
-                                </i>
-                                <span>Inactive Users</span>
-                            </a>
-                        </li>
-                    </ul>
-                </li> 
 
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
@@ -445,6 +406,40 @@ include_once(dirname(__FILE__) . '/auth.php');
                     </ul>
                 </li>
 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            perm_identity
+                        </i>
+
+                        <span>Users</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="create-users.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+
+                        <li>
+                            <a href="view-active-users.php">
+                                <i class="material-icons">
+                                    how_to_reg
+                                </i>
+                                <span>Active Users</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="view-inactive-users.php">
+                                <i class="material-icons">
+                                    person_add_disabled
+                                </i>
+                                <span>Inactive Users</span>
+                            </a>
+                        </li>
+                    </ul>
+                </li> 
             </ul>
         </div>
         <!-- #Menu -->
