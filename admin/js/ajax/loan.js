@@ -397,48 +397,7 @@ $(document).ready(function () {
         }
     });
 
-    $('#active').click(function () {
-
-        var loan_id = $('#loan_id').val();
-        var collector = $('#collector').val();
-
-
-        swal({
-            title: "Change Collector!",
-            text: "Do you really want to change collector this loan?...",
-            type: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#00b0e4",
-            confirmButtonText: "Yes, Change It!",
-            closeOnConfirm: false
-        }, function () {
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    loan_id: loan_id,
-                    collector: collector,
-                    action: 'ACTIVE'
-                },
-                success: function (jsonStr) {
-                    if (jsonStr.status == 'actived') {
-
-                        swal({
-                            title: "Changed Collector!",
-                            text: "Now Collector has Changed.",
-                            type: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-
-                    }
-                }
-            });
-        });
-
-
-    });
+   
 
 
 ///remove Loan Period in select  installment type
