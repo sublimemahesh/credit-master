@@ -404,12 +404,12 @@ $(document).ready(function () {
 
 
         swal({
-            title: "Active!",
-            text: "Do you really want to active this loan?...",
+            title: "Change Collector!",
+            text: "Do you really want to change collector this loan?...",
             type: "info",
             showCancelButton: true,
             confirmButtonColor: "#00b0e4",
-            confirmButtonText: "Yes, Active It!",
+            confirmButtonText: "Yes, Change It!",
             closeOnConfirm: false
         }, function () {
 
@@ -425,8 +425,8 @@ $(document).ready(function () {
                     if (jsonStr.status == 'actived') {
 
                         swal({
-                            title: "Actived!",
-                            text: "Now Loan has Actived.",
+                            title: "Changed Collector!",
+                            text: "Now Collector has Changed.",
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false

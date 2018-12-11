@@ -1975,7 +1975,7 @@ $GR2 = new Customer($LOAN->guarantor_2);
                                             <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-                                            <input type="submit" id="active" class="btn btn-info" value="Active Now"/> 
+                                            <input type="submit" id="active" class="btn btn-info" value="Change Collector"/> 
                                         </div>
                                     </div>
                                 </div>
