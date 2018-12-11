@@ -2,25 +2,25 @@
 
 include_once(dirname(__FILE__) . '/../../class/include.php');
 
-$MEMBER = new Member(NULL);
 
-$nic_number = $_POST['nic_number'];
+$USER = new User(NULL);
 
-if (empty($nic_number)) {
-    header('Location: ../forgot-password-member.php?message=19');
+$email = $_POST['email'];
+
+if (empty($email)) {
+    header('Location: ../forget-password.php?message=11');
     exit();
 }
 
-if ($MEMBER->CheckNicNumber($nic_number)) {
+if ($USER->checkEmail($email)) {
 
-    if ($MEMBER->GenarateCodeMember($nic_number)) {
-        $res = $MEMBER->SelectForgetMember($nic_number);
-       
-        $nic_number = $MEMBER->nic_number;
-        $email = $MEMBER->email;
-        $resetcode = $MEMBER->resetcode;
-        $re = $MEMBER->resetcode;
-     
+    if ($USER->GenarateCode($email)) {
+        $res = $USER->SelectForgetUser($email);
+
+        $username = $USER->username;
+        $email = $USER->email;
+        $resetcode = $USER->restCode;
+
         date_default_timezone_set('Asia/Colombo');
 
         $todayis = date("l, F j, Y, g:i a");
@@ -42,21 +42,24 @@ if ($MEMBER->CheckNicNumber($nic_number)) {
 
         $html .= "<tr><td colspan='3' style='font-size: 14px; padding: 5px 25px 10px 25px; color: #666; background-color: #fff; line-height: 25px;'><b>Password Reset Code: </b> " . $resetcode . "</td></tr>";
 
-        $html .= "<tr><td colspan='3' style='font-size: 14px; padding: 0 25px 10px 25px; color: #666; background-color: #fff; '><b>Username: </b> " . $nic_number . "</td></tr>";
+        $html .= "<tr><td colspan='3' style='font-size: 14px; padding: 0 25px 10px 25px; color: #666; background-color: #fff; '><b>Username: </b> " . $username . "</td></tr>";
 
         $html .= "<tr><td colspan='3' style='font-size: 14px; background-color: #FAFAFA; padding: 25px; color: #333; font-weight: 300; text-align: justify; '>Thank you</td></tr>";
 
         $html .= "</table>";
-      
+
         if (mail($email, $subject, $html, $headers)) {
-            header('Location: ../reset-password-member.php?message=12');
+            header('Location: ../reset-password.php?message=12');
         } else {
-            header('Location: ../reset-password-member.php?message=14');
+            header('Location: ../reset-password.php?message=14');
         }
     }
+
+
+
     exit();
 } else {
-    header('Location: ../forgot-password-member.php?message=20');
+    header('Location: ../forget-password.php?message=13');
     exit();
 }
 

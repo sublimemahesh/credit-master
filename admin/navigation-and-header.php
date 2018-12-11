@@ -3,7 +3,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 ?>
 
-
+<link href="css/custom.css" rel="stylesheet" type="text/css"/>
 <!-- #END# Page Loader -->
 <!-- Overlay For Sidebars -->
 <div class="overlay"></div>
@@ -58,9 +58,12 @@ include_once(dirname(__FILE__) . '/auth.php');
         <!-- User Info -->
         <div class="user-info">
             <div class="image">
-                <img src="images/profile/<?php echo $_SESSION["id"]; ?>.jpg" width="48" height="48" alt="User" />
+                <?php
+                $USERS = new User($_SESSION['id'])
+                ?>
+                <img src="../upload/users/<?php echo $USERS->image_name; ?>" width="48" height="48" alt="User" />
             </div>
-            <div class="info-container">
+            <div class="info-container m-top-z"  >
                 <div class="name" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     <?php echo $_SESSION['name']; ?>
                 </div>

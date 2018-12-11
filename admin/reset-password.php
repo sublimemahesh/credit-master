@@ -1,26 +1,7 @@
-﻿<?php
+<?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 
-//if (Input::exists()) {
-//    $validate = new Validator();
-//    $validation = $validate->check($_POST, array('username' => array(
-//    'name' => 'username',
-//    'required' => true,
-//    'min' => 2,
-//    'max' => 20,
-//    'unique' => 'user'),
-//    'password' => array (
-//    'required' => true,
-//    'min' => 6),
-//    ));
-//    if ($validation->passed()) {
-//        echo 'passed';
-//    } else {
-//        foreach ($validation ->errors() as $error){
-//            echo $error, '<br>';
-//        }
-//    }
-//}
+
 ?> ﻿
 <!DOCTYPE html>
 <html> 

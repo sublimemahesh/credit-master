@@ -2,12 +2,15 @@
 
 include_once(dirname(__FILE__) . '/../../class/include.php');
 
+
 if (isset($_POST['submit'])) {
-     
-    $dir_dest = '../images/profile/';
-    $handle = new Upload($_FILES['picture']);
+
+    $dir_dest = '../../upload/users/';
+
+    $handle = new Upload($_FILES['image_name']);
 
     $imgName = null;
+
 
     if ($handle->uploaded) {
         $handle->image_resize = true;
@@ -15,32 +18,57 @@ if (isset($_POST['submit'])) {
         $handle->file_overwrite = TRUE;
         $handle->file_new_name_ext = FALSE;
         $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_ext = 'jpg';
-        $handle->file_new_name_body = $_POST['id'];
+        $handle->file_new_name_body = $_POST ["oldImageName"];
         $handle->image_x = 250;
         $handle->image_y = 250;
 
         $handle->Process($dir_dest);
 
         if ($handle->processed) {
+
             $info = getimagesize($handle->file_dst_pathname);
+
             $imgName = $handle->file_dst_name;
         }
     }
 
-    $USER = new User(NULL);
+    $USERS = new User($_POST['id']);
 
-    $USER->id = $_POST['id'];
-    $USER->name = $_POST['name'];
-    $USER->username = $_POST['username'];
-    $USER->email = $_POST['email'];
-    $USER->isActive = 1;
+    $USERS->name = $_POST['name'];
+    $USERS->username = $_POST['user_name'];
+    $USERS->email = $_POST['email'];
+    $USERS->isActive = $_POST['is_active'];
 
-    $result = $USER->update();
 
-    if ($result) {
-        header("location: ../edit-profile.php?id=" . $USER->id."&&message=9");
+    $VALID = new Validator();
+    $VALID->check($USERS, [
+        'name' => ['required' => TRUE],
+        'username' => ['required' => TRUE],
+        'email' => ['required' => TRUE]
+    ]);
+
+
+
+    if ($VALID->passed()) {
+        $USERS->update();
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $VALID->addError("Your changes saved successfully", 'success');
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     } else {
-        
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
+ 

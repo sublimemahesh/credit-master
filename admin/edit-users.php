@@ -20,8 +20,12 @@ $USERS = new User($id);
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="plugins/node-waves/waves.css" rel="stylesheet" />
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+        <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <!-- Bootstrap Spinner Css -->
+        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -44,7 +48,13 @@ $USERS = new User($id);
                                 <h2>
                                     Edit Users
                                 </h2>
-
+                                <ul class="header-dropdown">
+                                    <li class="">
+                                        <a href="view-active-users.php">
+                                            <i class="material-icons">list</i> 
+                                        </a>
+                                    </li>
+                                </ul>
                             </div>
                             <div class="body row">
                                 <form class=" col-sm-9 col-md-9" method="post" action="post-and-get/users.php" enctype="multipart/form-data"> 
@@ -90,9 +100,45 @@ $USERS = new User($id);
                                             </div>
                                         </div>
                                     </div>
+                                    <div class="row clearfix ">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="user_level">User Level</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="user_level" class="hidden-lg hidden-md">User Level</label>
+                                                    <select id="user_level" name="user_level" class="form-control" required="TRUE" >
 
+                                                        <?php
+                                                        if ($USERS->user_level == 1) {
+                                                            ?>                                                            
+                                                            <option value="1" selected="">Level 1</option> 
+                                                            <option value="2">Level 2</option> 
+                                                            <option value="3">Level 3</option> 
+                                                            <?php
+                                                        } elseif ($USERS->user_level == 2) {
+                                                            ?>
+                                                            <option value="1" >Level 1</option> 
+                                                            <option value="2" selected="">Level 2</option> 
+                                                            <option value="3">Level 3</option> 
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value=" ">--Please Select User Level--</option> 
+                                                            <option value="1" >Level 1</option> 
+                                                            <option value="2">Level 2</option> 
+                                                            <option value="3" selected="">Level 3</option> 
+                                                            <?php
+                                                        }
+                                                        ?>
+                                                    </select> 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
 
-<!--                                    <div class="row clearfix">
+                                    <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="picture">Picture</label>
                                         </div>
@@ -100,12 +146,11 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="picture" class="hidden-lg hidden-md">Picture</label>
-
                                                     <input type="file" id="picture" class="form-control" name="image_name" value="<?php echo $USERS->image_name ?>">
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>-->
+                                    </div>
 
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -119,13 +164,15 @@ $USERS = new User($id);
                                                         echo 'checked';
                                                     }
                                                     ?> name="is_active" value="1" id="rememberme" />
-                                                    <label for="rememberme">Activate</label> </div>
+                                                    <label for="rememberme" id="lable-active">Activate</label> </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row clearfix">
-                                        <div class="col-lg-offset-2 col-md-offset-2 col-sm-offset-4 col-xs-offset-5">
+                                        <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
+                                        </div>  
+                                        <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
                                             <input type="hidden" id="oldImageName" value="<?php echo $USERS->image_name; ?>" name="oldImageName"/>
                                             <input type="hidden" id="id" value="<?php echo $USERS->id; ?>" name="id"/>
 
@@ -133,9 +180,9 @@ $USERS = new User($id);
                                         </div>
                                     </div>
                                 </form>
-<!--                                <div class="col-sm-3 col-md-3">
+                                <div class="col-sm-3 col-md-3">
                                     <img src="../upload/users/<?php echo $USERS->image_name ?>" class="img img-responsive img-thumbnail"/>
-                                </div>-->
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,26 +191,13 @@ $USERS = new User($id);
             </div>
         </section>
 
-        <!-- Jquery Core Js -->
         <script src="plugins/jquery/jquery.min.js"></script>
-
-        <!-- Bootstrap Core Js -->
-        <script src="plugins/bootstrap/js/bootstrap.js"></script>
-
-        <!-- Select Plugin Js -->
-        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
-
-        <!-- Slimscroll Plugin Js -->
+        <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-
-        <!-- Waves Effect Plugin Js -->
         <script src="plugins/node-waves/waves.js"></script>
-
-        <!-- Custom Js -->
+        <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
-
-        <!-- Demo Js -->
-        <script src="js/demo.js"></script>
+        <script src="js/demo.js"></script> 
     </body>
 
 </html>
