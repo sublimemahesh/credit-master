@@ -13,6 +13,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
         <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+        <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="plugins/animate-css/animate.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
@@ -47,7 +48,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 </ul>
                             </div>
                             <div class="body row">
-                                <form class=" col-sm-9 col-md-9" method="post" action="post-and-get/users.php" enctype="multipart/form-data"> 
+                                <form class=" col-sm-9 col-md-9" method="post" action=" " enctype="multipart/form-data" id="user"> 
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="name">Name</label>
@@ -56,7 +57,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="name" class="hidden-lg hidden-md">Name</label>
-                                                    <input type="text" id="name" class="form-control" placeholder="Enter your name"   name="name"  required="TRUE">
+                                                    <input type="text" id="name" class="form-control" placeholder="Enter your name"   name="name"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -69,7 +70,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="Username" class="hidden-lg hidden-md">Username</label>
-                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username"  name="user_name" required="TRUE">
+                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username"  name="user_name"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -82,7 +83,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="Email" class="hidden-lg hidden-md">Email</label>
-                                                    <input type="email" id="email" class="form-control" placeholder="Enter your email"  name="email" required="TRUE">
+                                                    <input type="email" id="email" class="form-control" placeholder="Enter your email"  name="email"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -95,7 +96,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="password" class="hidden-lg hidden-md">Password</label>
-                                                    <input type="password" id="password" class="form-control" placeholder="Enter password"  name="password" required="TRUE">
+                                                    <input type="password" id="password" class="form-control" placeholder="Enter password"  name="password"  >
                                                 </div>
                                             </div>
                                         </div>
@@ -109,7 +110,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label for="user_level" class="hidden-lg hidden-md">User Level</label>
-                                                    <select id="user_level" name="user_level" class="form-control" required="TRUE">
+                                                    <select id="user_level" name="user_level" class="form-control"  >
                                                         <option value="1">Level 1</option> 
                                                         <option value="2">Level 2</option> 
                                                         <option value="3">Level 3</option> 
@@ -152,7 +153,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                         </div>  
                                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
                                             <input type="hidden" id="authToken" value="<?php echo $_SESSION["authToken"]; ?>" name="authToken"/>
-                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="add-user" value="submit">Create User</button>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="add-user" value="submit" id="btnSubmit">Create User</button>
                                         </div>
                                     </div>
                                 </form>
@@ -169,9 +170,11 @@ include_once(dirname(__FILE__) . '/auth.php');
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>    
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
+        <script src="js/ajax/user.js" type="text/javascript"></script>
     </body>
 
 </html>
