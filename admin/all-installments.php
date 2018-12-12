@@ -137,11 +137,11 @@ $next = $ND->format('Y-m-d');
                                                     $LP = DefaultData::getLoanPeriod();
                                                     $IT = DefaultData::getInstallmentType();
                                                     $amount = $loan['installment_amount'];
-                                                    $Installment = new Installment(NULL);
+                                                    $INSTALLMENT = new Installment(NULL);
                                                     $paid_amount = 0;
 
 
-                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
+                                                    foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
                                                         $paid_amount += $paid['paid_amount'];
                                                     }
 

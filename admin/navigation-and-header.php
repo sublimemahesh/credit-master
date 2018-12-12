@@ -181,6 +181,13 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li> 
                     </ul>
                 </li> 
+
+                <li>
+                    <a href="view-today-installment-payment.php">
+                        <i class="material-icons">attach_money</i>
+                        <span>Installment Payments</span> 
+                    </a>                 
+                </li> 
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">group</i>
