@@ -1,7 +1,7 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DefaultData = new DefaultData(NULl);
+$DEFAULTDATA = new DefaultData(NULl);
 $today = date("Y-m-d");
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -137,17 +137,17 @@ $next = $ND->format('Y-m-d');
                                                     $LP = DefaultData::getLoanPeriod();
                                                     $IT = DefaultData::getInstallmentType();
                                                     $amount = $loan['installment_amount'];
-                                                    $Installment = new Installment(NULL);
+                                                    $INSTALLMENT = new Installment(NULL);
                                                     $paid_amount = 0;
 
 
-                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
+                                                    foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
                                                         $paid_amount += $paid['paid_amount'];
                                                     }
 
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
-
+ 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
                                                         $start->modify($add_dates);
@@ -160,7 +160,7 @@ $next = $ND->format('Y-m-d');
                                                                     <i class = "glyphicon glyphicon-user"></i >
 
                                                                     <?php
-                                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
                                                                     echo '<b>' . $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name . '</b>';
 
                                                                     echo '</br><b>Mo No: </b> ' . $CUSTOMER->mobile;
