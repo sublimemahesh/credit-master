@@ -476,7 +476,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="bank">Bank  </label>
                                 </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="bank" class="hidden-lg hidden-md">Bank  </label>
