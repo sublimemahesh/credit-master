@@ -280,14 +280,27 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="telephone">Telephone</label>
+                                <div class="col-lg-2 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="telephone">Telephone Numbers</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="telephone" class="hidden-lg hidden-md">Telephone</label>
-                                            <input type="text" id="telephone"  name="telephone" placeholder="Enter telephone" class="form-control" autocomplete="off">
+                                        <div class="form-line"> 
+                                            <input type="text" id="telephone1"  name="telephone1" placeholder="Enter Telephone Number 1" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                            <input type="text" id="telephone2"  name="telephone2" placeholder="Enter Telephone Number 2" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                            <input type="text" id="telephone3"  name="telephone3" placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

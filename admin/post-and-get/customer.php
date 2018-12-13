@@ -11,7 +11,9 @@ if (isset($_POST['add-customer'])) {
 
     $UPPERNIC = strtoupper($_POST['nic_number']);
 
-    $telephone_number = null;
+    $telephone_numbers = null;
+    $telephone_numbers = $_POST['telephone1'].','. + $_POST['telephone2'].','. + $_POST['telephone3'];
+    
 
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
@@ -28,7 +30,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->billing_proof_image = $_POST['billing_proof_image'];
     $CUSTOMER->email = $_POST['email'];
-    $CUSTOMER->telephone = $_POST['telephone'];
+    $CUSTOMER->telephone = $telephone_numbers;
     $CUSTOMER->mobile = $_POST['mobile'];
     $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];
@@ -394,7 +396,7 @@ if (isset($_POST['add-customer'])) {
         'surname' => ['required' => TRUE],
         'first_name' => ['required' => TRUE],
         'last_name' => ['required' => TRUE],
-        'nic_number' => ['required' => TRUE], 
+        'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
         'address_line_2' => ['required' => TRUE],
@@ -759,6 +761,9 @@ if (isset($_POST['update_input'])) {
 
     $UPPERNIC = strtoupper($_POST['nic_number']);
 
+    $telephone_numbers = null;
+    $telephone_numbers = $_POST['telephone1'].','. + $_POST['telephone2'].','. + $_POST['telephone3'];
+    
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = $_POST['surname'];
     $CUSTOMER->first_name = $_POST['first_name'];
@@ -773,7 +778,7 @@ if (isset($_POST['update_input'])) {
     $CUSTOMER->address_line_4 = $_POST['address_line_4'];
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->email = $_POST['email'];
-    $CUSTOMER->telephone = $_POST['telephone'];
+    $CUSTOMER->telephone = $telephone_numbers;
     $CUSTOMER->mobile = $_POST['mobile'];
     $CUSTOMER->registration_type = $_POST['registration_type'];
     $CUSTOMER->route = $_POST['route'];
@@ -797,7 +802,7 @@ if (isset($_POST['update_input'])) {
         'surname' => ['required' => TRUE],
         'first_name' => ['required' => TRUE],
         'last_name' => ['required' => TRUE],
-        'nic_number' => ['required' => TRUE], 
+        'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
         'address_line_2' => ['required' => TRUE],
