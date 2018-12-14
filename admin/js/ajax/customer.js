@@ -240,6 +240,10 @@ $(document).ready(function () {
 //        }
 //    });
 
+
+
+// customer create form
+
     $("#customerform").submit(function (e) {
 
         var errors = $('#errors').val();
@@ -250,6 +254,18 @@ $(document).ready(function () {
 
         var nicNumber = $('#customer-nic').val();
         var mobileNumber = $('#moblie_number').val();
+
+        //chech 18+ years in customer
+        var month = $('#month').val();
+        var day = $('#day').val();
+        var year = $('#year').val();
+        var age = 18;
+        var birthday = new Date();
+        birthday.setFullYear(year, month - 1, day);
+        var currdate = new Date();
+        currdate.setFullYear(currdate.getFullYear() - age);
+
+
 
         if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
             $('#errors').val(1);
@@ -285,7 +301,25 @@ $(document).ready(function () {
                 }, 1000);
                 $('#moblie_number').focus();
             });
+        } else if ((currdate - birthday) < 0) {
+            $('#errors').val(1);
+            swal({
+                title: "This Customer below 18 years..!",
+                text: "This Customer below 18 years old you ..",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            }, function () {
+                swal.close();
+                $('html, body').animate({
+                    scrollTop: $("#profile_picture").offset().top
+                }, 1000);
+                $('#month').focus();
+            });
         } else {
+
             $.ajax({
                 url: "post-and-get/ajax/customer.php",
                 type: "POST",
@@ -342,6 +376,9 @@ $(document).ready(function () {
 
     });
 
+
+
+//customer edit form
     $("#form").submit(function (e) {
         var errors = $('#errors').val();
         if (errors == 1) {
@@ -352,6 +389,17 @@ $(document).ready(function () {
         var id = $('#id').val();
         var nicNumber = $('#customer_nic_number').val();
         var mobileNumber = $('#customer_moblie_number').val();
+
+
+        //chech 18+ years in customer
+        var month = $('#month').val();
+        var day = $('#day').val();
+        var year = $('#year').val();
+        var age = 18;
+        var birthday = new Date();
+        birthday.setFullYear(year, month - 1, day);
+        var currdate = new Date();
+        currdate.setFullYear(currdate.getFullYear() - age);
 
 
 
@@ -389,6 +437,23 @@ $(document).ready(function () {
                     scrollTop: $("#email").offset().top
                 }, 1000);
                 $('#customer_moblie_number').focus();
+            });
+        } else if ((currdate - birthday) < 0) {
+            $('#errors').val(1);
+            swal({
+                title: "This Customer Below 18 years..!",                
+                text: "This Customer below 18 years old you ..",
+                type: "error",
+                showCancelButton: false,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Enter Again.!",
+                closeOnConfirm: false
+            }, function () {
+                swal.close();
+                $('html, body').animate({
+                    scrollTop: $("#profile_picture").offset().top
+                }, 1000);
+                $('#month').focus();
             });
         } else {
             $.ajax({
@@ -446,6 +511,7 @@ $(document).ready(function () {
             });
         }
     });
+
 });
 
 

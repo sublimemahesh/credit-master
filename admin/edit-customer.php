@@ -250,7 +250,7 @@ $CENTER = Center::all();
                                             </select>
                                         </div>
                                         <div class="col-md-3">
-                                            <select name="year" onchange="call()" class="form-control form-line">
+                                            <select name="year" onchange="call()" class="form-control form-line" id="year">
                                                 <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
                                             </select>
                                         </div>
@@ -340,7 +340,7 @@ $CENTER = Center::all();
                                 </div>
 
                             </div>
- 
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -778,10 +778,10 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class=" p-top ">
                                             <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                            if ($CUSTOMER->is_active == 1) {
-                                                echo 'checked';
-                                            }
-                                            ?> name="is_active" value="1" id="rememberme" />
+                                        if ($CUSTOMER->is_active == 1) {
+                                            echo 'checked';
+                                        }
+                                        ?> name="is_active" value="1" id="rememberme" />
                                             <label for="rememberme" id="lable-active">Activate</label> </div>
                                     </div>
                                 </div>
