@@ -8,7 +8,7 @@ if (isset($_POST['add-center'])) {
     $CENTER = new Center(NULL);
     $VALID = new Validator();
 
-    $CENTER->name = $_POST['name'];
+    $CENTER->name = ucfirst($_POST['name']);
     $CENTER->address = $_POST['address'];
     $CENTER->leader = $_POST['leader'];
     $CENTER->collector = $_POST['collector'];
@@ -57,7 +57,7 @@ if (isset($_POST['update'])) {
 
     $CENTER = new Center($_POST['id']);
 
-    $CENTER->name = $_POST['name'];
+    $CENTER->name = ucfirst($_POST['name']);
     $CENTER->address = $_POST['address'];
     $CENTER->leader = $_POST['leader'];
     $CENTER->collector = $_POST['collector'];

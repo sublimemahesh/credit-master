@@ -143,7 +143,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="nic_photo_front">NIC Photos</label>
+                                    <label for="nic_photo_front">NIC Photos(F/B)</label>
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                     <div class="form-group">

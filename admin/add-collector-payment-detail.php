@@ -62,7 +62,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <label for="collector" class="hidden-lg hidden-md">Select Collector</label>
                                             <select class="form-control " autocomplete="off" id="collector_id" name="collector_id"  required="TRUE">
                                                 <option value=""> -- Please Select the Collector -- </option>
-                                                <?php foreach (Users::all() as $users) { ?>
+                                                <?php foreach (User::activeUsers() as $users) { ?>
                                                     <option  value="<?php echo $users['id']; ?>"  > <?php echo $users['name']; ?> </option>
                                                 <?php } ?>
                                             </select> 
