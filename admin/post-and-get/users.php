@@ -35,7 +35,7 @@ if (isset($_POST['update'])) {
 
     $USERS = new User($_POST['id']);
 
-    $USERS->name = $_POST['name'];
+    $USERS->name = ucfirst($_POST['name']);
     $USERS->username = $_POST['user_name'];
     $USERS->email = $_POST['email'];
     $USERS->user_level = $_POST['user_level'];
