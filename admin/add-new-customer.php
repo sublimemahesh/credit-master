@@ -197,7 +197,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                                     </select>
                                                 </div>
                                                 <div class="col-md-4 mar-gin">
-                                                    <select name="year" onchange="call()" class="form-control form-line" required="TRUE" >
+                                                    <select id="year" name="year" onchange="call()" class="form-control form-line" required="TRUE" >
                                                         <option value=""> - Select  Year - </option>
                                                     </select>
                                                 </div>
