@@ -55,7 +55,7 @@ class User {
         $createdAt = date('Y-m-d H:i:s');
 
         $query = "INSERT INTO `user` (name, email, createdAt, isActive, username,user_level,image_name, password) VALUES  ('" . $name . "', '" . $email . "', '" . $createdAt . "',  '" . 1 . "','" . $username . "', '" . $userlevel . "' , '" . $imgName . "' ,'" . $enPass . "')";
-        
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -226,7 +226,7 @@ class User {
                 . "`user_level` ='" . $this->user_level . "', "
                 . "`image_name` ='" . $this->image_name . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-      
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -380,5 +380,6 @@ class User {
 
         return $db->readQuery($query);
     }
+ 
 
 }

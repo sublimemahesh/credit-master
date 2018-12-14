@@ -9,24 +9,26 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER = New Customer(NULL);
     $VALID = new Validator();
 
-    $UPPERNIC = strtoupper($_POST['nic_number']);
+
 
     $telephone_numbers = null;
-    $telephone_numbers = $_POST['telephone1'].','. + $_POST['telephone2'].','. + $_POST['telephone3'];
-    
+    $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
+     
+    $UPPERNIC = strtoupper($_POST['nic_number']);
+     
 
     $CUSTOMER->title = $_POST['title'];
-    $CUSTOMER->surname = $_POST['surname'];
-    $CUSTOMER->first_name = $_POST['first_name'];
-    $CUSTOMER->last_name = $_POST['last_name'];
+    $CUSTOMER->surname = ucfirst($_POST['surname']);
+    $CUSTOMER->first_name = ucfirst($_POST['first_name']);
+    $CUSTOMER->last_name = ucfirst($_POST['last_name']);
     $CUSTOMER->nic_number = $UPPERNIC;
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
-    $CUSTOMER->address_line_1 = $_POST['address_line_1'];
-    $CUSTOMER->address_line_2 = $_POST['address_line_2'];
-    $CUSTOMER->address_line_3 = $_POST['address_line_3'];
-    $CUSTOMER->address_line_4 = $_POST['address_line_4'];
+    $CUSTOMER->address_line_1 = ucfirst($_POST['address_line_1']);
+    $CUSTOMER->address_line_2 = ucfirst($_POST['address_line_2']);
+    $CUSTOMER->address_line_3 =ucfirst($_POST['address_line_3']);
+    $CUSTOMER->address_line_4 = ucfirst($_POST['address_line_4']);
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->billing_proof_image = $_POST['billing_proof_image'];
     $CUSTOMER->email = $_POST['email'];
@@ -37,14 +39,14 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->center = $_POST['center'];
     $CUSTOMER->city = $_POST['city'];
     $CUSTOMER->credit_limit = $_POST['credit_limit'];
-    $CUSTOMER->business_name = $_POST['business_name'];
+    $CUSTOMER->business_name = ucfirst($_POST['business_name']);
     $CUSTOMER->br_number = $_POST['br_number'];
-    $CUSTOMER->nature_of_business = $_POST['nature_of_business'];
+    $CUSTOMER->nature_of_business = ucfirst($_POST['nature_of_business']);
     $CUSTOMER->bank = $_POST['bank'];
     $CUSTOMER->branch = $_POST['branch'];
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
-    $CUSTOMER->holder_name = $_POST['holder_name'];
+    $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
 
 //////////////////////////////////////////////////
@@ -762,19 +764,19 @@ if (isset($_POST['update_input'])) {
     $UPPERNIC = strtoupper($_POST['nic_number']);
 
     $telephone_numbers = null;
-    $telephone_numbers = $_POST['telephone1'].','. + $_POST['telephone2'].','. + $_POST['telephone3'];
-    
+    $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
+
     $CUSTOMER->title = $_POST['title'];
-    $CUSTOMER->surname = $_POST['surname'];
-    $CUSTOMER->first_name = $_POST['first_name'];
-    $CUSTOMER->last_name = $_POST['last_name'];
+    $CUSTOMER->surname = ucfirst($_POST['surname']);
+    $CUSTOMER->first_name = ucfirst($_POST['first_name']);
+    $CUSTOMER->last_name = ucfirst($_POST['last_name']);
     $CUSTOMER->nic_number = $UPPERNIC;
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
-    $CUSTOMER->address_line_1 = $_POST['address_line_1'];
-    $CUSTOMER->address_line_2 = $_POST['address_line_2'];
-    $CUSTOMER->address_line_3 = $_POST['address_line_3'];
+    $CUSTOMER->address_line_1 = ucfirst($_POST['address_line_1']);
+    $CUSTOMER->address_line_2 = ucfirst($_POST['address_line_2']);
+    $CUSTOMER->address_line_3 = ucfirst($_POST['address_line_3']);
     $CUSTOMER->address_line_4 = $_POST['address_line_4'];
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->email = $_POST['email'];
@@ -785,14 +787,14 @@ if (isset($_POST['update_input'])) {
     $CUSTOMER->center = $_POST['center'];
     $CUSTOMER->city = $_POST['city'];
     $CUSTOMER->credit_limit = $_POST['credit_limit'];
-    $CUSTOMER->business_name = $_POST['business_name'];
+    $CUSTOMER->business_name = ucfirst($_POST['business_name']);
     $CUSTOMER->br_number = $_POST['br_number'];
-    $CUSTOMER->nature_of_business = $_POST['nature_of_business'];
+    $CUSTOMER->nature_of_business = ucfirst($_POST['nature_of_business']);
     $CUSTOMER->bank = $_POST['bank'];
     $CUSTOMER->branch = $_POST['branch'];
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
-    $CUSTOMER->holder_name = $_POST['holder_name'];
+    $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
 
 

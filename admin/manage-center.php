@@ -62,9 +62,9 @@ $CENTER = new Center(NULL)
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
-                                                <th>Leader</th>
+                                                <th>Leader</th>                                               
+                                                <th>Address</th> 
                                                 <th>Collector</th>
-                                                <th>Address</th>
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -82,13 +82,14 @@ $CENTER = new Center(NULL)
                                                         echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                                                         ?>
                                                     </td>
+                                                   
+                                                    <td><?php echo $center['address']; ?></td>
                                                     <td>
                                                         <?php
                                                         $USER = new User($center['collector']);
                                                         echo $USER->name;
                                                         ?>
                                                     </td>
-                                                    <td><?php echo $center['address']; ?></td>
                                                     <td>
                                                         <a href="view-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 

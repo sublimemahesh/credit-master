@@ -5,7 +5,7 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 
 
 $USERS = new User(NULL);
-
+ 
 $USERS->name = $_POST['name'];
 $USERS->username = $_POST['user_name'];
 $USERS->email = $_POST['email'];
