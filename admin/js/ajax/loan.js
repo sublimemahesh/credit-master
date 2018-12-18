@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+//registration_type
     $('#registration_type').change(function () {
 
         var type = $(this).val();
@@ -455,9 +456,40 @@ $(document).ready(function () {
 });
 
 
-// Check guarantor 2
-
 $(document).ready(function () {
+
+// check customer has active loan
+    $('#customer').change(function () {
+        var customer = $(this).val(); 
+        
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                customer: customer,
+                action: 'CHECK_CUSTOMER_HAS_ACTIVE_LOAN'
+            },
+
+            dataType: "JSON",
+            success: function (jsonStr) {
+                if (jsonStr.status) {
+                    swal({
+                        title: "This Customer has an active loan already!...",
+                        text: "Please complete it before going to new loan..",
+                        type: "error",
+                        showCancelButton: false,
+                        confirmButtonColor: "#00b0e4",
+                        confirmButtonText: "Enter Again.!",
+                        closeOnConfirm: false
+                    });
+                }
+            }
+
+        });
+    });
+
+
+    // Check guarantor 2
     $('#guarantor_2').change(function () {
         var guarantor_2 = $(this).val();
         $('select#guarantor_3').find('option').each(function () {
@@ -672,14 +704,14 @@ window.onload = function () {
 
     var month = (period / 30);
     //cal Total value in month
-    var totalValue = numVal +( month * (numVal * numVa2));
+    var totalValue = numVal + (month * (numVal * numVa2));
 
     document.getElementById("total").value = totalValue;
 
 }
- 
- 
- 
+
+
+
 //get other page to issumode prices in onloard
 
 window.onload = function () {

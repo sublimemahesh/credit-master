@@ -245,5 +245,20 @@ class Loan {
             return FALSE;
         }
     }
+    
+    public function CheckCustomerHasActiveLoan($customer) {
+
+        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' AND  `status` = 'actived'";
+        
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
 
 }
