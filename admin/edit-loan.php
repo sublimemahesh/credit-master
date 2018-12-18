@@ -1,20 +1,22 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-
-$id = '';
-$id = $_GET['id'];
-
-$LOAN = new Loan($id);
+$DEFDATA = new DefaultData();
+$LOAN = new Loan($_GET['id']);
+$CUSTOMER = new Customer($LOAN->customer);
+$GR1 = new Customer($LOAN->guarantor_1);
+$GR2 = new Customer($LOAN->guarantor_2);
+$GR3 = new Customer($LOAN->guarantor_3);
+$ROUTE = Route::all();
+$CENTER = Center::all();
 ?>
-
 <!DOCTYPE html>
 <html> 
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title> Edit Loan  || Credit Master</title>
+        <title>Create New Loan  || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -25,9 +27,10 @@ $LOAN = new Loan($id);
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
-        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+        <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
     </head>
 
     <body class="theme-red">
@@ -44,198 +47,262 @@ $LOAN = new Loan($id);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Edit Loan Details  </h2>
+                        <h2>Edit Loan: <?php
+                            if ($LOAN->installment_type == 30) {
+                                echo 'BLD' . $LOAN->id;
+                            } elseif ($LOAN->installment_type == 4) {
+                                echo 'BLW' . $LOAN->id;
+                            } else {
+                                echo 'BLM' . $LOAN->id;
+                            }
+                            ?></h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-loan.php">
+                                <a href="manage-pending-loans.php">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
                         </ul>
                     </div>
                     <div class="body">
-                        <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data"> 
+                        <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="create_date">Create Date</label>
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="create_date">Date</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
-                                            <input type="text" id="create_date"  name="create_date" value="<?php echo $LOAN->create_date ?>" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="create_date"  name="create_date" value="<?php echo $LOAN->create_date ?>" placeholder="Please Select Date" class="form-control" autocomplete="off" required="TRUE" readonly="readonly">
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="registration_type">Registration Type</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" required="TRUE">
+                                                <option value=""> -- Please Select Registration Type -- </option>
+                                                <?php
+                                                if ($CUSTOMER->registration_type == "route") {
+                                                    ?>
+                                                    <option value="route" selected="">Route</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="1">Center Leader</option>
+
+
+                                                <?php } elseif ($CUSTOMER->registration_type == "center") {
+                                                    ?>
+                                                    <option value="center"  selected="">Center</option>
+                                                    <option value="route" >Route</option>
+                                                    <option value="1">Center Leader</option>
+
+                                                <?php } elseif ($CUSTOMER->registration_type == 1) {
+                                                    ?>
+                                                    <option value="1" selected="">Center Leader</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="route" >Route</option>
+
+
+                                                <?php } else { ?>
+                                                    <option value="route" >Route</option>
+                                                    <option value="center"  >Center</option>
+                                                    <option value="1">Center Leader</option>
+
+                                                <?php }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <?php
+                            if ($CUSTOMER->route) {
+                                ?>
+                                <div class="row" id="route_row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                    <?php
+                                                    foreach ($ROUTE as $route) {
+                                                        if ($route['id'] == $CUSTOMER->route) {
+                                                            ?>
+                                                            <option value="<?php echo $route['id'] ?>" selected=""> <?php echo $route['name'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $route['id'] ?>" > <?php echo $route['name'] ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="center_row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                    <option> -- Please Select a Center -- </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            } elseif ($CUSTOMER->center) {
+                                ?>
+
+                                <div class="row" id="center_row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                    <?php
+                                                    foreach ($CENTER as $center) {
+                                                        if ($center['id'] == $CUSTOMER->center) {
+                                                            ?>
+                                                            <option value="<?php echo $center['id'] ?>" selected=""> <?php echo $center['name'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $center['id'] ?>"> <?php echo $center['name'] ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="route_row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                    <option> -- Please Select a Route -- </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php } ?>  
+
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="customer">Customer</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control" autocomplete="off" id="customer"  name="customer">
-                                                <option selected="" value="<?php echo $LOAN->customer ?>"> 
-                                                    <?php
-                                                    $CUSTOMER_NAME = new Customer($LOAN->customer);
-                                                    $customer_name = $CUSTOMER_NAME->surname . ' ' . $CUSTOMER_NAME->first_name . ' ' . $CUSTOMER_NAME->last_name;
-                                                    echo $customer_name;
-                                                    ?>
-                                                </option>
+                                            <select class="form-control all-customers" autocomplete="off" id="customer" name="customer" required="TRUE">
                                                 <?php
-                                                $CUSTOMER = Customer::all();
-                                                foreach ($CUSTOMER as $customer) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $customer['id'] ?>"> <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
+                                                foreach ($CUSTOMER->getCustomrByCenter($CUSTOMER->center) as $customers) {
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                                                    if ($LOAN->customer == $customers['id']) {
+                                                        ?>
+                                                        <option value="<?php echo $LOAN->customer ?>" selected="">
+                                                            <?php
+                                                            $first_name = $DEFDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                            echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                            ?>   
+                                                        </option> 
 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="guarantor">Guarantor 01</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="guarantor" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <select class="form-control" autocomplete="off" id="guarantor"  name="guarantor_1">
-                                                <option selected="" value="<?php echo $LOAN->guarantor_1 ?>">
-                                                    <?php
-                                                    $GARENTER_01 = new Customer($LOAN->guarantor_1);
-                                                    $garenter_01 = $GARENTER_01->surname . ' ' . $GARENTER_01->first_name . ' ' . $GARENTER_01->last_name;
-                                                    echo $garenter_01;
-                                                    ?>
-                                                </option>
-                                                <?php
-                                                $CUSTOMER = Customer::all();
-                                                foreach ($CUSTOMER as $customer) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $customer['id'] ?>"> <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
+                                                    <?php } else { ?>
 
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="guarantor-02">Guarantor 02</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="guarantor-02" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control" autocomplete="off" id="guarantor-02"  name="guarantor_2">
-                                                <option selected="" value="<?php echo $LOAN->guarantor_2 ?>">
-                                                    <?php
-                                                    $GARENTER_02 = new Customer($LOAN->guarantor_2);
-                                                    $garenter_02 = $GARENTER_02->surname . ' ' . $GARENTER_02->first_name . ' ' . $GARENTER_02->last_name;
-                                                    echo $garenter_02;
-                                                    ?>
-                                                </option>
-                                                <?php
-                                                $CUSTOMER = Customer::all();
-                                                foreach ($CUSTOMER as $customer) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $customer['id'] ?>"> <?php echo $customer['surname'] . ' ' . $customer['first_name'] . ' ' . $customer['last_name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_amount"> Amount</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="text" id="loan_amount"  name="loan_amount" value="<?php echo $LOAN->loan_amount ?>" class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> 
-
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="issue_mode">Issue Mode</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="issue_mode" class="hidden-lg hidden-md"> Issue Mode</label>
-                                            <select id="issue_mode" name="issue_mode" class="form-control" >
-                                                <option value="" selected="" value="<?php echo $LOAN->issue_mode ?>">
-                                                    <?php echo $LOAN->issue_mode ?>
-                                                </option>
-                                                <?php
-                                                $LOAN_SECTION = LoanIssueMode::getLoanIssueMode();
-                                                foreach ($LOAN_SECTION as $key => $loan_section) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $loan_section ?></option>
-                                                    <?php
-                                                }
-                                                ?>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_period"> Period</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_period" class="hidden-lg hidden-md"> Period</label>
-                                            <select id="loan_period" name="loan_period" class="form-control" >
-                                                <option value="" selected="" value="<?php echo $LOAN->loan_period ?>">
-                                                    <?php
-                                                    if ($LOAN->loan_period == 30) {
-                                                        echo 'Day';
-                                                    } elseif ($LOAN->loan_period == 60) {
-                                                        echo 'Week';
-                                                    } elseif ($LOAN->loan_period == 90) {
-                                                        echo 'Month';
-                                                    } else {
-                                                        echo 'Year';
+                                                        <option value="<?php $customers['id'] ?>" >
+                                                            <?php
+                                                            $first_name = $DEFDATA->getFirstLetterName(ucwords($customers['surname']));
+                                                            echo $first_name . ' ' . $customers['first_name'] . ' ' . $customers['last_name'];
+                                                            ?> 
+                                                        </option> 
+                                                        <?php
                                                     }
-                                                    ?> 
-
-                                                </option>
-
-                                                <?php
-                                                $LOAN_PERIODS = DefultData::getLoanPeriod();
-                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $loan_period ?></option>
-                                                    <?php
                                                 }
                                                 ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="guarantor_1">Guarantor 01</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
+                                            <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
+                                            <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
+                                                <option  value="" selected="" id="emptygr1">
+                                                    <?php
+                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR1->surname));
+                                                    echo $first_name . ' ' . $GR1->first_name . ' ' . $GR1->last_name;
+                                                    ?>
+                                                </option> 
+                                                $GR2
+                                            </select>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="guarantor_2">Guarantor 02</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" required="TRUE">
+
+                                                <option  id="emptygr2"  value="" selected="">
+                                                    <?php
+                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR2->surname));
+                                                    echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
+                                                    ?>
+                                                </option>
                                             </select>
                                         </div>
                                     </div>
@@ -243,65 +310,254 @@ $LOAN = new Loan($id);
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="interest_rate">Interest Rate</label>
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="guarantor_3">Guarantor 03</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="text" id="interest_rate"  name="interest_rate" value="<?php echo $LOAN->interest_rate ?>" class="form-control" autocomplete="off">
+                                            <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
+                                                <option id="emptygr3" value="">
+                                                    <?php
+                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR3->surname));
+                                                    echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
+                                                    ?>
+                                                </option>  
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
                             <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="installment_type">Installment Type</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
-                                            <select id="installment_type" name="installment_type" class="form-control" >
-                                                <option value="" selected="" value="<?php echo $LOAN->installment_type ?>">
-                                                    <?php
-                                                    if ($LOAN->installment_type == 1) {
-                                                        echo 'Day';
-                                                    } elseif ($LOAN->installment_type == 7) {
-                                                        echo 'Week';
-                                                    } elseif ($LOAN->installment_type == 30) {
-                                                        echo 'Month';
+                                            <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE" id="installment_type">
+                                                <option value=""> -- Please Select Installment Type -- </option>
+                                                <?php  
+                                                $LOAN_TYPE = $DEFDATA->getInstallmentType();
+                                                foreach ($LOAN_TYPE as $key => $loan_type) {
+                                                    if ($key == $LOAN->installment_type) {
+                                                        ?>
+                                                <option value="<?php echo $key ?>" selected="true"><?php echo $loan_type ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?php echo $key ?>"><?php echo $loan_type ?></option> 
+                                                        <?php
                                                     }
-                                                    ?> 
-
-                                                </option>
-
-                                                <?php
-                                                $INSTALLMENT_TYPES = DefultData::getInstallmentType();
-                                                foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
-                                                    ?>
-                                                    <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
-                                                    <?php
                                                 }
                                                 ?>
-                                            </select>
+
+                                            </select> 
                                         </div>
                                     </div>
                                 </div>
                             </div>
 
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_period">Loan Period</label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <input type="hidden" name="id" value="<?php echo $id ?>">
-                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update</button>
+                                        <div class="form-line">
+                                            <label for="loan_period" class="hidden-lg hidden-md">Loan Period</label>
+                                            <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE" >
+                                                <option value=""> -- Please Select Loan Period -- </option>
+                                                <?php
+                                                $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
+                                                foreach ($LOAN_PERIODS as $key => $loan_period) {
+
+                                                    if ($key == $LOAN->loan_period) {
+                                                        ?>
+
+                                                        <option  id="<?php echo 'period_' . $key ?>" value="<?php echo $key ?>" selected=""><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
+
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option  id="<?php echo 'period_' . $key ?>" value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select> 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_amount">Loan Amount</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
+                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0"  value="<?php echo $LOAN->loan_amount ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="interest_rate">Interest Rate (%)</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
+                                            <input type="number" name="interest_rate"     id="interest_rate_onloard"placeholder="Enter The Interest Rate"  class="form-control interest_rate"  required="TRUE" autocomplete="off" value="<?php echo $LOAN->interest_rate ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="period_price">Net Amount</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label class="hidden-lg hidden-md" for="period_price">Net Amount</label>
+                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="00.00"  required="TRUE" readonly="readonly" > 
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="installment_price">Installment Amount</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="installment_amount" class="hidden-lg hidden-md">Installment Amount</label>
+                                            <input type="text" class="form-control" name="installment_amount" autocomplete="nope" id="installment_price"  placeholder="Installment Amount" required="TRUE" readonly="readonly" value="<?php echo $LOAN->installment_amount ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="number_of_installments">Nu. of Installments</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="number_of_installments" class="hidden-lg hidden-md">Nu. of Installments</label>
+
+                                            <input type="text" class="form-control" name="number_of_installments" autocomplete="nope" id="number_of_installments"  placeholder="Number of Installments" required="TRUE"  readonly="readonly" value="<?php echo $LOAN->number_of_installments ?>">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="effective_date">Effective Date</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="effective_date" class="hidden-lg hidden-md">Effective Date</label>
+                                            <input type="text" id="effective_date"  name="effective_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="issue_mode">Issue Mode</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Issue Mode</label>
+                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none" id="document_free">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="Document Fee">Document Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
+                                                <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="cheque_free">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="cheque_free">Cheque Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
+                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="display: none" id="stamp_fee_amount">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="Stamp Fee">Stamp Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
+                                                <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" style="display: none" id="loan_processing_pre">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="loan_processing_pre_amount">Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <div class="row clearfix">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                     </div> 
                                 </div> 
-                            </div> 
+                            </div>
                         </form> 
                     </div>
                 </div>
@@ -314,13 +570,22 @@ $LOAN = new Loan($id);
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+        <script src="plugins/jquery-ui/jquery-ui.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
-        <script src="js/demo.js"></script> 
-        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+        <script src="js/demo.js"></script>  
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
+
         <script>
             $(function () {
-                $(".datepicker").datepicker();
+                $(".datepicker").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                    minDate: '-3D',
+                    maxDate: '+3D',
+
+                });
             });
+
         </script>
     </body>
 
