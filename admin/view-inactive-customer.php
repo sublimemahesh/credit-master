@@ -74,7 +74,7 @@ $CUSTOMER = new Customer(NULL)
                                                 $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
-                                                    <td>#<?php echo $key; ?></td> 
+                                                    <td><?php echo $customer['id'] ?></td> 
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b>: 

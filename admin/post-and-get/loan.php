@@ -69,6 +69,7 @@ if (isset($_POST['update'])) {
     $LOAN = new Loan($_POST['id']);
 
     $LOAN->create_date = $_POST['create_date'];
+    $LOAN->registration_type = $_POST['registration_type']; 
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
     $LOAN->guarantor_2 = $_POST['guarantor_2'];

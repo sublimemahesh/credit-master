@@ -29,7 +29,7 @@ class DefaultData {
     }
 
     public function getInstallmentType() {
-        return array("30" => "Daily", "4" => "Weekly ", "1" => "Monthly");
+        return array("30" => "Daily", "4" => "Weekly", "1" => "Monthly");
     }
 
     public function getDefaultInterestRate() {

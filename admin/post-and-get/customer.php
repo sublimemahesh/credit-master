@@ -396,8 +396,7 @@ if (isset($_POST['add-customer'])) {
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
         'surname' => ['required' => TRUE],
-        'first_name' => ['required' => TRUE],
-        'last_name' => ['required' => TRUE],
+        'first_name' => ['required' => TRUE], 
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
@@ -802,8 +801,7 @@ if (isset($_POST['update_input'])) {
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
         'surname' => ['required' => TRUE],
-        'first_name' => ['required' => TRUE],
-        'last_name' => ['required' => TRUE],
+        'first_name' => ['required' => TRUE], 
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],

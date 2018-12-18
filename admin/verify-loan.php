@@ -1,7 +1,7 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DefaultData = new DefaultData(NULl);
+$DEFAULTDATA = new DefaultData(NULl);
 $LOAN = new Loan($_GET['id']);
 $loan_id = $_GET['id'];
 $CUSTOMER = new Customer($LOAN->customer);
@@ -110,7 +110,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="" class="hidden-lg hidden-md">Customer Name</label>
                                                 <div class="form-control">
                                                     <?php
-                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
                                                     echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name
                                                     ?> 
 
@@ -2833,7 +2833,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <input type="submit" id="verify" class="btn btn-success" value="Verify Now"/> | 
                                                 <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                                 <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/> |
-                                                <a href="edit-loan.php"> <input type="submit" id="delete" class="btn btn-info" value="Edit Loan"/></a>
+                                                <a href="edit-loan.php?id=<?php echo $loan_id?>"> <input type="submit"   class="btn btn-info" value="Edit Loan"/></a>
                                             </div>
                                         </div>
                                     </div>

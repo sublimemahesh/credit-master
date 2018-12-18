@@ -157,6 +157,7 @@ class Loan {
         $query = "UPDATE  `loan` SET "
                 . "`create_date` ='" . $this->create_date . "', "
                 . "`customer` ='" . $this->customer . "', "
+                . "`registration_type` ='" . $this->registration_type . "', "
                 . "`guarantor_1` ='" . $this->guarantor_1 . "', "
                 . "`guarantor_2` ='" . $this->guarantor_2 . "', "
                 . "`guarantor_3` ='" . $this->guarantor_3 . "', "

@@ -397,7 +397,7 @@ $(document).ready(function () {
         }
     });
 
-   
+
 
 
 ///remove Loan Period in select  installment type
@@ -660,6 +660,26 @@ $(document).ready(function () {
 
 });
 
+//get other page to issumode prices in onloard
+
+//get loan instrate rate
+window.onload = function () {
+
+    var interest_rate = document.getElementById("interest_rate_onloard").value;
+    var period = document.getElementById("loan_period").value;
+    var numVal = document.getElementById("loan_amount").value;
+    var numVa2 = Number(interest_rate) / 100;
+
+    var month = (period / 30);
+    //cal Total value in month
+    var totalValue = numVal +( month * (numVal * numVa2));
+
+    document.getElementById("total").value = totalValue;
+
+}
+ 
+ 
+ 
 //get other page to issumode prices in onloard
 
 window.onload = function () {
