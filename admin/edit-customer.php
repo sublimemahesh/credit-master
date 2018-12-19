@@ -302,11 +302,12 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city" class="hidden-lg hidden-md">City<span class="color-red"> *</span></label>
-                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"   > 
+                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"  required="true" > 
+                                                <option  value="" > - Select the City - </option>
                                                 <?php
                                                 $CITY = new City($CUSTOMER->city);
                                                 ?>
-                                                <option select="true" value="<?php echo $CITY->id ?>"> <?php echo $CITY->name ?></option>
+                                                <option select="true" value="<?php echo $CITY->id ?>" required="true" > <?php echo $CITY->name ?></option>
                                                 <?php
                                                 $CITY = City::all();
                                                 foreach ($CITY as $city) {

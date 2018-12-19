@@ -107,7 +107,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="surname" class="hidden-lg hidden-md">Surname <span class="color-red"> *</span></label>
-                                            <input type="text" id="surname"  name="surname" required="TRUE" placeholder="Enter Surname" class="form-control" autocomplete="off">
+                                            <input type="text" id="surname"  name="surname" required="TRUE" placeholder="Enter Surname" class="form-control" autocomplete="off"  >
                                         </div>
                                     </div>
                                 </div>
@@ -217,7 +217,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                         <div class="form-line">
                                             <label for="address" class="hidden-lg hidden-md">Address <span class="color-red"> *</span></label>
                                             <input type="text" id="address"  name="address_line_1" required="TRUE" placeholder=" Address Line 1" class="form-control" autocomplete="off">
-                                            <input type="text" id="address"  name="address_line_2"   placeholder=" Address Line 2" class="form-control" autocomplete="off">
+                                            <input type="text" id="address"  name="address_line_2"   placeholder=" Address Line 2" class="form-control" autocomplete="off" required="TRUE">
                                             <input type="text" id="address"  name="address_line_3" placeholder=" Address Line 3" class="form-control" autocomplete="off">
                                             <input type="text" id="address"  name="address_line_4" placeholder=" Address Line 4" class="form-control" autocomplete="off">
                                             <input type="text" id="address"  name="address_line_5" placeholder=" Address Line 5" class="form-control" autocomplete="off">
@@ -249,13 +249,13 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="city_name" class="hidden-lg hidden-md">City<span class="color-red"> *</span></label>
-                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"   >
-                                                <option selected=""> - Select the City - </option>
+                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"  required="TRUE" >
+                                                <option selected="" value=""> - Select the City - </option>
                                                 <?php
                                                 $CITY = City::all();
                                                 foreach ($CITY as $city) {
                                                     ?>
-                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
+                                                    <option select="true" value="<?php echo $city['id'] ?>" required="true" > <?php echo $city['name'] ?></option>
                                                     <?php
                                                 }
                                                 ?>
@@ -329,7 +329,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type<span class="color-red"> *</span></label>
-                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type"   >
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" required="TRUE"  >
                                                 <option value=""> -- Select Registration Type -- </option>
                                                 <option  value="route">Route</option>
                                                 <option value="center">Center</option>
@@ -342,12 +342,12 @@ include_once(dirname(__FILE__) . '/auth.php');
 
                             <div class="row" style="display: none" id="route_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route">Route <span class="color-red"> *</span></label>
+                                    <label for="route">Route</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route" class="hidden-lg hidden-md">Route <span class="color-red"> *</span></label>
+                                            <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <select class="form-control" autocomplete="off" id="route"  name="route" required="true">  
                                                 <option> -- Please Select a Route -- </option>
                                             </select>
@@ -357,12 +357,12 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </div>
                             <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center">Center <span class="color-red"> *</span></label>
+                                    <label for="center">Center</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="center" class="hidden-lg hidden-md">Center <span class="color-red"> *</span></label>
+                                            <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <select class="form-control" autocomplete="off" id="center"  name="center" required="true">  
                                                 <option> -- Please Select a Center -- </option>
                                             </select>
