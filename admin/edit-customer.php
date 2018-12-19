@@ -96,13 +96,13 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="last_name">Last Name<span class="color-red"> *</span></label>
+                                    <label for="last_name">Last Name </label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="last_name" class="hidden-lg hidden-md">Last Name<span class="color-red"> *</span></label>
-                                            <input type="text" id="last_name"  name="last_name" value="<?php echo $CUSTOMER->last_name ?>" class="form-control" autocomplete="off" required="TRUE">
+                                            <label for="last_name" class="hidden-lg hidden-md">Last Name </label>
+                                            <input type="text" id="last_name"  name="last_name" value="<?php echo $CUSTOMER->last_name ?>" class="form-control" autocomplete="off"  >
                                         </div>
                                     </div>
                                 </div>
@@ -158,7 +158,7 @@ $CENTER = Center::all();
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="nic_photo_front">NIC Photos</label>
+                                    <label for="nic_photo_front">NIC Photos(F/B)</label>
                                 </div>
                                 <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                     <div class="form-group">
@@ -294,7 +294,32 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>                     
-
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="city">City <span class="color-red"> *</span></label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="city" class="hidden-lg hidden-md">City<span class="color-red"> *</span></label>
+                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"   > 
+                                                <?php
+                                                $CITY = new City($CUSTOMER->city);
+                                                ?>
+                                                <option select="true" value="<?php echo $CITY->id ?>"> <?php echo $CITY->name ?></option>
+                                                <?php
+                                                $CITY = City::all();
+                                                foreach ($CITY as $city) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?> 
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>
@@ -401,6 +426,7 @@ $CENTER = Center::all();
                                 </div>
                             </div>
 
+
                             <?php
                             if ($CUSTOMER->route != 0) {
                                 ?>
@@ -412,20 +438,8 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
-                                                    <?php
-                                                    foreach ($ROUTE as $route) {
-                                                        if ($route['id'] == $CUSTOMER->route) {
-                                                            ?>
-                                                            <option value="<?php echo $route['id'] ?>" selected=""> <?php echo $route['name'] ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option value="<?php echo $route['id'] ?>" > <?php echo $route['name'] ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
+                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                    <option> -- Please Select a Center -- </option>
                                                 </select>
                                             </div>
                                         </div>
@@ -496,34 +510,42 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
 
-                            <?php } ?>  
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="city">City <span class="color-red"> *</span></label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="city" class="hidden-lg hidden-md">City<span class="color-red"> *</span></label>
-                                            <select class="form-control" autocomplete="off" id="city_name"  name="city"   > 
-                                                <?php
-                                                $CITY = new City($CUSTOMER->city);
-                                                ?>
-                                                <option select="true" value="<?php echo $CITY->id ?>"> <?php echo $CITY->name ?></option>
-                                                <?php
-                                                $CITY = City::all();
-                                                foreach ($CITY as $city) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
-                                                    <?php
-                                                }
-                                                ?> 
-                                            </select>
+                            <?php } else {
+                                ?>
+                                <div class="row" style="display: none" id="route_row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="route">Route <span class="color-red"> *</span></label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="route" class="hidden-lg hidden-md">Route <span class="color-red"> *</span></label>
+                                                <select class="form-control" autocomplete="off" id="route"  name="route" required="true">  
+                                                    <option> -- Please Select a Route -- </option>
+                                                </select>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                                <div class="row" style="display: none" id="center_row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center <span class="color-red"> *</span></label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center <span class="color-red"> *</span></label>
+                                                <select class="form-control" autocomplete="off" id="center"  name="center" required="true">  
+                                                    <option> -- Please Select a Center -- </option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php }
+                            ?>  
+
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -778,10 +800,10 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class=" p-top ">
                                             <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                        if ($CUSTOMER->is_active == 1) {
-                                            echo 'checked';
-                                        }
-                                        ?> name="is_active" value="1" id="rememberme" />
+                                            if ($CUSTOMER->is_active == 1) {
+                                                echo 'checked';
+                                            }
+                                            ?> name="is_active" value="1" id="rememberme" />
                                             <label for="rememberme" id="lable-active">Activate</label> </div>
                                     </div>
                                 </div>
