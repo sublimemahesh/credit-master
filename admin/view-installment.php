@@ -241,16 +241,8 @@ $today = date("Y-m-d");
                                                     $start->modify($add_dates);
                                                     $x++;
                                                 }
-
-
-
                                                 echo '</tr>';
-                                               
                                             } 
-                                            
-                                            
-                                            $ss = $amount += $amount;
-                                                echo $ss;
                                             ?>
                                         </tbody>
                                         <tfoot>
