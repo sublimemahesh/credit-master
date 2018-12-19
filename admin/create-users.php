@@ -48,7 +48,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 </ul>
                             </div>
                             <div class="body row">
-                                <form class=" col-sm-9 col-md-9" method="post" action=" " enctype="multipart/form-data" id="user"> 
+                                <form class=" col-sm-9 col-md-9" method="post" action="post-and-get/users.php" enctype="multipart/form-data" id="user"> 
                                     <div class="row clearfix">
                                         <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                             <label for="name">Name</label>
@@ -174,7 +174,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
-        <script src="js/ajax/user.js" type="text/javascript"></script>
+       
     </body>
 
 </html>

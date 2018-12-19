@@ -342,29 +342,28 @@ include_once(dirname(__FILE__) . '/auth.php');
 
                             <div class="row" style="display: none" id="route_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="route">Route</label>
+                                    <label for="route">Route <span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="route" class="hidden-lg hidden-md">Route</label>
-                                            <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                            <label for="route" class="hidden-lg hidden-md">Route <span class="color-red"> *</span></label>
+                                            <select class="form-control" autocomplete="off" id="route"  name="route" required="true">  
                                                 <option> -- Please Select a Route -- </option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="center">Center</label>
+                                    <label for="center">Center <span class="color-red"> *</span></label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="center" class="hidden-lg hidden-md">Center</label>
-                                            <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                            <label for="center" class="hidden-lg hidden-md">Center <span class="color-red"> *</span></label>
+                                            <select class="form-control" autocomplete="off" id="center"  name="center" required="true">  
                                                 <option> -- Please Select a Center -- </option>
                                             </select>
                                         </div>

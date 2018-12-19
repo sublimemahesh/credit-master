@@ -111,6 +111,7 @@ $today = date("Y-m-d");
                                             $x = 0;
                                             $ins_total = 0;
                                             $total_paid = 0;
+
                                             while ($x < $defultdata) {
                                                 if ($defultdata == 4) {
                                                     $add_dates = '+7 day';
@@ -217,20 +218,18 @@ $today = date("Y-m-d");
                                                         $date = '+7 day';
                                                         $start->modify($date);
                                                         $date = $start->format('Y-m-d');
-                                                        
                                                     } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
 
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
-                                                        
-                                                        
+
+
                                                         //show month payment button  
                                                         $start = new DateTime("$today");
                                                         $date = '+1 months';
                                                         $start->modify($date);
                                                         $date = $start->format('Y-m-d');
-                                                        
                                                     } elseif ($LOAN->installment_type == 1 && ($date == $today)) {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
@@ -242,8 +241,16 @@ $today = date("Y-m-d");
                                                     $start->modify($add_dates);
                                                     $x++;
                                                 }
+
+
+
                                                 echo '</tr>';
-                                            }
+                                               
+                                            } 
+                                            
+                                            
+                                            $ss = $amount += $amount;
+                                                echo $ss;
                                             ?>
                                         </tbody>
                                         <tfoot>
