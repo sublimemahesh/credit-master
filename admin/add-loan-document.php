@@ -73,7 +73,7 @@ $LOAN = new Loan($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="caption" class="hidden-lg hidden-md">Caption</label>
-                                            <input type="text" id="caption"  name="caption" placeholder="Enter Caption" class="form-control" autocomplete="off">
+                                            <input type="text" id="caption" required="" name="caption" placeholder="Enter Caption" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ $LOAN = new Loan($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="Images" class="hidden-lg hidden-md">Images</label>
-                                            <input type="file" id="loan_photo"  name="image_name" class="form-control" autocomplete="off">
+                                            <input type="file" id="loan_photo"  required="" name="image_name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -118,13 +118,13 @@ $LOAN = new Loan($id);
                                 $LOAN_DOCUMENT = new LoanDocument(NUll);
                                 foreach ($LOAN_DOCUMENT->getDocumentByLoan($id) as $loan_document) {
                                     ?>
-                                    <div class="col-md-3 " id="row_<?php echo $loan_document['id']; ?>"> 
+                                    <div class="col-md-3 " id="row_<?php echo $loan_document['id']; ?>" style="margin-top: 10px;"> 
                                         <div class="clearfix aniimated-thumbnials">
                                             <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
                                                 <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
                                             </a>                                                                                    
                                         </div> 
-
+                                        <label ><?php echo $loan_document['caption'] ?></label><br/>
                                         <a href="#"  class="delete-loan-document" data-id="<?php echo $loan_document['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                     </div>
 

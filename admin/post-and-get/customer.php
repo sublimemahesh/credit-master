@@ -764,7 +764,7 @@ if (isset($_POST['update_input'])) {
 
     $telephone_numbers = null;
     $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
-
+    
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = ucfirst($_POST['surname']);
     $CUSTOMER->first_name = ucfirst($_POST['first_name']);

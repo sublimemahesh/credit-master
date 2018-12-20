@@ -69,7 +69,7 @@ if (isset($_POST['update'])) {
     $LOAN = new Loan($_POST['id']);
 
     $LOAN->create_date = $_POST['create_date'];
-    $LOAN->registration_type = $_POST['registration_type']; 
+    $LOAN->registration_type = $_POST['registration_type'];
     $LOAN->customer = $_POST['customer'];
     $LOAN->guarantor_1 = $_POST['guarantor_1'];
     $LOAN->guarantor_2 = $_POST['guarantor_2'];
@@ -114,5 +114,48 @@ if (isset($_POST['update'])) {
     }
 }
 
- 
 
+
+if (isset($_POST['update-loan'])) {
+
+
+    $LOAN = new Loan($_POST['id']);
+    dd($_POST['guarantor_2']);
+    $LOAN->guarantor_2 = $_POST['guarantor_2'];
+    $LOAN->guarantor_3 = $_POST['guarantor_3'];
+    $LOAN->loan_amount = $_POST['loan_amount'];
+    $LOAN->issue_mode = $_POST['issue_mode'];
+    $LOAN->loan_period = $_POST['loan_period'];
+    $LOAN->interest_rate = $_POST['interest_rate'];
+    $LOAN->installment_type = $_POST['installment_type'];
+
+
+    $VALID = new Validator();
+    $VALID->check($LOAN, [
+        'loan_amount' => ['required' => TRUE],
+    ]);
+
+
+
+    if ($VALID->passed()) {
+        $LOAN->update();
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $VALID->addError("Your changes saved successfully", 'success');
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    } else {
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+}

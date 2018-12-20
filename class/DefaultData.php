@@ -40,8 +40,11 @@ class DefaultData {
     }
 
     public function getNumOfInstlByPeriodAndType($period, $type) {
-
-        return intval($type * ($period / 30));
+        if (intval($type * ($period / 30)) == 12) {
+            return 1 + intval($type * ($period / 30));
+        } else {
+            return intval($type * ($period / 30));
+        }
     }
 
     public function getLoanIssueMode() {
@@ -126,9 +129,8 @@ class DefaultData {
         $levels = explode(',', $accessLevels);
 
         if (!in_array($userlevel, $levels)) {
-             header("location: ./error_page.php");
-        } 
-        
+            header("location: ./error_page.php");
+        }
     }
 
 }

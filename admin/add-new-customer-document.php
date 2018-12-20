@@ -73,7 +73,7 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="caption" class="hidden-lg hidden-md">Caption</label>
-                                            <input type="text" id="caption"  name="caption" placeholder="Enter Caption" class="form-control" autocomplete="off">
+                                            <input type="text" id="caption"  required="" name="caption" placeholder="Enter Caption" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -87,7 +87,7 @@ $CUSTOMER = new Customer($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer_photo" class="hidden-lg hidden-md">Images</label>
-                                            <input type="file" id="customer_photo"  name="image_name" class="form-control" autocomplete="off">
+                                            <input type="file" id="customer_photo" required="" name="image_name" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -114,18 +114,19 @@ $CUSTOMER = new Customer($id);
                     </div>
                     <div class="body">
                         <div class="row">
-                            <div class="form-line clearfix aniimated-thumbnials"> 
+                            <div class="form-line "> 
                                 <?php
                                 $COUSTMER_DOCUMENT = new CustomerDocument(NUll);
                                 foreach ($COUSTMER_DOCUMENT->getDocumentByCustomer($id) as $customerdocument) {
                                     ?>
-                                    <div class="col-md-3"> 
-                                        <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption'] ?>">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/document/thumb/<?php echo $customerdocument['image_name'] ?>">
-                                        </a> 
-
-
-
+                                <div class="col-md-3" id="row_<?php echo $customerdocument['id']; ?>" style="margin-top: 10px;"> 
+                                        <div class="clearfix aniimated-thumbnials">
+                                            <a href="../upload/customer/document/<?php echo $customerdocument['image_name'] ?>" data-sub-html="<?php echo $customerdocument['caption'] ?>">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/document/thumb/<?php echo $customerdocument['image_name'] ?>">
+                                            </a> 
+                                            <label ><?php echo $customerdocument['caption'] ?></label><br/>
+                                        </div>                                       
+                                        <a href="#"  class="delete-customer-document" data-id="<?php echo $customerdocument['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                     </div>
                                 <?php } ?>
                             </div>
@@ -146,6 +147,9 @@ $CUSTOMER = new Customer($id);
         <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
+
+        <script src="plugins/sweetalert/sweetalert.min.js"></script> s
+        <script src="delete/js/customer-document.js" type="text/javascript"></script>
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
     </body>
