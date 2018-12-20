@@ -322,7 +322,7 @@ class Customer {
                 . "`holder_name` ='" . $this->holder_name . "', "
                 . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+        
 
         $db = new Database();
         $result = $db->readQuery($query);

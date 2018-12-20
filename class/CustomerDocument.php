@@ -87,4 +87,12 @@ class CustomerDocument {
         return $array_res;
     }
 
+    public function delete() {
+
+        $query = 'DELETE FROM `customer_document` WHERE id="' . $this->id . '"';
+
+        $db = new Database();
+        return $db->readQuery($query);
+    }
+
 }

@@ -310,17 +310,19 @@ $CENTER = Center::all();
                                             <select class="form-control" autocomplete="off" id="city_name"  name="city"  required="true" > 
                                                 <option  value="" > - Select the City - </option>
                                                 <?php
-                                                $CITY = new City($CUSTOMER->city);
-                                                ?>
-                                                <option select="true" value="<?php echo $CITY->id ?>" required="true" > <?php echo $CITY->name ?></option>
-                                                <?php
-                                                $CITY = City::all();
-                                                foreach ($CITY as $city) {
-                                                    ?>
-                                                    <option select="true" value="<?php echo $city['id'] ?>"> <?php echo $city['name'] ?></option>
-                                                    <?php
+                                                $CITY = new City(NULL);
+                                                foreach ($CITY->all() as $key => $city) {
+                                                    if ($city['id'] == $CUSTOMER->city) {
+                                                        ?>
+                                                        <option selected="" value="<?php echo $city['id']; ?>" required="true" > <?php echo $city['name'] ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option  value="<?php echo $city['id']; ?>" required="true" > <?php echo $city['name'] ?></option>
+                                                        <?php
+                                                    }
                                                 }
-                                                ?> 
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
@@ -345,6 +347,7 @@ $CENTER = Center::all();
                                     <label for="telephone">Telephone Numbers</label>
                                 </div>
                                 <?php
+                                $telephone_number = null;
                                 $telephone_numbers = "$CUSTOMER->telephone";
                                 $telephone_number = split(",", $telephone_numbers);
                                 ?>
@@ -358,14 +361,30 @@ $CENTER = Center::all();
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="telephone2"  name="telephone2" value="<?php echo $telephone_number[1]; ?>" placeholder="Enter Telephone Number 2" class="form-control" autocomplete="off">
+                                            <input type="text" id="telephone2"  name="telephone2" value="<?php
+                                            if (empty($telephone_number[1])) {
+                                                echo '0';
+                                            } else {
+
+                                                echo $telephone_number[1];
+                                            }
+                                            ?>
+                                                   " placeholder="Enter Telephone Number 2" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="telephone3"  name="telephone3"  value="<?php echo $telephone_number[2]; ?>" placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
+                                            <input type="text" id="telephone3"  name="telephone3"  value="<?php
+                                            if (empty($telephone_number[2])) {
+                                                echo '0';
+                                            } else {
+
+                                                echo $telephone_number[2];
+                                            }
+                                            ?>
+                                                   " placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

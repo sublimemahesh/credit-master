@@ -7,7 +7,7 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
- 
+
 $LOAN = new Loan($_GET['id']);
 $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
@@ -81,7 +81,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
-                                            <input type="text" id="create_date"  name="create_date" value="<?php echo $LOAN->create_date ?>" placeholder="Please Select Date" class="form-control" autocomplete="off" required="TRUE" readonly="readonly">
+                                            <input type="text" id="create_date"  name="create_date" value="<?php echo $LOAN->create_date ?>" placeholder="Please Select Date" class="form-control" autocomplete="off"   readonly="readonly" disabled=""> 
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +95,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
-                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" required="TRUE">
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type"  disabled="">
                                                 <option value=""> -- Please Select Registration Type -- </option>
                                                 <?php
                                                 if ($CUSTOMER->registration_type == "route") {
@@ -143,7 +143,7 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                <select class="form-control" autocomplete="off" id="route"  name="route" disabled="">  
                                                     <?php
                                                     foreach ($ROUTE as $route) {
                                                         if ($route['id'] == $CUSTOMER->route) {
@@ -163,21 +163,7 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
 
-                                <div class="row" style="display: none" id="center_row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="center">Center</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
-                                                    <option> -- Please Select a Center -- </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                                 <?php
                             } elseif ($CUSTOMER->center) {
@@ -191,7 +177,7 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                <select class="form-control" autocomplete="off" id="center"  name="center" disabled="">  
                                                     <?php
                                                     foreach ($CENTER as $center) {
                                                         if ($center['id'] == $CUSTOMER->center) {
@@ -211,21 +197,7 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
 
-                                <div class="row" style="display: none" id="route_row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="route">Route</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
-                                                    <option> -- Please Select a Route -- </option>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+
 
                             <?php } ?>  
 
@@ -238,7 +210,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="customer" name="customer" required="TRUE">
+                                            <select class="form-control all-customers" autocomplete="off" id="customer" name="customer"   disabled="">
                                                 <?php
                                                 foreach ($CUSTOMER->getCustomrByCenter($CUSTOMER->center) as $customers) {
 
@@ -278,8 +250,8 @@ $CENTER = Center::all();
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
                                             <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
-                                            <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
-                                                <option  value="" selected="" id="emptygr1">
+                                            <select class="form-control all-customers" disabled="" autocomplete="off" id="guarantor_1"  name="test"    >
+                                                <option  value="" selected="" id="emptygr1" >
                                                     <?php
                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR1->surname));
                                                     echo $first_name . ' ' . $GR1->first_name . ' ' . $GR1->last_name;
@@ -301,7 +273,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" required="TRUE">
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2"  >
 
                                                 <option  id="emptygr2"  value="" selected="">
                                                     <?php
@@ -346,12 +318,12 @@ $CENTER = Center::all();
                                             <label for="installment_type" class="hidden-lg hidden-md">Installment Type</label>
                                             <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE" id="installment_type">
                                                 <option value=""> -- Please Select Installment Type -- </option>
-                                                <?php  
+                                                <?php
                                                 $LOAN_TYPE = $DEFAULTDATA->getInstallmentType();
                                                 foreach ($LOAN_TYPE as $key => $loan_type) {
                                                     if ($key == $LOAN->installment_type) {
                                                         ?>
-                                                <option value="<?php echo $key ?>" selected="true"><?php echo $loan_type ?></option>
+                                                        <option value="<?php echo $key ?>" selected="true"><?php echo $loan_type ?></option>
                                                         <?php
                                                     } else {
                                                         ?>
@@ -422,7 +394,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="number" name="interest_rate"     id="interest_rate_onloard"placeholder="Enter The Interest Rate"  class="form-control interest_rate"  required="TRUE" autocomplete="off" value="<?php echo $LOAN->interest_rate ?>">
+                                            <input type="number" name="interest_rate"    id="interest_rate" placeholder="Enter The Interest Rate"  class="form-control interest_rate"  required="TRUE" autocomplete="off" value="<?php echo $LOAN->interest_rate ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -436,7 +408,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label class="hidden-lg hidden-md" for="period_price">Net Amount</label>
-                                            <input type="text" class="form-control" autocomplete="off" id="total" placeholder="00.00"  required="TRUE" readonly="readonly" > 
+                                            <input type="text" class="form-control " autocomplete="off"  id="total" placeholder="00.00"  required="TRUE" readonly="readonly" > 
                                         </div>
                                     </div>
                                 </div>
@@ -450,7 +422,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_amount" class="hidden-lg hidden-md">Installment Amount</label>
-                                            <input type="text" class="form-control" name="installment_amount" autocomplete="nope" id="installment_price"  placeholder="Installment Amount" required="TRUE" readonly="readonly" value="<?php echo $LOAN->installment_amount ?>">
+                                            <input type="text" class="form-control" name="installment_amount" autocomplete="nope" id="installment_amount"  placeholder="Installment Amount" required="TRUE" readonly="readonly" value="<?php echo $LOAN->installment_amount ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -487,78 +459,79 @@ $CENTER = Center::all();
 
 
                             <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="issue_mode">Issue Mode</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
-                                            </div>
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="issue_mode">Issue Mode</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="" class="hidden-lg hidden-md">Issue Mode</label>
+                                            <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off"  >
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="display: none" id="document_free">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="Document Fee">Document Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
-                                                <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
+                            </div>
+                            <div class="row" style="display: none" id="document_free">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="Document Fee">Document Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
+                                            <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="row" style="display: none" id="cheque_free">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="cheque_free">Cheque Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
-                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
+                            <div class="row" style="display: none" id="cheque_free">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="cheque_free">Cheque Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
+                                            <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row" style="display: none" id="stamp_fee_amount">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="Stamp Fee">Stamp Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
-                                                <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
+                            </div>
+                            <div class="row" style="display: none" id="stamp_fee_amount">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="Stamp Fee">Stamp Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
+                                            <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
 
-                                <div class="row" style="display: none" id="loan_processing_pre">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="loan_processing_pre_amount">Loan Processing Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
+                            <div class="row" style="display: none" id="loan_processing_pre">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="loan_processing_pre_amount">Loan Processing Fee</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             <div class="row clearfix">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
+                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-loan">Save Details</button>
+                                        <input type="hidden" value="<?php echo $LOAN->id ?>" name="id">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                     </div> 
@@ -580,8 +553,7 @@ $CENTER = Center::all();
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
-        <script src="js/ajax/loan.js" type="text/javascript"></script>
-
+        
         <script>
             $(function () {
                 $(".datepicker").datepicker({
