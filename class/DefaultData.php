@@ -82,16 +82,15 @@ class DefaultData {
             $full_document_charge = 50;
             $stamp_fee = ($amount * 0.1 / 100);
             $total = $stamp_fee + $full_document_charge;
-            
         } else {
             $count = 0;
             $document_free = 50;
 
             $count = $amount / 100000;
-            
+
             $stamp_fee = ($amount * 0.1 / 100);
 
-            $full_document_charge = round($count,0) * $document_free;
+            $full_document_charge = round($count, 0) * $document_free;
             $total = $stamp_fee + $full_document_charge;
         }
 
@@ -115,6 +114,21 @@ class DefaultData {
 
     public function generalLedgerAccounts() {
         return array("1" => "Assets", "2" => "Liabilities", "3" => "Operating Revenues", "4" => "Operating expenses", "5" => "Non-Operating Revenues and Gains", "6" => "Non-Operating Expenses and Losses");
+    }
+
+    public function GetUserLevels() {
+
+        return array("1" => "Level One", "2" => "Level Two", "3" => "Level Three");
+    }
+
+    public function checkUserLevelAccess($accessLevels, $userlevel) {
+
+        $levels = explode(',', $accessLevels);
+
+        if (!in_array($userlevel, $levels)) {
+             header("location: ./error_page.php");
+        } 
+        
     }
 
 }

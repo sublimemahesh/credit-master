@@ -1,6 +1,13 @@
-﻿<?php
+<?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+$DEFAULTDATA = new DefaultData(NULL);
 ?> 
 ﻿<!DOCTYPE html>
 <html> 
@@ -110,10 +117,17 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <label for="user_level" class="hidden-lg hidden-md">User Level</label>
-                                                    <select id="user_level" name="user_level" class="form-control"  >
-                                                        <option value="1">Level 1</option> 
-                                                        <option value="2">Level 2</option> 
-                                                        <option value="3">Level 3</option> 
+                                                    <select id="user_level" name="user_level" class="form-control" required="">
+
+                                                        <option value="">-- Please Select the user level --</option> 
+                                                            <?php
+                                                            $USELEVEL = $DEFAULTDATA->GetUserLevels();
+                                                            foreach ($USELEVEL as $key => $userlevel) {
+                                                                ?>
+                                                            <option value="<?php echo $key ?>"><?php echo $userlevel ?></option> 
+                                                            <?php
+                                                        }
+                                                        ?> 
                                                     </select> 
                                                 </div>
                                             </div>
@@ -174,7 +188,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
-       
+
     </body>
 
 </html>

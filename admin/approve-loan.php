@@ -1,7 +1,12 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DefaultData = new DefaultData(NULl);
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+ 
 
 $LOAN = new Loan($_GET['id']);
 $loan_id = $_GET['id'];
@@ -111,7 +116,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="" class="hidden-lg hidden-md">Customer Name</label>
                                                 <div class="form-control">
                                                     <?php
-                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
                                                     echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name
                                                     ?> 
 

@@ -226,7 +226,7 @@ class User {
                 . "`user_level` ='" . $this->user_level . "', "
                 . "`image_name` ='" . $this->image_name . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+       
         $db = new Database();
 
         $result = $db->readQuery($query);

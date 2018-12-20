@@ -1,7 +1,13 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DEFAULTDATA = new DefaultData(NULl);
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+ 
+ 
 $LOAN = new Loan($_GET['id']);
 $loan_id = $_GET['id'];
 $CUSTOMER = new Customer($LOAN->customer);

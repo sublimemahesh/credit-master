@@ -1,7 +1,13 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DEFDATA = new DefaultData();
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+ 
 $LOAN = new Loan($_GET['id']);
 $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
@@ -240,7 +246,7 @@ $CENTER = Center::all();
                                                         ?>
                                                         <option value="<?php echo $LOAN->customer ?>" selected="">
                                                             <?php
-                                                            $first_name = $DEFDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
                                                             echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                                                             ?>   
                                                         </option> 
@@ -249,7 +255,7 @@ $CENTER = Center::all();
 
                                                         <option value="<?php $customers['id'] ?>" >
                                                             <?php
-                                                            $first_name = $DEFDATA->getFirstLetterName(ucwords($customers['surname']));
+                                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($customers['surname']));
                                                             echo $first_name . ' ' . $customers['first_name'] . ' ' . $customers['last_name'];
                                                             ?> 
                                                         </option> 
@@ -275,7 +281,7 @@ $CENTER = Center::all();
                                             <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
                                                 <option  value="" selected="" id="emptygr1">
                                                     <?php
-                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR1->surname));
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR1->surname));
                                                     echo $first_name . ' ' . $GR1->first_name . ' ' . $GR1->last_name;
                                                     ?>
                                                 </option> 
@@ -299,7 +305,7 @@ $CENTER = Center::all();
 
                                                 <option  id="emptygr2"  value="" selected="">
                                                     <?php
-                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR2->surname));
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
                                                     echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
                                                     ?>
                                                 </option>
@@ -320,7 +326,7 @@ $CENTER = Center::all();
                                             <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
                                                 <option id="emptygr3" value="">
                                                     <?php
-                                                    $first_name = $DEFDATA->getFirstLetterName(ucwords($GR3->surname));
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
                                                     echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
                                                     ?>
                                                 </option>  
@@ -341,7 +347,7 @@ $CENTER = Center::all();
                                             <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE" id="installment_type">
                                                 <option value=""> -- Please Select Installment Type -- </option>
                                                 <?php  
-                                                $LOAN_TYPE = $DEFDATA->getInstallmentType();
+                                                $LOAN_TYPE = $DEFAULTDATA->getInstallmentType();
                                                 foreach ($LOAN_TYPE as $key => $loan_type) {
                                                     if ($key == $LOAN->installment_type) {
                                                         ?>
@@ -372,7 +378,7 @@ $CENTER = Center::all();
                                             <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE" >
                                                 <option value=""> -- Please Select Loan Period -- </option>
                                                 <?php
-                                                $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
+                                                $LOAN_PERIODS = $DEFAULTDATA->getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
 
                                                     if ($key == $LOAN->loan_period) {

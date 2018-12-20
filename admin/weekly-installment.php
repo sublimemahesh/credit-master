@@ -1,7 +1,13 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-$DefaultData = new DefaultData(NULl);
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+ 
 $today = date("Y-m-d");
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -161,7 +167,7 @@ $next = $ND->format('Y-m-d');
                                                                     <i class = "glyphicon glyphicon-user"></i >
 
                                                                     <?php
-                                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
                                                                     echo '<b>' . $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name . '</b>';
 
                                                                     echo '</br><b>Mo No: </b> ' . $CUSTOMER->mobile;
