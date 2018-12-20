@@ -1,6 +1,12 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
 ?>
 
 <!DOCTYPE html>
@@ -141,7 +147,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="js/jquery.datetimepicker.full.min.js" type="text/javascript"></script>
-         
+
         <script>
             jQuery(document).ready(function () {
                 jQuery('.date-time-picker').datetimepicker({

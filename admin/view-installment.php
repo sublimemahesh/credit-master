@@ -2,6 +2,12 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
 $today = date("Y-m-d");

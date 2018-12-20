@@ -2,6 +2,11 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
 $id = '';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -109,29 +114,23 @@ $USERS = new User($id);
                                                 <div class="form-line">
                                                     <label for="user_level" class="hidden-lg hidden-md">User Level</label>
                                                     <select id="user_level" name="user_level" class="form-control" required="TRUE" >
-
                                                         <?php
-                                                        if ($USERS->user_level == 1) {
-                                                            ?>                                                            
-                                                            <option value="1" selected="">Level 1</option> 
-                                                            <option value="2">Level 2</option> 
-                                                            <option value="3">Level 3</option> 
-                                                            <?php
-                                                        } elseif ($USERS->user_level == 2) {
-                                                            ?>
-                                                            <option value="1" >Level 1</option> 
-                                                            <option value="2" selected="">Level 2</option> 
-                                                            <option value="3">Level 3</option> 
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option value=" ">--Please Select User Level--</option> 
-                                                            <option value="1" >Level 1</option> 
-                                                            <option value="2">Level 2</option> 
-                                                            <option value="3" selected="">Level 3</option> 
-                                                            <?php
+                                                        $DEFAULTDATA = new DefaultData();
+
+                                                        $USERLEVEL = $DEFAULTDATA->GetUserLevels();
+                                                        foreach ($USERLEVEL as $key => $userlevel) {
+                                                            if ($key == $USERS->user_level) {
+                                                                ?>
+                                                                <option value="<?php echo $key ?>" selected=""><?php echo $userlevel ?></option> 
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                <option value="<?php echo $key ?>"><?php echo $userlevel?></option> 
+                                                                <?php
+                                                            }
                                                         }
                                                         ?>
+                                                        
                                                     </select> 
                                                 </div>
                                             </div>
@@ -174,7 +173,7 @@ $USERS = new User($id);
                                         </div>  
                                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
                                             <input type="hidden" id="oldImageName" value="<?php echo $USERS->image_name; ?>" name="oldImageName"/>
-                                            <input type="hidden" id="id" value="<?php echo $USERS->id; ?>" name="id"/>
+                                            <input type="hidden" id="id" value="<?php echo $id; ?>" name="id"/> 
 
                                             <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="update" value="submit">Save Changes</button>
                                         </div>

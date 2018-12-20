@@ -1,7 +1,7 @@
-﻿<?php
+<?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
-
+$USERS = new User($_SESSION['id']);
 
 $LOANS = count(Loan::all());
 $CUSTOMER = count(Customer::all());
@@ -40,22 +40,30 @@ $ROUTE = count(Route::all());
     </style>
     <body class="theme-red">
         <?php
-        include './navigation-and-header.php';
+        if ($USERS->user_level == 1) {
+            include './navigation-and-header.php';
+        } elseif ($USERS->user_level == 2) {
+            include './navigation-and-header_1.php';
+        } elseif ($USERS->user_level == 3) {
+            include './navigation-and-header_2.php';
+        }else{
+            
+        }
         ?>
         <section class="content">
             <div class="container-fluid">
 
-                <?php
-                if (isset($_GET['message'])) {
+<?php
+if (isset($_GET['message'])) {
 
-                    $MESSAGE = New Message($_GET['message']);
-                    ?>
+    $MESSAGE = New Message($_GET['message']);
+    ?>
                     <div class="alert alert-<?php echo $MESSAGE->status; ?>" role = "alert">
-                        <?php echo $MESSAGE->description; ?>
+                    <?php echo $MESSAGE->description; ?>
                     </div>
-                    <?php
-                }
-                ?>
+                        <?php
+                    }
+                    ?>
 
 
                 <div class="block-header">
@@ -123,7 +131,7 @@ $ROUTE = count(Route::all());
                                     LOANS
 
                                     <small class="pull-right">   
-                                        <?php echo $LOANS ?>
+<?php echo $LOANS ?>
                                     </small>
                                 </h2>
 

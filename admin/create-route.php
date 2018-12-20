@@ -1,6 +1,11 @@
 <?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
+
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 ?>
 
 <!DOCTYPE html>
@@ -25,16 +30,16 @@ include_once(dirname(__FILE__) . '/auth.php');
     </head>
 
     <body class="theme-red">
-        <?php
-        include './navigation-and-header.php';
-        ?> 
+<?php
+include './navigation-and-header.php';
+?> 
         <section class="content">
             <div class="container-fluid"> 
-                <?php
-                $vali = new Validator();
+<?php
+$vali = new Validator();
 
-                $vali->show_message();
-                ?>
+$vali->show_message();
+?>
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
@@ -115,10 +120,10 @@ include_once(dirname(__FILE__) . '/auth.php');
                                             <label for="collector" class="hidden-lg hidden-md">Collector</label>
                                             <select id="collector" name="collector" class="form-control" required="TRUE">
                                                 <option value=""> -- Please Select Collector-- </option>
-                                                <?php
-                                                $USER = new User(NULL);
-                                                foreach ($USER->all() as $users) {
-                                                    ?>
+<?php
+$USER = new User(NULL);
+foreach ($USER->all() as $users) {
+    ?>
                                                     <option value="<?php echo $users['id'] ?>"><?php echo $users['name'] ?></option>
                                                 <?php } ?>
                                             </select> 

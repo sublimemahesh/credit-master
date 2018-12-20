@@ -77,12 +77,13 @@ $USERS = new User(NULL);
                                                     <td><?php echo $users['name']; ?></td>  
                                                     <td><?php echo $users['username']; ?></td>
                                                     <td><?php
-                                                        if ($users['user_level'] == 1) {
-                                                            echo 'level 1';
-                                                        } elseif ($users['user_level'] == 2) {
-                                                            echo 'level 2';
-                                                        } else {
-                                                            echo 'level 3';
+                                                        $DEFAULTDATA = new DefaultData();
+
+                                                        $USERLEVEL = $DEFAULTDATA->GetUserLevels();
+                                                        foreach ($USERLEVEL as $key => $userlevel) {
+                                                            if ($users['user_level'] == $key) {
+                                                                echo $userlevel;
+                                                            }
                                                         }
                                                         ?></td>
 
@@ -102,6 +103,7 @@ $USERS = new User(NULL);
                                                 <th>ID</th>
                                                 <th>Name</th>  
                                                 <th>User Name</th>
+                                                <th>User Level</th>
                                                 <th>Email</th>
                                                 <th>Options</th> 
                                             </tr>

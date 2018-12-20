@@ -2,7 +2,12 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-$DEFDATA = new DefaultData();
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
+
+ 
 ?>
 
 <!DOCTYPE html>
@@ -196,7 +201,7 @@ $DEFDATA = new DefaultData();
                                             <select id="installment_type" name="installment_type" class="form-control installment_type" required="TRUE" id="installment_type">
                                                 <option value=""> -- Please Select Installment Type -- </option>
                                                 <?php
-                                                $INSTALLMENT_TYPES = $DEFDATA->getInstallmentType();
+                                                $INSTALLMENT_TYPES = $DEFAULTDATA->getInstallmentType();
                                                 foreach ($INSTALLMENT_TYPES as $key => $instrallment_type) {
                                                     ?>
                                                     <option value="<?php echo $key ?>"><?php echo $instrallment_type ?></option>
@@ -220,7 +225,7 @@ $DEFDATA = new DefaultData();
                                             <select id="loan_period" name="loan_period" class="form-control loan_period" required="TRUE" >
                                                 <option value=""> -- Please Select Loan Period -- </option>
                                                 <?php
-                                                $LOAN_PERIODS = $DEFDATA->getLoanPeriod();
+                                                $LOAN_PERIODS = $DEFAULTDATA->getLoanPeriod();
                                                 foreach ($LOAN_PERIODS as $key => $loan_period) {
                                                     ?>
                                                     <option  id="<?php echo 'period_' . $key ?>" value="<?php echo $key ?>" ><?php echo ' (' . $key . ' Days) - ' . $loan_period; ?></option>
@@ -255,7 +260,7 @@ $DEFDATA = new DefaultData();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="number" id="interest_rate"  name="interest_rate" placeholder="Enter The Interest Rate" value="<?php echo $DEFDATA->getDefaultInterestRate(); ?>"class="form-control interest_rate"  required="TRUE" autocomplete="off">
+                                            <input type="number" id="interest_rate"  name="interest_rate" placeholder="Enter The Interest Rate" value="<?php echo $DEFAULTDATA->getDefaultInterestRate(); ?>"class="form-control interest_rate"  required="TRUE" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
