@@ -55,7 +55,6 @@ $next = $ND->format('Y-m-d');
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
                 <!-- Manage Districts -->
