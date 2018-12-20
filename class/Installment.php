@@ -20,6 +20,8 @@ class Installment {
     public $time;
     public $paid_amount;
     public $additional_interest;
+    public $collector;
+    public $receipt_no;
 
     public function __construct($id) {
         if ($id) {
@@ -37,7 +39,8 @@ class Installment {
             $this->time = $result['time'];
             $this->paid_amount = $result['paid_amount'];
             $this->additional_interest = $result['additional_interest'];
-
+            $this->collector = $result['collector'];
+            $this->receipt_no = $result['receipt_no'];
 
             return $this;
         }
@@ -46,13 +49,15 @@ class Installment {
     public function create() {
 
 
-        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`time`,`paid_amount`,`additional_interest`) VALUES  ('"
+        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`time`,`paid_amount`,`additional_interest`,`collector`,`receipt_no`) VALUES  ('"
                 . $this->loan . "','"
                 . $this->installment_date . "','"
                 . $this->paid_date . "', '"
                 . $this->time . "', '"
                 . $this->paid_amount . "', '"
-                . $this->additional_interest . "')";
+                . $this->additional_interest . "', '"
+                . $this->collector . "', '"
+                . $this->receipt_no . "')";
 
 
         $db = new Database();
@@ -106,7 +111,9 @@ class Installment {
                 . "`installment_date` ='" . $this->installment_date . "', "
                 . "`paid_date` ='" . $this->paid_date . "', "
                 . "`paid_amount` ='" . $this->paid_amount . "', "
-                . "`additional_interest` ='" . $this->additional_interest . "' "
+                . "`additional_interest` ='" . $this->additional_interest . "', "
+                . "`collector` ='" . $this->collector . "', "
+                . "`receipt_no` ='" . $this->receipt_no . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
