@@ -200,7 +200,6 @@ class Loan {
 
     public function CheckGuarantor_2($guarantor_2) {
 
-
         $query = "SELECT count(`guarantor_2`)>=2 as count FROM `loan` WHERE `guarantor_2` = '" . $guarantor_2 . "'";
 
         $db = new Database();
@@ -215,7 +214,6 @@ class Loan {
     }
 
     public function CheckGuarantor_3($guarantor_3) {
-
 
         $query = "SELECT count(`guarantor_3`)>=2 as count FROM `loan` WHERE `guarantor_3` = '" . $guarantor_3 . "'";
 
