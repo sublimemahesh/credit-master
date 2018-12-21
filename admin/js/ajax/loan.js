@@ -802,7 +802,7 @@ window.onload = function () {
                 $('#guarantor-3').append(html);
 
             } else if (jsonStr.type == 'center') {
-                var html = '<option value="">' + ss + '</option>';
+              
 
                 $.each(jsonStr.data, function (i, data) {
                     html += '<option id="cu_' + data.id + '" value="' + data.id + '">';

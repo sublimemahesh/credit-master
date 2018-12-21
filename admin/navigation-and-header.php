@@ -273,6 +273,28 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
+                           local_library
+                        </i>
+                        <span>Account Type</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="create-account-type.php">
+                                <i class="material-icons">add</i>
+                                <span>Add New</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="manage-account-type.php">
+                                <i class="material-icons">list</i>
+                                <span>Manage</span>
+                            </a>
+                        </li> 
+                    </ul>
+                </li> 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
                             how_to_vote
                         </i>
                         <span>Collector Payment Detail</span>
