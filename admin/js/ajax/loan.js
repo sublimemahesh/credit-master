@@ -399,8 +399,6 @@ $(document).ready(function () {
     });
 
 
-
-
 ///remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
@@ -465,7 +463,7 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 customer: customer,
-                action: 'CHECK_CUSTOMER_HAS_ACTIVE_LOAN'
+                action: 'CHECKCUSTOMERHASACTIVELOAN'
             },
 
             dataType: "JSON",
@@ -524,8 +522,6 @@ $(document).ready(function () {
             }
 
         });
-
-
     });
 
 // Check guarantor 3
@@ -693,11 +689,13 @@ $(document).ready(function () {
 
 window.onload = function () {
 
+
+
     //get other page to issumode prices in onloard
 
     var issue_mode = document.getElementById("issue_mode_onloard").value;
     var loan_amount = document.getElementById("loan_amount").value;
-
+    alert();
 
     if (issue_mode == 'bank') {
 
@@ -764,14 +762,62 @@ window.onload = function () {
         });
     }
 
-    //get other page to issumode prices in onloard
-    var interest_rate = document.getElementById("interest_rate_onloard").value;
-    var period = document.getElementById("loan_period").value;
-    var numVal = document.getElementById("loan_amount").value;
-    var numVa2 = Number(interest_rate) / 100;
 
-    var month = (period / 30);
-    //cal Total value in month
-    var totalValue = (month * (numVal * numVa2));
-    document.getElementById("total").value = totalValue;
-}; 
+    var type = document.getElementById("registration_type").value;
+    var value = document.getElementById("center").value;
+    var ss = document.getElementById("ss").value;
+
+
+    var customer = document.getElementById("customer").value;
+
+    $('select#guarantor-2').find('option').each(function () {
+        alert($(this).val());
+        if ($(this).val() === customer) {
+            
+            $("#guarantor-2 option[id='cu_" + $(this).val() + "']").hide();
+        }
+    });
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            type: type,
+            value: value,
+            action: 'GETGURANTOR'
+        },
+
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.type == 'route') {
+                var html = '<option value="">' + ss2 + '</option>';
+                $.each(jsonStr.data, function (i, data) {
+                    html += '<option value="' + data.id + '">';
+                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
+                    html += '</option>';
+                });
+                $('#guarantor-2').empty();
+                $('#guarantor-2').append(html);
+                $('#guarantor-3').empty();
+                $('#guarantor-3').append(html);
+
+            } else if (jsonStr.type == 'center') {
+                var html = '<option value="">' + ss + '</option>';
+
+                $.each(jsonStr.data, function (i, data) {
+                    html += '<option id="cu_' + data.id + '" value="' + data.id + '">';
+                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
+                    html += '</option>';
+                });
+                $('#guarantor-2').empty();
+                $('#guarantor-2').append(html);
+                $('#guarantor-3').empty();
+                $('#guarantor-3').append(html);
+
+            }
+        }
+
+
+
+    });
+};

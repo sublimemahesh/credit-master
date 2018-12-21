@@ -22,15 +22,39 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
 if ($_POST['action'] == 'GETCUSTOMER') {
     header('Content-type: application/json');
+   
     if ($_POST['type'] == 'route') {
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomerByRoute($_POST['value']);
         echo json_encode(['type' => 'route', 'data' => $result]);
         exit();
     } else if ($_POST['type'] == 'center') {
+        
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
 
+        $CENTER = new Center($_POST['value']);
+        $leader = $CENTER->leader;
+        echo json_encode(['type' => 'center', 'data' => $result, 'leader' => $leader]);
+        exit();
+    }
+}
+ 
+if ($_POST['action'] == 'GETGURANTOR') {
+   
+    header('Content-type: application/json');
+    
+    if ($_POST['type'] == 'route') {
+        $CUSTOMER = new Customer(NULL);
+        $result = $CUSTOMER->getCustomerByRoute($_POST['value']);
+         
+        echo json_encode(['type' => 'route', 'data' => $result]);
+        exit();
+    } else if ($_POST['type'] == 'center') {
+         
+        $CUSTOMER = new Customer(NULL);
+        $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
+       
         $CENTER = new Center($_POST['value']);
         $leader = $CENTER->leader;
         echo json_encode(['type' => 'center', 'data' => $result, 'leader' => $leader]);
@@ -153,10 +177,7 @@ if ($_POST['action'] == 'ISSUE') {
 
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $CHECKGUARANTER = new Loan(NULl);
-
-
     $result = $CHECKGUARANTER->CheckGuarantor_2($_POST["guarantor_2"]);
-
 
     if ($result == TRUE) {
         $data = array("status" => TRUE);
@@ -183,7 +204,7 @@ if ($_POST['action'] == 'CHECKGUARANTER_3') {
     }
 }
 
-if ($_POST['action'] == 'CHECK_CUSTOMER_HAS_ACTIVE_LOAN') {
+if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
     $CHECKCUSTOMER = new Loan(NULl);
 
     $result = $CHECKCUSTOMER->CheckCustomerHasActiveLoan($_POST["customer"]);
@@ -228,7 +249,7 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
     }
 }
 
-//Before Delete CustomerCheck in loan
+//Before Delete Customer has loan
 
 if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
 

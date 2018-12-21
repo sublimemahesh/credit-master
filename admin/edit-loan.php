@@ -22,7 +22,7 @@ $CENTER = Center::all();
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Create New Loan  || Credit Master</title>
+        <title>Edit  Loan  || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -95,8 +95,9 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
-                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type"  disabled="">
+                                            <select class="form-control" autocomplete="off" id="registration_type"  name="registration_type" disabled="" >
                                                 <option value=""> -- Please Select Registration Type -- </option>
+
                                                 <?php
                                                 if ($CUSTOMER->registration_type == "route") {
                                                     ?>
@@ -162,9 +163,6 @@ $CENTER = Center::all();
                                         </div>
                                     </div>
                                 </div>
-
-
-
                                 <?php
                             } elseif ($CUSTOMER->center) {
                                 ?>
@@ -196,9 +194,6 @@ $CENTER = Center::all();
                                         </div>
                                     </div>
                                 </div>
-
-
-
                             <?php } ?>  
 
 
@@ -256,10 +251,8 @@ $CENTER = Center::all();
                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR1->surname));
                                                     echo $first_name . ' ' . $GR1->first_name . ' ' . $GR1->last_name;
                                                     ?>
-                                                </option> 
-                                                $GR2
-                                            </select>
-
+                                                </option>  
+                                            </select> 
                                         </div>
                                     </div>
                                 </div>
@@ -273,19 +266,16 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2"  >
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor-2"  name="guarantor_2" required="TRUE">
+                                                <option id="emptygr2" value=""> 
 
-                                                <option  id="emptygr2"  value="" selected="">
-                                                    <?php
-                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
-                                                    echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
-                                                    ?>
-                                                </option>
+                                                </option> 
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -295,12 +285,18 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
+                                            <input type="hidden" id="ss" value=" <?php
+                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
+                                            echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
+                                            ?>">
+                                            <input type="hidden" id="ss" value=" <?php
+                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
+                                            echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
+                                            ?>">
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor-3"  name="guarantor_3"  >
+
                                                 <option id="emptygr3" value="">
-                                                    <?php
-                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
-                                                    echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
-                                                    ?>
+
                                                 </option>  
                                             </select>
                                         </div>
@@ -534,6 +530,14 @@ $CENTER = Center::all();
                                         <input type="hidden" value="<?php echo $LOAN->id ?>" name="id">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
+                                        <input type="hidden" id="ss" value=" <?php
+                                        $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
+                                        echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
+                                        ?>">
+                                        <input type="hidden"   value=" <?php
+                                               $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
+                                               echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
+                                               ?>">
                                     </div> 
                                 </div> 
                             </div>
@@ -553,7 +557,8 @@ $CENTER = Center::all();
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
-        
+        <script src="js/ajax/loan.js" type="text/javascript"></script>
+         
         <script>
             $(function () {
                 $(".datepicker").datepicker({
