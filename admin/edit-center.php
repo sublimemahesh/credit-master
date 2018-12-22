@@ -206,6 +206,7 @@ $CENTER = new Center($id);
         <script src="js/demo.js"></script> 
         <script>
             $(document).ready(function () {
+               
                 $('#leader').change(function () {
                     var address = $('option:selected', this).attr('data-address');
                     $('#address').val(address);
