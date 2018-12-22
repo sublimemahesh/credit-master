@@ -6,6 +6,11 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+$id = '';
+$id = $_GET['id'];
+
+$ACCOUNT_TYPE = new AccountType($id);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Create New Account Type  || Credit Master</title>
+        <title>Edit Account Type  || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -43,10 +48,10 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Add New Account Type </h2>
+                        <h2>Edit Account Type </h2>
                         <ul class="header-dropdown">
                             <li class="">
-                                <a href="manage-account-type.php">
+                                <a href="manage-account-type.php ">
                                     <i class="material-icons">list</i> 
                                 </a>
                             </li>
@@ -63,7 +68,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="account_type" class="hidden-lg hidden-md">Account Type</label>
-                                            <input type="text" id="name"  name="name" placeholder="Enter Account Type" class="form-control" autocomplete="off">
+                                            <input type="text" id="name"  name="name" placeholder="Enter Account Type" class="form-control" value="<?php echo $ACCOUNT_TYPE->name ?>"autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +78,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div> 
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Save Details</button>
+                                    <input type="hidden" name="id" value="<?php echo $ACCOUNT_TYPE->id ?>">
                                 </div>
                             </div> 
                         </form> 
