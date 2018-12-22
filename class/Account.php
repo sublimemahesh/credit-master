@@ -89,10 +89,10 @@ class Account {
     public function update() {
 
         $query = "UPDATE  `account` SET "
-                . "`account_type` ='" . $this->accont_type . "', "
+                . "`account_type` ='" . $this->account_type . "', "
                 . "`user` ='" . $this->user . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 

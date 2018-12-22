@@ -78,7 +78,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                                     <td>#<?php echo $account_type['id']; ?></td>  
                                                     <td><?php echo $account_type['name']; ?></td>  
                                                     <td>
-                                                        <a href="create-account.php?id=<?php echo $account_type['id']; ?>"> <button class="glyphicon glyphicon-home  arrange-btn" title="Branch"></button></a> | 
+                                                        <a href="create-account.php?id=<?php echo $account_type['id']; ?>"> <button class="glyphicon glyphicon-hdd arrange-btn" title="Branch"></button></a> | 
 
                                                         <a href="edit-account-type.php?id=<?php echo $account_type['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a>
                                                         <a href="#"  class="delete-account-type" data-id="<?php echo $account_type['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>

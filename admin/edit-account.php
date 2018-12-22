@@ -11,8 +11,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 $id = '';
 $id = $_GET['id'];
-$ACCOUNT_TYPE = null;
-$ACCOUNT_TYPE = new AccountType($id);
+$ACCOUNTS = null;
+$ACCOUNTS = new Account($id);
 ?>
 
 <!DOCTYPE html>
@@ -21,7 +21,7 @@ $ACCOUNT_TYPE = new AccountType($id);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Add Account   || Credit Master</title>
+        <title>Edit Account   || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -52,7 +52,7 @@ $ACCOUNT_TYPE = new AccountType($id);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2><?php echo $ACCOUNT_TYPE->name ?>  </h2>
+                        <h2>Edit Account     </h2>
 
                     </div>
                     <div class="body">
@@ -68,10 +68,11 @@ $ACCOUNT_TYPE = new AccountType($id);
                                             <label for="account_type" class="hidden-lg hidden-md">Account Types</label>
                                             <select id="account_type"  name="account_type"   class="form-control" autocomplete="off"  >
                                                 <?php
+                                                $ACCOUNT_TYPE = new AccountType(NUll);
                                                 foreach ($ACCOUNT_TYPE->all()as $account_type) {
-                                                    if ($account_type['id'] == $ACCOUNT_TYPE->id) {
+                                                    if ($account_type['id'] == $ACCOUNTS->account_type) {
                                                         ?>
-                                                        <option selected="" value="<?php echo $ACCOUNT_TYPE->id ?>"> <?php echo $ACCOUNT_TYPE->name ?>   </option>
+                                                        <option selected="" value="<?php echo $account_type['id'] ?>"> <?php echo $account_type['name'] ?>   </option>
                                                         <?php
                                                     } else {
                                                         ?>
@@ -99,7 +100,7 @@ $ACCOUNT_TYPE = new AccountType($id);
                                                 <?php
                                                 foreach ($USERS->activeUsers() as $users) {
                                                     $name = $users['name'];
-                                                    if ($users['id'] == $USERS->id) {
+                                                    if ($users['id'] == $ACCOUNTS->user) {
                                                         ?>
                                                         <option selected="" value="<?php echo $users['id'] ?>" data-name="<?php echo $name ?>"  > <?php echo $users['username'] ?>   </option>
                                                     <?php } else { ?>
@@ -124,7 +125,10 @@ $ACCOUNT_TYPE = new AccountType($id);
                                         <div class="form-line">
                                             <label for="users_name" class="hidden-lg hidden-md">User Name</label>
 
-                                            <input type="text" id="users_name" value="<?php echo $USERS->name ?>"  class="form-control" />
+                                            <input type="text" id="users_name" value="<?php
+                                            $USERS = new User($ACCOUNTS->user);
+                                            echo $USERS->name
+                                            ?>"  class="form-control" />
                                         </div>
                                     </div>
                                 </div>
@@ -135,71 +139,14 @@ $ACCOUNT_TYPE = new AccountType($id);
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save </button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Save </button>
+                                    <input type="hidden" name="id" value="<?php echo $id ?>">
                                 </div>
                             </div>
                         </form> 
                     </div>
                 </div>
-                <div class="row clearfix">
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
-                        <div class="card">
-                            <div class="header">
-                                <h2>
-                                    Manage Account
-                                </h2>
-
-                            </div> 
-                            <div class="body">
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>User</th>                                                  
-                                                <th>User Name</th>                                                  
-                                                <th>Option</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $ACCOUNTS = new Account(NULL);
-                                            foreach ($ACCOUNTS->getAccountByAccountType($id) as $key => $accounts) {
-                                                ?>
-                                                <tr id="row_<?php echo $accounts['id']; ?>">
-                                                    <td>#<?php echo $accounts['id']; ?></td> 
-                                                    <td><?php
-                                                        $USER = new User($accounts ['user']);
-                                                        echo $USER->username;
-                                                        ?></td>  
-                                                    <td><?php echo $USER->name; ?></td>  
-
-                                                    <td>
-
-                                                        <a href="edit-account.php?id=<?php echo $accounts['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
-                                                        <a href="#"  class="delete-account" data-id="<?php echo $accounts['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
-
-                                                    </td> 
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>   
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>User</th>                                                  
-                                                <th>User Name</th>                                                  
-                                                <th>Option</th> 
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
 
 

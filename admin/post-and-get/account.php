@@ -7,7 +7,7 @@ if (isset($_POST['create'])) {
 
     $ACCOUNTS = new Account(NULL);
     $VALID = new Validator();
-   
+
     $ACCOUNTS->account_type = $_POST['account_type'];
     $ACCOUNTS->user = $_POST['user'];
 
@@ -44,15 +44,16 @@ if (isset($_POST['create'])) {
 if (isset($_POST['update'])) {
 
 
-    $ACCOUNTS = new AccountType($_POST['id']);
+    $ACCOUNTS = new Account($_POST['id']);
 
-    $ACCOUNTS->name = ucfirst($_POST['name']);
+    $ACCOUNTS->account_type = $_POST['account_type'];
+    $ACCOUNTS->user = $_POST['user'];
 
 
 
     $VALID = new Validator();
     $VALID->check($ACCOUNTS, [
-        'name' => ['required' => TRUE],
+        'account_type' => ['required' => TRUE],
     ]);
 
     if ($VALID->passed()) {
