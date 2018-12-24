@@ -533,7 +533,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-md-1 col-lg-1">
                                     <input
                                         type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">
-                                    <!--                                    <a href="add-new-bank.php" class="btn btn-md">+</a>-->
+<!--                                                                      <a href="add-new-bank.php" class="btn btn-md">+</a>-->
                                 </div>
                             </div>
 
