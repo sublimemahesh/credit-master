@@ -110,7 +110,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" autocomplete="off" min="0" step="0.001" >
+                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value=""autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>

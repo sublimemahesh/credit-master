@@ -6,7 +6,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
- 
+
 $INSTALLMENT = new Installment(NULL);
 $today = date("Y-m-d");
 
@@ -96,6 +96,7 @@ $next = $ND->format('Y-m-d');
                                                 <th>Registration Type</th>
                                                 <th>Time</th>
                                                 <th>Total Payment</th>
+                                                <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -153,6 +154,9 @@ $next = $ND->format('Y-m-d');
                                                     <td>
                                                         <?php echo $installment['paid_amount'] ?>
                                                     </td>
+                                                    <td>
+                                                        <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> 
+                                                    </td>
 
                                                 </tr>
                                                 <?php
@@ -168,6 +172,7 @@ $next = $ND->format('Y-m-d');
                                                 <th>Registration Type</th> 
                                                 <th>Time</th> 
                                                 <th>Total Payment</th> 
+                                                <th>Option</th>
                                             </tr>
                                         </tfoot>
                                     </table> 
