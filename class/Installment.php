@@ -22,6 +22,7 @@ class Installment {
     public $additional_interest;
     public $collector;
     public $receipt_no;
+    public $status;
 
     public function __construct($id) {
         if ($id) {
@@ -41,6 +42,7 @@ class Installment {
             $this->additional_interest = $result['additional_interest'];
             $this->collector = $result['collector'];
             $this->receipt_no = $result['receipt_no'];
+            $this->status = $result['status'];
 
             return $this;
         }
@@ -113,7 +115,8 @@ class Installment {
                 . "`paid_amount` ='" . $this->paid_amount . "', "
                 . "`additional_interest` ='" . $this->additional_interest . "', "
                 . "`collector` ='" . $this->collector . "', "
-                . "`receipt_no` ='" . $this->receipt_no . "' "
+                . "`receipt_no` ='" . $this->receipt_no . "', "
+                . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();

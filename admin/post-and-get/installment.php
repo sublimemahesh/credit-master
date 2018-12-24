@@ -56,6 +56,7 @@ if (isset($_POST['update'])) {
     $INSTALLMENT->paid_date = $_POST['paid_date'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
+    $INSTALLMENT->status = $_POST['status'];
 
     $VALID = new Validator();
     $VALID->check($INSTALLMENT, [
