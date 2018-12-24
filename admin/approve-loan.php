@@ -335,13 +335,44 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 <?php } ?>
 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label ">
+                                        <label for="issue_mode">Issue Mode</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
+                                                <select id="issue_mode" name="issue_mode" class="form-control" disabled="">
+                                                    <option value=""> -- Please Select Issue Mode -- </option>
+                                                    <?php
+                                                    $DEFULTDATA = new DefaultData(NULL);
 
+                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
+
+                                                        if ($key == $LOAN->issue_mode) {
+                                                            ?>
+                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+
+                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
+                                                </select>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row" style="display: none" id="loan_processing_pre">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="deductions">Loan Processing Fee</label>
                                     </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="deductions" class="hidden-lg hidden-md">Loan Processing Fee</label>
@@ -349,18 +380,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="deductions">Deductions</label>
-                                    </div>
-                                    <div  style="display: none" id="document_free">                                         
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Document Free" class="lable-top" >D: Fee</label>
-                                        </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  "  >
+                                        <div  style="display: none" id="document_free">   
 
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  "  >
                                             <div class="form-group">
                                                 <div class="form-line">
                                                     <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
@@ -369,27 +392,20 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
 
-                                    <div   style="display: none" id="cheque_free"> 
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Cheque Fee" >C: Fee</label>
-                                        </div>
+                                    <div  style="display: none" id="cheque_free"> 
+
                                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
                                             <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="cheque_free" class="hidden-lg hidden-md" class="lable-top">C: Fee</label>
+                                                <div class="form-line"> 
                                                     <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div   style="display: none" id="stamp_fee_amount">
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Stamp Fee" class="lable-top">St: Fee</label>
-                                        </div>
+                                    <div style="display: none" id="stamp_fee_amount"> 
                                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
                                             <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="Stamp Fee" class="hidden-lg hidden-md" class="lable-top">St: Fee</label>
+                                                <div class="form-line"> 
                                                     <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
@@ -593,93 +609,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="issue_mode">Issue Mode</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <select id="issue_mode" name="issue_mode" class="form-control">
-                                                    <option value=""> -- Please Select Issue Mode -- </option>
-                                                    <?php
-                                                    $DEFULTDATA = new DefaultData(NULL);
 
-                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
 
-                                                        if ($key == $LOAN->issue_mode) {
-                                                            ?>
-                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-
-                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="display: none" id="document_free">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="Document Fee">Document Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
-                                                <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="display: none" id="cheque_free">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="cheque_free">Cheque Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
-                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="row" style="display: none" id="stamp_fee_amount">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="Stamp Fee">Stamp Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
-                                                <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="display: none" id="loan_processing_pre">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="loan_processing_pre_amount">Loan Processing Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
                                 <div class="row">
@@ -3290,7 +3221,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <input type="submit" id="approve" class="btn btn-success" value="Approve Now"/> | 
                                             <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                             <input type="submit" id="pending" class="btn btn-info" value="Transfer to Verify"/> | 
-                                            <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/>
+                                            <input type="submit" id="delete" class="btn btn-danger" value="Delete Loan"/> | 
+                                            <a href="edit-loan.php?id=<?php echo $loan_id ?>"> <input type="submit"   class="btn btn-info" value="Edit Loan"/></a>
                                             <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
 
                                         </div>
