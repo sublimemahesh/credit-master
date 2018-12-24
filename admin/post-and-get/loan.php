@@ -118,9 +118,9 @@ if (isset($_POST['update'])) {
 
 if (isset($_POST['update-loan'])) {
 
-
+  
     $LOAN = new Loan($_POST['id']);
-    dd($_POST['guarantor_2']);
+   
     $LOAN->guarantor_2 = $_POST['guarantor_2'];
     $LOAN->guarantor_3 = $_POST['guarantor_3'];
     $LOAN->loan_amount = $_POST['loan_amount'];
@@ -128,6 +128,8 @@ if (isset($_POST['update-loan'])) {
     $LOAN->loan_period = $_POST['loan_period'];
     $LOAN->interest_rate = $_POST['interest_rate'];
     $LOAN->installment_type = $_POST['installment_type'];
+    $LOAN->number_of_installments = $_POST['number_of_installments'];
+    $LOAN->effective_date = $_POST['effective_date'];
 
 
     $VALID = new Validator();

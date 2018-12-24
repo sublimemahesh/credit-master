@@ -655,6 +655,94 @@ $(document).ready(function () {
         }
     });
 
+//issu mode get by class
+    $(`.issue_mode`).change(function () {
+
+        var issue_mode = $(this).val();
+        var loan_amount = $(`#loan_amount`).val();
+
+        if (issue_mode == 'cash') {
+
+
+
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
+            $(`#loan_processing_pre`).show();
+            $('#cheque_free').hide();
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
+
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+                }
+            });
+
+        } else if (issue_mode == 'bank') {
+
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
+            $(`#loan_processing_pre`).show();
+            $('#cheque_free').hide();
+
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
+
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+                }
+            });
+
+        } else if (issue_mode == 'cheque') {
+            $(`#document_free`).show();
+            $(`#stamp_fee_amount`).show();
+            $(`#loan_processing_pre`).show();
+            $(`#cheque_free`).show();
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    issue_mode: issue_mode,
+                    loan_amount: loan_amount,
+                    action: `lOANPROCESSINGPRE`
+
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    $('#document_free_amount').val(jsonStr.result['document_free']);
+                    $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
+
+                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+                }
+            });
+        } else {
+            $(`#document_free`).hide();
+            $(`#stamp_fee_amount`).hide();
+            $(`#loan_processing_pre`).hide();
+            $(`#cheque_free`).hide();
+        }
+    });
 
     ///Before delete Check Customer '
     $('.delete-customer').click(function () {
@@ -690,12 +778,10 @@ $(document).ready(function () {
 window.onload = function () {
 
 
-
-    //get other page to issumode prices in onloard
+    //get other page to issumode prices in onloard 
 
     var issue_mode = document.getElementById("issue_mode_onloard").value;
     var loan_amount = document.getElementById("loan_amount").value;
-    alert();
 
     if (issue_mode == 'bank') {
 
@@ -762,62 +848,17 @@ window.onload = function () {
         });
     }
 
+//get other page to issumode prices in onloard
+    var interest_rate = document.getElementById("interest_rate").value;
 
-    var type = document.getElementById("registration_type").value;
-    var value = document.getElementById("center").value;
-    var ss = document.getElementById("ss").value;
+    var period = document.getElementById("loan_period").value;
+    var numVal = document.getElementById("loan_amount").value;
+    var numVa2 = Number(interest_rate) / 100;
 
+    var month = (period / 30);
+    //cal Total value in month
+    var totalValue = parseFloat(numVal) + parseFloat((month * (numVal * numVa2)));
 
-    var customer = document.getElementById("customer").value;
+    document.getElementById("total").value = totalValue;
 
-    $('select#guarantor-2').find('option').each(function () {
-        alert($(this).val());
-        if ($(this).val() === customer) {
-            
-            $("#guarantor-2 option[id='cu_" + $(this).val() + "']").hide();
-        }
-    });
-
-    $.ajax({
-        url: "post-and-get/ajax/loan.php",
-        type: "POST",
-        data: {
-            type: type,
-            value: value,
-            action: 'GETGURANTOR'
-        },
-
-        dataType: "JSON",
-        success: function (jsonStr) {
-            if (jsonStr.type == 'route') {
-                var html = '<option value="">' + ss2 + '</option>';
-                $.each(jsonStr.data, function (i, data) {
-                    html += '<option value="' + data.id + '">';
-                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
-                    html += '</option>';
-                });
-                $('#guarantor-2').empty();
-                $('#guarantor-2').append(html);
-                $('#guarantor-3').empty();
-                $('#guarantor-3').append(html);
-
-            } else if (jsonStr.type == 'center') {
-              
-
-                $.each(jsonStr.data, function (i, data) {
-                    html += '<option id="cu_' + data.id + '" value="' + data.id + '">';
-                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
-                    html += '</option>';
-                });
-                $('#guarantor-2').empty();
-                $('#guarantor-2').append(html);
-                $('#guarantor-3').empty();
-                $('#guarantor-3').append(html);
-
-            }
-        }
-
-
-
-    });
 };
