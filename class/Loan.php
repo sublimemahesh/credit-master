@@ -178,7 +178,7 @@ class Loan {
                 . "`verify_comments` ='" . $this->verify_comments . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-        
+       
         $db = new Database();
         $result = $db->readQuery($query);
 

@@ -206,30 +206,12 @@ $CENTER = Center::all();
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
                                             <select class="form-control all-customers" autocomplete="off" id="customer" name="customer"   disabled="">
-                                                <?php
-                                                foreach ($CUSTOMER->getCustomrByCenter($CUSTOMER->center) as $customers) {
-
-                                                    if ($LOAN->customer == $customers['id']) {
-                                                        ?>
-                                                        <option value="<?php echo $LOAN->customer ?>" selected="">
-                                                            <?php
-                                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
-                                                            echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
-                                                            ?>   
-                                                        </option> 
-
-                                                    <?php } else { ?>
-
-                                                        <option value="<?php $customers['id'] ?>" >
-                                                            <?php
-                                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($customers['surname']));
-                                                            echo $first_name . ' ' . $customers['first_name'] . ' ' . $customers['last_name'];
-                                                            ?> 
-                                                        </option> 
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
+                                                <option value="<?php echo $LOAN->customer ?>" selected="">
+                                                    <?php
+                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                    echo $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                    ?>   
+                                                </option> 
                                             </select> 
                                         </div>
                                     </div>
@@ -244,14 +226,12 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
+                                            <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"   >
                                             <select class="form-control all-customers" disabled="" autocomplete="off" id="guarantor_1"  name="test"    >
-                                                <option  value="" selected="" id="emptygr1" >
-                                                    <?php
+                                                <option  value="" selected="" id="emptygr1" > <?php
                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR1->surname));
                                                     echo $first_name . ' ' . $GR1->first_name . ' ' . $GR1->last_name;
-                                                    ?>
-                                                </option>  
+                                                    ?></option>  
                                             </select> 
                                         </div>
                                     </div>
@@ -266,17 +246,38 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor-2"  name="guarantor_2" required="TRUE">
-                                                <option id="emptygr2" value=""> 
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2"  >
+                                                <?php
+                                                $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
 
-                                                </option> 
+                                                foreach ($guarantors as $guarantor) {
+
+                                                    $norAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_3);
+
+                                                    if (!in_array($guarantor['id'], $norAllowed)) {
+                                                        if ($LOAN->guarantor_2 === $guarantor['id']) {
+                                                            ?>
+                                                            <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
+                            </div> 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="guarantor_3">Guarantor 03</label>
@@ -284,20 +285,33 @@ $CENTER = Center::all();
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label>
-                                            <input type="hidden" id="ss" value=" <?php
-                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
-                                            echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
-                                            ?>">
-                                            <input type="hidden" id="ss" value=" <?php
-                                            $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
-                                            echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
-                                            ?>">
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor-3"  name="guarantor_3"  >
+                                            <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label> 
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
+                                                <?php
+                                                $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
+                                                foreach ($guarantors as $guarantor) {
 
-                                                <option id="emptygr3" value="">
+                                                    $norAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_2);
 
-                                                </option>  
+                                                    if (!in_array($guarantor['id'], $norAllowed)) {
+                                                        if ($LOAN->guarantor_3 === $guarantor['id']) {
+                                                            ?>
+                                                            <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                }
+                                                ?>
                                             </select>
                                         </div>
                                     </div>
@@ -390,7 +404,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="interest_rate" class="hidden-lg hidden-md">Interest Rate</label>
-                                            <input type="number" name="interest_rate"    id="interest_rate" placeholder="Enter The Interest Rate"  class="form-control interest_rate"  required="TRUE" autocomplete="off" value="<?php echo $LOAN->interest_rate ?>">
+                                            <input type="number" name="interest_rate"    id="interest_rate" placeholder="Enter The Interest Rate"  class="form-control interest_rate "  required="TRUE" autocomplete="off" value="<?php echo $LOAN->interest_rate ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -447,7 +461,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="effective_date" class="hidden-lg hidden-md">Effective Date</label>
-                                            <input type="text" id="effective_date"  name="effective_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="effective_date"  name="effective_date" value="<?php echo  $LOAN->effective_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -462,11 +476,32 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                            <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off"  >
+
+                                            <select id="issue_mode_onloard"    name="issue_mode" class="form-control issue_mode">
+                                                <option value=""> -- Please Select Issue Mode -- </option>
+                                                <?php
+                                                $issueModes = DefaultData::getLoanIssueMode();
+                                                foreach ($issueModes as $key => $issueMode) {
+
+                                                    if ($key == $LOAN->issue_mode) {
+                                                        ?>
+                                                        <option value="<?php echo $key ?>" selected=""><?php echo $issueMode ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?php echo $key ?>"><?php echo $issueMode ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
                                         </div>
+
                                     </div>
                                 </div>
                             </div>
+
+
                             <div class="row" style="display: none" id="document_free">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="Document Fee">Document Fee</label>
@@ -530,13 +565,14 @@ $CENTER = Center::all();
                                         <input type="hidden" value="<?php echo $LOAN->id ?>" name="id">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
-                                        <input type="hidden" id="ss" value=" <?php
-                                        $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
-                                        echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
+                                         
+                                        <input type="hidden" id="guarantor_3_name" name="" value=" <?php
+                                        $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
+                                        echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
                                         ?>">
-                                        <input type="hidden"   value=" <?php
-                                               $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
-                                               echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
+                                        <input type="hidden" id="guarantor_2_name" value=" <?php
+                                               $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
+                                               echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
                                                ?>">
                                     </div> 
                                 </div> 
@@ -558,7 +594,7 @@ $CENTER = Center::all();
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/ajax/loan.js" type="text/javascript"></script>
-         
+
         <script>
             $(function () {
                 $(".datepicker").datepicker({
