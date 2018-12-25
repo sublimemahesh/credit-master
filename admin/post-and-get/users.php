@@ -18,9 +18,7 @@ if (isset($_POST['add-user'])) {
 
     $handle = new Upload($_FILES['image_name']);
     $imgName = null;
-
-
-
+ 
     if ($handle->uploaded) {
         $handle->image_resize = true;
         $handle->file_new_name_ext = 'jpg';
@@ -39,7 +37,7 @@ if (isset($_POST['add-user'])) {
 
     $USERS->image_name = $imgName;
 
-    $USERS->create($_POST['name'], $_POST['email'], $_POST['user_name'], $_POST['user_level'], $imgName,$_POST['password']);
+    $USERS->create($_POST['name'], $_POST['email'], $_POST['user_name'], $_POST['user_level'], $imgName, $_POST['password']);
 
     if (!isset($_SESSION)) {
         session_start();
@@ -49,9 +47,6 @@ if (isset($_POST['add-user'])) {
 
     header('Location: ' . $_SERVER['HTTP_REFERER']);
 }
-
-
- 
 
 if (isset($_POST['update'])) {
 
@@ -121,4 +116,79 @@ if (isset($_POST['update'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
-} 
+}
+
+if (isset($_POST['edit-profile'])) {
+
+    $dir_dest = '../../upload/users/';
+
+    $handle = new Upload($_FILES['image_name']);
+    $USERS = new User($_POST['id']);
+
+    $imgName = $_POST ["oldImageName"];
+
+    if ($handle->file_src_size) {
+
+        if ($handle->uploaded) {
+            $handle->image_resize = true;
+
+            if ($_POST ["oldImageName"]) {
+                $handle->file_new_name_ext = FALSE;
+                $handle->file_new_name_body = $_POST ["oldImageName"];
+                $handle->file_overwrite = TRUE;
+            } else {
+                $handle->file_new_name_body = Helper::randamId();
+                $handle->file_new_name_ext = 'jpg';
+            }
+
+            $handle->image_ratio_crop = 'C';
+            $handle->image_x = 250;
+            $handle->image_y = 250;
+
+            $handle->Process($dir_dest);
+
+            if ($handle->processed) {
+
+                $info = getimagesize($handle->file_dst_pathname);
+
+                $imgName = $handle->file_dst_name;
+            }
+        }
+    }
+  
+    $USERS->name = $_POST['name'];
+    $USERS->image_name = $imgName;
+    $USERS->username = $_POST['username'];
+    $USERS->email = $_POST['email'];
+
+
+    $VALID = new Validator();
+    $VALID->check($USERS, [
+        'name' => ['required' => TRUE],
+        'username' => ['required' => TRUE],
+        'email' => ['required' => TRUE]
+    ]);
+
+    if ($VALID->passed()) {
+        $USERS->update();
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $VALID->addError("Your changes saved successfully", 'success');
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    } else {
+
+        if (!isset($_SESSION)) {
+            session_start();
+        }
+
+        $_SESSION['ERRORS'] = $VALID->errors();
+        header('Location: ' . $_SERVER['HTTP_REFERER']);
+    }
+}
+ 

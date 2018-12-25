@@ -242,9 +242,9 @@ class Customer {
     }
 
     public function getCustomrByCenter($center) {
- 
+
         $query = "SELECT * FROM `customer` WHERE `center` ='" . $center . "'  AND `is_active`=1";
-        
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -258,7 +258,7 @@ class Customer {
     public function getCustomerByRoute($route) {
 
         $query = "SELECT * FROM `customer` WHERE `route` ='" . $route . "' AND `is_active`=1";
-       
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -291,7 +291,10 @@ class Customer {
                 . "`first_name` ='" . $this->first_name . "', "
                 . "`last_name` ='" . $this->last_name . "', "
                 . "`surname` ='" . $this->surname . "', "
+                . "`profile_picture` ='" . $this->profile_picture . "', "
                 . "`nic_number` ='" . $this->nic_number . "', "
+                . "`nic_photo_front` ='" . $this->nic_photo_front . "', "
+                . "`nic_photo_back` ='" . $this->nic_photo_back . "', "
                 . "`dob_day` ='" . $this->dob_day . "', "
                 . "`dob_month` ='" . $this->dob_month . "', "
                 . "`dob_year` ='" . $this->dob_year . "', "
@@ -319,9 +322,10 @@ class Customer {
                 . "`branch_code` ='" . $this->branch_code . "', "
                 . "`account_number` ='" . $this->account_number . "', "
                 . "`holder_name` ='" . $this->holder_name . "', "
+                . "`bank_book_picture` ='" . $this->bank_book_picture . "', "
                 . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-        
+
 
         $db = new Database();
         $result = $db->readQuery($query);

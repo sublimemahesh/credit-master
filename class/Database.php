@@ -6,6 +6,7 @@
  * @author sublime holdings
  * @web www.sublime.lk
  * */
+
 class Database {
 
 //    private $host = 'localhost';
@@ -15,8 +16,7 @@ class Database {
     
   
     private $host = 'localhost';
-    private $name = 'credit-master';
-//     private $name = 'micro_credit';
+    private $name = 'credit-master'; 
     private $user = 'root';
     private $password = '';
 

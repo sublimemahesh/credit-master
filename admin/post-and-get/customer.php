@@ -9,25 +9,20 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER = New Customer(NULL);
     $VALID = new Validator();
 
-
-
     $telephone_numbers = null;
     $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
-     
-    $UPPERNIC = strtoupper($_POST['nic_number']);
-     
 
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = ucfirst($_POST['surname']);
     $CUSTOMER->first_name = ucfirst($_POST['first_name']);
     $CUSTOMER->last_name = ucfirst($_POST['last_name']);
-    $CUSTOMER->nic_number = $UPPERNIC;
+    $CUSTOMER->nic_number = strtoupper($_POST['nic_number']);
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
     $CUSTOMER->address_line_1 = ucfirst($_POST['address_line_1']);
     $CUSTOMER->address_line_2 = ucfirst($_POST['address_line_2']);
-    $CUSTOMER->address_line_3 =ucfirst($_POST['address_line_3']);
+    $CUSTOMER->address_line_3 = ucfirst($_POST['address_line_3']);
     $CUSTOMER->address_line_4 = ucfirst($_POST['address_line_4']);
     $CUSTOMER->address_line_5 = $_POST['address_line_5'];
     $CUSTOMER->billing_proof_image = $_POST['billing_proof_image'];
@@ -303,7 +298,7 @@ if (isset($_POST['add-customer'])) {
         $handle_sp->file_new_name_body = $img;
         $image_dst_x = $handle_sp->image_dst_x;
         $image_dst_y = $handle_sp->image_dst_y;
-        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+        $newSize = Helper::calImgResize(600, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
@@ -396,7 +391,7 @@ if (isset($_POST['add-customer'])) {
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
         'surname' => ['required' => TRUE],
-        'first_name' => ['required' => TRUE], 
+        'first_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
@@ -426,50 +421,60 @@ if (isset($_POST['add-customer'])) {
 }
 
 
-if (isset($_POST['update_input'])) {
+if (isset($_POST['update-cutomer'])) {
 /////////////////////////////////////
 
-    $dir_dest_p = '../../upload/customer/profile';
+    $CUSTOMER = new Customer($_POST['id']);
 
+    $dir_dest_p = '../../upload/customer/profile';
     $handle = new Upload($_FILES['profile_picture']);
 
-    $imgName = null;
-
-
     if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $_POST ["oldImageName"];
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+
+        if (empty($_POST["oldImageNamePro"])) {
+            $handle->image_resize = true;
+            $handle->file_new_name_ext = 'jpg';
+            $handle->image_ratio_crop = 'C';
+            $handle->file_new_name_body = Helper::randamId();
+            $handle->image_x = 250;
+            $handle->image_y = 250;
+        } else {
+            $handle->image_resize = true;
+            $handle->file_new_name_body = TRUE;
+            $handle->file_overwrite = TRUE;
+            $handle->file_new_name_ext = FALSE;
+            $handle->image_ratio_crop = 'C';
+            $handle->file_new_name_body = $_POST["oldImageNamePro"];
+            $handle->image_x = 250;
+            $handle->image_y = 250;
+        }
 
         $handle->Process($dir_dest_p);
 
-        if ($handle->processed) {
-
-            $info = getimagesize($handle->file_dst_pathname);
-
-            $imgName = $handle->file_dst_name;
-        }
+        $CUSTOMER->profile_picture = $handle->file_dst_name;
     }
-
 
     //////////////////////////////////////////////////
     $dir_dest_br = '../../upload/customer/br/';
     $dir_dest_br_thumb = '../../upload/customer/br/thumb/';
     $handle_br = new Upload($_FILES['br_picture']);
-    $imgName = null;
 
     if ($handle_br->uploaded) {
-        $handle_br->image_resize = true;
-        $handle_br->file_new_name_body = TRUE;
-        $handle_br->file_overwrite = TRUE;
-        $handle_br->file_new_name_ext = FALSE;
-        $handle_br->image_ratio_crop = 'C';
-        $handle_br->file_new_name_body = $_POST["oldImageNameBank"];
+
+        if (empty($_POST["oldImageNameBR"])) {
+            $handle_br->image_resize = true;
+            $handle_br->file_new_name_ext = 'jpg';
+            $handle_br->image_ratio_crop = 'C';
+            $handle_br->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_br->image_resize = true;
+            $handle_br->file_new_name_body = TRUE;
+            $handle_br->file_overwrite = TRUE;
+            $handle_br->file_new_name_ext = FALSE;
+            $handle_br->image_ratio_crop = 'C';
+            $handle_br->file_new_name_body = $_POST["oldImageNameBR"];
+        }
+
         $image_dst_x = $handle_br->image_dst_x;
         $image_dst_y = $handle_br->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
@@ -482,199 +487,223 @@ if (isset($_POST['update_input'])) {
 
         $handle_br->Process($dir_dest_br);
 
-        if ($handle_br->processed) {
-            $info = getimagesize($handle_br->file_dst_pathname);
-            $imgName = $handle_br->file_dst_name;
+        if (empty($_POST["oldImageNameBR"])) {
+            $handle_br->image_resize = true;
+            $handle_br->file_new_name_body = TRUE;
+            $handle_br->file_new_name_ext = FALSE;
+            $handle_br->image_ratio_crop = 'C';
+            $handle_br->file_new_name_body = $handle_br->file_dst_name;
+        } else {
+            $handle_br->image_resize = true;
+            $handle_br->file_new_name_body = TRUE;
+            $handle_br->file_overwrite = TRUE;
+            $handle_br->file_new_name_ext = FALSE;
+            $handle_br->image_ratio_crop = 'C';
+            $handle_br->file_new_name_body = $_POST["oldImageNameBR"];
         }
 
-        $handle_br->image_resize = true;
-        $handle_br->file_new_name_body = TRUE;
-        $handle_br->file_overwrite = TRUE;
-        $handle_br->file_new_name_ext = FALSE;
-        $handle_br->image_ratio_crop = 'C';
-        $handle_br->file_new_name_body = $_POST["oldImageNameBank"];
         $handle_br->image_x = 250;
         $handle_br->image_y = 250;
 
         $handle_br->Process($dir_dest_br_thumb);
 
-
-
-        if ($handle_br->processed) {
-
-            $info = getimagesize($handle_br->file_dst_pathname);
-
-            $imgName = $handle_br->file_dst_name;
-        }
+        $CUSTOMER->br_picture = $handle_br->file_dst_name;
     }
 
 
     /////////////////////////////////////////////////
     $dir_dest_nfp = '../../upload/customer/nfp/';
     $dir_dest_nfp_thumb = '../../upload/customer/nfp/thumb/';
-    $handle = new Upload($_FILES['nic_photo_front']);
-    $imgName = null;
+    $handle_nfp = new Upload($_FILES['nic_photo_front']);
 
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $_POST ["oldImageNameNfp"];
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
+    if ($handle_nfp->uploaded) {
+
+        if (empty($_POST["oldImageNameNfp"])) {
+            $handle_nfp->image_resize = true;
+            $handle_nfp->file_new_name_ext = 'jpg';
+            $handle_nfp->image_ratio_crop = 'C';
+            $handle_nfp->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_nfp->image_resize = true;
+            $handle_nfp->file_new_name_body = TRUE;
+            $handle_nfp->file_overwrite = TRUE;
+            $handle_nfp->file_new_name_ext = FALSE;
+            $handle_nfp->image_ratio_crop = 'C';
+            $handle_nfp->file_new_name_body = $_POST["oldImageNameNfp"];
+        }
+
+        $image_dst_x = $handle_nfp->image_dst_x;
+        $image_dst_y = $handle_nfp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
+        $handle_nfp->image_x = $image_x;
+        $handle_nfp->image_y = $image_y;
 
-        $handle->Process($dir_dest_nfp);
+        $handle_nfp->Process($dir_dest_nfp);
 
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $imgName = $handle->file_dst_name;
+        if (empty($_POST["oldImageNameNfp"])) {
+            $handle_nfp->image_resize = true;
+            $handle_nfp->file_new_name_body = TRUE;
+            $handle_nfp->file_new_name_ext = FALSE;
+            $handle_nfp->image_ratio_crop = 'C';
+            $handle_nfp->file_new_name_body = $handle_nfp->file_dst_name;
+        } else {
+            $handle_nfp->image_resize = true;
+            $handle_nfp->file_new_name_body = TRUE;
+            $handle_nfp->file_overwrite = TRUE;
+            $handle_nfp->file_new_name_ext = FALSE;
+            $handle_nfp->image_ratio_crop = 'C';
+            $handle_nfp->file_new_name_body = $_POST["oldImageNameNfp"];
         }
 
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $imgName;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+        $handle_nfp->image_x = 250;
+        $handle_nfp->image_y = 250;
 
-        $handle->Process($dir_dest_nfp_thumb);
+        $handle_nfp->Process($dir_dest_nfp_thumb);
 
-
-
-        if ($handle->processed) {
-
-            $info = getimagesize($handle->file_dst_pathname);
-
-            $imgName = $handle->file_dst_name;
-        }
+        $CUSTOMER->nic_photo_front = $handle_nfp->file_dst_name;
     }
 
     /////////////////////////////////////////////////////
     $dir_dest_nbp = '../../upload/customer/nbp/';
     $dir_dest_nbp_thumb = '../../upload/customer/nbp/thumb/';
-    $handle = new Upload($_FILES['nic_photo_back']);
-    $imgName = null;
+    $handle_nbp = new Upload($_FILES['nic_photo_back']);
 
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $_POST ["oldImageNameNbp"];
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
+    if ($handle_nbp->uploaded) {
+
+        if (empty($_POST["oldImageNameNbp"])) {
+            $handle_nbp->image_resize = true;
+            $handle_nbp->file_new_name_ext = 'jpg';
+            $handle_nbp->image_ratio_crop = 'C';
+            $handle_nbp->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_nbp->image_resize = true;
+            $handle_nbp->file_new_name_body = TRUE;
+            $handle_nbp->file_overwrite = TRUE;
+            $handle_nbp->file_new_name_ext = FALSE;
+            $handle_nbp->image_ratio_crop = 'C';
+            $handle_nbp->file_new_name_body = $_POST["oldImageNameNbp"];
+        }
+
+        $image_dst_x = $handle_nbp->image_dst_x;
+        $image_dst_y = $handle_nbp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
+        $handle_nbp->image_x = $image_x;
+        $handle_nbp->image_y = $image_y;
 
-        $handle->Process($dir_dest_nbp);
+        $handle_nbp->Process($dir_dest_nbp);
 
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $imgName = $handle->file_dst_name;
+        if (empty($_POST["oldImageNameNbp"])) {
+            $handle_nbp->image_resize = true;
+            $handle_nbp->file_new_name_body = TRUE;
+            $handle_nbp->file_new_name_ext = FALSE;
+            $handle_nbp->image_ratio_crop = 'C';
+            $handle_nbp->file_new_name_body = $handle_nbp->file_dst_name;
+        } else {
+            $handle_nbp->image_resize = true;
+            $handle_nbp->file_new_name_body = TRUE;
+            $handle_nbp->file_overwrite = TRUE;
+            $handle_nbp->file_new_name_ext = FALSE;
+            $handle_nbp->image_ratio_crop = 'C';
+            $handle_nbp->file_new_name_body = $_POST["oldImageNameNbp"];
         }
 
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $imgName;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
+        $handle_nbp->image_x = 250;
+        $handle_nbp->image_y = 250;
 
-        $handle->Process($dir_dest_nbp_thumb);
+        $handle_nbp->Process($dir_dest_nbp_thumb);
 
-
-
-        if ($handle->processed) {
-
-            $info = getimagesize($handle->file_dst_pathname);
-
-            $imgName = $handle->file_dst_name;
-        }
+        $CUSTOMER->nic_photo_back = $handle_nbp->file_dst_name;
     }
 
+    /////////////////////////////////////////////////
+
+    $dir_dest_bi = '../../upload/customer/billing-proof/';
+    $dir_dest_bi_thumb = '../../upload/customer/billing-proof/thumb/';
+    $handle_bpi = new Upload($_FILES['billing_proof_image']);
+
+    if ($handle_bpi->uploaded) {
+
+        if (empty($_POST["oldImageNameBI"])) {
+            $handle_bpi->image_resize = true;
+            $handle_bpi->file_new_name_ext = 'jpg';
+            $handle_bpi->image_ratio_crop = 'C';
+            $handle_bpi->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_bpi->image_resize = true;
+            $handle_bpi->file_new_name_body = TRUE;
+            $handle_bpi->file_overwrite = TRUE;
+            $handle_bpi->file_new_name_ext = FALSE;
+            $handle_bpi->image_ratio_crop = 'C';
+            $handle_bpi->file_new_name_body = $_POST["oldImageNameBI"];
+        }
+
+        $image_dst_x = $handle_bpi->image_dst_x;
+        $image_dst_y = $handle_bpi->image_dst_y;
+        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+
+        $image_x = (int) $newSize[0];
+        $image_y = (int) $newSize[1];
+
+        $handle_bpi->image_x = $image_x;
+        $handle_bpi->image_y = $image_y;
+
+        $handle_bpi->Process($dir_dest_bi);
+
+        if (empty($_POST["oldImageNameBI"])) {
+            $handle_bpi->image_resize = true;
+            $handle_bpi->file_new_name_body = TRUE;
+            $handle_bpi->file_new_name_ext = FALSE;
+            $handle_bpi->image_ratio_crop = 'C';
+            $handle_bpi->file_new_name_body = $handle_bpi->file_dst_name;
+        } else {
+            $handle_bpi->image_resize = true;
+            $handle_bpi->file_new_name_body = TRUE;
+            $handle_bpi->file_overwrite = TRUE;
+            $handle_bpi->file_new_name_ext = FALSE;
+            $handle_bpi->image_ratio_crop = 'C';
+            $handle_bpi->file_new_name_body = $_POST["oldImageNameBI"];
+        }
+
+        $handle_bpi->image_x = 250;
+        $handle_bpi->image_y = 250;
+
+        $handle_bpi->Process($dir_dest_bi_thumb);
+
+        $CUSTOMER->billing_proof_image = $handle_bpi->file_dst_name;
+    }
 
     ////////////////////////////////////////////////////
-    $dir_dest_bbp = '../../upload/customer/bbp/';
-    $dir_dest_bbp_thumb = '../../upload/customer/bbp/thumb/';
-    $handle = new Upload($_FILES['bank_book_picture']);
-    $imgName = null;
-
-    if ($handle->uploaded) {
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $_POST ["oldImageNameBBP"];
-        $image_dst_x = $handle->image_dst_x;
-        $image_dst_y = $handle->image_dst_y;
-        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
-
-        $image_x = (int) $newSize[0];
-        $image_y = (int) $newSize[1];
-
-        $handle->image_x = $image_x;
-        $handle->image_y = $image_y;
-
-        $handle->Process($dir_dest_bbp);
-
-        if ($handle->processed) {
-            $info = getimagesize($handle->file_dst_pathname);
-            $imgName = $handle->file_dst_name;
-        }
-
-        $handle->image_resize = true;
-        $handle->file_new_name_body = TRUE;
-        $handle->file_overwrite = TRUE;
-        $handle->file_new_name_ext = FALSE;
-        $handle->image_ratio_crop = 'C';
-        $handle->file_new_name_body = $imgName;
-        $handle->image_x = 250;
-        $handle->image_y = 250;
-
-        $handle->Process($dir_dest_bbp_thumb);
-        if ($handle->processed) {
-
-            $info = getimagesize($handle->file_dst_pathname);
-
-            $imgName = $handle->file_dst_name;
-        }
-    }
-    /////////////////////////////////////////////////
     $dir_dest_sp = '../../upload/customer/signature/';
     $dir_dest_sp_thumb = '../../upload/customer/signature/thumb/';
     $handle_sp = new Upload($_FILES['signature_image']);
-    $imgName = null;
 
     if ($handle_sp->uploaded) {
-        $handle_sp->image_resize = true;
-        $handle_sp->file_new_name_body = TRUE;
-        $handle_sp->file_overwrite = TRUE;
-        $handle_sp->file_new_name_ext = FALSE;
-        $handle_sp->image_ratio_crop = 'C';
-        $handle_sp->file_new_name_body = $_POST ["oldImageNameSP"];
+
+        if (empty($_POST["oldImageNameSP"])) {
+            $handle_sp->image_resize = true;
+            $handle_sp->file_new_name_ext = 'jpg';
+            $handle_sp->image_ratio_crop = 'C';
+            $handle_sp->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_sp->image_resize = true;
+            $handle_sp->file_new_name_body = TRUE;
+            $handle_sp->file_overwrite = TRUE;
+            $handle_sp->file_new_name_ext = FALSE;
+            $handle_sp->image_ratio_crop = 'C';
+            $handle_sp->file_new_name_body = $_POST["oldImageNameSP"];
+        }
+
         $image_dst_x = $handle_sp->image_dst_x;
         $image_dst_y = $handle_sp->image_dst_y;
-        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+        $newSize = Helper::calImgResize(600, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
@@ -684,92 +713,97 @@ if (isset($_POST['update_input'])) {
 
         $handle_sp->Process($dir_dest_sp);
 
-        if ($handle_sp->processed) {
-            $info = getimagesize($handle_sp->file_dst_pathname);
-            $imgName = $handle_sp->file_dst_name;
+        if (empty($_POST["oldImageNameSP"])) {
+            $handle_sp->image_resize = true;
+            $handle_sp->file_new_name_body = TRUE;
+            $handle_sp->file_new_name_ext = FALSE;
+            $handle_sp->image_ratio_crop = 'C';
+            $handle_sp->file_new_name_body = $handle_sp->file_dst_name;
+        } else {
+            $handle_sp->image_resize = true;
+            $handle_sp->file_new_name_body = TRUE;
+            $handle_sp->file_overwrite = TRUE;
+            $handle_sp->file_new_name_ext = FALSE;
+            $handle_sp->image_ratio_crop = 'C';
+            $handle_sp->file_new_name_body = $_POST["oldImageNameSP"];
         }
 
-        $handle_sp->image_resize = true;
-        $handle_sp->file_new_name_body = TRUE;
-        $handle_sp->file_overwrite = TRUE;
-        $handle_sp->file_new_name_ext = FALSE;
-        $handle_sp->image_ratio_crop = 'C';
-        $handle_sp->file_new_name_body = $_POST ["oldImageNameSP"];
         $handle_sp->image_x = 250;
         $handle_sp->image_y = 250;
 
         $handle_sp->Process($dir_dest_sp_thumb);
-        if ($handle_sp->processed) {
 
-            $info = getimagesize($handle_sp->file_dst_pathname);
-
-            $imgName = $handle_sp->file_dst_name;
-        }
+        $CUSTOMER->signature_image = $handle_sp->file_dst_name;
     }
 
-    /////////////////////////////////////////////////
+    /////////////////////////////
 
-    $dir_dest_bi = '../../upload/customer/billing-proof/';
-    $dir_dest_bi_thumb = '../../upload/customer/billing-proof/thumb/';
-    $handle_bi = new Upload($_FILES['billing_proof_image']);
-    $imgName = null;
+    $dir_dest_bbp = '../../upload/customer/bbp/';
+    $dir_dest_bbp_thumb = '../../upload/customer/bbp/thumb/';
+    $handle_bbp = new Upload($_FILES['bank_book_picture']);
 
-    if ($handle_bi->uploaded) {
-        $handle_bi->image_resize = true;
-        $handle_bi->file_new_name_body = TRUE;
-        $handle_bi->file_overwrite = TRUE;
-        $handle_bi->file_new_name_ext = FALSE;
-        $handle_bi->image_ratio_crop = 'C';
-        $handle_bi->file_new_name_body = $_POST ["oldImageNameBI"];
-        $image_dst_x = $handle_bi->image_dst_x;
-        $image_dst_y = $handle_bi->image_dst_y;
+    if ($handle_bbp->uploaded) {
+
+        if (empty($_POST["oldImageNameBBP"])) {
+            $handle_bbp->image_resize = true;
+            $handle_bbp->file_new_name_ext = 'jpg';
+            $handle_bbp->image_ratio_crop = 'C';
+            $handle_bbp->file_new_name_body = Helper::randamId();
+        } else {
+            $handle_bbp->image_resize = true;
+            $handle_bbp->file_new_name_body = TRUE;
+            $handle_bbp->file_overwrite = TRUE;
+            $handle_bbp->file_new_name_ext = FALSE;
+            $handle_bbp->image_ratio_crop = 'C';
+            $handle_bbp->file_new_name_body = $_POST["oldImageNameBBP"];
+        }
+
+        $image_dst_x = $handle_bbp->image_dst_x;
+        $image_dst_y = $handle_bbp->image_dst_y;
         $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
 
         $image_x = (int) $newSize[0];
         $image_y = (int) $newSize[1];
 
-        $handle_bi->image_x = $image_x;
-        $handle_bi->image_y = $image_y;
+        $handle_bbp->image_x = $image_x;
+        $handle_bbp->image_y = $image_y;
 
-        $handle_bi->Process($dir_dest_bi);
+        $handle_bbp->Process($dir_dest_bbp);
 
-        if ($handle_bi->processed) {
-            $info = getimagesize($handle_bi->file_dst_pathname);
-            $imgName = $handle_bi->file_dst_name;
+        if (empty($_POST["oldImageNameBBP"])) {
+            $handle_bbp->image_resize = true;
+            $handle_bbp->file_new_name_body = TRUE;
+            $handle_bbp->file_new_name_ext = FALSE;
+            $handle_bbp->image_ratio_crop = 'C';
+            $handle_bbp->file_new_name_body = $handle_bbp->file_dst_name;
+        } else {
+            $handle_bbp->image_resize = true;
+            $handle_bbp->file_new_name_body = TRUE;
+            $handle_bbp->file_overwrite = TRUE;
+            $handle_bbp->file_new_name_ext = FALSE;
+            $handle_bbp->image_ratio_crop = 'C';
+            $handle_bbp->file_new_name_body = $_POST["oldImageNameBBP"];
         }
 
-        $handle_bi->image_resize = true;
-        $handle_bi->file_new_name_body = TRUE;
-        $handle_bi->file_overwrite = TRUE;
-        $handle_bi->file_new_name_ext = FALSE;
-        $handle_bi->image_ratio_crop = 'C';
-        $handle_bi->file_new_name_body = $_POST ["oldImageNameBI"];
-        $handle_bi->image_x = 250;
-        $handle_bi->image_y = 250;
+        $handle_bbp->image_x = 250;
+        $handle_bbp->image_y = 250;
 
-        $handle_bi->Process($dir_dest_bi_thumb);
-        if ($handle_bi->processed) {
+        $handle_bbp->Process($dir_dest_bbp_thumb);
 
-            $info = getimagesize($handle_bi->file_dst_pathname);
-
-            $imgName = $handle_bi->file_dst_name;
-        }
+        $CUSTOMER->bank_book_picture = $handle_bbp->file_dst_name;
     }
-    /////////////////////////////
 
+    /////////////////////////////////////////////////
 
-    $CUSTOMER = new Customer($_POST['id']);
-
-    $UPPERNIC = strtoupper($_POST['nic_number']);
 
     $telephone_numbers = null;
     $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
-    
+
     $CUSTOMER->title = $_POST['title'];
     $CUSTOMER->surname = ucfirst($_POST['surname']);
     $CUSTOMER->first_name = ucfirst($_POST['first_name']);
     $CUSTOMER->last_name = ucfirst($_POST['last_name']);
-    $CUSTOMER->nic_number = $UPPERNIC;
+    $CUSTOMER->nic_number = strtoupper($_POST['nic_number']);
     $CUSTOMER->dob_day = $_POST['day'];
     $CUSTOMER->dob_month = $_POST['month'];
     $CUSTOMER->dob_year = $_POST['year'];
@@ -796,12 +830,11 @@ if (isset($_POST['update_input'])) {
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
 
-
     $VALID = new Validator();
     $VALID->check($CUSTOMER, [
         'title' => ['required' => TRUE],
         'surname' => ['required' => TRUE],
-        'first_name' => ['required' => TRUE], 
+        'first_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
@@ -809,8 +842,6 @@ if (isset($_POST['update_input'])) {
         'credit_limit' => ['required' => TRUE],
         'mobile' => ['required' => TRUE]
     ]);
-
-
 
     if ($VALID->passed()) {
         $CUSTOMER->update();

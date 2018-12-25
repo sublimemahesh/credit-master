@@ -6,7 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
-
 ?>
 
 <!DOCTYPE html>
@@ -173,42 +172,35 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="dob">Date of Birthday <span class="color-red"> *</span></label>
                                 </div>
-                                <div class="p-bottom">
-                                    <div class="form-group">
-                                        <div >
-                                            <label for="dob" class="hidden-lg hidden-md">Date of Birthday <span class="color-red"> *</span></label>
-
-                                            <div class="register-form-row-col">
-                                                <div class="col-md-3 mar-gin">
-                                                    <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month"  required="TRUE">
-                                                        <option value=""> - Select Month - </option>
-                                                        <option value="1">Jan</option>
-                                                        <option value="2">Feb</option>
-                                                        <option value="3">Mar</option>
-                                                        <option value="4">Apr</option>
-                                                        <option value="5">May</option>
-                                                        <option value="6">Jun</option>
-                                                        <option value="7">Jul</option>
-                                                        <option value="8">Aug</option>
-                                                        <option value="9">Sep</option>
-                                                        <option value="10">Oct</option>
-                                                        <option value="11">Nov</option>
-                                                        <option value="12">Dec</option>
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-3 mar-gin">
-                                                    <select id="day"  name="day" class="form-control form-line"  required="TRUE" >
-                                                        <option value=""> - Select Day - </option>
-
-                                                    </select>
-                                                </div>
-                                                <div class="col-md-4 mar-gin">
-                                                    <select id="year" name="year" onchange="call()" class="form-control form-line" required="TRUE" >
-                                                        <option value=""> - Select  Year - </option>
-                                                    </select>
-                                                </div>
-                                            </div>
-
+                                <div class="col-lg-10 col-md-10">
+                                    <div class="form-group"> 
+                                        <label for="dob" class="hidden-lg hidden-md">Date of Birthday <span class="color-red"> *</span></label> 
+                                        <div class="col-md-4">
+                                            <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month"  required="TRUE">
+                                                <option value=""> - Select Month - </option>
+                                                <option value="1">Jan</option>
+                                                <option value="2">Feb</option>
+                                                <option value="3">Mar</option>
+                                                <option value="4">Apr</option>
+                                                <option value="5">May</option>
+                                                <option value="6">Jun</option>
+                                                <option value="7">Jul</option>
+                                                <option value="8">Aug</option>
+                                                <option value="9">Sep</option>
+                                                <option value="10">Oct</option>
+                                                <option value="11">Nov</option>
+                                                <option value="12">Dec</option>
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="day"  name="day" class="form-control form-line"  required="TRUE" >
+                                                <option value=""> - Select Day - </option> 
+                                            </select>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <select id="year" name="year" onchange="call()" class="form-control form-line" required="TRUE" >
+                                                <option value=""> - Select  Year - </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -286,12 +278,27 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             </div>
 
                             <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="mobile">Mobile<span class="color-red"> *</span></label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="mobile" class="hidden-lg hidden-md">Mobile<span class="color-red"> *</span></label>
+                                            <input type="text" id="moblie_number"  name="mobile" required="TRUE" placeholder="Enter Mobile" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-lg-2 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="telephone">Telephone Numbers</label>
+                                    <label for="telephone1">Telephone</label>
                                 </div>
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
+                                            <label for="telephone1" class="hidden-lg hidden-md">Telephone</label>
                                             <input type="text" id="telephone1"  name="telephone1" placeholder="Enter Telephone Number 1" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
@@ -309,22 +316,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                             <input type="text" id="telephone3"  name="telephone3" placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
-                                </div>
-
-                            </div>
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="mobile">Mobile<span class="color-red"> *</span></label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="mobile" class="hidden-lg hidden-md">Mobile<span class="color-red"> *</span></label>
-                                            <input type="text" id="moblie_number"  name="mobile" required="TRUE" placeholder="Enter Mobile" class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="row">
@@ -385,7 +377,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit<span class="color-red"> *</span></label>
-                                            <input type="number" id="credit_limit" value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off" max="100000" step="0.001" >
+                                            <input type="number" id="credit_limit" value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off" max="<?php echo DefaultData::getCreditLimit(); ?>" step="0.001" >
                                         </div>
                                     </div>
                                 </div>
@@ -533,7 +525,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-md-1 col-lg-1">
                                     <input
                                         type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">
-<!--                                                                      <a href="add-new-bank.php" class="btn btn-md">+</a>-->
+                                    <!--                                                                      <a href="add-new-bank.php" class="btn btn-md">+</a>-->
                                 </div>
                             </div>
 

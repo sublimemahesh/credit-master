@@ -347,14 +347,12 @@ $CENTER = Center::all();
                                     <label for="telephone">Telephone Numbers</label>
                                 </div>
                                 <?php
-                                $telephone_number = null;
-                                $telephone_numbers = "$CUSTOMER->telephone";
-                                $telephone_number = split(",", $telephone_numbers);
+                                $telephone_number = split(",", $CUSTOMER->telephone);
                                 ?>
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="telephone1"  name="telephone1" value="<?php echo $telephone_number[0]; ?>" placeholder="Enter Telephone Number 1" class="form-control" autocomplete="off">
+                                            <input type="text" id="telephone1"  name="telephone1" value="<?php echo $telephone_number[0]; ?>" placeholder="Telephone Number 01" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -362,14 +360,10 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone2"  name="telephone2" value="<?php
-                                            if (empty($telephone_number[1])) {
-                                                echo '0';
-                                            } else {
-
+                                            if (!empty($telephone_number[1])) {
                                                 echo $telephone_number[1];
                                             }
-                                            ?>
-                                                   " placeholder="Enter Telephone Number 2" class="form-control" autocomplete="off">
+                                            ?>" placeholder="Telephone Number 02" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -377,14 +371,10 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone3"  name="telephone3"  value="<?php
-                                            if (empty($telephone_number[2])) {
-                                                echo '0';
-                                            } else {
-
+                                            if (!empty($telephone_number[2])) {
                                                 echo $telephone_number[2];
                                             }
-                                            ?>
-                                                   " placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
+                                            ?>" placeholder="Telephone Number 03" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -832,22 +822,21 @@ $CENTER = Center::all();
                                             <label for="rememberme" id="lable-active">Activate</label> </div>
                                     </div>
                                 </div>
-                            </div>
-
+                            </div> 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left " type="submit" name="update" >Update</button>
-                                    <input type="hidden" name="update_input" value="update"/>
+                                    <input type="hidden" name="update-cutomer" value="update"/>
                                     <input type="hidden" id="id" value="<?php echo $CUSTOMER->id; ?>" name="id"/>
-                                    <input type="hidden" id="oldImageName" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageName"/>
-                                    <input type="hidden" id="oldImageNameBank" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBank"/>
+                                    <input type="hidden" id="oldImageNamePro" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageNamePro"/>
                                     <input type="hidden" id="oldImageNameNfp" value="<?php echo $CUSTOMER->nic_photo_front; ?>" name="oldImageNameNfp"/>
                                     <input type="hidden" id="oldImageNameNbp" value="<?php echo $CUSTOMER->nic_photo_back; ?>" name="oldImageNameNbp"/>
+                                    <input type="hidden" id="oldImageNameBI" value="<?php echo $CUSTOMER->billing_proof_image; ?>" name="oldImageNameBI"/>
+                                    <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->signature_image; ?>" name="oldImageNameSP"/>  
+                                    <input type="hidden" id="oldImageNameBR" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBR"/>
                                     <input type="hidden" id="oldImageNameBBP" value="<?php echo $CUSTOMER->bank_book_picture; ?>" name="oldImageNameBBP"/> 
-                                    <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->signature_image; ?>" name="oldImageNameSP"/> 
-                                    <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->billing_proof_image; ?>" name="oldImageNameBI"/> 
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
                                 </div>
                             </div> 
