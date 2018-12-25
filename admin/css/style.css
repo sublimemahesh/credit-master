@@ -7496,8 +7496,7 @@ fieldset[disabled] .form-control {
     background: #fdfdfd;
     width: 300px;
     overflow: hidden;
-    display: inline-block;
-    height: calc(100vh - 70px);
+    display: inline-block; 
     position: fixed;
     top: 70px;
     left: 0;

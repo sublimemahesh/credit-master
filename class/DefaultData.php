@@ -61,7 +61,9 @@ class DefaultData {
         $words = explode(" ", $string);
         $result = '';
         foreach ($words as $word) {
-            $result .= $word[0] . '. ';
+            if (isset($word[0])) {
+                $result .= $word[0] . '. ';
+            }
         }
 
         return $result;

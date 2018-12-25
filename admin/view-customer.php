@@ -126,26 +126,30 @@ $CUSTOMER = new Customer($_GET['id']);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </div> 
                             </div>
-                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs  ">
-                                <label for="nic_photo_front">Profile Picture</label>
-                            </div>
-
-                            <div class="p-bottom">
-                                <div class="form-group">                                         
-                                    <label for="nic_photo_back" class="hidden-lg hidden-md">Profile Picture</label>
-                                    <div   class="list-unstyled row clearfix aniimated-thumbnials ">
+                            <div class="col-lg-4 col-md-4"> 
+                                <label for="nic_photo_back">Profile Picture</label> 
+                                <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                    <?php
+                                    $file_exists = file_exists('../upload/customer/profile/' . $CUSTOMER->profile_picture);
+                                    $empty = empty($CUSTOMER->profile_picture);
+                                    if (!$file_exists || $empty) {
+                                        ?>
+                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                        <?php
+                                    } else {
+                                        ?>
                                         <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
                                             <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
-                                        </a> 
-                                    </div>
-
+                                        </a>
+                                        <?php
+                                    }
+                                    ?> 
                                 </div>
-                            </div>
+                            </div> 
                         </div>
-                        <div class="row" class="list-unstyled   clearfix col-md-4">
+                        <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                 <label for="nic_photo_front">NIC Photos</label>
                             </div>
@@ -153,9 +157,21 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <div class="form-group">
                                     <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                         <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
-                                        <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html=" ">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
-                                        </a> 
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/nfp/' . $CUSTOMER->nic_photo_front);
+                                        $empty = empty($CUSTOMER->nic_photo_front);
+                                        if (!$file_exists || $empty) {
+                                            ?>
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                            </a>
+                                            <?php
+                                        }
+                                        ?>
                                     </div>
                                 </div>
                             </div>
@@ -163,86 +179,48 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <div class="form-group">
                                     <div  class="list-unstyled  clearfix aniimated-thumbnials">
                                         <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
-                                        <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html=" ">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
-                                        </a> 
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/nbp/' . $CUSTOMER->nic_photo_back);
+                                        $empty = empty($CUSTOMER->nic_photo_back);
+                                        if (!$file_exists || $empty) {
+                                            ?>
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                            </a>
+                                            <?php
+                                        }
+                                        ?> 
                                     </div>
                                 </div>
                             </div>
                         </div>
 
                         <div class="row">
-                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                            <div class="col-lg-2 col-md-2  hidden-sm hidden-xs form-control-label">
                                 <label for="dob">Date of Birthday</label>
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
-                                    <div class="">
-                                        <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                        <div class="register-form-row-col">
-                                            <div class="col-md-4">
-                                                <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month" disabled="">
-                                                    <option value="<?php echo $CUSTOMER->dob_month ?>"><?php
-                                                        if ($CUSTOMER->dob_month == 1) {
-                                                            echo 'Jan';
-                                                        } elseif ($CUSTOMER->dob_month == 2) {
-                                                            echo 'Feb';
-                                                        } elseif ($CUSTOMER->dob_month == 3) {
-                                                            echo 'Mar';
-                                                        } elseif ($CUSTOMER->dob_month == 4) {
-                                                            echo 'Apr';
-                                                        } elseif ($CUSTOMER->dob_month == 5) {
-                                                            echo 'May';
-                                                        } elseif ($CUSTOMER->dob_month == 6) {
-                                                            echo 'Jun';
-                                                        } elseif ($CUSTOMER->dob_month == 7) {
-                                                            echo 'Jul';
-                                                        } elseif ($CUSTOMER->dob_month == 8) {
-                                                            echo 'Aug';
-                                                        } elseif ($CUSTOMER->dob_month == 9) {
-                                                            echo 'Sep';
-                                                        } elseif ($CUSTOMER->dob_month == 10) {
-                                                            echo 'Oct';
-                                                        } elseif ($CUSTOMER->dob_month == 11) {
-                                                            echo 'Nov';
-                                                        } else {
-                                                            echo 'Dec';
-                                                        }
-                                                        ?></option>
-                                                    <option value="1">Jan</option>
-                                                    <option value="2">Feb</option>
-                                                    <option value="3">Mar</option>
-                                                    <option value="4">Apr</option>
-                                                    <option value="5">May</option>
-                                                    <option value="6">Jun</option>
-                                                    <option value="7">Jul</option>
-                                                    <option value="8">Aug</option>
-                                                    <option value="9">Sep</option>
-                                                    <option value="10">Oct</option>
-                                                    <option value="11">Nov</option>
-                                                    <option value="12">Dec</option>
-                                                </select>
-                                            </div>
-                                            <div class="col-md-3">
-                                                <select id="day"  name="day" class="form-control form-line" disabled="">
-                                                    <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
-
-                                                </select>
-                                            </div>
-                                            <div class="col-md-4">
-                                                <select name="year" onchange="call()" class="form-control form-line" disabled="">
-                                                    <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
-                                                </select>
-                                            </div>
-                                        </div>
+                                    <div class="form-line"> 
+                                        <label  class="hidden-lg hidden-md">Date of Birthday</label>
+                                        <?php
+                                        $dateObj = DateTime::createFromFormat('!m', $CUSTOMER->dob_month);
+                                        $monthName = $dateObj->format('F'); // March
+                                        ?> 
+                                        <div class="form-control"><?php echo $monthName . ' / ' . $CUSTOMER->dob_day . ' / ' . $CUSTOMER->dob_year; ?></div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> 
+
 
                         <div class="row">
-                            <div class="col-lg-2 col-md-2hidden-sm hidden-xs form-control-label">
-                                <label >Address</label>
+                            <div class="col-lg-2 col-md-2  hidden-sm hidden-xs form-control-label">
+                                <label for="">Address</label>
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
@@ -250,9 +228,26 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <label  class="hidden-lg hidden-md">Address</label>
                                         <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_1; ?></div>
                                         <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_2; ?></div>
-                                        <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_3; ?></div>
-                                        <div class="form-control " id="addres-bar"><?php echo $CUSTOMER->address_line_4; ?></div>
-                                        <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_5; ?></div>
+                                        <?php
+                                        if (!empty($CUSTOMER->address_line_3)) {
+                                            ?>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_3; ?></div>
+                                            <?php
+                                        }
+
+                                        if (!empty($CUSTOMER->address_line_4)) {
+                                            ?>
+                                            <div class="form-control " id="addres-bar"><?php echo $CUSTOMER->address_line_4; ?></div>
+                                            <?php
+                                        }
+
+                                        if (!empty($CUSTOMER->address_line_5)) {
+                                            ?>
+                                            <div class="form-control  " id="addres-bar"><?php echo $CUSTOMER->address_line_5; ?></div>
+                                            <?php
+                                        }
+                                        ?>
+
                                     </div>
                                 </div>
                             </div>
@@ -266,9 +261,21 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <div class="form-group">
                                     <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                         <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
-                                        <a href="../upload/customer/billing-proof/<?php echo $CUSTOMER->billing_proof_image ?>" data-sub-html=" ">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
-                                        </a> 
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/billing-proof/' . $CUSTOMER->billing_proof_image);
+                                        $empty = empty($CUSTOMER->billing_proof_image);
+                                        if (!$file_exists || $empty) {
+                                            ?>
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="../upload/customer/billing-proof/<?php echo $CUSTOMER->billing_proof_image ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
+                                            </a> 
+                                            <?php
+                                        }
+                                        ?>  
                                     </div>
                                 </div>
                             </div>
@@ -298,28 +305,25 @@ $CUSTOMER = new Customer($_GET['id']);
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line"> 
-                                        <input type="text" id="telephone1"  name="telephone1" value="<?php echo $telephone_number[0]; ?>" placeholder="Enter Telephone Number 1" class="form-control" autocomplete="off">
+                                        <div class="form-control" ><?php echo $telephone_number[0]; ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line"> 
-                                        <input type="text" id="telephone2"  name="telephone2" value="<?php echo $telephone_number[1]; ?>" placeholder="Enter Telephone Number 2" class="form-control" autocomplete="off">
+                                        <div class="form-control" ><?php echo $telephone_number[1]; ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line"> 
-                                        <input type="text" id="telephone3"  name="telephone3"  value="<?php echo $telephone_number[2]; ?>" placeholder="Enter Telephone Number 3" class="form-control" autocomplete="off">
+                                        <div class="form-control" ><?php echo $telephone_number[2]; ?></div>
                                     </div>
                                 </div>
-                            </div>
-
-                        </div>
-
-
+                            </div> 
+                        </div> 
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -344,12 +348,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-line">
                                         <label for="registration_type" class="hidden-lg hidden-md">Registration Type</label>
                                         <div class="form-control"><?php
-                            if ($CUSTOMER->registration_type == 1) {
-                                echo " Center Leader";
-                            } else {
-                                echo ucfirst($CUSTOMER->registration_type);
-                            }
-                            ?>
+                                            if ($CUSTOMER->registration_type == 1) {
+                                                echo " Center Leader";
+                                            } else {
+                                                echo ucfirst($CUSTOMER->registration_type);
+                                            }
+                                            ?>
 
                                         </div>
                                     </div>
@@ -391,9 +395,9 @@ $CUSTOMER = new Customer($_GET['id']);
                                         <div class="form-line">
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <div class="form-control"><?php
-                        $CENTER = new Center($CUSTOMER->center);
-                        echo $CENTER->name;
-                            ?></div>
+                                                $CENTER = new Center($CUSTOMER->center);
+                                                echo $CENTER->name;
+                                                ?></div>
                                         </div>
                                     </div>
                                 </div>
@@ -409,9 +413,9 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-line">
                                         <label for="city" class="hidden-lg hidden-md">City</label>
                                         <div class="form-control"><?php
-                        $CITY = new City($CUSTOMER->city);
-                        echo $CITY->name;
-                        ?></div>
+                                            $CITY = new City($CUSTOMER->city);
+                                            echo $CITY->name;
+                                            ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -438,10 +442,22 @@ $CUSTOMER = new Customer($_GET['id']);
                             <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                 <div class="form-group">
                                     <div  class="list-unstyled   clearfix aniimated-thumbnials">
-                                        <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
-                                        <a href="../upload/customer/signature/<?php echo $CUSTOMER->signature_image; ?>" data-sub-html="Signature Photo">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
-                                        </a> 
+                                        <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label> 
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/signature/' . $CUSTOMER->signature_image);
+                                        $empty = empty($CUSTOMER->signature_image);
+                                        if (!$file_exists || $empty) {
+                                            ?>
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="../upload/customer/signature/<?php echo $CUSTOMER->signature_image; ?>" data-sub-html="Signature Photo">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
+                                            </a>
+                                            <?php
+                                        }
+                                        ?>  
                                     </div>
                                 </div>
                             </div>
@@ -514,18 +530,22 @@ $CUSTOMER = new Customer($_GET['id']);
 
                                     <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                         <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                        <?php if (empty($CUSTOMER->br_picture)) {
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/br/' . $CUSTOMER->br_picture);
+                                        $empty = empty($CUSTOMER->br_picture);
+                                        if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
-
-                                        <?php } else { ?>
-
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
                                             <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
                                                 <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
                                             </a>
                                             <?php
                                         }
-                                        ?>
+                                        ?>  
+
                                     </div>
                                 </div>
                             </div>
@@ -632,9 +652,22 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <div class="form-group">
                                     <div class=" clearfix aniimated-thumbnials">
                                         <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                        <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
-                                        </a>  
+                                        <?php
+                                        $file_exists = file_exists('../upload/customer/bbp/' . $CUSTOMER->bank_book_picture);
+                                        $empty = empty($CUSTOMER->bank_book_picture);
+                                        if (!$file_exists || $empty) {
+                                            ?>
+                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <?php
+                                        } else {
+                                            ?>
+                                            <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
+                                                <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
+                                            </a>
+                                            <?php
+                                        }
+                                        ?> 
+
                                     </div>
                                 </div>
                             </div>

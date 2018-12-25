@@ -103,7 +103,7 @@ $USER = new User($id);
 
                             <div class="body row">
 
-                                <form class="form-horizontal col-sm-9 col-md-9" method="post" action="post-and-get/edit-profile.php" enctype="multipart/form-data"> 
+                                <form class="form-horizontal col-sm-9 col-md-9" method="post" action="post-and-get/users.php" enctype="multipart/form-data"> 
 
 
                                     <div class="row">
@@ -173,7 +173,7 @@ $USER = new User($id);
                                             <input type="hidden" id="id" value="<?php echo $USER->id; ?>" name="id"/>
                                             <input type="hidden" id="oldImageName" value="<?php echo $USERS->image_name; ?>" name="oldImageName"/>
                                             <input type="hidden" id="authToken" value="<?php echo $_SESSION["authToken"]; ?>" name="authToken"/>
-                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="submit" value="submit">Save Changes</button>
+                                            <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="edit-profile" value="edit-profile">Save Changes</button>
 
                                         </div>
                                     </div>
