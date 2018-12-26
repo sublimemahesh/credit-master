@@ -87,7 +87,7 @@ include_once(dirname(__FILE__) . '/auth.php');
         <!-- #User Info -->
         <!-- Menu -->
         <div class="menu">
-            <ul class="list">
+            <ul class="list" style="height: 490px;">
                 <li class="header">MAIN NAVIGATION</li>
                 <li class="active">
                     <a href="index.php">

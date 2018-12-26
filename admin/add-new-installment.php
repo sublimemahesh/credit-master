@@ -9,10 +9,13 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 $date = null;
 $id = null;
+
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
 } if (isset($_GET['loan'])) {
     $loan = $_GET['loan'];
+}if (isset($_GET['amount'])) {
+    $amount = $_GET['amount'];
 }
 ?>
 
@@ -110,7 +113,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value=""autocomplete="off" min="0" step="0.001" >
+                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value="<?php echo $amount ?>" autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>

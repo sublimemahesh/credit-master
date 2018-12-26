@@ -214,7 +214,7 @@ $today = date("Y-m-d");
                                                     //check payment button 
 
                                                     if ($date == $today) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 
@@ -226,7 +226,7 @@ $today = date("Y-m-d");
                                                         $date = $start->format('Y-m-d');
                                                     } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
 
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' .'&amount=' . $amount . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 
@@ -237,7 +237,7 @@ $today = date("Y-m-d");
                                                         $start->modify($date);
                                                         $date = $start->format('Y-m-d');
                                                     } elseif ($LOAN->installment_type == 1 && ($date == $today)) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } else {
@@ -248,7 +248,7 @@ $today = date("Y-m-d");
                                                     $x++;
                                                 }
                                                 echo '</tr>';
-                                            } 
+                                            }
                                             ?>
                                         </tbody>
                                         <tfoot>

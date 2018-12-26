@@ -343,6 +343,20 @@ $CENTER = Center::all();
                             </div>
 
                             <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="mobile">Mobile<span class="color-red"> *</span></label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="mobile" class="hidden-lg hidden-md">Mobile<span class="color-red"> *</span></label>
+                                            <input type="text" id="customer_moblie_number"  name="mobile" value="<?php echo $CUSTOMER->mobile ?>" class="form-control" autocomplete="off">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-lg-2 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="telephone">Telephone Numbers</label>
                                 </div>
@@ -382,19 +396,7 @@ $CENTER = Center::all();
                             </div>
 
 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="mobile">Mobile<span class="color-red"> *</span></label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="mobile" class="hidden-lg hidden-md">Mobile<span class="color-red"> *</span></label>
-                                            <input type="text" id="customer_moblie_number"  name="mobile" value="<?php echo $CUSTOMER->mobile ?>" class="form-control" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -443,9 +445,9 @@ $CENTER = Center::all();
 
 
                             <?php
-                            if ($CUSTOMER->route != 0) {
+                            if ($CUSTOMER->route) {
                                 ?>
-                                <div class="row" id="route_row">
+                                <div class="row"   id="route_row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="route">Route</label>
                                     </div>
@@ -453,8 +455,20 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
-                                                    <option> -- Please Select a Center -- </option>
+                                                <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                    <?php
+                                                    foreach ($ROUTE as $route) {
+                                                        if ($route['id'] == $CUSTOMER->route) {
+                                                            ?>
+                                                            <option value="<?php echo $route['id'] ?>" selected=""> <?php echo $route['name'] ?></option>
+                                                            <?php
+                                                        } else {
+                                                            ?>
+                                                            <option value="<?php echo $route['id'] ?>"> <?php echo $route['name'] ?></option>
+                                                            <?php
+                                                        }
+                                                    }
+                                                    ?>
                                                 </select>
                                             </div>
                                         </div>
@@ -489,7 +503,7 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                <select class="form-control" autocomplete="off" id="center"  name="center">  
+                                                <select class="form-control" autocomplete="off" id="center"   name="center">  
                                                     <?php
                                                     foreach ($CENTER as $center) {
                                                         if ($center['id'] == $CUSTOMER->center) {
@@ -584,6 +598,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <label for="signature_image" class="hidden-lg hidden-md">Signature Image</label>
                                         <input type="file" id="bank_book_picture"  name="signature_image"  class="form-control" autocomplete="off">
+
                                         <?php
                                         if ($CUSTOMER->signature_image) {
                                             ?>

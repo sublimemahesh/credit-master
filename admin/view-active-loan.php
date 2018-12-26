@@ -510,8 +510,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="" class="hidden-lg hidden-md">Installment Type</label>
                                                 <div class="form-control">
                                                     <?php
-                                                    $PR = DefaultData::getInstallmentType();
-                                                    echo $PR[$LOAN->installment_type];
+                                                    $PT = DefaultData::getInstallmentType();
+                                                    $pt = $PT[$LOAN->installment_type];
+                                                    echo $pt;
                                                     ?>
                                                 </div>
                                             </div>
@@ -585,22 +586,55 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+7 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
+
+                                                    $year = date("Y", strtotime($first_installment_date));
+                                                    $month = date("m", strtotime($first_installment_date));
+
+
+                                                    $dateObj = DateTime::createFromFormat('!m', $month);
+                                                    $monthName = $dateObj->format('F');
+
+                                                    $date = date("d", strtotime($first_installment_date));
+                                                    $dateObj = DateTime::createFromFormat('!d', $date);
+                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text" id="effective_date"  name="effective_date" value="<?php echo $first_installment_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                    <input type="text"    value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control" disabled="" autocomplete="off">
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 30) {
+
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
+                                                    $year = date("Y", strtotime($first_installment_date));
+                                                    $month = date("m", strtotime($first_installment_date));
+
+
+                                                    $dateObj = DateTime::createFromFormat('!m', $month);
+                                                    $monthName = $dateObj->format('F');
+
+                                                    $date = date("d", strtotime($first_installment_date));
+                                                    $dateObj = DateTime::createFromFormat('!d', $date);
+                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text" id="effective_date"  name="effective_date" value="<?php echo $first_installment_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                    <input type="text"   value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 1) {
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 months');
                                                     $first_installment_date = $FID->format('Y-m-d');
+
+                                                    $year = date("Y", strtotime($first_installment_date));
+                                                    $month = date("m", strtotime($first_installment_date));
+
+
+                                                    $dateObj = DateTime::createFromFormat('!m', $month);
+                                                    $monthName = $dateObj->format('F');
+
+                                                    $date = date("d", strtotime($first_installment_date));
+                                                    $dateObj = DateTime::createFromFormat('!d', $date);
+                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text" id="effective_date"  name="effective_date" value="<?php echo $first_installment_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                    <input type="text"   value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
 
                                                     <?php
                                                 }
@@ -869,12 +903,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div  class="list-unstyled row clearfix aniimated-thumbnials ">
                                             <?php if (empty($CUSTOMER->profile_picture)) {
                                                 ?>
-                                                <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                <img class="img-responsive thumbnail " src="../upload/sample.jpg">
 
                                             <?php } else { ?>
 
                                                 <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail  " src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
                                                 </a> 
                                                 <?php
                                             }
@@ -882,63 +916,64 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                <div class="row  ">
-                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label" style="margin-bottom: 0px;">
-                                        <label for="nic_photo_front" class="nic-padding">NIC Photos</label>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="nic_photo_front">NIC Photos(F/B)</label>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
+
                                                 <?php if (empty($CUSTOMER->nic_photo_front)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
 
                                                     <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
                                                     </a> 
                                                     <?php
                                                 }
                                                 ?>
-
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom  ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled  clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                                 <?php if (empty($CUSTOMER->nic_photo_back)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
                                                     </a> 
                                                     <?php
                                                 }
                                                 ?>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
 
-                                <div class="row"  style="margin-top: 20px;">
+
+                                <div class="row"  >
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="dob" style="margin-top: 30px;">Date of Birthday</label>
+                                        <label for="dob"  >Date of Birthday</label>
                                     </div><div class="  p-bottom">
                                         <div class="form-group"> 
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
                                                                 if ($CUSTOMER->dob_month == 1) {
@@ -971,14 +1006,14 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $CUSTOMER->dob_day; ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $CUSTOMER->dob_year; ?></div>
                                                         </div>
@@ -1017,12 +1052,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                                 <?php if (empty($CUSTOMER->billing_proof_image)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/billing-proof/<?php echo $CUSTOMER->billing_proof_image ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
                                                     </a>  
                                                     <?php
                                                 }
@@ -1032,6 +1067,26 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="city" class="hidden-lg hidden-md">City</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $CITY = new City($CUSTOMER->city);
+                                                    echo $CITY->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="email">Email</label>
@@ -1166,26 +1221,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>
                                     </div>
-                                <?php } ?>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="city">City</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="city" class="hidden-lg hidden-md">City</label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    $CITY = new City($CUSTOMER->city);
-                                                    echo $CITY->name;
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <?php } ?> 
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1211,12 +1247,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
                                                     <?php if (empty($CUSTOMER->signature_image)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/signature/<?php echo $CUSTOMER->signature_image; ?>" data-sub-html="Signature Photo">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
                                                         </a> 
                                                         <?php
                                                     }
@@ -1280,12 +1316,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                                 <?php if (empty($CUSTOMER->br_picture)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample-br.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
                                                     </a>
                                                     <?php
                                                 }
@@ -1381,12 +1417,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                                 <?php if (empty($CUSTOMER->bank_book_picture)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
                                                     </a>  
                                                     <?php
                                                 }
@@ -1398,6 +1434,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div> 
                             </div>
                         </div>
+
                         <div id="menu2" class="tab-pane fade">
                             <div class="body"> 
                                 <div class="row">
@@ -1478,7 +1515,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                         <?php if (empty($GR1->profile_picture)) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail " src="../upload/sample.jpg">
 
                                         <?php } else { ?>
 
@@ -1494,65 +1531,61 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row  ">
-                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label  " style="margin-bottom: 0px;">
-                                        <label for="nic_photo_front" class="nic-padding">NIC Photos</label>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="nic_photo_front">NIC Photos(F/B)</label>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled   clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
 
                                                 <?php if (empty($GR1->nic_photo_front)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/nfp/<?php echo $GR1->nic_photo_front; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
                                                     </a>
                                                     <?php
                                                 }
                                                 ?>
-
-
-
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom  ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled  clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                                 <?php if (empty($GR1->nic_photo_back)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/nbp/<?php echo $GR1->nic_photo_back; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
                                                     </a> 
                                                     <?php
                                                 }
                                                 ?>
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
 
-                                <div class="row" style="margin-top: 20px;">
+                                <div class="row" >
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="dob" style="margin-top: 30px;">Date of Birthday</label>
+                                        <label for="dob"  >Date of Birthday</label>
                                     </div>
                                     <div class=" p-bottom">
                                         <div class="form-group"> 
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
                                                                 if ($GR1->dob_month == 1) {
@@ -1585,14 +1618,14 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $GR1->dob_day; ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $GR1->dob_year; ?></div>
                                                         </div>
@@ -1620,6 +1653,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+                                
 
                                 <div class="row" class="list-unstyled   clearfix  ">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1631,12 +1665,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                                 <?php if (empty($GR1->billing_proof_image)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/billing-proof/<?php echo $GR1->billing_proof_image ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $GR1->billing_proof_image ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $GR1->billing_proof_image ?>">
                                                     </a>
                                                     <?php
                                                 }
@@ -1646,7 +1680,26 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-
+                                
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="city" class="hidden-lg hidden-md">City</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $CITY = new City($GR1->city);
+                                                    echo $CITY->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="email">Email</label>
@@ -1690,7 +1743,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     if (empty($telephone_number[1])) {
                                                         echo '0';
                                                     } else {
-
                                                         echo $telephone_number[1];
                                                     }
                                                     ?> 
@@ -1717,8 +1769,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
 
                                 </div>
-
-
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1777,24 +1827,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 <?php } ?>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="city">City</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="city" class="hidden-lg hidden-md">City</label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    $CITY = new City($GR1->city);
-                                                    echo $CITY->name;
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1822,12 +1855,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     <?php if (empty($GR1->signature_image)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/signature/<?php echo $GR1->signature_image; ?>" data-sub-html="Signature Photo">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $GR1->signature_image; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $GR1->signature_image; ?>">
                                                         </a> 
                                                         <?php
                                                     }
@@ -1892,12 +1925,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                                     <?php if (empty($GR1->br_picture)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/br/<?php echo $GR1->br_picture ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR1->br_picture ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $GR1->br_picture ?>">
                                                         </a>
                                                         <?php
                                                     }
@@ -1998,12 +2031,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                 <?php if (empty($GR1->bank_book_picture)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/bbp/<?php echo $GR1->bank_book_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR1->bank_book_picture; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $GR1->bank_book_picture; ?>">
                                                     </a>
                                                     <?php
                                                 }
@@ -2015,6 +2048,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div> 
                             </div>
                         </div>
+
                         <div id="menu3" class="tab-pane fade">
                             <div class="body"> 
                                 <div class="row">
@@ -2096,12 +2130,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div  class="list-unstyled row clearfix aniimated-thumbnials ">
                                             <?php if (empty($GR2->profile_picture)) {
                                                 ?>
-                                                <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                <img class="img-responsive thumbnail  " src="../upload/sample.jpg">
 
                                             <?php } else { ?>
 
                                                 <a href="../upload/customer/profile/<?php echo $GR2->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $GR2->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail " src="../upload/customer/profile/<?php echo $GR2->profile_picture; ?>">
                                                 </a> 
                                                 <?php
                                             }
@@ -2109,23 +2143,24 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                         </div>
                                     </div>
-                                </div
-                                <div class="row  ">
-                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label" style="margin-bottom: 0px;">
-                                        <label for="nic_photo_front" class="nic-padding">NIC Photos</label>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="nic_photo_front">NIC Photos(F/B)</label>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled   clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
 
                                                 <?php if (empty($GR2->nic_photo_front)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
                                                     <a href="../upload/customer/nfp/<?php echo $GR2->nic_photo_front; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $GR2->nic_photo_front; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $GR2->nic_photo_front; ?>">
                                                     </a> 
 
                                                     <?php
@@ -2134,31 +2169,31 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom  ">
+                                    <div class="col-lg-4 col-md-4 col-sm-6 col-xs-6 p-bottom">
                                         <div class="form-group">
-                                            <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
+                                            <div  class="list-unstyled  clearfix aniimated-thumbnials">
                                                 <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
-
                                                 <?php if (empty($GR2->nic_photo_back)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
                                                     <a href="../upload/customer/nbp/<?php echo $GR2->nic_photo_back; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $GR2->nic_photo_back; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $GR2->nic_photo_back; ?>">
                                                     </a>
 
                                                     <?php
                                                 }
-                                                ?>                                                
+                                                ?> 
                                             </div>
                                         </div>
                                     </div>
-                                </div>>
+                                </div>
 
 
 
-                                <div class="row" style="margin-top: 20px;">
+
+                                <div class="row" >
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="dob">Date of Birthday</label>
                                     </div>
@@ -2167,7 +2202,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                             <div class="register-form-row-col">
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
                                                                 if ($GR2->dob_month == 1) {
@@ -2200,14 +2235,14 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $GR2->dob_day; ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
                                                 <div class="col-md-3">
-                                                    <div class="form-group">
+                                                    <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php echo $GR2->dob_year; ?></div>
                                                         </div>
@@ -2247,11 +2282,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                                 <?php if (empty($GR2->billing_proof_image)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
                                                     <a href="../upload/customer/billing-proof/<?php echo $GR2->billing_proof_image ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $GR2->billing_proof_image ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $GR2->billing_proof_image ?>">
                                                     </a> 
 
                                                     <?php
@@ -2437,11 +2472,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     <?php if (empty($GR2->signature_image)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
                                                         <a href="../upload/customer/signature/<?php echo $GR2->signature_image; ?>" data-sub-html="Signature Photo">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $GR2->signature_image; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $GR2->signature_image; ?>">
                                                         </a> 
 
                                                         <?php
@@ -2508,12 +2543,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                                     <?php if (empty($GR2->br_picture)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR2->br_picture ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $GR2->br_picture ?>">
                                                         </a>
                                                         <?php
                                                     }
@@ -2615,12 +2650,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                 <?php if (empty($GR2->bank_book_picture)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
                                                     <a href="../upload/customer/bbp/<?php echo $GR2->bank_book_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR2->bank_book_picture; ?>">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $GR2->bank_book_picture; ?>">
                                                     </a>
                                                     <?php
                                                 }
@@ -2631,6 +2666,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>  
                             </div>
+                        </div>
                             <div id="menu4" class="tab-pane fade">
                                 <div class="body"> 
                                     <div class="row">
@@ -2733,12 +2769,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
                                                     <?php if (empty($GR3->nic_photo_front)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/nfp/<?php echo $GR3->nic_photo_front; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $GR3->nic_photo_front; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $GR3->nic_photo_front; ?>">
                                                         </a> 
                                                         <?php
                                                     }
@@ -2753,11 +2789,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                                     <?php if (empty($GR3->nic_photo_back)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/nbp/<?php echo $GR3->nic_photo_back; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $GR3->nic_photo_back; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $GR3->nic_photo_back; ?>">
                                                         </a> 
                                                         <?php
                                                     }
@@ -2769,7 +2805,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
 
 
-                                    <div class="row" style="margin-top: 20px;">
+                                    <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="dob">Date of Birthday</label>
                                         </div>
@@ -2778,7 +2814,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
                                                 <div class="register-form-row-col">
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group"  style="margin-top: -20px;">
                                                             <div class="form-line"> 
                                                                 <div class="form-control"><?php
                                                                     if ($GR3->dob_month == 1) {
@@ -2811,14 +2847,14 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         </div> 
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group"  style="margin-top: -20px;">
                                                             <div class="form-line"> 
                                                                 <div class="form-control"><?php echo $GR3->dob_day; ?></div>
                                                             </div>
                                                         </div> 
                                                     </div>
                                                     <div class="col-md-3">
-                                                        <div class="form-group">
+                                                        <div class="form-group"  style="margin-top: -20px;">
                                                             <div class="form-line"> 
                                                                 <div class="form-control"><?php echo $GR3->dob_year; ?></div>
                                                             </div>
@@ -2857,10 +2893,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                                     <?php if (empty($GR3->billing_proof_image)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                                     <?php } else { ?>
                                                         <a href="../upload/customer/billing-proof/<?php echo $GR3->billing_proof_image ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $GR3->billing_proof_image ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $GR3->billing_proof_image ?>">
                                                         </a> 
                                                         <?php
                                                     }
@@ -3045,11 +3081,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
                                                         <?php if (empty($GR3->signature_image)) {
                                                             ?>
-                                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                                         <?php } else { ?>
 
                                                             <a href="../upload/customer/signature/<?php echo $GR3->signature_image; ?>" data-sub-html="Signature Photo">
-                                                                <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $GR3->signature_image; ?>">
+                                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $GR3->signature_image; ?>">
                                                             </a> 
                                                             <?php
                                                         }
@@ -3114,12 +3150,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                                         <?php if (empty($GR3->br_picture)) {
                                                             ?>
-                                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                         <?php } else { ?>
 
                                                             <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
-                                                                <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $GR3->br_picture ?>">
+                                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $GR3->br_picture ?>">
                                                             </a>
                                                             <?php
                                                         }
@@ -3220,12 +3256,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                                     <?php if (empty($GR3->bank_book_picture)) {
                                                         ?>
-                                                        <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
                                                         <a href="../upload/customer/bbp/<?php echo $GR3->bank_book_picture; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $GR3->bank_book_picture; ?>">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $GR3->bank_book_picture; ?>">
                                                         </a>
                                                         <?php
                                                     }

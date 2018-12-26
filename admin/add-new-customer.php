@@ -442,12 +442,12 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="nature_of_business">Nature of Bsiness</label>
+                                    <label for="nature_of_business">Nature of Business</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Bsiness</label>
+                                            <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Business</label>
                                             <input type="text" id="nature_of_business"  name="nature_of_business" placeholder="Enter Nature of Bsiness" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
