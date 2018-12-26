@@ -179,6 +179,7 @@ class Loan {
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
        
+    
         $db = new Database();
         $result = $db->readQuery($query);
 

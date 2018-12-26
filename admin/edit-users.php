@@ -11,7 +11,7 @@ $id = '';
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
 }
-$USERS = new User($id);
+$USER = new User($id);
 ?> 
 ﻿<!DOCTYPE html>
 <html> 
@@ -72,7 +72,7 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="name" class="hidden-lg hidden-md">Name</label>
-                                                    <input type="text" id="name" class="form-control" placeholder="Enter your name" value="<?php echo $USERS->name; ?>"  name="name"  required="TRUE">
+                                                    <input type="text" id="name" class="form-control" placeholder="Enter your name" value="<?php echo $USER->name; ?>"  name="name"  required="TRUE">
                                                 </div>
                                             </div>
                                         </div>
@@ -86,7 +86,7 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="Username" class="hidden-lg hidden-md">Username</label>
-                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username" value="<?php echo $USERS->username; ?>" name="user_name" required="TRUE">
+                                                    <input type="text" id="username" class="form-control" placeholder="Enter your username" value="<?php echo $USER->username; ?>" name="user_name" required="TRUE">
                                                 </div>
                                             </div>
                                         </div>
@@ -100,7 +100,7 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="Email" class="hidden-lg hidden-md">Email</label>
-                                                    <input type="email" id="email" class="form-control" placeholder="Enter your email" value="<?php echo $USERS->email; ?>" name="email" required="TRUE">
+                                                    <input type="email" id="email" class="form-control" placeholder="Enter your email" value="<?php echo $USER->email; ?>" name="email" required="TRUE">
                                                 </div>
                                             </div>
                                         </div>
@@ -119,18 +119,18 @@ $USERS = new User($id);
 
                                                         $USERLEVEL = $DEFAULTDATA->GetUserLevels();
                                                         foreach ($USERLEVEL as $key => $userlevel) {
-                                                            if ($key == $USERS->user_level) {
+                                                            if ($key == $USER->user_level) {
                                                                 ?>
                                                                 <option value="<?php echo $key ?>" selected=""><?php echo $userlevel ?></option> 
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <option value="<?php echo $key ?>"><?php echo $userlevel?></option> 
+                                                                <option value="<?php echo $key ?>"><?php echo $userlevel ?></option> 
                                                                 <?php
                                                             }
                                                         }
                                                         ?>
-                                                        
+
                                                     </select> 
                                                 </div>
                                             </div>
@@ -145,7 +145,7 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class="form-line p-top ">
                                                     <label for="picture" class="hidden-lg hidden-md">Picture</label>
-                                                    <input type="file" id="picture" class="form-control" name="image_name" value="<?php echo $USERS->image_name ?>">
+                                                    <input type="file" id="picture" class="form-control" name="image_name" value="<?php echo $USER->image_name ?>">
                                                 </div>
                                             </div>
                                         </div>
@@ -159,7 +159,7 @@ $USERS = new User($id);
                                             <div class="form-group">
                                                 <div class=" p-top ">
                                                     <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                                    if ($USERS->isActive == 1) {
+                                                    if ($USER->isActive == 1) {
                                                         echo 'checked';
                                                     }
                                                     ?> name="is_active" value="1" id="rememberme" />
@@ -172,7 +172,7 @@ $USERS = new User($id);
                                         <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                         </div>  
                                         <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7 mar-gin">
-                                            <input type="hidden" id="oldImageName" value="<?php echo $USERS->image_name; ?>" name="oldImageName"/>
+                                            <input type="hidden" id="oldImageName" value="<?php echo $USER->image_name; ?>" name="oldImageName"/>
                                             <input type="hidden" id="id" value="<?php echo $id; ?>" name="id"/> 
 
                                             <button type="submit" class="btn btn-primary m-t-15 waves-effect" name="update" value="submit">Save Changes</button>

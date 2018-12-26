@@ -162,7 +162,7 @@ $(document).ready(function () {
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
         var verify_by = $('#verify_by').val();
-        var effective_date = $('#effective_date').val();
+        var effective_date = $('#effective_date').val();        
         var comments = $('#comments').val();
 
         swal({

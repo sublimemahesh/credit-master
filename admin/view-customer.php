@@ -151,7 +151,7 @@ $CUSTOMER = new Customer($_GET['id']);
                         </div>
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                <label for="nic_photo_front">NIC Photos</label>
+                                <label for="nic_photo_front">NIC Photos(F/B)</label>
                             </div>
                             <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom">
                                 <div class="form-group">
@@ -162,12 +162,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->nic_photo_front);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width " src="../upload/sample.jpg" >
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/nfp/<?php echo $CUSTOMER->nic_photo_front; ?>" data-sub-html=" ">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $CUSTOMER->nic_photo_front; ?>">
                                             </a>
                                             <?php
                                         }
@@ -184,12 +184,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->nic_photo_back);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/nbp/<?php echo $CUSTOMER->nic_photo_back; ?>" data-sub-html=" ">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $CUSTOMER->nic_photo_back; ?>">
                                             </a>
                                             <?php
                                         }
@@ -266,12 +266,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->billing_proof_image);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/billing-proof/<?php echo $CUSTOMER->billing_proof_image ?>" data-sub-html=" ">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $CUSTOMER->billing_proof_image ?>">
                                             </a> 
                                             <?php
                                         }
@@ -280,6 +280,24 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
                         </div>
+
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <label for="city">City</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="city" class="hidden-lg hidden-md">City</label>
+                                        <div class="form-control"><?php
+                                            $CITY = new City($CUSTOMER->city);
+                                            echo $CITY->name;
+                                            ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                 <label for="email">Email</label>
@@ -289,6 +307,20 @@ $CUSTOMER = new Customer($_GET['id']);
                                     <div class="form-line">
                                         <label for="email" class="hidden-lg hidden-md">Email</label>
                                         <div class="form-control"><?php echo $CUSTOMER->email; ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <label for="mobile">Mobile</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
+                                        <div class="form-control"><?php echo $CUSTOMER->mobile; ?></div>
                                     </div>
                                 </div>
                             </div>
@@ -325,19 +357,7 @@ $CUSTOMER = new Customer($_GET['id']);
                             </div> 
                         </div> 
 
-                        <div class="row">
-                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                <label for="mobile">Mobile</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
-                                        <div class="form-control"><?php echo $CUSTOMER->mobile; ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                        
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -404,22 +424,7 @@ $CUSTOMER = new Customer($_GET['id']);
                             </div>
                         <?php } ?>
 
-                        <div class="row">
-                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                <label for="city">City</label>
-                            </div>
-                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                <div class="form-group">
-                                    <div class="form-line">
-                                        <label for="city" class="hidden-lg hidden-md">City</label>
-                                        <div class="form-control"><?php
-                                            $CITY = new City($CUSTOMER->city);
-                                            echo $CITY->name;
-                                            ?></div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -448,12 +453,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->signature_image);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/signature/<?php echo $CUSTOMER->signature_image; ?>" data-sub-html="Signature Photo">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
+                                                <img class="img-responsive thumbnail image-width"  src="../upload/customer/signature/thumb/<?php echo $CUSTOMER->signature_image; ?>">
                                             </a>
                                             <?php
                                         }
@@ -462,8 +467,6 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
                         </div>
-
-
                     </div>
                 </div>
 
@@ -509,12 +512,12 @@ $CUSTOMER = new Customer($_GET['id']);
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                <label for="nature_of_business">Nature of Bsiness</label>
+                                <label for="nature_of_business">Nature of Business</label>
                             </div>
                             <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line">
-                                        <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Bsiness</label>
+                                        <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Business</label>
                                         <div class="form-control"><?php echo $CUSTOMER->nature_of_business; ?></div>
                                     </div>
                                 </div>
@@ -535,12 +538,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->br_picture);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/br/<?php echo $CUSTOMER->br_picture ?>" data-sub-html=" ">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $CUSTOMER->br_picture ?>">
                                             </a>
                                             <?php
                                         }
@@ -657,12 +660,12 @@ $CUSTOMER = new Customer($_GET['id']);
                                         $empty = empty($CUSTOMER->bank_book_picture);
                                         if (!$file_exists || $empty) {
                                             ?>
-                                            <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
                                             <?php
                                         } else {
                                             ?>
                                             <a href="../upload/customer/bbp/<?php echo $CUSTOMER->bank_book_picture; ?>" data-sub-html=" ">
-                                                <img class="img-responsive thumbnail" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
+                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $CUSTOMER->bank_book_picture; ?>">
                                             </a>
                                             <?php
                                         }

@@ -7496,7 +7496,7 @@ fieldset[disabled] .form-control {
     background: #fdfdfd;
     width: 300px;
     overflow: hidden;
-    display: inline-block; 
+    height: calc(110vh - 70px);
     position: fixed;
     top: 70px;
     left: 0;
@@ -8194,4 +8194,7 @@ html.ie11 .bs-searchbox .form-control {
 }
 #addres-bar{
     border-bottom: 1px solid #dddddd;
+}
+.image-width{
+    width: 100px;
 }
