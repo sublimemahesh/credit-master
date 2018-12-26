@@ -248,27 +248,55 @@ $CENTER = Center::all();
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
                                             <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2"  >
                                                 <?php
-                                                $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
+                                                if ($CUSTOMER->center) {
+                                                    $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
 
-                                                foreach ($guarantors as $guarantor) {
+                                                    foreach ($guarantors as $guarantor) {
 
-                                                    $norAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_3);
+                                                        $notAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_3);
 
-                                                    if (!in_array($guarantor['id'], $norAllowed)) {
-                                                        if ($LOAN->guarantor_2 === $guarantor['id']) {
-                                                            ?>
-                                                            <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
-                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
-                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
-                                                                ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option id="<?php echo $guarantor['id']; ?>"><?php
-                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
-                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
-                                                                ?></option>
-                                                            <?php
+                                                        if (!in_array($guarantor['id'], $notAllowed)) {
+                                                            if ($LOAN->guarantor_2 === $guarantor['id']) {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                    }
+                                                } else {
+
+                                                    $guarantors = $CUSTOMER->getCustomerByRoute($CUSTOMER->route);
+
+                                                    foreach ($guarantors as $guarantor) {
+
+                                                        $notAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_3);
+
+                                                        if (!in_array($guarantor['id'], $notAllowed)) {
+                                                            if ($LOAN->guarantor_2 === $guarantor['id']) {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -288,26 +316,53 @@ $CENTER = Center::all();
                                             <label for="guarantor_3" class="hidden-lg hidden-md">Guarantor 03</label> 
                                             <select class="form-control all-customers" autocomplete="off" id="guarantor_3"  name="guarantor_3"  >
                                                 <?php
-                                                $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
-                                                foreach ($guarantors as $guarantor) {
+                                                if ($CUSTOMER->center) {
+                                                    $guarantors = $CUSTOMER->getCustomrByCenter($CUSTOMER->center);
+                                                    foreach ($guarantors as $guarantor) {
 
-                                                    $norAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_2);
+                                                        $norAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_2);
 
-                                                    if (!in_array($guarantor['id'], $norAllowed)) {
-                                                        if ($LOAN->guarantor_3 === $guarantor['id']) {
-                                                            ?>
-                                                            <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
-                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
-                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
-                                                                ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-                                                            <option id="<?php echo $guarantor['id']; ?>"><?php
-                                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
-                                                                echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
-                                                                ?></option>
-                                                            <?php
+                                                        if (!in_array($guarantor['id'], $norAllowed)) {
+                                                            if ($LOAN->guarantor_3 === $guarantor['id']) {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            }
+                                                        }
+                                                    }
+                                                } else {
+                                                    $guarantors = $CUSTOMER->getCustomerByRoute($CUSTOMER->route);
+
+                                                    foreach ($guarantors as $guarantor) {
+
+                                                        $notAllowed = array($LOAN->customer, $LOAN->guarantor_1, $LOAN->guarantor_2);
+
+                                                        if (!in_array($guarantor['id'], $notAllowed)) {
+                                                            if ($LOAN->guarantor_2 === $guarantor['id']) {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            } else {
+                                                                ?>
+                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
+                                                                    echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
+                                                                    ?></option>
+                                                                <?php
+                                                            }
                                                         }
                                                     }
                                                 }
@@ -461,7 +516,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="effective_date" class="hidden-lg hidden-md">Effective Date</label>
-                                            <input type="text" id="effective_date"  name="effective_date" value="<?php echo  $LOAN->effective_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -565,7 +620,7 @@ $CENTER = Center::all();
                                         <input type="hidden" value="<?php echo $LOAN->id ?>" name="id">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
-                                         
+
                                         <input type="hidden" id="guarantor_3_name" name="" value=" <?php
                                         $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
                                         echo $first_name . ' ' . $GR2->first_name . ' ' . $GR2->last_name;
