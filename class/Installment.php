@@ -183,6 +183,20 @@ class Installment {
         return $row;
     }
 
+    public function getAmountByLoanId($loan_id) {
+
+
+        $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `loan` ='" . $loan_id . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_row($result);
+
+        return $row;
+    }
+
     public function getAllPaymentsByPaidDate($date) {
 
 

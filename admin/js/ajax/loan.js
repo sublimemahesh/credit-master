@@ -162,7 +162,7 @@ $(document).ready(function () {
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
         var verify_by = $('#verify_by').val();
-        var effective_date = $('#effective_date').val();        
+        var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
 
         swal({
@@ -795,7 +795,6 @@ window.onload = function () {
                 issue_mode: issue_mode,
                 loan_amount: loan_amount,
                 action: `lOANPROCESSINGPRE`
-
             },
             dataType: "JSON",
             success: function (jsonStr) {
@@ -804,6 +803,7 @@ window.onload = function () {
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
+
     } else if (issue_mode == 'cash') {
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
@@ -815,7 +815,6 @@ window.onload = function () {
                 issue_mode: issue_mode,
                 loan_amount: loan_amount,
                 action: `lOANPROCESSINGPRE`
-
             },
             dataType: "JSON",
             success: function (jsonStr) {
@@ -824,6 +823,8 @@ window.onload = function () {
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
+
+
     } else if (issue_mode == 'cheque') {
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
@@ -848,7 +849,37 @@ window.onload = function () {
         });
     }
 
-//get other page to issumode prices in onloard
+
+
+
+//get last loan amount by customer
+
+    var customer_id = document.getElementById("customer_id").value;
+    var loan_amount = document.getElementById("loan_amount").value;
+    var issue_mode = document.getElementById("issue_mode_onloard").value;
+    var interest_rate = document.getElementById("interest_rate").value;
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            interest_rate: interest_rate,
+            issue_mode: issue_mode,
+            customer_id: customer_id,
+            loan_amount: loan_amount,
+            action: `LASTLOANAMOUNT`
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+
+            document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
+            document.getElementById("total_deductions").value = jsonStr.total_deductions;
+            document.getElementById("balance_pay").value = jsonStr.balance_pay;
+        }
+    });
+
+
+
     var interest_rate = document.getElementById("interest_rate").value;
 
     var period = document.getElementById("loan_period").value;
@@ -858,7 +889,9 @@ window.onload = function () {
     var month = (period / 30);
     //cal Total value in month
     var totalValue = parseFloat(numVal) + parseFloat((month * (numVal * numVa2)));
-
     document.getElementById("total").value = totalValue;
 
+
 };
+
+

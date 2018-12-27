@@ -22,14 +22,14 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
 if ($_POST['action'] == 'GETCUSTOMER') {
     header('Content-type: application/json');
-   
+
     if ($_POST['type'] == 'route') {
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomerByRoute($_POST['value']);
         echo json_encode(['type' => 'route', 'data' => $result]);
         exit();
     } else if ($_POST['type'] == 'center') {
-        
+
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
 
@@ -39,22 +39,22 @@ if ($_POST['action'] == 'GETCUSTOMER') {
         exit();
     }
 }
- 
+
 if ($_POST['action'] == 'GETGURANTOR') {
-   
+
     header('Content-type: application/json');
-    
+
     if ($_POST['type'] == 'route') {
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomerByRoute($_POST['value']);
-         
+
         echo json_encode(['type' => 'route', 'data' => $result]);
         exit();
     } else if ($_POST['type'] == 'center') {
-         
+
         $CUSTOMER = new Customer(NULL);
         $result = $CUSTOMER->getCustomrByCenter($_POST['value']);
-       
+
         $CENTER = new Center($_POST['value']);
         $leader = $CENTER->leader;
         echo json_encode(['type' => 'center', 'data' => $result, 'leader' => $leader]);
@@ -265,5 +265,114 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
         header('Content-type: application/json');
         exit();
     }
-} 
- 
+}
+
+
+//get Customer last loan amount
+
+
+if ($_POST['action'] == 'LASTLOANAMOUNT') {
+
+    $amount = $_POST['loan_amount'];
+    $interest_rate = $_POST['interest_rate'];
+
+    if ($_POST['issue_mode'] == 'cash') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $LOAN = new Loan(NULL);
+        $INSTALLMENT = new Installment(NULL);
+
+        $result = $DEFULTDATA->loanProcessingPreCash($amount);
+        $loan = $LOAN->getLoanDetailsByCustomer($_POST["customer_id"]);
+        $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
+
+
+        //get total loan amount in customer
+        $total_loan_amount = $amount += ($loan[1] * $interest_rate) / 100;
+
+        $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
+
+        //check paid amount has loan
+        if ($total_loan_amount != $balance_in_last_loan) {
+            //total deduction 
+            $total_deduction = ($balance_in_last_loan + $result["total"]);
+            $loan_amount = $_POST['loan_amount'];
+            $balance_pay = $loan_amount - $total_deduction;
+
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => $balance_pay, 'total_deductions' => $total_deduction]);
+            header('Content-type: application/json');
+            exit();
+        } else {
+            echo json_encode(['balance_of_last_loan' => 0, 'balance_pay' => 0, 'total_deductions' => 0]);
+            header('Content-type: application/json');
+            exit();
+        }
+    } else if ($_POST['issue_mode'] == 'bank') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $LOAN = new Loan(NULL);
+        $INSTALLMENT = new Installment(NULL);
+
+        $result = $DEFULTDATA->loanProcessingPreBank($amount);
+        $loan = $LOAN->getLoanDetailsByCustomer($_POST["customer_id"]);
+
+        $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
+
+
+        //get total loan amount in customer
+        $total_loan_amount = $amount += ($loan[1] * $interest_rate) / 100;
+
+        //balance in loan
+        $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
+
+        //check paid amount has loan
+        if ($total_loan_amount != $balance_in_last_loan) {
+            //total deduction 
+            $total_deduction = ($balance_in_last_loan + $result["total"]);
+            $loan_amount = $_POST['loan_amount'];
+            $balance_pay = $loan_amount - $total_deduction;
+
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => $balance_pay, 'total_deductions' => $total_deduction]);
+            header('Content-type: application/json');
+            exit();
+        } else {
+            echo json_encode(['balance_of_last_loan' => 0, 'balance_pay' => 0, 'total_deductions' => 0]);
+            header('Content-type: application/json');
+            exit();
+        }
+    } else if ($_POST['issue_mode'] == 'cheque') {
+
+        $DEFULTDATA = new DefaultData(NULL);
+        $LOAN = new Loan(NULL);
+        $INSTALLMENT = new Installment(NULL);
+
+
+        $result = $DEFULTDATA->loanProcessingPreCheque($amount);
+        $loan = $LOAN->getLoanDetailsByCustomer($_POST["customer_id"]);
+        $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
+
+
+        //get total loan amount in customer
+        $total_loan_amount = $amount += ($loan[1] * $interest_rate) / 100;
+
+        //balance in loan
+        $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
+
+        //check paid amount has loan
+        if ($total_loan_amount != $balance_in_last_loan) {
+            //total deduction 
+            $total_deduction = ($balance_in_last_loan + $result["total"]);
+            $loan_amount = $_POST['loan_amount'];
+            $balance_pay = $loan_amount - $total_deduction;
+
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => $balance_pay, 'total_deductions' => $total_deduction]);
+            header('Content-type: application/json');
+            exit();
+        } else {
+            echo json_encode(['balance_of_last_loan' => 0, 'balance_pay' => 0, 'total_deductions' => 0]);
+            header('Content-type: application/json');
+            exit();
+        }
+    }
+}
+
