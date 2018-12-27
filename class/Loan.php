@@ -232,7 +232,7 @@ class Loan {
     public function CheckCustomerHasLoan($customer) {
 
         $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' OR `guarantor_1` = '" . $customer . "' OR `guarantor_2` = '" . $customer . "' OR `guarantor_3` = '" . $customer . "'";
-        
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -243,11 +243,11 @@ class Loan {
             return FALSE;
         }
     }
-    
+
     public function CheckCustomerHasActiveLoan($customer) {
 
         $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' AND  `status` = 'actived'";
-        
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -257,6 +257,37 @@ class Loan {
         } else {
             return FALSE;
         }
+    }
+
+    public function approveLoan() {
+
+        $query = "UPDATE  `loan` SET "
+                . "`issued_date` ='" . $this->issued_date . "', "
+                . "`status` ='issued'"
+                . "WHERE `id` = '" . $this->id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function getAllApprovedLoansByCollector() {
+
+        $query = "SELECT * FROM `loan` WHERE `collector` ='" . $this->collector . "' AND  `status` = '" . $this->status . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
     }
 
 }

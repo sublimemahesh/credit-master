@@ -221,84 +221,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>
 
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label ">
-                                        <label for="issue_mode">Issue Mode</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <select id="issue_mode" name="issue_mode" class="form-control" disabled="">
-                                                    <option value=""> -- Please Select Issue Mode -- </option>
-                                                    <?php
-                                                    $DEFULTDATA = new DefaultData(NULL);
-
-                                                    foreach ($DEFULTDATA->getLoanIssueMode() as $key => $issuemode) {
-
-                                                        if ($key == $LOAN->issue_mode) {
-                                                            ?>
-                                                            <option value="<?php echo $key ?>" selected="TRUE"><?php echo $issuemode ?></option>
-                                                            <?php
-                                                        } else {
-                                                            ?>
-
-                                                            <option value="<?php echo $key ?>"><?php echo $issuemode ?></option>
-                                                            <?php
-                                                        }
-                                                    }
-                                                    ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row" style="display: none" id="loan_processing_pre">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="deductions">Loan Processing Fee</label>
-                                    </div>
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="deductions" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount"   class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  "  >
-                                        <div  style="display: none" id="document_free">   
-
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div  style="display: none" id="cheque_free"> 
-
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div style="display: none" id="stamp_fee_amount"> 
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
                                 <?php
                                 if ($LOAN->issue_mode == "bank") {
                                     ?>
@@ -414,6 +336,67 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 <?php } ?>
+
+                                <div class="row" style="display: none" id="loan_processing_pre">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="deductions">Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="deductions" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount"   class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="deductions">Deductions</label>
+                                    </div>
+                                    <div  style="display: none" id="document_free">                                         
+                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
+                                            <label for="Document Free" class="lable-top" >D: Fee</label>
+                                        </div>
+
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  "  >
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div   style="display: none" id="cheque_free"> 
+                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
+                                            <label for="Cheque Fee" >C: Fee</label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="cheque_free" class="hidden-lg hidden-md" class="lable-top">C: Fee</label>
+                                                    <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div   style="display: none" id="stamp_fee_amount">
+                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
+                                            <label for="Stamp Fee" class="lable-top">St: Fee</label>
+                                        </div>
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="Stamp Fee" class="hidden-lg hidden-md" class="lable-top">St: Fee</label>
+                                                    <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -602,7 +585,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     $dateObj = DateTime::createFromFormat('!d', $date);
                                                     $dateName = $dateObj->format('l');
                                                     ?>
+
                                                     <input type="text"   disabled="" value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+
+
 
                                                     <?php
                                                 }
