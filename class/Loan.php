@@ -178,8 +178,8 @@ class Loan {
                 . "`verify_comments` ='" . $this->verify_comments . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-       
-    
+
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -265,9 +265,14 @@ class Loan {
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`status` ='issued'"
                 . "WHERE `id` = '" . $this->id . "'";
+    }
 
+    public function getLoanDetailsByCustomer($customer) {
+
+        $query = "SELECT `id`,`loan_amount` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
         $db = new Database();
         $result = $db->readQuery($query);
+
 
         if ($result) {
             return $this->__construct($this->id);
@@ -288,6 +293,10 @@ class Loan {
             array_push($array_res, $row);
         }
         return $array_res;
+
+        $row = mysql_fetch_row($result);
+
+        return $row;
     }
 
 }
