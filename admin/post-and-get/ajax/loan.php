@@ -66,6 +66,7 @@ if ($_POST['action'] == 'VERIFY') {
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
     $LOAN->verify_comments = $_POST['verify_comments'];
+    $LOAN->balance_of_last_loan = $_POST['balance_of_last_loan'];
     $LOAN->verify_by = $_POST['verify_by'];
     $LOAN->status = 'verified';
     $result = $LOAN->update();
@@ -286,7 +287,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNT') {
         $loan = $LOAN->getLoanDetailsByCustomer($_POST["customer_id"]);
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
-
+        
         //get total loan amount in customer
         $total_loan_amount = $amount += ($loan[1] * $interest_rate) / 100;
 
@@ -298,6 +299,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNT') {
             $total_deduction = ($balance_in_last_loan + $result["total"]);
             $loan_amount = $_POST['loan_amount'];
             $balance_pay = $loan_amount - $total_deduction;
+
 
             echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => $balance_pay, 'total_deductions' => $total_deduction]);
             header('Content-type: application/json');

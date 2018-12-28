@@ -23,6 +23,7 @@ class Loan {
     public $issue_mode;
     public $effective_date;
     public $verify_comments;
+    public $balance_of_last_loan;
     public $issued_date;
     public $issue_note;
     public $create_by;
@@ -59,6 +60,7 @@ class Loan {
             $this->issued_date = $result['issued_date'];
             $this->issue_note = $result['issue_note'];
             $this->verify_comments = $result['verify_comments'];
+            $this->balance_of_last_loan = $result['balance_of_last_loan'];
             $this->create_by = $result['create_by'];
             $this->verify_by = $result['verify_by'];
             $this->approved_by = $result['approved_by'];
@@ -176,10 +178,11 @@ class Loan {
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`issue_note` ='" . $this->issue_note . "', "
                 . "`verify_comments` ='" . $this->verify_comments . "', "
+                . "`balance_of_last_loan` ='" . $this->balance_of_last_loan . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -270,15 +273,14 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
+         
+
         $db = new Database();
         $result = $db->readQuery($query);
 
+        $row = mysql_fetch_row($result);
 
-        if ($result) {
-            return $this->__construct($this->id);
-        } else {
-            return FALSE;
-        }
+        return $row;
     }
 
     public function getAllApprovedLoansByCollector() {
