@@ -164,6 +164,7 @@ $(document).ready(function () {
         var verify_by = $('#verify_by').val();
         var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
+        var balance_of_last_loan = $('#balance_of_last_loan').val();
 
         swal({
             title: "Verify!",
@@ -183,6 +184,7 @@ $(document).ready(function () {
                     verify_by: verify_by,
                     effective_date: effective_date,
                     verify_comments: comments,
+                    balance_of_last_loan: balance_of_last_loan,
                     action: 'VERIFY'
                 },
                 dataType: "JSON",
@@ -268,7 +270,6 @@ $(document).ready(function () {
     });
 
     $('#approve').click(function () {
-
         var loan_id = $('#loan_id').val();
         var approved_by = $('#approved_by').val();
         var effective_date = $('#effective_date').val();

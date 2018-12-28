@@ -270,6 +270,92 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="row" style="display: none" id="loan_processing_pre">
+                                    <div class="col-lg-3 col-md-3 form-control-label">
+                                        <label for="deductions">Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="loan_processing_pre_amount"   name="loan_processing_pre_amount"   class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>                               
+
+                                    <div class="col-lg-2 col-md-2  col-sm-12 col-xs-12  form-control-label">
+                                        <div class="form-group">
+                                            <div class="form-line" style="display: none" id="document_free">
+                                                <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
+                                        <div class="form-group">
+                                            <div class="form-line" style="display: none" id="stamp_fee_amount"> 
+                                                <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
+                                        <div class="form-group">
+                                            <div class="form-line" style="display: none" id="cheque_free"> 
+                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="">Blance Of the last Loan</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Blance Of the last Loan</label>
+                                                <div class="form-control"  > 
+                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="total_deductions">Total Deductions </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
+                                                <div class="form-control">
+                                                    <input type="text" id="total_deductions"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="balance_pay">Balance Pay </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
+                                                <div class="form-control">
+                                                    <input type="text" id="balance_pay"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
                                 <?php
                                 if ($LOAN->issue_mode == "bank") {
                                     ?>
@@ -386,120 +472,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 <?php } ?>
 
-                                <div class="row" style="display: none" id="loan_processing_pre">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="deductions">Loan Processing Fee</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="deductions" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                                <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount"   class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="deductions">Deductions</label>
-                                    </div>
-                                    <div  style="display: none" id="document_free">                                         
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Document Free" class="lable-top" >D: Fee</label>
-                                        </div>
-
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  "  >
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div   style="display: none" id="cheque_free"> 
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Cheque Fee" >C: Fee</label>
-                                        </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="cheque_free" class="hidden-lg hidden-md" class="lable-top">C: Fee</label>
-                                                    <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div   style="display: none" id="stamp_fee_amount">
-                                        <div class="col-lg-1 col-md-1 col-sm-12 col-xs-12  ">
-                                            <label for="Stamp Fee" class="lable-top">St: Fee</label>
-                                        </div>
-                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="Stamp Fee" class="hidden-lg hidden-md" class="lable-top">St: Fee</label>
-                                                    <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
 
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="">Blance Of the last Loan</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Blance Of the last Loan</label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    echo 10000
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="total_deductions">Total Deductions </label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    echo 10000
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="balance_pay">Balance Pay </label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    echo ($LOAN->loan_amount) - 10000;
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="">Installment Type</label>
@@ -654,6 +628,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Interest Rate</label>
                                                 <div class="form-control">
+                                                    <input type="hidden" value="<?php echo $LOAN->interest_rate ?>" id="interest_rate"> 
                                                     <?php
                                                     echo $LOAN->interest_rate;
                                                     ?>%
@@ -1052,7 +1027,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
                                                 <?php if (empty($CUSTOMER->billing_proof_image)) {
                                                     ?>
-                                                <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
@@ -1067,7 +1042,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="city">City</label>
@@ -1086,7 +1061,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="email">Email</label>
@@ -1653,7 +1628,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
 
                                 <div class="row" class="list-unstyled   clearfix  ">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1680,7 +1655,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="city">City</label>
@@ -1699,7 +1674,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="email">Email</label>
@@ -1827,7 +1802,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 <?php } ?>
 
-                                
+
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -2667,90 +2642,114 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>  
                             </div>
                         </div>
-                            <div id="menu4" class="tab-pane fade">
-                                <div class="body"> 
-                                    <div class="row">
-                                        <div class="col-md-9">
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
-                                                    <label for="title">Title</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class="form-line"> 
-                                                            <label  class="hidden-lg hidden-md">Title</label>
-                                                            <div class="form-control"><?php echo $GR3->title; ?></div>
-                                                        </div>
+                        <div id="menu4" class="tab-pane fade">
+                            <div class="body"> 
+                                <div class="row">
+                                    <div class="col-md-9">
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
+                                                <label for="title">Title</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">Title</label>
+                                                        <div class="form-control"><?php echo $GR3->title; ?></div>
                                                     </div>
                                                 </div>
                                             </div>
-
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
-                                                    <label for="first_name">First Name</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class="form-line"> 
-                                                            <label  class="hidden-lg hidden-md">First Name</label>
-                                                            <div class="form-control"><?php echo $GR3->first_name; ?></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
-
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
-                                                    <label for="last_name">Last Name</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class="form-line"> 
-                                                            <label  class="hidden-lg hidden-md">Last Name</label>
-                                                            <div class="form-control"><?php echo $GR3->last_name; ?></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
-
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
-                                                    <label for="surname">Surname</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class="form-line"> 
-                                                            <label  class="hidden-lg hidden-md">Surname</label>
-                                                            <div class="form-control"><?php echo $GR3->surname; ?></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div> 
-
-                                            <div class="row">
-                                                <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
-                                                    <label for="nic_number">NIC Number</label>
-                                                </div>
-                                                <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class="form-line"> 
-                                                            <label  class="hidden-lg hidden-md">NIC Number</label>
-                                                            <div class="form-control"><?php echo $GR3->nic_number; ?></div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>  
                                         </div>
-                                        <div class="col-md-3">
-                                            <div  class="list-unstyled row clearfix aniimated-thumbnials ">
-                                                <?php if (empty($GR3->profile_picture)) {
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
+                                                <label for="first_name">First Name</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">First Name</label>
+                                                        <div class="form-control"><?php echo $GR3->first_name; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
+                                                <label for="last_name">Last Name</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">Last Name</label>
+                                                        <div class="form-control"><?php echo $GR3->last_name; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
+                                                <label for="surname">Surname</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">Surname</label>
+                                                        <div class="form-control"><?php echo $GR3->surname; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div> 
+
+                                        <div class="row">
+                                            <div class="col-lg-4 col-md-4 hidden-sm hidden-xs form-control-label">
+                                                <label for="nic_number">NIC Number</label>
+                                            </div>
+                                            <div class="col-lg-8 col-md-8 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">NIC Number</label>
+                                                        <div class="form-control"><?php echo $GR3->nic_number; ?></div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>  
+                                    </div>
+                                    <div class="col-md-3">
+                                        <div  class="list-unstyled row clearfix aniimated-thumbnials ">
+                                            <?php if (empty($GR3->profile_picture)) {
+                                                ?>
+                                                <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+
+                                            <?php } else { ?>
+
+                                                <a href="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>" data-sub-html=" ">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>">
+                                                </a> 
+                                                <?php
+                                            }
+                                            ?>
+
+                                        </div>
+                                    </div>
+                                </div
+                                <div class="row  ">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label" style="margin-bottom: 0px;">
+                                        <label for="nic_photo_front" class="nic-padding">NIC Photos</label>
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom ">
+                                        <div class="form-group">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials pull-right">
+                                                <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
+                                                <?php if (empty($GR3->nic_photo_front)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 
-                                                    <a href="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>" data-sub-html=" ">
-                                                        <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>">
+                                                    <a href="../upload/customer/nfp/<?php echo $GR3->nic_photo_front; ?>" data-sub-html=" ">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $GR3->nic_photo_front; ?>">
                                                     </a> 
                                                     <?php
                                                 }
@@ -2758,337 +2757,232 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                             </div>
                                         </div>
-                                    </div
-                                    <div class="row  ">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label" style="margin-bottom: 0px;">
-                                            <label for="nic_photo_front" class="nic-padding">NIC Photos</label>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom ">
-                                            <div class="form-group">
-                                                <div  class="list-unstyled   clearfix aniimated-thumbnials pull-right">
-                                                    <label for="nic_photo_front" class="hidden-lg hidden-md">NIC Photo Front</label>
-                                                    <?php if (empty($GR3->nic_photo_front)) {
-                                                        ?>
-                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
-
-                                                    <?php } else { ?>
-
-                                                        <a href="../upload/customer/nfp/<?php echo $GR3->nic_photo_front; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/nfp/thumb/<?php echo $GR3->nic_photo_front; ?>">
-                                                        </a> 
-                                                        <?php
-                                                    }
+                                    </div>
+                                    <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom  ">
+                                        <div class="form-group">
+                                            <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
+                                                <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
+                                                <?php if (empty($GR3->nic_photo_back)) {
                                                     ?>
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+                                                <?php } else { ?>
 
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-5 col-md-5 col-sm-6 col-xs-6 p-bottom  ">
-                                            <div class="form-group">
-                                                <div  class="list-unstyled  clearfix aniimated-thumbnials pull-right">
-                                                    <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
-                                                    <?php if (empty($GR3->nic_photo_back)) {
-                                                        ?>
-                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
-                                                    <?php } else { ?>
-
-                                                        <a href="../upload/customer/nbp/<?php echo $GR3->nic_photo_back; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $GR3->nic_photo_back; ?>">
-                                                        </a> 
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </div>
+                                                    <a href="../upload/customer/nbp/<?php echo $GR3->nic_photo_back; ?>" data-sub-html=" ">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/nbp/thumb/<?php echo $GR3->nic_photo_back; ?>">
+                                                    </a> 
+                                                    <?php
+                                                }
+                                                ?>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
 
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="dob">Date of Birthday</label>
-                                        </div>
-                                        <div class="   p-bottom">
-                                            <div class="form-group"> 
-                                                <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
-                                                <div class="register-form-row-col">
-                                                    <div class="col-md-3">
-                                                        <div class="form-group"  style="margin-top: -20px;">
-                                                            <div class="form-line"> 
-                                                                <div class="form-control"><?php
-                                                                    if ($GR3->dob_month == 1) {
-                                                                        echo 'Jan';
-                                                                    } elseif ($GR3->dob_month == 2) {
-                                                                        echo 'Feb';
-                                                                    } elseif ($GR3->dob_month == 3) {
-                                                                        echo 'Mar';
-                                                                    } elseif ($GR3->dob_month == 4) {
-                                                                        echo 'Apr';
-                                                                    } elseif ($GR3->dob_month == 5) {
-                                                                        echo 'May';
-                                                                    } elseif ($GR3->dob_month == 6) {
-                                                                        echo 'Jun';
-                                                                    } elseif ($GR3->dob_month == 7) {
-                                                                        echo 'Jul';
-                                                                    } elseif ($GR3->dob_month == 8) {
-                                                                        echo 'Aug';
-                                                                    } elseif ($GR3->dob_month == 9) {
-                                                                        echo 'Sep';
-                                                                    } elseif ($GR3->dob_month == 10) {
-                                                                        echo 'Oct';
-                                                                    } elseif ($GR3->dob_month == 11) {
-                                                                        echo 'Nov';
-                                                                    } else {
-                                                                        echo 'Dec';
-                                                                    }
-                                                                    ?></div>
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group"  style="margin-top: -20px;">
-                                                            <div class="form-line"> 
-                                                                <div class="form-control"><?php echo $GR3->dob_day; ?></div>
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                    <div class="col-md-3">
-                                                        <div class="form-group"  style="margin-top: -20px;">
-                                                            <div class="form-line"> 
-                                                                <div class="form-control"><?php echo $GR3->dob_year; ?></div>
-                                                            </div>
-                                                        </div> 
-                                                    </div>
-                                                </div> 
-                                            </div>
-                                        </div> 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="dob">Date of Birthday</label>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label >Address</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label  class="hidden-lg hidden-md">Address</label>
-                                                    <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_1; ?></div>
-                                                    <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_2; ?></div>
-                                                    <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_3; ?></div>
-                                                    <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_4; ?></div>
-                                                    <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_5; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row" class="list-unstyled    ">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="billing_proof_image">Billing Proof Image</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 p-bottom">
-                                            <div class="form-group">
-                                                <div  class="list-unstyled   clearfix aniimated-thumbnials">
-                                                    <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
-                                                    <?php if (empty($GR3->billing_proof_image)) {
-                                                        ?>
-                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
-                                                    <?php } else { ?>
-                                                        <a href="../upload/customer/billing-proof/<?php echo $GR3->billing_proof_image ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $GR3->billing_proof_image ?>">
-                                                        </a> 
-                                                        <?php
-                                                    }
-                                                    ?>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="email">Email</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="email" class="hidden-lg hidden-md">Email</label>
-                                                    <div class="form-control"><?php echo $GR3->email; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="">Telephone Numbers</label>
-                                        </div>
-
-                                        <?php
-                                        $telephone_numbers = "$GR3->telephone";
-                                        $telephone_number = split(",", $telephone_numbers);
-                                        ?>
-
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
-                                                    <div class="form-control">
-                                                        <?php echo $telephone_number[0] ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
-                                                    <div class="form-control">
-                                                        <?php
-                                                        if (empty($telephone_number[1])) {
-                                                            echo '0';
-                                                        } else {
-
-                                                            echo $telephone_number[1];
-                                                        }
-                                                        ?> 
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
-                                                    <div class="form-control">
-                                                        <?php
-                                                        if (empty($telephone_number[2])) {
-                                                            echo '0';
-                                                        } else {
-
-                                                            echo $telephone_number[2];
-                                                        }
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                    </div>
-
-
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="mobile">Mobile</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
-                                                    <div class="form-control"><?php echo $GR3->mobile; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <?php
-                                    $ROUTE = new Route($GR3->route);
-                                    if ($ROUTE->id == $GR3->route) {
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                                <label for="route">Route</label>
-                                            </div>
-                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line">
-                                                        <label for="route" class="hidden-lg hidden-md">Route</label>
-                                                        <div class="form-control">
-                                                            <?php
-                                                            echo $ROUTE->name;
-                                                            ?>
-
+                                    <div class="   p-bottom">
+                                        <div class="form-group"> 
+                                            <label for="dob" class="hidden-lg hidden-md">Date of Birthday</label>
+                                            <div class="register-form-row-col">
+                                                <div class="col-md-3">
+                                                    <div class="form-group"  style="margin-top: -20px;">
+                                                        <div class="form-line"> 
+                                                            <div class="form-control"><?php
+                                                                if ($GR3->dob_month == 1) {
+                                                                    echo 'Jan';
+                                                                } elseif ($GR3->dob_month == 2) {
+                                                                    echo 'Feb';
+                                                                } elseif ($GR3->dob_month == 3) {
+                                                                    echo 'Mar';
+                                                                } elseif ($GR3->dob_month == 4) {
+                                                                    echo 'Apr';
+                                                                } elseif ($GR3->dob_month == 5) {
+                                                                    echo 'May';
+                                                                } elseif ($GR3->dob_month == 6) {
+                                                                    echo 'Jun';
+                                                                } elseif ($GR3->dob_month == 7) {
+                                                                    echo 'Jul';
+                                                                } elseif ($GR3->dob_month == 8) {
+                                                                    echo 'Aug';
+                                                                } elseif ($GR3->dob_month == 9) {
+                                                                    echo 'Sep';
+                                                                } elseif ($GR3->dob_month == 10) {
+                                                                    echo 'Oct';
+                                                                } elseif ($GR3->dob_month == 11) {
+                                                                    echo 'Nov';
+                                                                } else {
+                                                                    echo 'Dec';
+                                                                }
+                                                                ?></div>
                                                         </div>
-                                                    </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group"  style="margin-top: -20px;">
+                                                        <div class="form-line"> 
+                                                            <div class="form-control"><?php echo $GR3->dob_day; ?></div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="form-group"  style="margin-top: -20px;">
+                                                        <div class="form-line"> 
+                                                            <div class="form-control"><?php echo $GR3->dob_year; ?></div>
+                                                        </div>
+                                                    </div> 
+                                                </div>
+                                            </div> 
+                                        </div>
+                                    </div> 
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label >Address</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label  class="hidden-lg hidden-md">Address</label>
+                                                <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_1; ?></div>
+                                                <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_2; ?></div>
+                                                <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_3; ?></div>
+                                                <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_4; ?></div>
+                                                <div class="form-control" style="border-bottom: 1px solid #dddddd"><?php echo $GR3->address_line_5; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" class="list-unstyled    ">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="billing_proof_image">Billing Proof Image</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 p-bottom">
+                                        <div class="form-group">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                                <label for="billing_proof_image" class="hidden-lg hidden-md">Billing Proof Image</label>
+                                                <?php if (empty($GR3->billing_proof_image)) {
+                                                    ?>
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+                                                <?php } else { ?>
+                                                    <a href="../upload/customer/billing-proof/<?php echo $GR3->billing_proof_image ?>" data-sub-html=" ">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/billing-proof/thumb/<?php echo $GR3->billing_proof_image ?>">
+                                                    </a> 
+                                                    <?php
+                                                }
+                                                ?>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="email">Email</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="email" class="hidden-lg hidden-md">Email</label>
+                                                <div class="form-control"><?php echo $GR3->email; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="">Telephone Numbers</label>
+                                    </div>
+
+                                    <?php
+                                    $telephone_numbers = "$GR3->telephone";
+                                    $telephone_number = split(",", $telephone_numbers);
+                                    ?>
+
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
+                                                <div class="form-control">
+                                                    <?php echo $telephone_number[0] ?>
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    if (empty($telephone_number[1])) {
+                                                        echo '0';
+                                                    } else {
 
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                                <label for="center">Center</label>
-                                            </div>
-                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line">
-                                                        <label for="center" class="hidden-lg hidden-md">Center</label>
-                                                        <div class="form-control"><?php
-                                                            $CENTER = new Center($GR2->center);
-                                                            echo $CENTER->name;
-                                                            ?></div>
-                                                    </div>
+                                                        echo $telephone_number[1];
+                                                    }
+                                                    ?> 
                                                 </div>
                                             </div>
                                         </div>
-                                    <?php } ?>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    if (empty($telephone_number[2])) {
+                                                        echo '0';
+                                                    } else {
 
+                                                        echo $telephone_number[2];
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="mobile">Mobile</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="mobile" class="hidden-lg hidden-md">Mobile</label>
+                                                <div class="form-control"><?php echo $GR3->mobile; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $ROUTE = new Route($GR3->route);
+                                if ($ROUTE->id == $GR3->route) {
+                                    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="city">City</label>
+                                            <label for="route">Route</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="city" class="hidden-lg hidden-md">City</label>
+                                                    <label for="route" class="hidden-lg hidden-md">Route</label>
                                                     <div class="form-control">
                                                         <?php
-                                                        $CITY = new City($GR3->city);
-                                                        echo $CITY->name;
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="credit_limit">Credit Limit</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
-                                                    <div class="form-control"><?php echo $GR3->credit_limit; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="signature_photo">Signature Photo</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <div  class="list-unstyled   clearfix aniimated-thumbnials">
-                                                        <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
-                                                        <?php if (empty($GR3->signature_image)) {
-                                                            ?>
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
-                                                        <?php } else { ?>
-
-                                                            <a href="../upload/customer/signature/<?php echo $GR3->signature_image; ?>" data-sub-html="Signature Photo">
-                                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $GR3->signature_image; ?>">
-                                                            </a> 
-                                                            <?php
-                                                        }
+                                                        echo $ROUTE->name;
                                                         ?>
 
                                                     </div>
@@ -3097,207 +2991,291 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
 
+                                    <?php
+                                } else {
+                                    ?>
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="business_name">Business Name</label>
+                                            <label for="center">Center</label>
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
                                                 <div class="form-line">
-                                                    <label for="business_name" class="hidden-lg hidden-md">Business Name</label>
-                                                    <div class="form-control"><?php echo $GR3->business_name; ?></div>
+                                                    <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                    <div class="form-control"><?php
+                                                        $CENTER = new Center($GR2->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                <?php } ?>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="br_number">BR Number</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="br_number" class="hidden-lg hidden-md">BR Number</label>
-                                                    <div class="form-control"><?php echo $GR3->br_number; ?></div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="city">City</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="city" class="hidden-lg hidden-md">City</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $CITY = new City($GR3->city);
+                                                    echo $CITY->name;
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="nature_of_business">Nature of Business</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Business</label>
-                                                    <div class="form-control"><?php echo $GR3->nature_of_business; ?></div>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="credit_limit">Credit Limit</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit</label>
+                                                <div class="form-control"><?php echo $GR3->credit_limit; ?></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="br_picture">BR Photo</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <div  class="list-unstyled   clearfix aniimated-thumbnials">
-                                                        <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
-                                                        <?php if (empty($GR3->br_picture)) {
-                                                            ?>
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
-
-                                                        <?php } else { ?>
-
-                                                            <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
-                                                                <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $GR3->br_picture ?>">
-                                                            </a>
-                                                            <?php
-                                                        }
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="signature_photo">Signature Photo</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                                    <label for="signature_photo" class="hidden-lg hidden-md">Signature Photo</label>
+                                                    <?php if (empty($GR3->signature_image)) {
                                                         ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+                                                    <?php } else { ?>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="bank">Bank</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="bank" class="hidden-lg hidden-md">Bank</label>
-                                                    <div class="form-control">
+                                                        <a href="../upload/customer/signature/<?php echo $GR3->signature_image; ?>" data-sub-html="Signature Photo">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/signature/thumb/<?php echo $GR3->signature_image; ?>">
+                                                        </a> 
                                                         <?php
-                                                        $BANK = new Bank($GR3->bank);
-                                                        echo $BANK->name;
-                                                        ?>
-                                                    </div>
+                                                    }
+                                                    ?>
+
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="branch">Branch</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="branch" class="hidden-lg hidden-md">Branch</label>
-                                                    <div class="form-control">
-                                                        <?php
-                                                        $BRANCH = new Branch($GR3->branch);
-                                                        echo $BRANCH->name;
-                                                        ?>
-                                                    </div>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="business_name">Business Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="business_name" class="hidden-lg hidden-md">Business Name</label>
+                                                <div class="form-control"><?php echo $GR3->business_name; ?></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="branch_code">Branch Code</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>
-                                                    <div class="form-control"><?php echo $GR3->branch_code; ?></div>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="br_number">BR Number</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="br_number" class="hidden-lg hidden-md">BR Number</label>
+                                                <div class="form-control"><?php echo $GR3->br_number; ?></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="account_number">Account Number</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="account_number" class="hidden-lg hidden-md">Account Number</label>
-                                                    <div class="form-control"><?php echo $GR3->account_number; ?></div>
-                                                </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="nature_of_business">Nature of Business</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="nature_of_business" class="hidden-lg hidden-md">Nature of Business</label>
+                                                <div class="form-control"><?php echo $GR3->nature_of_business; ?></div>
                                             </div>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="holder_name">Holder Name</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line">
-                                                    <label for="holder_name" class="hidden-lg hidden-md">Holder Name</label>
-                                                    <div class="form-control"><?php echo $GR3->holder_name; ?></div>
-                                                </div>
-                                            </div>
-                                        </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="br_picture">BR Photo</label>
                                     </div>
-
-                                    <div class="row">
-                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="bank_book_picture">Bank Book Photo</label>
-                                        </div>
-                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group"> 
-                                                <div class=" clearfix aniimated-thumbnials">
-                                                    <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
-                                                    <?php if (empty($GR3->bank_book_picture)) {
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                                    <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
+                                                    <?php if (empty($GR3->br_picture)) {
                                                         ?>
                                                         <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                     <?php } else { ?>
 
-                                                        <a href="../upload/customer/bbp/<?php echo $GR3->bank_book_picture; ?>" data-sub-html=" ">
-                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $GR3->bank_book_picture; ?>">
+                                                        <a href="../upload/customer/br/<?php echo $GR2->br_picture ?>" data-sub-html=" ">
+                                                            <img class="img-responsive thumbnail image-width" src="../upload/customer/br/thumb/<?php echo $GR3->br_picture ?>">
                                                         </a>
                                                         <?php
                                                     }
-                                                    ?>                                                      
-                                                </div> 
-                                            </div> 
-                                        </div>
-                                    </div>  
-                                </div>
-                                <div id="menu5" class="tab-pane fade">
-                                    <div class="body"> 
-                                        <div class="row">
-                                            <?php
-                                            $LOAN_DOCUMENT = new LoanDocument(NUll);
-                                            foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
-                                                ?>
-                                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                                    <div class="form-group">
-                                                        <div class=" clearfix aniimated-thumbnials">
-                                                            <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
-                                                                <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
-                                                            </a>  
-                                                            <lable><b><?php echo $loan_document['caption'] ?></b></lable>
-                                                        </div> 
-                                                    </div>
+                                                    ?>
                                                 </div>
-                                            <?php } ?>
-                                        </div>                                     
-                                        <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="bank">Bank</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="bank" class="hidden-lg hidden-md">Bank</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $BANK = new Bank($GR3->bank);
+                                                    echo $BANK->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="branch">Branch</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="branch" class="hidden-lg hidden-md">Branch</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $BRANCH = new Branch($GR3->branch);
+                                                    echo $BRANCH->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="branch_code">Branch Code</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>
+                                                <div class="form-control"><?php echo $GR3->branch_code; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="account_number">Account Number</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="account_number" class="hidden-lg hidden-md">Account Number</label>
+                                                <div class="form-control"><?php echo $GR3->account_number; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="holder_name">Holder Name</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="holder_name" class="hidden-lg hidden-md">Holder Name</label>
+                                                <div class="form-control"><?php echo $GR3->holder_name; ?></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="bank_book_picture">Bank Book Photo</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group"> 
+                                            <div class=" clearfix aniimated-thumbnials">
+                                                <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
+                                                <?php if (empty($GR3->bank_book_picture)) {
+                                                    ?>
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+
+                                                <?php } else { ?>
+
+                                                    <a href="../upload/customer/bbp/<?php echo $GR3->bank_book_picture; ?>" data-sub-html=" ">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/customer/bbp/thumb/<?php echo $GR3->bank_book_picture; ?>">
+                                                    </a>
+                                                    <?php
+                                                }
+                                                ?>                                                      
+                                            </div> 
+                                        </div> 
+                                    </div>
+                                </div>  
                             </div>
+                            <div id="menu5" class="tab-pane fade">
+                                <div class="body"> 
+                                    <div class="row">
+                                        <?php
+                                        $LOAN_DOCUMENT = new LoanDocument(NUll);
+                                        foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
+                                            ?>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class=" clearfix aniimated-thumbnials">
+                                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
+                                                        </a>  
+                                                        <lable><b><?php echo $loan_document['caption'] ?></b></lable>
+                                                    </div> 
+                                                </div>
+                                            </div>
+                                        <?php } ?>
+                                    </div>     
+                                    <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+
+                                    <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
+                                    <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
+                                </div>
+                            </div>
+
                         </div>
                     </div>
                 </div>
+            </div>
         </section>
 
         <script src="plugins/jquery/jquery.min.js"></script>
