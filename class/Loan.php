@@ -182,7 +182,7 @@ class Loan {
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-       
+        
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -274,7 +274,7 @@ class Loan {
 
         $query = "SELECT `id`,`loan_amount` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
          
-
+   
         $db = new Database();
         $result = $db->readQuery($query);
 

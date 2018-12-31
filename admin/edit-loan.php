@@ -258,14 +258,14 @@ $CENTER = Center::all();
                                                         if (!in_array($guarantor['id'], $notAllowed)) {
                                                             if ($LOAN->guarantor_2 === $guarantor['id']) {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>"  value="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>" ><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
@@ -284,14 +284,14 @@ $CENTER = Center::all();
                                                         if (!in_array($guarantor['id'], $notAllowed)) {
                                                             if ($LOAN->guarantor_2 === $guarantor['id']) {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>" ><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
@@ -325,14 +325,14 @@ $CENTER = Center::all();
                                                         if (!in_array($guarantor['id'], $norAllowed)) {
                                                             if ($LOAN->guarantor_3 === $guarantor['id']) {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
@@ -350,14 +350,14 @@ $CENTER = Center::all();
                                                         if (!in_array($guarantor['id'], $notAllowed)) {
                                                             if ($LOAN->guarantor_2 === $guarantor['id']) {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>" selected="TRUE"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>"selected="TRUE"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
                                                                 <?php
                                                             } else {
                                                                 ?>
-                                                                <option id="<?php echo $guarantor['id']; ?>"><?php
+                                                                <option id="<?php echo $guarantor['id']; ?>" value="<?php echo $guarantor['id']; ?>"><?php
                                                                     $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($guarantor['surname']));
                                                                     echo $first_name . ' ' . $guarantor['first_name'] . ' ' . $guarantor['last_name'];
                                                                     ?></option>
@@ -620,6 +620,7 @@ $CENTER = Center::all();
                                         <input type="hidden" value="<?php echo $LOAN->id ?>" name="id">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
+                                        <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
 
                                         <input type="hidden" id="guarantor_3_name" name="" value=" <?php
                                         $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR2->surname));
@@ -629,6 +630,7 @@ $CENTER = Center::all();
                                                $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($GR3->surname));
                                                echo $first_name . ' ' . $GR3->first_name . ' ' . $GR3->last_name;
                                                ?>">
+
                                     </div> 
                                 </div> 
                             </div>
@@ -649,7 +651,6 @@ $CENTER = Center::all();
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script>  
         <script src="js/ajax/loan.js" type="text/javascript"></script>
-
         <script>
             $(function () {
                 $(".datepicker").datepicker({

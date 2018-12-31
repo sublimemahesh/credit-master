@@ -860,6 +860,7 @@ window.onload = function () {
     var issue_mode = document.getElementById("issue_mode_onloard").value;
     var interest_rate = document.getElementById("interest_rate").value;
 
+
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",
@@ -881,10 +882,9 @@ window.onload = function () {
 
 
 
-    var interest_rate = document.getElementById("interest_rate").value;
-
     var period = document.getElementById("loan_period").value;
     var numVal = document.getElementById("loan_amount").value;
+    
     var numVa2 = Number(interest_rate) / 100;
 
     var month = (period / 30);
