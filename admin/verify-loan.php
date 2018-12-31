@@ -290,7 +290,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Blance Of the last Loan</label>
                                                 <div class="form-control"  > 
-                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
@@ -306,7 +306,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="total_deductions"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text" id="total_deductions" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
@@ -322,7 +322,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="balance_pay"     placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text" id="balance_pay"  placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
