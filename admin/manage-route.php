@@ -91,6 +91,7 @@ $ROUTE = new Route(NULL)
                                                     <td><?php echo $route['start_location']; ?></td>
                                                     <td><?php echo $route['end_location']; ?></td>
                                                     <td>
+                                                        <a href="view-route-customers-loan.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-list-alt  arrange-btn-3 " title="View loans"></button></a> |
                                                         <a href="view-route.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-route.php?id=<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
                                                         <a href="#"  class="delete-route" data-id="<?php echo $route['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
