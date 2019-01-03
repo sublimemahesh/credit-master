@@ -165,7 +165,7 @@ $(document).ready(function () {
         var effective_date = $('#effective_date').val();
         var comments = $('#comments').val();
         var balance_of_last_loan = $('#balance_of_last_loan').val();
-
+        
         swal({
             title: "Verify!",
             text: "Do you really want to verify this loan?...",
@@ -489,7 +489,7 @@ $(document).ready(function () {
 });
 
 
-// Check guarantor 2
+// Cheque guarantor 2
 $('#guarantor_2').change(function () {
     var guarantor_2 = $(this).val();
     $('select#guarantor_3').find('option').each(function () {
@@ -528,7 +528,7 @@ $('#guarantor_2').change(function () {
     });
 });
 
-// Check guarantor 3
+// Cheque guarantor 3
 
 $('#guarantor_3').change(function () {
     var guarantor_3 = $(this).val();
@@ -594,7 +594,7 @@ $(`#issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -619,7 +619,7 @@ $(`#issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -642,8 +642,8 @@ $(`#issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
-                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Cheque Fee: ' + jsonStr.result['cheque_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -680,7 +680,7 @@ $(`.issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -705,7 +705,7 @@ $(`.issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -728,8 +728,8 @@ $(`.issue_mode`).change(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
-                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Cheque Fee: ' + jsonStr.result['cheque_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -742,7 +742,7 @@ $(`.issue_mode`).change(function () {
     }
 });
 
-///Before delete Check Customer '
+///Before delete Cheque Customer '
 $('.delete-customer').click(function () {
     var customer = $(this).attr("data-id");
 
@@ -788,14 +788,27 @@ $('#customer,#issue_mode').change(function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
-            $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
-            $('#total_deductions').val(jsonStr.total_deductions);
-            $('#balance_pay').val(jsonStr.balance_pay);
+
+            if (jsonStr.status) {
+                swal({
+                    title: "The new loan cannot be processed..!",
+                    text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Ok.!",
+                    closeOnConfirm: false
+                });
+            } else {
+                $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+                $('#total_deductions').val(jsonStr.total_deductions);
+                $('#balance_pay').val(jsonStr.balance_pay);
+            }
         }
 
 
     });
-   
+
 
 });
 
@@ -867,8 +880,8 @@ window.onload = function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
-                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Cheque Fee: ' + jsonStr.result['cheque_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
@@ -883,14 +896,14 @@ window.onload = function () {
     var customer_id = document.getElementById("customer_id").value;
     var loan_amount = document.getElementById("loan_amount").value;
     var issue_mode = document.getElementById("issue_mode_onloard").value;
-    var interest_rate = document.getElementById("interest_rate").value;
+
 
 
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",
         data: {
-            interest_rate: interest_rate,
+
             issue_mode: issue_mode,
             customer_id: customer_id,
             loan_amount: loan_amount,
@@ -910,7 +923,8 @@ window.onload = function () {
 
     var period = document.getElementById("loan_period").value;
     var numVal = document.getElementById("loan_amount").value;
-
+    var interest_rate = document.getElementById("interest_rate").value;
+    
     var numVa2 = Number(interest_rate) / 100;
 
     var month = (period / 30);

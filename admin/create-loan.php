@@ -16,7 +16,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
 
         <title>Create New Loan  || Credit Master</title>
         <!-- Favicon-->
-        <link rel="icon" href="favicon.ico" type="image/x-icon">
+        link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
         <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
@@ -25,9 +25,9 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
-
         <!-- Bootstrap Spinner Css -->
-        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
+        <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
+        <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
     </head>
 
@@ -430,7 +430,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
                                         <div class="form-line">
                                             <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
                                             <div class="form-control">
-                                                <input type="text" id="balance_pay"  placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                <input type="text" id="balance_pay"  placeholder="00.00" class="form-control font-weight-new " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -461,10 +461,12 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-        <script src="plugins/jquery-ui/jquery-ui.js"></script>
-        <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
-        <script src="js/demo.js"></script>  
+        <script src="js/demo.js"></script> 
+        <script src="plugins/jquery-ui/jquery-ui.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script> 
+
+
         <script src="js/ajax/loan.js" type="text/javascript"></script>
 
         <script>

@@ -320,7 +320,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="balance_pay"  placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text" id="balance_pay"  placeholder="00.00" class="form-control font-weight-new " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
