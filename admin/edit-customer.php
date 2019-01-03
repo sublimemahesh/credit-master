@@ -366,7 +366,11 @@ $CENTER = Center::all();
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="telephone1"  name="telephone1" value="<?php echo $telephone_number[0]; ?>" placeholder="Telephone Number 01" class="form-control" autocomplete="off">
+                                            <input type="text" id="telephone1"  name="telephone1" value="<?php
+                                            if (isset($telephone_number[0])) {
+                                                echo $telephone_number[0];
+                                            }
+                                            ?>" placeholder="Telephone Number 01" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -374,7 +378,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone2"  name="telephone2" value="<?php
-                                            if (!empty($telephone_number[1])) {
+                                            if (isset($telephone_number[1])) {
                                                 echo $telephone_number[1];
                                             }
                                             ?>" placeholder="Telephone Number 02" class="form-control" autocomplete="off">
@@ -385,7 +389,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone3"  name="telephone3"  value="<?php
-                                            if (!empty($telephone_number[2])) {
+                                            if (isset($telephone_number[2])) {
                                                 echo $telephone_number[2];
                                             }
                                             ?>" placeholder="Telephone Number 03" class="form-control" autocomplete="off">

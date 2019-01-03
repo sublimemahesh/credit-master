@@ -270,6 +270,7 @@ $(document).ready(function () {
     });
 
     $('#approve').click(function () {
+
         var loan_id = $('#loan_id').val();
         var approved_by = $('#approved_by').val();
         var effective_date = $('#effective_date').val();
@@ -483,297 +484,321 @@ $(document).ready(function () {
             }
 
         });
+
+    });
+});
+
+
+// Check guarantor 2
+$('#guarantor_2').change(function () {
+    var guarantor_2 = $(this).val();
+    $('select#guarantor_3').find('option').each(function () {
+        if ($(this).val() === guarantor_2) {
+            $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide();
+            $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
+        } else {
+            $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide().show();
+            $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
+        }
     });
 
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            guarantor_2: guarantor_2,
+            action: 'CHECKGUARANTER_2'
+        },
 
-    // Check guarantor 2
-    $('#guarantor_2').change(function () {
-        var guarantor_2 = $(this).val();
-        $('select#guarantor_3').find('option').each(function () {
-            if ($(this).val() === guarantor_2) {
-                $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide();
-                $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
-            } else {
-                $("#guarantor_3 option[id='cu_" + $(this).val() + "']").hide().show();
-                $("#guarantor_3 option[id='cu_" + $('#customer').val() + "']").hide();
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
+                swal({
+                    title: "You can not enter this Guarantor .!",
+                    text: "You entered this Guarantor in two loans..",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Enter Again.!",
+                    closeOnConfirm: false
+                });
             }
-        });
+        }
 
-        $.ajax({
-            url: "post-and-get/ajax/loan.php",
-            type: "POST",
-            data: {
-                guarantor_2: guarantor_2,
-                action: 'CHECKGUARANTER_2'
-            },
-
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "You can not enter this Guarantor .!",
-                        text: "You entered this Guarantor in two loans..",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    });
-                }
-            }
-
-        });
     });
+});
 
 // Check guarantor 3
 
-    $('#guarantor_3').change(function () {
-        var guarantor_3 = $(this).val();
+$('#guarantor_3').change(function () {
+    var guarantor_3 = $(this).val();
 
-        $('select#guarantor_2').find('option').each(function () {
-            if ($(this).val() === guarantor_3) {
-                $("#guarantor_2 option[id='cu_" + $(this).val() + "']").hide();
-                $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
-            } else {
-                $("#guarantor_2 option[id='cu_" + $(this).val() + "']").show();
-                $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
-            }
-        });
-
-        $.ajax({
-            url: "post-and-get/ajax/loan.php",
-            type: "POST",
-            data: {
-                guarantor_3: guarantor_3,
-                action: 'CHECKGUARANTER_3'
-            },
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "You can not enter this Guarantor .!",
-                        text: "You entered this Guarantor in two loans..",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    });
-                }
-            }
-        });
-
-    });
-
-
-    //check loan processing free
-
-    $(`#issue_mode`).change(function () {
-
-        var issue_mode = $(this).val();
-        var loan_amount = $(`#loan_amount`).val();
-
-        if (issue_mode == 'cash') {
-
-
-
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $('#cheque_free').hide();
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
-
-        } else if (issue_mode == 'bank') {
-
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $('#cheque_free').hide();
-
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
-
-        } else if (issue_mode == 'cheque') {
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $(`#cheque_free`).show();
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
-
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
+    $('select#guarantor_2').find('option').each(function () {
+        if ($(this).val() === guarantor_3) {
+            $("#guarantor_2 option[id='cu_" + $(this).val() + "']").hide();
+            $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
         } else {
-            $(`#document_free`).hide();
-            $(`#stamp_fee_amount`).hide();
-            $(`#loan_processing_pre`).hide();
-            $(`#cheque_free`).hide();
+            $("#guarantor_2 option[id='cu_" + $(this).val() + "']").show();
+            $("#guarantor_2 option[id='cu_" + $('#customer').val() + "']").hide();
         }
     });
 
-//issu mode get by class
-    $(`.issue_mode`).change(function () {
-
-        var issue_mode = $(this).val();
-        var loan_amount = $(`#loan_amount`).val();
-
-        if (issue_mode == 'cash') {
-
-
-
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $('#cheque_free').hide();
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
-
-        } else if (issue_mode == 'bank') {
-
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $('#cheque_free').hide();
-
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
-
-        } else if (issue_mode == 'cheque') {
-            $(`#document_free`).show();
-            $(`#stamp_fee_amount`).show();
-            $(`#loan_processing_pre`).show();
-            $(`#cheque_free`).show();
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    issue_mode: issue_mode,
-                    loan_amount: loan_amount,
-                    action: `lOANPROCESSINGPRE`
-
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    $('#document_free_amount').val(jsonStr.result['document_free']);
-                    $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
-
-                    $('#stamp_fee').val(jsonStr.result['stamp_fee']);
-                    $('#loan_processing_pre_amount').val(jsonStr.result['total']);
-                }
-            });
-        } else {
-            $(`#document_free`).hide();
-            $(`#stamp_fee_amount`).hide();
-            $(`#loan_processing_pre`).hide();
-            $(`#cheque_free`).hide();
-        }
-    });
-
-    ///Before delete Check Customer '
-    $('.delete-customer').click(function () {
-        var customer = $(this).attr("data-id");
-
-        $.ajax({
-            url: "post-and-get/ajax/loan.php",
-            type: "POST",
-            data: {
-                customer: customer,
-                action: 'CHECKCUSTOMERHASLOAN'
-            },
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "This Customer Can Not Be Deleted ..!",
-                        text: "The customer already exists in a loan",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Ok.!",
-                        closeOnConfirm: false
-                    });
-                }
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            guarantor_3: guarantor_3,
+            action: 'CHECKGUARANTER_3'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
+                swal({
+                    title: "You can not enter this Guarantor .!",
+                    text: "You entered this Guarantor in two loans..",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Enter Again.!",
+                    closeOnConfirm: false
+                });
             }
-        });
+        }
     });
 
 });
+
+
+//check loan processing free
+
+$(`#issue_mode`).change(function () {
+
+    var issue_mode = $(this).val();
+    var loan_amount = $(`#loan_amount`).val();
+
+    if (issue_mode == 'cash') {
+
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $('#cheque_free').hide();
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+
+    } else if (issue_mode == 'bank') {
+
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $('#cheque_free').hide();
+
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+
+    } else if (issue_mode == 'cheque') {
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $(`#cheque_free`).show();
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+    } else {
+        $(`#document_free`).hide();
+        $(`#stamp_fee_amount`).hide();
+        $(`#loan_processing_pre`).hide();
+        $(`#cheque_free`).hide();
+    }
+});
+
+//issu mode get by class
+$(`.issue_mode`).change(function () {
+
+    var issue_mode = $(this).val();
+    var loan_amount = $(`#loan_amount`).val();
+
+    if (issue_mode == 'cash') {
+
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $('#cheque_free').hide();
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+
+    } else if (issue_mode == 'bank') {
+
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $('#cheque_free').hide();
+
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+
+    } else if (issue_mode == 'cheque') {
+        $(`#document_free`).show();
+        $(`#stamp_fee_amount`).show();
+        $(`#loan_processing_pre`).show();
+        $(`#cheque_free`).show();
+
+        $.ajax({
+            url: "post-and-get/ajax/loan.php",
+            type: "POST",
+            data: {
+                issue_mode: issue_mode,
+                loan_amount: loan_amount,
+                action: `lOANPROCESSINGPRE`
+
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
+                $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+            }
+        });
+    } else {
+        $(`#document_free`).hide();
+        $(`#stamp_fee_amount`).hide();
+        $(`#loan_processing_pre`).hide();
+        $(`#cheque_free`).hide();
+    }
+});
+
+///Before delete Check Customer '
+$('.delete-customer').click(function () {
+    var customer = $(this).attr("data-id");
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            customer: customer,
+            action: 'CHECKCUSTOMERHASLOAN'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
+                swal({
+                    title: "This Customer Can Not Be Deleted ..!",
+                    text: "The customer already exists in a loan",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Ok.!",
+                    closeOnConfirm: false
+                });
+            }
+        }
+    });
+});
+
+
+$('#customer,#issue_mode').change(function () {
+
+    var customer_id = $(`#customer`).val();
+    var issue_mode = $(`#issue_mode`).val();
+    var loan_amount = $(`#loan_amount`).val();
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            customer_id: customer_id,
+            issue_mode: issue_mode,
+            loan_amount: loan_amount,
+            action: `LASTLOANAMOUNTBYCUSTOMER`
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+            $('#total_deductions').val(jsonStr.total_deductions);
+            $('#balance_pay').val(jsonStr.balance_pay);
+        }
+
+
+    });
+   
+
+});
+
 
 
 window.onload = function () {
@@ -799,8 +824,8 @@ window.onload = function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val(jsonStr.result['document_free']);
-                $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
@@ -819,8 +844,8 @@ window.onload = function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val(jsonStr.result['document_free']);
-                $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
@@ -842,9 +867,9 @@ window.onload = function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#document_free_amount').val(jsonStr.result['document_free']);
-                $('#cheque_free_amount').val(jsonStr.result['cheque_free']);
-                $('#stamp_fee').val(jsonStr.result['stamp_fee']);
+                $('#document_free_amount').val('DOC Fee: ' + jsonStr.result['document_free']);
+                $('#cheque_free_amount').val('Check Fee: ' + jsonStr.result['cheque_free']);
+                $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
@@ -869,7 +894,7 @@ window.onload = function () {
             issue_mode: issue_mode,
             customer_id: customer_id,
             loan_amount: loan_amount,
-            action: `LASTLOANAMOUNT`
+            action: `LASTLOANAMOUNTBYCUSTOMER`
         },
         dataType: "JSON",
         success: function (jsonStr) {
@@ -881,10 +906,11 @@ window.onload = function () {
     });
 
 
+// cal net amount in onloard
 
     var period = document.getElementById("loan_period").value;
     var numVal = document.getElementById("loan_amount").value;
-    
+
     var numVa2 = Number(interest_rate) / 100;
 
     var month = (period / 30);
@@ -894,5 +920,3 @@ window.onload = function () {
 
 
 };
-
-

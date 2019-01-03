@@ -74,7 +74,7 @@ class DefaultData {
         $document_free = 50;
         $stamp_fee = ($amount * 0.1 / 100);
         $total = $stamp_fee + $document_free;
-        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee);
+        $loan_free = array("document_free" => number_format($document_free, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2));
 
         return $loan_free;
     }
@@ -99,7 +99,7 @@ class DefaultData {
             $total = $stamp_fee + $full_document_charge;
         }
 
-        $loan_free = array("document_free" => $full_document_charge, "total" => $total, "stamp_fee" => $stamp_fee);
+        $loan_free = array("document_free" => number_format($full_document_charge, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2));
 
         return $loan_free;
     }
@@ -112,7 +112,7 @@ class DefaultData {
         $full_document_charge = $cheque_free + $document_free;
         $total = $stamp_fee + $full_document_charge;
 
-        $loan_free = array("document_free" => $document_free, "total" => $total, "stamp_fee" => $stamp_fee, "cheque_free" => $cheque_free);
+        $loan_free = array("document_free" => number_format($document_free, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2), "cheque_free" => number_format($cheque_free, 2));
 
         return $loan_free;
     }
