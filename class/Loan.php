@@ -272,7 +272,7 @@ class Loan {
 
     public function getLoanDetailsByCustomer($customer) {
 
-        $query = "SELECT `id`,`loan_amount` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
+        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
          
    
         $db = new Database();
@@ -281,6 +281,7 @@ class Loan {
         $row = mysql_fetch_row($result);
 
         return $row;
+     
     }
 
     public function getAllApprovedLoansByCollector() {

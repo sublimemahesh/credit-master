@@ -6,8 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
-
- 
 ?>
 
 <!DOCTYPE html>
@@ -347,61 +345,98 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
-
-                            <div class="row" style="display: none" id="document_free">
+                            <div  class="row" style="display: none" id="loan_processing_pre">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="Document Fee">Document Fee</label>
+                                    <label for="issue_mode">Loan Processing Fee</label>
                                 </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="Document Free" class="hidden-lg hidden-md">Document Fee</label>
-                                            <input type="text" id="document_free_amount"   name="document_free_amount"  placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="display: none" id="cheque_free">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="cheque_free">Cheque Fee</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
-                                            <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="row" style="display: none" id="stamp_fee_amount">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="Stamp Fee">Stamp Fee</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
-                                            <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="row" style="display: none" id="loan_processing_pre">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="loan_processing_pre_amount">Loan Processing Fee</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
+                                        <div class="form-line"> 
                                             <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
+
+                                <div style="display: none" id="document_free">                                
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">                                                
+                                                <input type="text" id="document_free_amount"   name="document_free_amount"   placeholder="Document Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div  style="display: none" id="cheque_free">
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div   style="display: none" id="stamp_fee_amount">                                   
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
+
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="">Balance Of the last Loan</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="" class="hidden-lg hidden-md">Balance Of the last Loan</label>
+                                            <div class="form-control"  > 
+                                                <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="total_deductions">Total Deductions </label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
+                                            <div class="form-control">
+                                                <input type="text" id="total_deductions" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="balance_pay">Balance Pay </label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
+                                            <div class="form-control">
+                                                <input type="text" id="balance_pay"  placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
 
                             <div class="row clearfix">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">

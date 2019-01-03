@@ -441,7 +441,7 @@ $(document).ready(function () {
         } else if ((currdate - birthday) < 0) {
             $('#errors').val(1);
             swal({
-                title: "This Customer Below 18 years..!",                
+                title: "This Customer Below 18 years..!",
                 text: "This Customer below 18 years old you ..",
                 type: "error",
                 showCancelButton: false,

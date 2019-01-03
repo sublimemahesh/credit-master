@@ -171,7 +171,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php echo $telephone_number[0] ?>
+                                                    <?php
+                                                    if (isset($telephone_number[0])) {
+                                                        echo $telephone_number[0];
+                                                    }
+                                                    ?>
                                                 </div>
                                             </div>
                                         </div>
@@ -182,10 +186,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
                                                     <?php
-                                                    if (empty($telephone_number[1])) {
-                                                        echo '0';
-                                                    } else {
-
+                                                    if (isset($telephone_number[1])) {
                                                         echo $telephone_number[1];
                                                     }
                                                     ?> 
@@ -199,10 +200,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
                                                     <?php
-                                                    if (empty($telephone_number[2])) {
-                                                        echo '0';
-                                                    } else {
-
+                                                    if (isset($telephone_number[2])) {
                                                         echo $telephone_number[2];
                                                     }
                                                     ?>
