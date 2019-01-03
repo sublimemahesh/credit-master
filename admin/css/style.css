@@ -1,4 +1,7 @@
 ﻿/* Navbar ====================================== */
+.font-weight-new{
+    font-weight: 900;
+}
 #lable-active{
     font-size: 22px;
 }

@@ -272,10 +272,9 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
 //get Customer last loan amount
 if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
-
     $loan_amount = $_POST['loan_amount'];
     $customer_id = $_POST["customer_id"];
-
+   
     $DEFULTDATA = new DefaultData(NULL);
     $LOAN = new Loan(NULL);
     $INSTALLMENT = new Installment(NULL);
@@ -306,11 +305,12 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
             $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
             $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
 
+
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
-
-            $balance_pay = $loan_amount - $total_deduction;
-
+           
+              $balance_pay = $loan_amount - $total_deduction;
+            
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
             header('Content-type: application/json');
             exit();
@@ -355,7 +355,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
         $result = $DEFULTDATA->loanProcessingPreCheque($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
-       
+
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer
@@ -397,14 +397,23 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
         $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
         $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
 
-        //check paid amount has loan
-        $total_deduction = ($balance_in_last_loan + $result["total"]);
+        //check loan has paid 75%
+        $total_loan_amount_precentage = ($total_loan_amount * 75) / 100;
 
-        $balance_pay = $loan_amount - $total_deduction;
+        if ($total_loan_amount_precentage <= $paid_amount[0]) {
 
-        echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2)]);
-        header('Content-type: application/json');
-        exit();
+            $total_deduction = ($balance_in_last_loan + $result["total"]);
+
+            $balance_pay = $loan_amount - $total_deduction;
+
+            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2)]);
+            header('Content-type: application/json');
+            exit();
+        } else {
+            echo json_encode(['status' => 'status']);
+            header('Content-type: application/json');
+            exit();
+        }
     }
 }
  

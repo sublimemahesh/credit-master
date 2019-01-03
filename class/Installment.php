@@ -195,6 +195,8 @@ class Installment {
         $row = mysql_fetch_row($result);
 
         return $row;
+       
+        
     }
 
     public function getAllPaymentsByPaidDate($date) {
