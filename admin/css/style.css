@@ -8150,6 +8150,13 @@ html.ie11 .bs-searchbox .form-control {
     border-radius: 3px;
     border: 0;
 }
+.arrange-btn-3{
+    padding: 7px 10px;
+    color: #fff;
+    background-color: #21b1fe;;
+    border-radius: 3px;
+    border: 0;
+}
 
 .defult-btn{
     padding: 5px 8px;

@@ -154,6 +154,22 @@ class Loan {
         return $array_res;
     }
 
+    public function getloanByCustomer($customer) {
+
+        $query = "SELECT * FROM `loan` WHERE `customer` ='" . $customer . "'";
+        
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+      
+    }
+
     public function update() {
 
         $query = "UPDATE  `loan` SET "
@@ -182,7 +198,7 @@ class Loan {
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-        
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -273,15 +289,14 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
-         
-   
+
+
         $db = new Database();
         $result = $db->readQuery($query);
 
         $row = mysql_fetch_row($result);
 
         return $row;
-     
     }
 
     public function getAllApprovedLoansByCollector() {

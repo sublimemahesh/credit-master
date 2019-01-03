@@ -70,7 +70,7 @@ $CENTER = new Center(NULL)
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
                                                 <th>Leader</th>                                               
-                                                <th>Address</th> 
+
                                                 <th>Collector</th>
                                                 <th>Options</th> 
                                             </tr>
@@ -82,15 +82,21 @@ $CENTER = new Center(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $center['id']; ?>">
                                                     <td>#<?php echo $key; ?></td> 
-                                                    <td><?php echo $center['name']; ?></td>  
+                                                    <td><?php echo $center['name']; ?><br>
+                                                        <?php echo $center['address']; ?>
+                                                    </td>  
                                                     <td>
                                                         <?php
                                                         $CUSTOMER = new Customer($center['leader']);
-                                                        echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                                                        echo $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;                                                        
+                                                        ?><br>
+                                                        <?php
+                                                        $CUSTOMER = new Customer($center['leader']);
+                                                        echo $CUSTOMER->mobile;                                                      
                                                         ?>
                                                     </td>
-                                                   
-                                                    <td><?php echo $center['address']; ?></td>
+
+
                                                     <td>
                                                         <?php
                                                         $USER = new User($center['collector']);
@@ -98,6 +104,7 @@ $CENTER = new Center(NULL)
                                                         ?>
                                                     </td>
                                                     <td>
+                                                        <a href="view-center-customers-loan.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-list-alt  arrange-btn-3 " title="View loans"></button></a> |
                                                         <a href="view-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-center.php?id=<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> | 
                                                         <a href="#"  class="delete-center" data-id="<?php echo $center['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
@@ -113,8 +120,7 @@ $CENTER = new Center(NULL)
                                                 <th>ID</th>
                                                 <th>Center Name</th>  
                                                 <th>Leader</th>
-                                                <th>Collector</th>
-                                                <th>Address</th>
+                                                <th>Collector</th> 
                                                 <th>Options</th> 
                                             </tr>
                                         </tfoot>
