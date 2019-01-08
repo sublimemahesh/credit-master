@@ -23,7 +23,6 @@ class DefaultData {
         }
     }
 
-    //put your code here
     public function getLoanPeriod() {
         return array("30" => "One Month", "60" => "Two Months", "90" => "Three Months", "100" => "100 Days");
     }
@@ -69,50 +68,74 @@ class DefaultData {
         return $result;
     }
 
+    public function getLoanDocumentFee() {
+        return 50;
+    }
+
+    public function getLoanChequeFee() {
+        return 30;
+    }
+
+    public function getLoanStampFee($amount) {
+        return ($amount * 0.1 / 100);
+    }
+
+    public function getLoanBankFee() {
+        return 50;
+    }
+
     public function loanProcessingPreCash($amount) {
 
-        $document_free = 50;
-        $stamp_fee = ($amount * 0.1 / 100);
-        $total = $stamp_fee + $document_free;
-        $loan_free = array("document_free" => number_format($document_free, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2));
+        $document_fee = $this->getLoanDocumentFee();
+        $stamp_fee = $this->getLoanStampFee($amount);
+        $total = $stamp_fee + $document_fee;
+        $loan_free = array(
+            "document_free" => number_format($document_fee, 2),
+            "total" => number_format($total, 2),
+            "stamp_fee" => number_format($stamp_fee, 2)
+        );
 
         return $loan_free;
     }
 
     public function loanProcessingPreBank($amount) {
 
+        $document_fee = $this->getLoanDocumentFee();
 
-        if ($amount < 100000) {
-
-            $full_document_charge = 50;
-            $stamp_fee = ($amount * 0.1 / 100);
-            $total = $stamp_fee + $full_document_charge;
+        if ($amount <= 100000) {
+            $bank_transaction_free = $this->getLoanBankFee();
         } else {
-            $count = 0;
-            $document_free = 50;
-
-            $count = $amount / 100000;
-
-            $stamp_fee = ($amount * 0.1 / 100);
-
-            $full_document_charge = round($count, 0) * $document_free;
-            $total = $stamp_fee + $full_document_charge;
+            $avg = $amount / 100000;
+            $bank_transaction_free = ($this->getLoanBankFee() * (int) $avg) + $this->getLoanBankFee();
         }
 
-        $loan_free = array("document_free" => number_format($full_document_charge, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2));
+        $stamp_fee = $this->getLoanStampFee($amount);
+        $total = $stamp_fee + $bank_transaction_free + $document_fee;
+
+        $loan_free = array(
+            "document_free" => number_format($document_fee, 2),
+            "bank_transaction_free" => number_format($bank_transaction_free, 2),
+            "total" => number_format($total, 2),
+            "stamp_fee" => number_format($stamp_fee, 2)
+        );
 
         return $loan_free;
     }
 
     public function loanProcessingPreCheque($amount) {
 
-        $document_free = 50;
-        $cheque_free = 30;
-        $stamp_fee = ($amount * 0.1 / 100);
-        $full_document_charge = $cheque_free + $document_free;
+        $document_fee = $this->getLoanDocumentFee();
+        $cheque_fee = $this->getLoanChequeFee();
+        $stamp_fee = $this->getLoanStampFee($amount);
+        $full_document_charge = $cheque_fee + $document_fee;
         $total = $stamp_fee + $full_document_charge;
 
-        $loan_free = array("document_free" => number_format($document_free, 2), "total" => number_format($total, 2), "stamp_fee" => number_format($stamp_fee, 2), "cheque_free" => number_format($cheque_free, 2));
+        $loan_free = array(
+            "document_free" => number_format($document_fee, 2),
+            "total" => number_format($total, 2),
+            "stamp_fee" => number_format($stamp_fee, 2),
+            "cheque_fee" => number_format($cheque_fee, 2)
+        );
 
         return $loan_free;
     }

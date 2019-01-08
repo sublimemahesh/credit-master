@@ -385,6 +385,15 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
                                             </div>
                                         </div>
                                     </div>
+                                    <div   style="display: none" id="bank_transaction_free_amount">                                   
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="bank_transaction_free"  name="bank_transaction_free"   placeholder="bank_transaction_free" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
 

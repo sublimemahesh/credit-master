@@ -252,7 +252,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <input type="text" id="loan_processing_pre_amount"   name="loan_processing_pre_amount"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
-                                    </div>                               
+                                    </div>  
+
 
                                     <div class="col-lg-2 col-md-2  col-sm-12 col-xs-12  form-control-label">
                                         <div class="form-group">
@@ -269,10 +270,18 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>
                                     </div>
-
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12  ">
+                                    <div   style="display: none" id="bank_transaction_free_amount">                                   
+                                        <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <input type="text" id="bank_transaction_free"  name="bank_transaction_free"   placeholder="bank_transaction_free" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 " style="display: none" id="cheque_free">
                                         <div class="form-group">
-                                            <div class="form-line" style="display: none" id="cheque_free"> 
+                                            <div class="form-line" > 
                                                 <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
@@ -281,12 +290,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="">Blance Of the last Loan</label>
+                                        <label for="balance_of_last_loan">Balance Of the last Loan</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Blance Of the last Loan</label>
+                                                <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
                                                 <div class="form-control"  > 
                                                     <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
                                                 </div>

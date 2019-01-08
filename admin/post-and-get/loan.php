@@ -125,6 +125,7 @@ if (isset($_POST['update-loan'])) {
     $LOAN->interest_rate = $_POST['interest_rate'];
     $LOAN->installment_type = $_POST['installment_type'];
     $LOAN->number_of_installments = $_POST['number_of_installments'];
+    $LOAN->installment_amount = $_POST['installment_amount'];
     $LOAN->effective_date = $_POST['effective_date'];
 
 
