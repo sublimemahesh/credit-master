@@ -487,7 +487,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_amount" class="hidden-lg hidden-md">Installment Amount</label>
-                                            <input type="text" class="form-control" name="installment_amount" autocomplete="nope" id="installment_amount"  placeholder="Installment Amount" required="TRUE" readonly="readonly" value="<?php echo $LOAN->installment_amount ?>">
+                                            <input type="text" class="form-control" name="installment_amount" autocomplete="nope" id="installment_price"  placeholder="Installment Amount" required="TRUE" readonly="readonly" value="<?php echo $LOAN->installment_amount ?>">
                                         </div>
                                     </div>
                                 </div>
@@ -580,24 +580,31 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
 
-                                <div style="display: none" id="cheque_free">
-
-                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
-                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div   style="display: none" id="stamp_fee_amount">
-                                    
+                                <div   style="display: none" id="stamp_fee_amount">                                    
                                     <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="Stamp Fee" class="hidden-lg hidden-md">Stamp Fee</label>
                                                 <input type="text" id="stamp_fee"  name="stamp_fee"   placeholder="Stamp Fee" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div  style="display: none" id="bank_transaction_free_amount">                                   
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <input type="text" id="bank_transaction_free"  name="bank_transaction_free"   placeholder="bank_transaction_free" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div style="display: none" id="cheque_free">
+                                    <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="cheque_free" class="hidden-lg hidden-md">Cheque Fee</label>
+                                                <input type="text" id="cheque_free_amount"   name="cheque_free_amount"  placeholder="loan Cheque Fee" class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>

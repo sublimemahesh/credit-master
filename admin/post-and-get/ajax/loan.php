@@ -220,6 +220,7 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
     }
 }
 
+
 if ($_POST['action'] == 'lOANPROCESSINGPRE') {
     $amount = $_POST['loan_amount'];
 
@@ -235,7 +236,7 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreBank($amount);
-
+       
         echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
