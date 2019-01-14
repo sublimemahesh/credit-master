@@ -27,6 +27,7 @@ include_once(dirname(__FILE__) . '/GeneralAccounts.php');
 include_once(dirname(__FILE__) . '/LoanDocument.php');
 include_once(dirname(__FILE__) . '/AccountType.php');
 include_once(dirname(__FILE__) . '/Account.php');
+include_once(dirname(__FILE__) . '/TransferFee.php');
 
 function dd($data) {
     var_dump($data);

@@ -66,22 +66,8 @@ $ACCOUNT_TYPE = new AccountType($id);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="account_type" class="hidden-lg hidden-md">Account Types</label>
-                                            <select id="account_type"  name="account_type"   class="form-control" autocomplete="off"  >
-                                                <?php
-                                                foreach ($ACCOUNT_TYPE->all()as $account_type) {
-                                                    if ($account_type['id'] == $ACCOUNT_TYPE->id) {
-                                                        ?>
-                                                        <option selected="" value="<?php echo $ACCOUNT_TYPE->id ?>"> <?php echo $ACCOUNT_TYPE->name ?>   </option>
-                                                        <?php
-                                                    } else {
-                                                        ?>
-                                                        <option value="<?php echo $account_type['id'] ?>"> <?php echo $account_type['name'] ?>   </option>
-                                                        <?php
-                                                    }
-                                                }
-                                                ?>
+                                            <input type="text" id="account_type"  name="account_type"  class="form-control"value="<?php echo $ACCOUNT_TYPE->name ?>" disabled="">
 
-                                            </select>
                                         </div>
                                     </div>
                                 </div>
@@ -136,6 +122,7 @@ $ACCOUNT_TYPE = new AccountType($id);
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save </button>
+                                    <input type="hidden" id="account_type"  name="account_type" value="<?php echo $ACCOUNT_TYPE->id ?>">
                                 </div>
                             </div>
                         </form> 
