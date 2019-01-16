@@ -6,8 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
-
-
 ?> 
 <!DOCTYPE html>
 <html>
@@ -15,7 +13,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Collector Payment Detail  || Credit Master</title>
+        <title>Manage Transfer fee || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -50,11 +48,11 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Collector Payment Detail
+                                    Manage Transfer fee 
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
-                                        <a href="add-collector-payment-detail.php">
+                                        <a href="create-transfer-fee.php">
                                             <i class="material-icons">add</i> 
                                         </a>
                                     </li>
@@ -65,52 +63,51 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <table class = "table table-bordered table-striped table-hover js-basic-example" id = "postpone_date">
                                         <thead>
                                             <tr>
-                                                <th>ID</th>                                                
-                                                <th>Collector</th>
+                                                <th>ID</th>
+                                                <th>From Acc:</th>
+                                                <th>To Acc:</th> 
                                                 <th>Date & Time</th>
-                                                <th>Amount</th> 
-                                                <th>Mode</th>
+                                                <th>Amount</th>
+                                                <th>Purpose</th>
                                                 <th>Option</th>
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            $COLLECTORPYMENTDETAILS = new CollectorPaymentDetail(Null);
-                                            foreach ($COLLECTORPYMENTDETAILS->all() as $key => $collecter_payment_details) {
+                                            $TRANSFER_FEE = new TransferFee(NULL);
+                                            foreach ($TRANSFER_FEE->all() as $key => $transfer_fee) {
                                                 $key++;
                                                 ?>
-                                                <tr id="row_<?php echo $collecter_payment_details['id']; ?>">
+                                                <tr id="row_<?php echo $transfer_fee['id']; ?>">
                                                     <td>
                                                         #<?php echo $key ?>
                                                     </td> 
                                                     <td>
                                                         <?php
-                                                        $USER = new Users($collecter_payment_details['collector_id']);
-                                                        echo $USER->name;
+                                                        $USER = new User($transfer_fee['from_account']);
+                                                        echo $USER->name
                                                         ?>
-                                                    </td> 
-                                                    <td>
-                                                        <?php echo $collecter_payment_details['date']; ?>
                                                     </td>
 
-                                                    <td>
-                                                        <?php echo 'Rs: ' . number_format($collecter_payment_details['ammount'], 2); ?>
+                                                    <td>                                                       
+                                                        <?php
+                                                        $USER = new User($transfer_fee['to_account']);
+                                                        echo $USER->name
+                                                        ?> 
                                                     </td>  
                                                     <td>
-                                                        <?php
-                                                        if ($collecter_payment_details['is_recived'] == 1) {
-                                                            echo 'Recived';
-                                                        } elseif ($collecter_payment_details['is_issuied'] == 1) {
-                                                            echo 'Issuied';
-                                                        } elseif ($collecter_payment_details['is_settled'] == 1) {
-                                                            echo 'Settled';
-                                                        }
-                                                        ?>
+                                                        <?php echo $transfer_fee['date'] . ' / ' . $transfer_fee['time']; ?>
                                                     </td>   
-
+                                                    <td>
+                                                        <?php echo number_format($transfer_fee['amount'], 2); ?>
+                                                    </td>  
+                                                    <td>
+                                                        <?php echo $transfer_fee['purpose']; ?>
+                                                    </td>  
                                                     <td>     
-                                                        <a href="edit-collector-payment-detail.php?id=<?php echo $collecter_payment_details['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
-                                                        <a href="#"  class="delete-collector" data-id="<?php echo $collecter_payment_details['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
+                                                        <a href="view-transfer-fee.php?id=<?php echo $transfer_fee['id']; ?>"> <button class="glyphicon glyphicon-eye-open arrange-btn" title="View"></button></a> |
+                                                        <a href="edit-transfer-fee.php?id=<?php echo $transfer_fee['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> | 
+                                                        <a href="#"  class="delete-transfer-fee" data-id="<?php echo $transfer_fee['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -120,11 +117,12 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Collector</th>
+                                                <th>From Acc:</th>
+                                                <th>To Acc:</th> 
                                                 <th>Date & Time</th>
                                                 <th>Amount</th>
-                                                <th>Mode</th>
-                                                <th>Option</th> 
+                                                <th>Purpose</th>
+                                                <th>Option</th>
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -156,15 +154,9 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script> 
         <script src="js/demo.js"></script>
-        <script src="delete/js/petty-cash.js" type="text/javascript"></script> 
-        <script type="text/javascript">
-            $(document).ready(function () {
-                $('#postpone_date').DataTable({
-                    "order": [[1, "desc"]]
-                });
-            });
-        </script>
-        <script src="delete/js/collecterpaymentdetail.js" type="text/javascript"></script>
+        <script src="delete/js/tranfer-fee.js" type="text/javascript"></script> 
+        
+
 
     </body> 
 </html> 

@@ -88,10 +88,11 @@ class TransferFee {
         $query = "UPDATE  `transfer_fee` SET "
                 . "`from_account` ='" . $this->from_account . "', "
                 . "`to_account` ='" . $this->to_account . "', "
-                . "`date` ='" . $this->date . "' "
-                . "`time` ='" . $this->time . "' "
-                . "`amount` ='" . $this->amount . "' "
-                . "WHERE `purpose` = '" . $this->purpose . "'";
+                . "`date` ='" . $this->date . "', "
+                . "`time` ='" . $this->time . "', "
+                . "`amount` ='" . $this->amount . "', "
+                . "`purpose` ='" . $this->purpose . "' "
+                . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);

@@ -62,7 +62,9 @@ if (isset($_POST['update'])) {
 
     $VALID = new Validator();
     $VALID->check($TRANSFER_FEE, [
-        'account_type' => ['required' => TRUE],
+        'from_account' => ['required' => TRUE],
+        'to_account' => ['required' => TRUE],
+        'amount' => ['required' => TRUE],
     ]);
 
     if ($VALID->passed()) {

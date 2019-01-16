@@ -9,8 +9,9 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$date = '';
-$date = date("Y/m/d");
+$id = '';
+$id = $_GET['id'];
+$TRANSFER_FEE = new TransferFee($id);
 ?>
 
 <!DOCTYPE html>
@@ -19,7 +20,7 @@ $date = date("Y/m/d");
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Transfer Fee   || Credit Master</title>
+        <title>Edit Transfer Fee   || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -52,7 +53,7 @@ $date = date("Y/m/d");
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Transfer Fee  </h2>
+                        <h2>Edit Transfer Fee  </h2>
                     </div>
 
                     <div class="body">
@@ -70,9 +71,16 @@ $date = date("Y/m/d");
                                                 <?php
                                                 $USER = new User(NULL);
                                                 foreach ($USER->activeUsers() as $user) {
-                                                    ?>
-                                                    <option value="<?php echo $user['id'] ?>" data-name=""> <?php echo $user['name'] ?>   </option>
-                                                    <?php
+                                                    if ($user['id'] == $TRANSFER_FEE->from_account) {
+                                                        ?>
+                                                        <option value="<?php echo $user['id'] ?>" selected=""> <?php echo $user['name'] ?>   </option>
+
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?php echo $user['id'] ?>"  > <?php echo $user['name'] ?>   </option>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
                                             </select>
@@ -90,12 +98,20 @@ $date = date("Y/m/d");
                                         <div class="form-line">
                                             <label for="to_account" class="hidden-lg hidden-md">To Account:</label>
                                             <select id="to_account"  name="to_account"  class="form-control" autocomplete="off"  >
+
                                                 <?php
                                                 $USER = new User(NULL);
                                                 foreach ($USER->activeUsers() as $user) {
-                                                    ?>
-                                                    <option value="<?php echo $user['id'] ?>" data-name=""> <?php echo $user['name'] ?>   </option>
-                                                    <?php
+                                                    if ($user['id'] == $TRANSFER_FEE->to_account) {
+                                                        ?>
+                                                        <option value="<?php echo $user['id'] ?>" selected=""> <?php echo $user['name'] ?>   </option>
+
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option value="<?php echo $user['id'] ?>"  > <?php echo $user['name'] ?>   </option>
+                                                        <?php
+                                                    }
                                                 }
                                                 ?>
                                             </select>
@@ -112,7 +128,7 @@ $date = date("Y/m/d");
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="date" class="hidden-lg hidden-md"> Date</label>
-                                            <input type="text" id="date"  name="date" value="<?php echo $date ?>"placeholder="Enter  Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="date"  name="date" value="<?php echo $TRANSFER_FEE->date ?>"placeholder="Enter  Date" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -126,7 +142,7 @@ $date = date("Y/m/d");
                                             <input type="text" id="time"  name="time" value="<?php
                                             date_default_timezone_set("Asia/Calcutta");
                                             $time = date('H:i:s');
-                                            echo $time;
+                                            echo $TRANSFER_FEE->time;
                                             ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off">
                                         </div>
                                     </div>
@@ -141,7 +157,7 @@ $date = date("Y/m/d");
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="amount" class="hidden-lg hidden-md">Amount</label>
-                                            <input type="number" id="amount"   name="amount" class="form-control" />
+                                            <input type="number" id="amount"   name="amount" class="form-control" value="<?php echo $TRANSFER_FEE->amount; ?>"/>
                                         </div>
                                     </div>
                                 </div>
@@ -155,7 +171,7 @@ $date = date("Y/m/d");
                                     <div class="form-group">   
                                         <div class="form-line">
                                             <label for="purpose" class="hidden-lg hidden-md">Purpose</label>
-                                            <textarea rows="3" cols="105" name="purpose" class="form-control"></textarea>                                  
+                                            <textarea rows="3" cols="105" name="purpose" class="form-control"><?php echo $TRANSFER_FEE->purpose; ?></textarea>                                  
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +181,8 @@ $date = date("Y/m/d");
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save </button> 
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Save </button>
+                                    <input type="hidden" name="id" value="<?php echo $id ?>">
                                 </div>
                             </div>
                         </form> 

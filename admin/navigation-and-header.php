@@ -273,7 +273,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                            assignment_turned_in
+                          input
                         </i>
                         <span>Transfer Free</span>
                     </a>
@@ -285,7 +285,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-petty-cash.php">
+                            <a href="manage-transfer-fee.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
