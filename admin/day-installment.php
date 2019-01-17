@@ -7,7 +7,7 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
- 
+
 $today = date("Y-m-d");
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -152,7 +152,7 @@ $next = $ND->format('Y-m-d');
 
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
- 
+
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
 
                                                         $start->modify($add_dates);
@@ -208,7 +208,7 @@ $next = $ND->format('Y-m-d');
                                                                 </td>
 
                                                                 <td class="text-center"> 
-                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>">
+                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $amount ?>">
                                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                                     </a> 
                                                                 </td> 

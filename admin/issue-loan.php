@@ -448,11 +448,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <?php } ?>
 
 
-
-
-
-
-
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="">Installment Type</label>
@@ -630,8 +625,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                <hr/>
-
+                                <hr/>                                                              
+                                
+                               
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issued_date">Issue Date</label>
@@ -901,7 +897,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="nic_photo_back" class="hidden-lg hidden-md">NIC Photo Back</label>
                                                 <?php if (empty($CUSTOMER->nic_photo_back)) {
                                                     ?>
-                                                    <img class="img-responsive thumbnail" src="../upload/sample.jpg">
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
 
                                                 <?php } else { ?>
 

@@ -197,7 +197,7 @@ $today = date("Y-m-d");
                                                     echo '</td>';
                                                     echo '<td class="f-style">';
                                                     $ins_total += $amount;
-                                                    $total_paid += $paid_amount;
+                                                    $total_paid += $paid_amount;                                                    
                                                     $due_and_excess = $total_paid - $ins_total;
 
                                                     if ($due_and_excess < 0) {
