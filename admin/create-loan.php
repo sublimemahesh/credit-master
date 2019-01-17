@@ -5,7 +5,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 //check user level
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
-$DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 ?>
 
 <!DOCTYPE html>
@@ -29,6 +29,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+        
     </head>
 
     <body class="theme-red">
@@ -56,21 +57,38 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
-
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="create_date">Date</label>
-                                </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
-                                            <input type="text" id="create_date"  name="create_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select Date" class="form-control" autocomplete="off" required="TRUE" readonly="readonly">
+                            <?php if ($USERS->user_level == 1) {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="create_date">Date</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
+                                                <input type="text" id="create_date"  name="create_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select Date" class="form-control create_date" autocomplete="off" required="TRUE"  >
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
+                                <?php
+                            } else {
+                                ?>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="create_date">Date</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="create_date" class="hidden-lg hidden-md">Create Date</label>
+                                                <input type="text" id="create_date"  name="create_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select Date" class="form-control" autocomplete="off" required="TRUE" readonly="readonly">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            <?php } ?>
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="registration_type">Registration Type</label>
@@ -484,6 +502,12 @@ $DEFAULTDATA->checkUserLevelAccess('1,3', $USERS->user_level);
                     dateFormat: 'yy-mm-dd',
                     minDate: '-3D',
                     maxDate: '+3D',
+
+                });
+                
+                $(".create_date").datepicker({
+                    dateFormat: 'yy-mm-dd',
+                     
 
                 });
             });

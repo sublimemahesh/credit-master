@@ -195,8 +195,29 @@ class Installment {
         $row = mysql_fetch_row($result);
 
         return $row;
-       
-        
+    }
+
+    public function getPaidNumberOfInstallment($installment_amount, $loan_id) {
+
+        $paid_amount = $this->getAmountByLoanId($loan_id);
+
+        $number_of_installment = $paid_amount[0] / $installment_amount;
+
+        return $number_of_installment;
+    }
+
+    public function getPaidNumberOfInstallments($loan_id) {
+
+
+        $query = "SELECT count(`loan`)  FROM `installment` WHERE `loan` ='" . $loan_id . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_row($result);
+
+        return $row;
     }
 
     public function getAllPaymentsByPaidDate($date) {
@@ -214,6 +235,25 @@ class Installment {
         }
 
         return $array_res;
+    }
+
+    public function getPaybleNumberOfInstallments($number_of_installments, $paid_numbers_of_installments) {
+      
+        $payble_of_installments = ($number_of_installments - $paid_numbers_of_installments);
+
+        return $payble_of_installments;
+       
+    }
+
+    public function getPaybleInstallmentAmount($loan_id, $loan_amount, $rate) {
+
+        $Paid_amount = $this->getAmountByLoanId($loan_id);
+
+        $loan_amount += ($loan_amount * $rate) / 100;
+
+        $payble_amount = $loan_amount - $Paid_amount[0];
+
+        return $payble_amount;
     }
 
 }

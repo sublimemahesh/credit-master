@@ -8,8 +8,11 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
+$INSTALLMENT = new Installment(NULL);
+
 $LOAN = new Loan($_GET['id']);
 $loan_id = $_GET['id'];
+
 $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
 $GR2 = new Customer($LOAN->guarantor_2);
@@ -231,7 +234,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                              
+
 
                                 <div class="row" style="display: none" id="loan_processing_pre">
                                     <div class="col-lg-3 col-md-3 form-control-label">
@@ -627,13 +630,109 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="paid_number_installment">Paid Number of Installments</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="paid_number_installment" class="hidden-lg hidden-md"> Paid Number of Installments</label>
+                                                <?php
+                                                $paid_numbers_of_installments = $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id);
+                                                ?>
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo round($paid_numbers_of_installments, 1) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="payble_number_installment">Payble Number of Installments</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="payble_number_installment" class="hidden-lg hidden-md"> Payble Number of Installments</label>
+                                                <?php
+                                                $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), round($INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id), 1));
+                                                ?>
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo $payble_of_installments ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="paid_amount">Paid Amount </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="paid_amount" class="hidden-lg hidden-md">Paid  Amount</label>
+                                                <?php
+                                                $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id);
+                                                ?>
+                                                <input type="text" id="paid_amount"  name="paid_amount" value="<?php echo number_format($paid_amount[0], 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="total_payble_amount"> Payble Amount </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Payble Amount</label>
+                                                <?php
+                                                $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate);
+                                                ?>
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_amount, 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="total_payble_amount">  Due and Excess</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Due and Excess</label>
+                                                <?php
+                                                $ins_total= 0;
+                                                $total_paid= 0;
+                                                
+                                                $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id);
+
+                                                $amount = $LOAN->installment_amount;
+
+                                                $ins_total += $amount;
+                                                $total_paid += (int) ($paid_amount[0]); 
+                                                dd(number_format($total_paid - $ins_total, 2));
+                                                ?>
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value=" " placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr/>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issued_date">Issue Date</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issued_date" class="hidden-lg hidden-md">Issue Date</label>
-                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select The Effective Date" class="form-control " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
