@@ -239,10 +239,10 @@ class Installment {
 
     public function getPaybleNumberOfInstallments($number_of_installments, $paid_numbers_of_installments) {
       
-        $payble_of_installments = ($number_of_installments - $paid_numbers_of_installments);
+        $payble_of_installments = ($number_of_installments - round($paid_numbers_of_installments, 1));
 
         return $payble_of_installments;
-       
+           
     }
 
     public function getPaybleInstallmentAmount($loan_id, $loan_amount, $rate) {

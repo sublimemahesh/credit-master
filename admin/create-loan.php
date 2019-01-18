@@ -6,6 +6,8 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+
 ?>
 
 <!DOCTYPE html>
@@ -473,6 +475,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
+                                        <input type="hidden" value="<?php echo $USERS->id; ?>" id="collector_id">
                                     </div> 
                                 </div> 
                             </div>

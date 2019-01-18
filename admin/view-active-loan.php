@@ -654,7 +654,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="payble_number_installment" class="hidden-lg hidden-md"> Payble Number of Installments</label>
                                                 <?php
-                                                $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), round($INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id), 1));
+                                                $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id));
                                                 ?>
                                                 <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo $payble_of_installments ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
                                             </div>
@@ -670,9 +670,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="paid_amount" class="hidden-lg hidden-md">Paid  Amount</label>
-                                                <?php
-                                                $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id);
-                                                ?>
+                                                <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
                                                 <input type="text" id="paid_amount"  name="paid_amount" value="<?php echo number_format($paid_amount[0], 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
@@ -687,9 +685,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="total_payble_amount" class="hidden-lg hidden-md"> Payble Amount</label>
-                                                <?php
-                                                $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate);
-                                                ?>
+                                                <?php $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate); ?>
                                                 <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_amount, 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
@@ -704,20 +700,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="total_payble_amount" class="hidden-lg hidden-md"> Due and Excess</label>
-                                                <?php
-                                                $ins_total= 0;
-                                                $total_paid= 0;
-                                                
-                                                $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id);
-
-                                                $amount = $LOAN->installment_amount;
-
-                                                $ins_total += $amount;
-                                                $total_paid += (int) ($paid_amount[0]); 
-                                                dd(number_format($total_paid - $ins_total, 2));
-                                                ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value=" " placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
-
+                                            
                                             </div>
                                         </div>
                                     </div>
