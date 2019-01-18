@@ -70,8 +70,8 @@ class Center {
         }
         return $array_res;
     }
-
-    public function getCenterIdByCustomer() {
+    
+    public function getCenterByCollector($collector) {
 
 
         $query = "SELECT * FROM `center` ";
@@ -85,6 +85,8 @@ class Center {
         }
         return $array_res;
     }
+
+ 
 
     public function update() {
 

@@ -7,13 +7,13 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
     if ($_POST['type'] == 'route') {
         $ROUTE = new Route(NULL);
-        $result = $ROUTE->all();
+        $result = $ROUTE->getRouteByCollector($_POST['collector_id']);
         echo json_encode(['type' => 'route', 'data' => $result]);
         header('Content-type: application/json');
         exit();
     } else if ($_POST['type'] == 'center') {
         $CENTER = new Center(NULL);
-        $result = $CENTER->all();
+        $result = $CENTER->getCentersByCollector($_POST['collector_id']);
         echo json_encode(['type' => 'center', 'data' => $result]);
         header('Content-type: application/json');
         exit();
@@ -236,7 +236,7 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
 
         $DEFULTDATA = new DefaultData(NULL);
         $result = $DEFULTDATA->loanProcessingPreBank($amount);
-       
+
         echo json_encode(['result' => $result]);
         header('Content-type: application/json');
         exit();
@@ -275,7 +275,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
     $loan_amount = $_POST['loan_amount'];
     $customer_id = $_POST["customer_id"];
-   
+
     $DEFULTDATA = new DefaultData(NULL);
     $LOAN = new Loan(NULL);
     $INSTALLMENT = new Installment(NULL);
@@ -309,9 +309,9 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
-           
-              $balance_pay = $loan_amount - $total_deduction;
-            
+
+            $balance_pay = $loan_amount - $total_deduction;
+
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
             header('Content-type: application/json');
             exit();

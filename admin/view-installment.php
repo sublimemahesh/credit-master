@@ -199,7 +199,7 @@ $today = date("Y-m-d");
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;                                                    
                                                     $due_and_excess = $total_paid - $ins_total;
-
+                                                   
                                                     if ($due_and_excess < 0) {
                                                         echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess > 0) {

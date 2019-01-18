@@ -43,6 +43,7 @@ $(document).ready(function () {
             }
         });
     });
+    
     $('#edit_registration_type').change(function () {
 
         var type = $(this).val();

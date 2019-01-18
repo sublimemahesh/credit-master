@@ -1,9 +1,10 @@
 $(document).ready(function () {
-
-//registration_type
+//registration_type user  
     $('#registration_type').change(function () {
 
         var type = $(this).val();
+        var collector_id = $('#collector_id').val();
+
         if (!type) {
             $('#route_row').hide();
             $('#center_row').hide();
@@ -18,6 +19,7 @@ $(document).ready(function () {
             type: "POST",
             data: {
                 type: type,
+                collector_id: collector_id,
                 action: 'GETREGTYPE'
             },
             dataType: "JSON",
@@ -823,6 +825,7 @@ $('#customer,#issue_mode').change(function () {
 window.onload = function () {
 
 
+
     //get other page to issumode prices in onloard 
 
     var issue_mode = document.getElementById("issue_mode_onloard").value;
@@ -935,7 +938,6 @@ window.onload = function () {
         }
     });
 
-
 // cal net amount in onloard
 
     var period = document.getElementById("loan_period").value;
@@ -948,6 +950,7 @@ window.onload = function () {
     //cal Total value in month
     var totalValue = parseFloat(numVal) + parseFloat((month * (numVal * numVa2)));
     document.getElementById("total").value = totalValue;
+
 
 
 };
