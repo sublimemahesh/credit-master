@@ -618,7 +618,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Effective Date</label>
-                                                <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date; ?>" placeholder="Please Select The Effective Date" class="form-control datepicker" autocomplete="off">
+                                                <input type="text" id="effective_date"  name="effective_date" value="<?php echo $LOAN->effective_date; ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off" readonly="">
                                             </div>
                                         </div>
                                     </div>
@@ -653,7 +653,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <?php
                                                 $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id));
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo $payble_of_installments ?>" readonly="" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_of_installments,1) ?>" readonly="" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -834,7 +834,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         echo '<td class="padd-td red">';
                                                         echo $date;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td gray text-center" colspan=5>';
+                                                        echo '<td class="padd-td red gray text-center" colspan=5>';
                                                         echo '-- Postponed --';
                                                         echo '</td>';
 

@@ -146,6 +146,12 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <span>View All Loans</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="arrears_loans.php">
+                                <i class="material-icons">offline_bolt</i>
+                                <span>Areas loans</span>
+                            </a>
+                        </li>
                     </ul>
                 </li> 
 
@@ -273,7 +279,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                          input
+                            input
                         </i>
                         <span>Transfer Free</span>
                     </a>
@@ -295,7 +301,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
                         <i class="material-icons">
-                           local_library
+                            local_library
                         </i>
                         <span>Account Type</span>
                     </a>

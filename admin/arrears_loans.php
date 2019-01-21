@@ -7,7 +7,7 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$DefaultData = new DefaultData(NULl);
+
 $today = date("Y-m-d");
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -29,7 +29,7 @@ $next = $ND->format('Y-m-d');
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title> All Instalment  || Credit Master</title>
+        <title> Arrears Loans || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -55,7 +55,6 @@ $next = $ND->format('Y-m-d');
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
                 <!-- Manage Districts -->
@@ -65,24 +64,13 @@ $next = $ND->format('Y-m-d');
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    All Instalments :
+                                    Arrears Loans :
                                     <?php
                                     echo $today;
                                     ?>
                                 </h2>
 
-                                <ul class="header-dropdown"> 
-                                    <a href="day-installment.php?date=<?php echo $back ?>">
-                                        <i class="material-icons" >
-                                            arrow_back_ios
-                                        </i>
-                                    </a>
-                                    <a href="day-installment.php?date=<?php echo $next ?>">
-                                        <i class="material-icons">
-                                            arrow_forward_ios
-                                        </i>
-                                    </a> 
-                                </ul>
+
                             </div> 
 
                             <div class="body">                            
@@ -90,16 +78,16 @@ $next = $ND->format('Y-m-d');
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th>Customer Details</th> 
-                                                <th>Loan Details</th>  
-                                                <th>Installment Details</th>                                                 
-                                                <th class="text-center">Options</th> 
+                                                <th>Loan Id</th> 
+                                                <th>Customer</th>
+                                                <th>Number of arrears</th>                                                 
+                                                <th class="text-center">Arrears Total</th> 
                                             </tr>
                                         </thead>
+
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
-
 
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
@@ -158,59 +146,54 @@ $next = $ND->format('Y-m-d');
 
                                                         $start->modify($add_dates);
                                                     } else {
-                                                        if ($date == $today) {
+                                                        $ITYPE = $loan['installment_type'];
+                                                        $arreas_amount = $total_paid - $ins_total;
+                                                        if ($date == $today && $ITYPE == 30 && $arreas_amount < 0) {
                                                             ?>
                                                             <tr>
                                                                 <td>
-                                                                    <i class = "glyphicon glyphicon-user"></i >
-
-                                                                    <?php
-                                                                    $first_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname));
-                                                                    echo '<b>' . $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name . '</b>';
-
-                                                                    echo '</br><b>Mo No: </b> ' . $CUSTOMER->mobile;
-                                                                    $CENTER = new Center($CUSTOMER->center);
-
-                                                                    if ($CUSTOMER->center = $CENTER->id) {
-                                                                        echo '</br><b>' . 'Center - ' . '</b>' . $CENTER->name;
-                                                                    } else {
-                                                                        $ROUTE = new Route($CUSTOMER->route);
-                                                                        echo '</br><b>' . 'Route - ' . '</b>' . $ROUTE->name;
-                                                                    }
-                                                                    ?>
+                                                                    <b>
+                                                                        <?php
+                                                                        $LT = $loan['installment_type'];
+                                                                        if ($LT == 30) {
+                                                                            echo 'BLD' . $loan['id'];
+                                                                        } elseif ($LT == 4) {
+                                                                            echo 'BLW' . $loan['id'];
+                                                                        } else {
+                                                                            echo 'BLM' . $loan['id'];
+                                                                        }
+                                                                        ?>
+                                                                    </b>
                                                                 </td> 
 
                                                                 <td>  
                                                                     <?php
-                                                                    echo '<b>Amount: ' . number_format($loan['loan_amount'], 2) . '</b>';
-                                                                    echo '</br><b>Period: </b>' . $LP[$loan['loan_period']];
-                                                                    echo '</br><b>Type: </b>' . $IT[$loan['installment_type']];
+                                                                    $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($CUSTOMER->surname));
+                                                                    echo '<b>' . $first_name . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name . '</b>';
                                                                     ?>
                                                                 </td> 
+
                                                                 <td>
                                                                     <?php
-                                                                    echo '<b>In Amount: </b>' . number_format($amount, 2);
-                                                                    if ($INSTALLMENT = Installment::getInstallmentByLoanAndDate($loan['id'], $date)) {
-                                                                        echo '<p class="m-bottom"><b>Paid - </b>' . number_format($paid_amount, 2) . '</p>';
+                                                                    $number_of_arreas = ($total_paid - $ins_total) / $loan['installment_amount'];
+                                                                    if ($number_of_arreas > 0) {
+                                                                        echo '0';
                                                                     } else {
-                                                                        echo '</br><b>Payble </b></br>';
-                                                                    }
-
-                                                                    $due_and_excess = $total_paid - $ins_total;
-                                                                    if ($due_and_excess < 0) {
-                                                                        echo '<b>Due and Excess: </b>' . '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                                    } elseif ($due_and_excess > 0) {
-                                                                        echo '<b>Due and Excess: </b>' . '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                                    } else {
-                                                                        echo '<b>Due and Excess: </b>' . number_format($due_and_excess, 2);
+                                                                        echo abs((int) $number_of_arreas);
                                                                     }
                                                                     ?>
                                                                 </td>
 
                                                                 <td class="text-center"> 
-                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $loan['installment_amount'] ?>">
-                                                                        <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                                    </a> 
+                                                                    <?php
+                                                                    $arreas_amount = $total_paid - $ins_total;
+
+                                                                    if ($arreas_amount < 0) {
+                                                                        echo '<span style="color:red">' . number_format($arreas_amount, 2) . '</span>';
+                                                                    } else {
+                                                                        echo '0';
+                                                                    }
+                                                                    ?>
                                                                 </td> 
                                                             </tr>
                                                             <?php
@@ -224,10 +207,10 @@ $next = $ND->format('Y-m-d');
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Customer Details</th> 
-                                                <th>Loan Details</th>    
-                                                <th>Installment Details</th>                                                 
-                                                <th class="text-center">Options</th> 
+                                                <th>Loan Id</th> 
+                                                <th>Customer</th>    
+                                                <th>Number of arrears</th>                                                
+                                                <th class="text-center">Arrears Total</th>
                                             </tr>
                                         </tfoot>
                                     </table> 

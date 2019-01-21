@@ -350,7 +350,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
-                                            <select id="issue_mode" name="issue_mode" class="form-control">
+                                            <select id="issue_mode" name="issue_mode" class="form-control" required="">
                                                 <option value=""> -- Please Select Issue Mode -- </option>
                                                 <?php
                                                 $issueModes = DefaultData::getLoanIssueMode();
