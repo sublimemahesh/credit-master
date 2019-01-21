@@ -199,10 +199,11 @@ $today = date("Y-m-d");
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;                                                    
                                                     $due_and_excess = $total_paid - $ins_total;
-                                                   
+                                                    
                                                     if ($due_and_excess < 0) {
-                                                        echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                        echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
                                                     } elseif ($due_and_excess > 0) {
+                                                        
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } else {
                                                         echo number_format($due_and_excess, 2);
@@ -226,7 +227,7 @@ $today = date("Y-m-d");
                                                         $date = $start->format('Y-m-d');
                                                     } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
 
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' .'&amount=' . $amount . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . '&amount=' . $amount . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 

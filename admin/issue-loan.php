@@ -731,7 +731,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         echo '<td class="padd-td red">';
                                                         echo $date;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td gray text-center" colspan=5>';
+                                                        echo '<td class="padd-td red gray text-center" colspan=5>';
                                                         echo '-- Postponed --';
                                                         echo '</td>';
 
