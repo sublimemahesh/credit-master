@@ -1,5 +1,5 @@
 $(document).ready(function () {
-//registration_type user  
+//registration_type user 
     $('#registration_type').change(function () {
 
         var type = $(this).val();
@@ -128,7 +128,7 @@ $(document).ready(function () {
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
 
-//Variables to assign  values 
+//Variables to assign  values
         var period = Number($('#loan_period').val());
         var installmentType = Number($('#installment_type').val());
         var numVal = Number($('#loan_amount').val());
@@ -142,10 +142,10 @@ $(document).ready(function () {
         //echo Total
         $('#total').val(totalValue.toFixed(2));
 
-        //cal installment type 
+        //cal installment type
         var installmentAmount = (totalValue / installmentType);
 
-        //echo  installment type 
+        //echo  installment type
         var installment_price = installmentAmount / month;
 
         var number_of_installments = installmentType * (period / 30);
@@ -362,15 +362,15 @@ $(document).ready(function () {
         var effective_date = $('#effective_date').val();
         var loan_processing_pre_amount = $('#loan_processing_pre_amount').val();
         var result = validateForIssue(effective_date, issued_date, issue_mode);
-        
-        
+
+
         if (issue_mode === 'cash' || issue_mode === 'cheque') {
             swal({
                 title: "Error!",
                 text: "You cannot issue this loan. This loan issu mode is Cash or Cheque..! ",
-                type: "error",                
-                confirmButtonColor: "#00b0e4"            
-               
+                type: "error",
+                confirmButtonColor: "#00b0e4"
+
             })
 
         } else {
@@ -840,7 +840,7 @@ window.onload = function () {
 
 
 
-    //get other page to issumode prices in onloard 
+    //get other page to issumode prices in onloard
 
     var issue_mode = document.getElementById("issue_mode_onloard").value;
     var loan_amount = document.getElementById("loan_amount").value;
@@ -952,9 +952,27 @@ window.onload = function () {
         }
     });
 
+//view loan amount interest and loanamount
+
+    var loan_amount = $('#loan_amount').val();
+    var interest_rate = $('#interest_rate').val();
+    var number_of_installments = $('#number_of_installments').val();
+    var paid_number_installment = $('#paid_number_installment').val();
+    var paids_amount = $('#paids_amount').val();
+    
+    //cal
+
+    var amount = (loan_amount * interest_rate) / 100;
+    var interest_amount = ((amount / number_of_installments) * paid_number_installment).toFixed(2);
+    var due_amount = (paids_amount - interest_amount).toFixed(2)
+
+    document.getElementById("interest_amount").value = interest_amount;
+    document.getElementById("due_amount").value = due_amount;
+   
 // cal net amount in onloard
 
     var period = document.getElementById("loan_period").value;
+
     var numVal = document.getElementById("loan_amount").value;
     var interest_rate = document.getElementById("interest_rate").value;
 

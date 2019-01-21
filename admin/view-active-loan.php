@@ -511,12 +511,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Number of Installment</label>
-                                                <div class="form-control">
-                                                    <?php
-                                                    echo DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
-                                                    ?>
-                                                </div>
+                                                <label for="" class="hidden-lg hidden-md">Number of Installment</label>                                               
+                                                <input type="text" id="number_of_installments" class="form-control" value="<?php echo DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type); ?>" readonly="">
                                             </div>
                                         </div>
                                     </div>
@@ -639,7 +635,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <?php
                                                 $paid_numbers_of_installments = $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id);
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo round($paid_numbers_of_installments, 1) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo round($paid_numbers_of_installments, 1) ?>" readonly="" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -656,7 +652,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <?php
                                                 $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id));
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo $payble_of_installments ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo $payble_of_installments ?>" readonly="" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -671,7 +667,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="paid_amount" class="hidden-lg hidden-md">Paid  Amount</label>
                                                 <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
-                                                <input type="text" id="paid_amount"  name="paid_amount" value="<?php echo number_format($paid_amount[0], 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_amount"  name="paid_amount" value="<?php echo number_format($paid_amount[0], 2) ?>" class="form-control  " autocomplete="off" readonly="">
                                             </div>
                                         </div>
                                     </div>
@@ -686,7 +682,35 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="total_payble_amount" class="hidden-lg hidden-md"> Payble Amount</label>
                                                 <?php $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate); ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_amount, 2) ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_amount, 2) ?>"   class="form-control  " autocomplete="off" readonly="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!--                                <div class="row">
+                                                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                                                        <label for="total_payble_amount">  Due and Excess</label>
+                                                                    </div>
+                                                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                                                        <div class="form-group">
+                                                                            <div class="form-line">
+                                                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Due and Excess</label>
+                                
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>-->
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="interest"> Interest</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="interest" class="hidden-lg hidden-md"> Interest</label>
+                                                <input type="text" class="form-control" id="interest_amount" readonly=""/>
                                             </div>
                                         </div>
                                     </div>
@@ -694,13 +718,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="total_payble_amount">  Due and Excess</label>
+                                        <label for="due_amount">  Due Amount</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Due and Excess</label>
-                                            
+                                                <label for="due_amount" class="hidden-lg hidden-md"> Due Amount</label>
+                                                <input type="text" class="form-control" id="due_amount" readonly="" />
                                             </div>
                                         </div>
                                     </div>
@@ -715,7 +739,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issued_date" class="hidden-lg hidden-md">Issue Date</label>
-                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo date("Y-m-d"); ?>" placeholder="Please Select The Effective Date" class="form-control " autocomplete="off">
+                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo date("Y-m-d"); ?>"  readonly="" class="form-control " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -730,7 +754,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issue_note" class="hidden-lg hidden-md">Issue Note</label>
-                                                <textarea name="issue_note" id="issue_note" class="form-control"></textarea> 
+                                                <textarea name="issue_note" id="issue_note" class="form-control" readonly=""></textarea> 
                                             </div>
                                         </div>
                                     </div>
@@ -3320,7 +3344,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <?php } ?>
                                     </div>     
                                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-
+                                    <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
+                                    <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
                                     <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
                                     <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
                                 </div>
