@@ -70,7 +70,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                             </li>
                         </ul>
                     </div> 
-                    <div class="header" style="padding: 0px !important;"> 
+                    <div class="header" style="padding: 0px !important;">                        
+                        <div id="blanace__amount"> </div>                       
+
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
@@ -298,6 +300,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
                                                 <div class="form-control"  > 
                                                     <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+
                                                 </div>
                                             </div>
                                         </div>
@@ -3272,6 +3275,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                 maxDate: '+3D',
             });
         });
+
+
     </script>
 </body> 
 </html>
