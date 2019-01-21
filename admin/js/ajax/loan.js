@@ -822,6 +822,7 @@ $('#customer,#issue_mode').change(function () {
                     closeOnConfirm: false
                 });
             } else {
+
                 $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
                 $('#total_deductions').val(jsonStr.total_deductions);
                 $('#balance_pay').val(jsonStr.balance_pay);
@@ -945,10 +946,17 @@ window.onload = function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
+            if (jsonStr.balance_of_last_loan != 0) {
+                $('#blanace__amount').append("<div class='alert alert-danger'> <strong>This Customer has last loan Balance.. Please Check it..!</strong></div>");
+                document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
+                document.getElementById("total_deductions").value = jsonStr.total_deductions;
+                document.getElementById("balance_pay").value = jsonStr.balance_pay;
+            } else {
+                document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
+                document.getElementById("total_deductions").value = jsonStr.total_deductions;
+                document.getElementById("balance_pay").value = jsonStr.balance_pay;
+            }
 
-            document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
-            document.getElementById("total_deductions").value = jsonStr.total_deductions;
-            document.getElementById("balance_pay").value = jsonStr.balance_pay;
         }
     });
 
@@ -959,7 +967,7 @@ window.onload = function () {
     var number_of_installments = $('#number_of_installments').val();
     var paid_number_installment = $('#paid_number_installment').val();
     var paids_amount = $('#paids_amount').val();
-    
+
     //cal
 
     var amount = (loan_amount * interest_rate) / 100;
@@ -968,7 +976,7 @@ window.onload = function () {
 
     document.getElementById("interest_amount").value = interest_amount;
     document.getElementById("due_amount").value = due_amount;
-   
+
 // cal net amount in onloard
 
     var period = document.getElementById("loan_period").value;

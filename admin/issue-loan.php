@@ -75,6 +75,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                     </div> 
 
                     <div class="header" style="padding: 0px !important;"> 
+                        <div id="blanace__amount"> </div>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
@@ -626,8 +627,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
                                 <hr/>                                                              
-                                
-                               
+
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issued_date">Issue Date</label>
