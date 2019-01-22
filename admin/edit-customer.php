@@ -254,7 +254,7 @@ $CENTER = Center::all();
                                                 <option value="<?php echo $CUSTOMER->dob_day ?>"><?php echo $CUSTOMER->dob_day ?></option>
                                             </select>
                                         </div>
-                                        <div class="col-md-3">
+                                        <div class="col-md-4">
                                             <select name="year" onchange="call()" class="form-control form-line" id="year">
                                                 <option value="<?php echo $CUSTOMER->dob_year ?>"><?php echo $CUSTOMER->dob_year ?></option>
                                             </select>
@@ -378,7 +378,9 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone2"  name="telephone2" value="<?php
-                                            if (isset($telephone_number[1])) {
+                                            if ($telephone_number[1] == 0) {
+                                                echo 'Telephone Number 02';
+                                            } else {
                                                 echo $telephone_number[1];
                                             }
                                             ?>" placeholder="Telephone Number 02" class="form-control" autocomplete="off">
@@ -389,7 +391,9 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="text" id="telephone3"  name="telephone3"  value="<?php
-                                            if (isset($telephone_number[2])) {
+                                            if ($telephone_number[2] == 0) {
+                                                echo 'Telephone Number 03';
+                                            } else {
                                                 echo $telephone_number[2];
                                             }
                                             ?>" placeholder="Telephone Number 03" class="form-control" autocomplete="off">
@@ -411,32 +415,32 @@ $CENTER = Center::all();
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type<span class="color-red"> *</span></label>
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
-                                                <option value="" selected=""> -- Select Registration Type -- </option>
+
 
                                                 <?php if ($CUSTOMER->registration_type == "route") {
                                                     ?>
+                                                    <option value="" selected=""> -- Select Registration Type -- </option>
                                                     <option value="route" selected="">Route</option>
                                                     <option value="center"  >Center</option>
-                                                    <option value="1">Center Leader</option>
+                                                    <option value="1" id="center_leader">Center Leader</option>
 
 
                                                 <?php } elseif ($CUSTOMER->registration_type == "center") {
                                                     ?>
+                                                    <option value="" selected=""> -- Select Registration Type -- </option>
                                                     <option value="center"  selected="">Center</option>
                                                     <option value="route" >Route</option>
-                                                    <option value="1">Center Leader</option>
+                                                    <option value="1" id="center_leader">Center Leader</option>
 
                                                 <?php } elseif ($CUSTOMER->registration_type == 1) {
                                                     ?>
-                                                    <option value="1" selected="">Center Leader</option>
-                                                    <option value="center"  >Center</option>
-                                                    <option value="route" >Route</option>
-
+                                                    <option value="1" selected="" id="center_leader" disabled="true"  >Center Leader</option>
 
                                                 <?php } else { ?>
+                                                    <option value="" selected=""> -- Select Registration Type -- </option>
                                                     <option value="route" >Route</option>
                                                     <option value="center"  >Center</option>
-                                                    <option value="1">Center Leader</option>
+                                                    <option value="1" id="center_leader">Center Leader</option>
 
                                                 <?php }
                                                 ?>
@@ -449,7 +453,29 @@ $CENTER = Center::all();
 
 
                             <?php
-                            if ($CUSTOMER->route) {
+                            if ($CUSTOMER->registration_type == 1) {
+                                ?>
+
+                                <div class="row"  >
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="center">Center</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="center" class="hidden-lg hidden-md">Center</label>                                               
+                                                <?php
+                                                $CENTER = new Center($CUSTOMER->center);
+                                                ?>        
+                                                <div class="form-control"><?php echo $CENTER->name; ?></div> 
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <?php
+                            } else if ($CUSTOMER->route) {
                                 ?>
                                 <div class="row"   id="route_row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -588,7 +614,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit<span class="color-red"> *</span></label>
-                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo $CUSTOMER->credit_limit ?>" class="form-control" max="" autocomplete="off" min="0"   >
+                                            <input type="text" id="loan_amount"  name="credit_limit" value="<?php echo $CUSTOMER->credit_limit ?>" class="form-control" max="" autocomplete="off" min="0"  readonly="" >
                                         </div>
                                     </div>
                                 </div>

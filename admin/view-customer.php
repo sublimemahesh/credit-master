@@ -311,7 +311,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
                         </div>
-                        
+
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                 <label for="mobile">Mobile</label>
@@ -344,20 +344,32 @@ $CUSTOMER = new Customer($_GET['id']);
                             <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line"> 
-                                        <div class="form-control" ><?php echo $telephone_number[1]; ?></div>
+                                        <div class="form-control" ><?php
+                                            if ($telephone_number[1] == 0) {
+                                                echo '';
+                                            } else {
+                                                echo $telephone_number[1];
+                                            }
+                                            ?></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                 <div class="form-group">
                                     <div class="form-line"> 
-                                        <div class="form-control" ><?php echo $telephone_number[2]; ?></div>
+                                        <div class="form-control" ><?php
+                                            if ($telephone_number[2] == 0) {
+                                                echo '';
+                                            } else {
+                                                echo $telephone_number[2];
+                                            }
+                                            ?></div>
                                     </div>
                                 </div>
                             </div> 
                         </div> 
 
-                        
+
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">

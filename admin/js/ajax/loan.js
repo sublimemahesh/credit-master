@@ -371,49 +371,102 @@ $(document).ready(function () {
                 type: "error",
                 confirmButtonColor: "#00b0e4"
 
-            })
+            });
 
-        } else {
+        } else if (!$('#bank').val() || $('#bank').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the bank name..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (!$('#branch').val() || $('#branch').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the branch ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (!$('#branch_code').val() || $('#branch_code').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the branch code ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (!$('#account_number').val() || $('#account_number').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the account number ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (!$('#holder_name').val() || $('#holder_name').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the holder name ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (result) {
+            var bank = $('#bank').val();
+            var branch = $('#branch').val();
+            var branch_code = $('#branch_code').val();
+            var account_number = $('#account_number').val();
+            var holder_name = $('#holder_name').val();
+            var bank_book_picture = $('#bank_book_picture').val();
+            var balance_pay = $('#balance_pay').val();
+            
+            swal({
+                title: "Issue!",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Yes, Issue It!",
+                closeOnConfirm: false,
+                html: true,
+                text: '<h3 class="text-left m-bottom-p"> Balance Pay : ' + balance_pay + '</h3><br>\n\
+                       <h5 class="text-left m-bottom-p"> Bank : ' + bank + '</h5><br>\n\
+                       <h5 class="text-left m-bottom-p"> Branch : ' + branch + '</h5> <br> \n\
+                       <h5 class="text-left m-bottom-p"> Branch Code : ' + branch_code + '</h5> <br>\n\
+                       <h5 class="text-left m-bottom-p"> Account Number : ' + account_number + '</h5> <br>\n\
+                       <h5 class="text-left m-bottom-p"> Holder Name : ' + holder_name + '</h5> \n\
+                       <a href=../upload/customer/bbp/' + bank_book_picture + ' target="_blank" class="m-bottom-p text-left" > <h5 style="padding-top: 10px;"> Bank Book Image<h5></a> \n\
+                       <p style="padding-top: 20px;"> Do you really want to issue this loan?...</p> '
 
-            if (result) {
-                swal({
-                    title: "Issue!",
-                    text: "Do you really want to issue this loan?...",
-                    type: "info",
-                    showCancelButton: true,
-                    confirmButtonColor: "#00b0e4",
-                    confirmButtonText: "Yes, Issue It!",
-                    closeOnConfirm: false
-                }, function () {
 
-                    $.ajax({
-                        url: "post-and-get/ajax/loan.php",
-                        type: "POST",
-                        data: {
-                            loan_id: loan_id,
-                            issue_by: issue_by,
-                            issued_date: issued_date,
-                            issue_mode: issue_mode,
-                            issue_note: issue_note,
-                            loan_processing_pre_amount: loan_processing_pre_amount,
-                            effective_date: effective_date,
-                            action: 'ISSUE'
-                        },
-                        dataType: "JSON",
-                        success: function (jsonStr) {
-                            if (jsonStr.status == 'issued') {
-                                  window.location = 'manage-approved-loans.php';                              
-                            } else {
-                                alert('Error');
-                            }
+            }, function () {
 
+                $.ajax({
+                    url: "post-and-get/ajax/loan.php",
+                    type: "POST",
+                    data: {
+                        loan_id: loan_id,
+                        issue_by: issue_by,
+                        issued_date: issued_date,
+                        issue_mode: issue_mode,
+                        issue_note: issue_note,
+                        loan_processing_pre_amount: loan_processing_pre_amount,
+                        effective_date: effective_date,
+                        action: 'ISSUE'
+                    },
+                    dataType: "JSON",
+                    success: function (jsonStr) {
+                        if (jsonStr.status == 'issued') {
+                            window.location = 'manage-approved-loans.php';
+                        } else {
+                            alert('Error');
                         }
-                    });
+
+                    }
                 });
-            }
+            });
         }
-
-
     });
 
 
@@ -841,11 +894,9 @@ $('#customer,#issue_mode').change(function () {
 window.onload = function () {
 
 
-
     //get other page to issumode prices in onloard
-
-    var issue_mode = document.getElementById("issue_mode_onloard").value;
-    var loan_amount = document.getElementById("loan_amount").value;
+    var issue_mode = $('#issue_mode_onloard').val();
+    var loan_amount = $('#loan_amount').val();
 
     if (issue_mode == 'bank') {
 
@@ -928,11 +979,9 @@ window.onload = function () {
 
 
 //get last loan amount by customer
-
-    var customer_id = document.getElementById("customer_id").value;
-    var loan_amount = document.getElementById("loan_amount").value;
-    var issue_mode = document.getElementById("issue_mode_onloard").value;
-
+    var customer_id = $('#customer_id').val();
+    var loan_amount = $('#loan_amount').val();
+    var issue_mode = $('#issue_mode_onloard').val();
 
 
     $.ajax({
@@ -947,15 +996,17 @@ window.onload = function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
+
             if (jsonStr.balance_of_last_loan != 0) {
                 $('#blanace__amount').append("<div class='alert alert-danger'> <strong>This Customer has last loan Balance.. Please Check it..!</strong></div>");
-                document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
-                document.getElementById("total_deductions").value = jsonStr.total_deductions;
-                document.getElementById("balance_pay").value = jsonStr.balance_pay;
+                $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+                $('#total_deductions').val(jsonStr.total_deductions);
+                $('#balance_pay').val(jsonStr.balance_pay);
+
             } else {
-                document.getElementById("balance_of_last_loan").value = jsonStr.balance_of_last_loan;
-                document.getElementById("total_deductions").value = jsonStr.total_deductions;
-                document.getElementById("balance_pay").value = jsonStr.balance_pay;
+                $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+                $('#total_deductions').val(jsonStr.total_deductions);
+                $('#balance_pay').val(jsonStr.balance_pay);
             }
 
         }
@@ -979,7 +1030,7 @@ window.onload = function () {
 
     $('#interest_amount').val(interest_amount);
     $('#due_amount').val(due_amount);
-    
+
 // cal net amount in onloard
 
     var period = $('#loan_period').val();

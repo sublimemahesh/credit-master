@@ -1,6 +1,18 @@
 ﻿/* Navbar ====================================== */
+.m-bottom-p{
+    margin-bottom: -8px;
+}
+.p-top-j{
+    padding-top: 5px;
+}
 .font-weight-new{
     font-weight: 900;
+}
+.padd-left{
+    padding-left: 0px;
+}
+.padd-right{
+    padding-right: 0px;
 }
 #lable-active{
     font-size: 22px;
