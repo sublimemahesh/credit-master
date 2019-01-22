@@ -187,7 +187,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php echo $telephone_number[1] ?>
+                                                    <?php
+                                                    if ($telephone_number[1] == 0) {
+                                                        
+                                                    } else {
+                                                        echo $telephone_number[1];
+                                                    }
+                                                    ?> 
                                                 </div>
                                             </div>
                                         </div>
@@ -197,7 +203,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php echo $telephone_number[2] ?>
+                                                     <?php
+                                                    if ($telephone_number[2] == 0) {
+                                                        
+                                                    } else {
+                                                        echo $telephone_number[2];
+                                                    }
+                                                    ?> 
                                                 </div>
                                             </div>
                                         </div>
@@ -217,7 +229,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     echo number_format($LOAN->loan_amount, 2);
                                                     ?>
                                                 </div>
-                                                <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                                             </div>
                                         </div>
                                     </div>
@@ -653,7 +664,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <?php
                                                 $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type), $INSTALLMENT->getPaidNumberOfInstallment($LOAN->installment_amount, $loan_id));
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_of_installments,1) ?>" readonly="" class="form-control  " autocomplete="off">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_of_installments, 1) ?>" readonly="" class="form-control  " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -1181,7 +1192,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php echo $telephone_number[1] ?>
+                                                     <?php
+                                                    if ($telephone_number[1] == 0) {
+                                                        
+                                                    } else {
+                                                        echo $telephone_number[1];
+                                                    }
+                                                    ?> 
                                                 </div>
                                             </div>
                                         </div>
@@ -1191,7 +1208,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php echo $telephone_number[2] ?>
+                                                     <?php
+                                                    if ($telephone_number[2] == 0) {
+                                                        
+                                                    } else {
+                                                        echo $telephone_number[2];
+                                                    }
+                                                    ?> 
                                                 </div>
                                             </div>
                                         </div>
@@ -1793,9 +1816,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    if (empty($telephone_number[1])) {
-                                                        echo '0';
+                                                     <?php
+                                                    if ($telephone_number[1] == 0) {
+                                                        
                                                     } else {
                                                         echo $telephone_number[1];
                                                     }
@@ -1809,11 +1832,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    if (empty($telephone_number[2])) {
-                                                        echo '0';
+                                                     <?php
+                                                    if ($telephone_number[2] == 0) {
+                                                        
                                                     } else {
-
                                                         echo $telephone_number[2];
                                                     }
                                                     ?> 
@@ -2391,11 +2413,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    if (empty($telephone_number[1])) {
-                                                        echo '0';
+                                                     <?php
+                                                    if ($telephone_number[1] == 0) {
+                                                        
                                                     } else {
-
                                                         echo $telephone_number[1];
                                                     }
                                                     ?> 
@@ -2408,11 +2429,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                    <?php
-                                                    if (empty($telephone_number[2])) {
-                                                        echo '0';
+                                                     <?php
+                                                    if ($telephone_number[2] == 0) {
+                                                        
                                                     } else {
-
                                                         echo $telephone_number[2];
                                                     }
                                                     ?> 
@@ -3349,6 +3369,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
                                     <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
                                     <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
+                                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                                    <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
+
                                 </div>
                             </div>
 

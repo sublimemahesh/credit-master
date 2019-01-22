@@ -176,6 +176,7 @@ $next = $ND->format('Y-m-d');
                                                                 <td>
                                                                     <?php
                                                                     $number_of_arreas = ($total_paid - $ins_total) / $loan['installment_amount'];
+                                                                    dd($number_of_arreas);
                                                                     if ($number_of_arreas > 0) {
                                                                         echo '0';
                                                                     } else {
@@ -187,7 +188,6 @@ $next = $ND->format('Y-m-d');
                                                                 <td class="text-center"> 
                                                                     <?php
                                                                     $arreas_amount = $total_paid - $ins_total;
-
                                                                     if ($arreas_amount < 0) {
                                                                         echo '<span style="color:red">' . number_format($arreas_amount, 2) . '</span>';
                                                                     } else {

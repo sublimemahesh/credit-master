@@ -347,9 +347,8 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
 
-
             $balance_pay = $loan_amount - $total_deduction;
-            
+
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
             header('Content-type: application/json');
             exit();

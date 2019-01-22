@@ -2,9 +2,12 @@ $(document).ready(function () {
     $('#registration_type').change(function () {
 
         var type = $(this).val();
-        if (!type) {
+
+        var center_leader = $("#center_leader").val();
+        if (!type || center_leader == 1) {
             $('#route_row').hide();
-            $('#center_row').hide();
+            $('#center_row').hide();         
+
         }
 
         $.ajax({
@@ -43,14 +46,18 @@ $(document).ready(function () {
             }
         });
     });
-    
+
     $('#edit_registration_type').change(function () {
 
         var type = $(this).val();
-        if (!type) {
+        var center_leader = $("#center_leader").val();
+
+        if (!type || center_leader == 1) {
             $('#route_row').hide();
             $('#center_row').hide();
+
         }
+        ;
 
         $.ajax({
             url: "post-and-get/ajax/customer.php",
@@ -72,6 +79,7 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
+
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
@@ -83,6 +91,7 @@ $(document).ready(function () {
                     $('#center').append(html);
                     $('#center_row').show();
                     $('#route_row').hide();
+
                 }
 
             }

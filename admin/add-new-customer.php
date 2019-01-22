@@ -175,7 +175,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-lg-10 col-md-10">
                                     <div class="form-group"> 
                                         <label for="dob" class="hidden-lg hidden-md">Date of Birthday <span class="color-red"> *</span></label> 
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 padd-left">
                                             <select name="month" onchange="call()" class="form-control form-line" id="month"  name="month"  required="TRUE">
                                                 <option value=""> - Select Month - </option>
                                                 <option value="1">Jan</option>
@@ -197,7 +197,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                                 <option value=""> - Select Day - </option> 
                                             </select>
                                         </div>
-                                        <div class="col-md-4">
+                                        <div class="col-md-4 padd-right">
                                             <select id="year" name="year" onchange="call()" class="form-control form-line" required="TRUE" >
                                                 <option value=""> - Select  Year - </option>
                                             </select>
@@ -331,7 +331,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                                 <option value=""> -- Select Registration Type -- </option>
                                                 <option  value="route">Route</option>
                                                 <option value="center">Center</option>
-                                                <option value="1">Center Leader</option>
+                                                <option value="1" id="center_leader">Center Leader</option>
                                             </select>
                                         </div>
                                     </div>
