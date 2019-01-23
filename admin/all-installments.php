@@ -8,7 +8,10 @@ $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 $DefaultData = new DefaultData(NULl);
-$today = date("Y-m-d");
+
+$asia_date = new DateTime('now', new DateTimezone('Asia/Dhaka'));
+$today = $asia_date->format('Y-m-d');
+
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
 

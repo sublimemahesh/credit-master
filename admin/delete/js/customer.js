@@ -1,6 +1,6 @@
 $(document).ready(function () {
-    $('.delete-customer').click(function () {
-
+    
+    $('.dataTable').on('click', '.delete-customer', function () {
         var id = $(this).attr("data-id");
 
         swal({

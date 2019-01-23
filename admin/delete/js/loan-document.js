@@ -1,8 +1,8 @@
 $(document).ready(function () {
-    $('.delete-loan-document').click(function () {
-       
+    $('.dataTable').on('click', '.delete-customer', function () {
+
         var id = $(this).attr("data-id");
-       
+
         swal({
             title: "Are you sure?",
             text: "You will not be able to recover!",

@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.delete-city').click(function () {
+      $('.table').on('click', '.delete-city', function () {    
 
         var id = $(this).attr("data-id");
 

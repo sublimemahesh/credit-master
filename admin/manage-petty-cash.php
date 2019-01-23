@@ -61,7 +61,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             </div> 
                             <div class = "body">
                                 <div class = "table-responsive">
-                                    <table class = "table table-bordered table-striped table-hover js-basic-example" id = "postpone_date">
+                                    <table class = " dataTable table table-bordered table-striped table-hover js-basic-example" id = "postpone_date">
                                         <thead>
                                             <tr>
                                                 <th>ID</th>

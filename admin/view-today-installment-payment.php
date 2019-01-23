@@ -8,7 +8,10 @@ $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 $INSTALLMENT = new Installment(NULL);
-$today = date("Y-m-d");
+
+$asia_date = new DateTime('now', new DateTimezone('Asia/Dhaka'));
+$today = $asia_date->format('Y-m-d');
+
 
 if (isset($_GET['date'])) {
     $today = $_GET['date'];
@@ -101,11 +104,12 @@ $next = $ND->format('Y-m-d');
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($INSTALLMENT->getAllPaymentsByPaidDate($today) as $installment) {
+                                            foreach ($INSTALLMENT->getAllPaymentsByPaidDate($today) as $key => $installment) {
+                                                $key++;
                                                 ?>
                                                 <tr>
                                                     <td> 
-                                                        #<?php echo $installment['id'] ?>
+                                                        #<?php echo $key ?>
                                                     </td> 
 
                                                     <td>  

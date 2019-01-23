@@ -3279,8 +3279,17 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     <input type="hidden" name="id" value="<?php echo $id ?>">
                                     <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
                                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                                    <input type="hidden" value="<?php echo $CUSTOMER->bank_book_picture; ?>" id="bank_book_picture">
-
+                                    <?php
+                                    if ($CUSTOMER->bank_book_picture == 0) {
+                                        ?>
+                                        <input type="hidden" value="<?php echo 'sample.jpg' ?>" id="bank_book_picture">
+                                        <?php
+                                    } else {
+                                        ?>
+                                        <input type="hidden" value="<?php echo $CUSTOMER->bank_book_picture; ?>" id="bank_book_picture">
+                                        <?php
+                                    }
+                                    ?>
                                 </div>
                             </div>
                         </div>

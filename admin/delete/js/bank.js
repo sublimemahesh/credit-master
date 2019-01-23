@@ -1,5 +1,6 @@
 $(document).ready(function () {
-    $('.delete-bank').click(function () {
+    
+    $('.dataTable').on('click', '.delete-bank', function () {     
 
         var id = $(this).attr("data-id");
 
