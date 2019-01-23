@@ -6,8 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
-
-
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +29,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
-        
+
     </head>
 
     <body class="theme-red">
@@ -166,7 +164,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
+
                                             <select class="form-control all-customers" disabled autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
                                                 <option  value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
@@ -476,6 +474,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                         <input type="hidden" value="<?php echo $USERS->id; ?>" id="collector_id">
+                                        <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
                                     </div> 
                                 </div> 
                             </div>
@@ -507,10 +506,9 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                     maxDate: '+3D',
 
                 });
-                
+
                 $(".create_date").datepicker({
                     dateFormat: 'yy-mm-dd',
-                     
 
                 });
             });

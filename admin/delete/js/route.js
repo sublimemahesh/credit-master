@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $('.delete-route').click(function () {
+    $('.dataTable').on('click', '.delete-route', function () {
 
         var id = $(this).attr("data-id");
 

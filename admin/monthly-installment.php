@@ -7,7 +7,10 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
  
-$today = date("Y-m-d");
+
+$asia_date = new DateTime('now', new DateTimezone('Asia/Dhaka'));
+$today = $asia_date->format('Y-m-d');
+
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
 

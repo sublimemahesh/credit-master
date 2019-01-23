@@ -1,6 +1,7 @@
 $(document).ready(function () {
-    $('.delete-transfer-fee').click(function () {
-
+    
+    $('.dataTable').on('click', '.delete-transfer-fee', function () {
+        
         var id = $(this).attr("data-id");
 
         swal({
