@@ -178,6 +178,9 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style">';
+
+
+
                                                     if ($paid_amount) {
                                                         echo 'Paid';
                                                     } elseif ($date < $today) {
@@ -188,7 +191,9 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style">';
+
                                                     if ($paid_amount) {
+
                                                         echo 'Rs: ' . number_format($paid_amount, 2);
                                                     } else {
                                                         echo '-';
@@ -197,15 +202,17 @@ $today = date("Y-m-d");
                                                     echo '</td>';
                                                     echo '<td class="f-style">';
                                                     $ins_total += $amount;
-                                                    $total_paid += $paid_amount;                                                    
+                                                    $total_paid += $paid_amount;
                                                     $due_and_excess = $total_paid - $ins_total;
-                                                    
-                                                    if ($due_and_excess < 0) {
+
+                                                    if ($due_and_excess > 0) {
+
+                                                        echo '<span style="color:green">' . number_format($due_and_excess , 2) . '</span>';
+                                                    } elseif ($due_and_excess < 0) {
+
                                                         echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
-                                                    } elseif ($due_and_excess > 0) {
-                                                        
-                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } else {
+
                                                         echo number_format($due_and_excess, 2);
                                                     }
                                                     echo '</td>';

@@ -7,7 +7,7 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
     if ($_POST['type'] == 'route') {
         $ROUTE = new Route(NULL);
-        $result = $ROUTE->all();
+        $result = $ROUTE->getRouteByCollector($_POST['collector_id']);
         echo json_encode(['type' => 'route', 'data' => $result]);
         header('Content-type: application/json');
         exit();
