@@ -72,9 +72,7 @@ $next = $ND->format('Y-m-d');
                                     ?>
                                 </h2>
 
-                                <ul class="header-dropdown">                                     
-
-
+                                <ul class="header-dropdown">                                    
                                     <a href="view-today-installment-payment.php?date=<?php echo $back ?>">
                                         <i class="material-icons" >
                                             arrow_back_ios
@@ -159,7 +157,8 @@ $next = $ND->format('Y-m-d');
                                                         <?php echo $installment['paid_amount'] ?>
                                                     </td>
                                                     <td>
-                                                        <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> 
+                                                        <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> |  
+                                                        <a href="view-edit-history.php?id=<?php echo $installment['loan']; ?>"> <button class="glyphicon glyphicon-circle-arrow-left arrange-btn"></button></a> 
                                                     </td>
 
                                                 </tr>

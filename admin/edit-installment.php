@@ -71,7 +71,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $INSTALLMENT->installment_date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
+                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $INSTALLMENT->installment_date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
@@ -84,7 +84,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
-                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $INSTALLMENT->paid_date ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $INSTALLMENT->paid_date ?>"placeholder="Enter Paid Date" class="form-control  " autocomplete="off" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -100,7 +100,7 @@ if (isset($_GET['date'])) {
                                             $time = date('h:i:s');
 
                                             echo $INSTALLMENT->time;
-                                            ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off">
+                                            ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off" readonly="">
                                         </div>
                                     </div>
                                 </div>
@@ -128,7 +128,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="additional_interest" class="hidden-lg hidden-md">Additional Interest</label>
-                                            <input type="number" id="additional_interest" value="<?php echo $INSTALLMENT->additional_interest ?>" name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0">
+                                            <input type="number" id="additional_interest" value="<?php echo $INSTALLMENT->additional_interest ?>" name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0" readonly="">
                                         </div>
                                     </div>
                                 </div>
