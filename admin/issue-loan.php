@@ -679,110 +679,121 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <div class="row"> 
                                     <div class="col-md-1"></div>
                                     <div class="table-responsive col-md-10">
-                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                            <thead>
-                                                <tr>
-                                                    <th>Installment Date</th> 
-                                                    <th>Installment Amount</th> 
+                                        <div class="table-responsive col-md-10">
+                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                                <thead>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Installment Date</th> 
+                                                        <th>Installment Amount</th> 
+                                                        <th>Due and Excess</th> 
 
-                                                    <th>Due and Excess</th> 
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <?php
+                                                    $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                <?php
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                                    $start_date = $LOAN->effective_date;
+                                                    $start = new DateTime("$start_date");
 
-                                                $start_date = $LOAN->effective_date;
-                                                $start = new DateTime("$start_date");
+                                                    $x = 0;
+                                                    $count = 0;
+                                                    $ins_total = 0;
+                                                    $total_paid = 0;
+                                                    while ($x < $defultdata) {
+                                                        if ($defultdata == 4) {
+                                                            $add_dates = '+7 day';
+                                                        } elseif ($defultdata == 30) {
+                                                            $add_dates = '+1 day';
+                                                        } elseif ($defultdata == 8) {
+                                                            $add_dates = '+7 day';
+                                                        } elseif ($defultdata == 60) {
+                                                            $add_dates = '+1 day';
+                                                        } elseif ($defultdata == 2) {
+                                                            $add_dates = '+1 months';
+                                                        } elseif ($defultdata == 1) {
+                                                            $add_dates = '+1 months';
+                                                        } elseif ($defultdata == 90) {
+                                                            $add_dates = '+1 day';
+                                                        } elseif ($defultdata == 12) {
+                                                            $add_dates = '+7 day';
+                                                        } elseif ($defultdata == 3) {
+                                                            $add_dates = '+1 months';
+                                                        } elseif ($defultdata == 100) {
+                                                            $add_dates = '+1 day';
+                                                        } elseif ($defultdata == 13) {
+                                                            $add_dates = '+7 day';
+                                                        }
 
-                                                $x = 0;
-                                                $ins_total = 0;
-                                                $total_paid = 0;
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
-                                                        $add_dates = '+7 day';
+                                                        $count++;
+                                                        $date = $start->format('Y-m-d');
+                                                        $customer = $LOAN->customer;
+
+                                                        $CUSTOMER = new Customer($customer);
+                                                        $route = $CUSTOMER->route;
+                                                        $center = $CUSTOMER->center;
+                                                        $amount = $LOAN->installment_amount;
+
+                                                        $Installment = new Installment(NULL);
+                                                        $paid_amount = 0;
+
+                                                        foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+
+                                                            $paid_amount += $paid['paid_amount'];
+                                                        }
+
+                                                        echo '<tr>';
+                                                        if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                                                            echo '<td>';
+                                                            echo $count;
+                                                            echo '</td>';
+                                                            echo '<td class="padd-td red">';
+                                                            echo $date;
+                                                            echo '</td>';
+                                                            echo '<td class="padd-td red gray text-center" colspan=5>';
+                                                            echo '-- Postponed --';
+                                                            echo '</td>';
+
+                                                            $start->modify($add_dates);
+                                                        } else {
+                                                            echo '<td>';
+                                                            echo $count;
+                                                            echo '</td>';
+                                                            echo '<td class="padd-td f-style">';
+                                                            echo $date;
+                                                            echo '</td>';
+                                                            echo '<td class="f-style">';
+                                                            echo 'Rs: ' . number_format($amount, 2);
+                                                            echo '</td>';
+
+
+                                                            echo '<td class="f-style">';
+
+                                                            $ins_total += $amount;
+                                                            $total_paid += $paid_amount;
+
+                                                            echo number_format($total_paid - $ins_total, 2);
+                                                            echo '</td>';
+
+
+                                                            $start->modify($add_dates);
+                                                            $x++;
+                                                        }
+                                                        echo '</tr>';
                                                     }
-
-                                                    $date = $start->format('Y-m-d');
-                                                    $customer = $LOAN->customer;
-
-                                                    $CUSTOMER = new Customer($customer);
-                                                    $route = $CUSTOMER->route;
-                                                    $center = $CUSTOMER->center;
-                                                    $amount = $LOAN->installment_amount;
-
-                                                    $Installment = new Installment(NULL);
-                                                    $paid_amount = 0;
-                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
-
-                                                        $paid_amount += $paid['paid_amount'];
-                                                    }
-
-                                                    echo '<tr>';
-                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-
-                                                        echo '<td class="padd-td red">';
-                                                        echo $date;
-                                                        echo '</td>';
-                                                        echo '<td class="padd-td red gray text-center" colspan=5>';
-                                                        echo '-- Postponed --';
-                                                        echo '</td>';
-
-                                                        $start->modify($add_dates);
-                                                    } else {
-                                                        echo '<td class="padd-td f-style">';
-                                                        echo $date;
-                                                        echo '</td>';
-                                                        echo '<td class="f-style">';
-                                                        echo 'Rs: ' . number_format($amount, 2);
-                                                        echo '</td>';
-
-
-                                                        echo '<td class="f-style">';
-
-                                                        $ins_total += $amount;
-                                                        $total_paid += $paid_amount;
-
-                                                        echo number_format($total_paid - $ins_total, 2);
-                                                        echo '</td>';
-
-
-                                                        $start->modify($add_dates);
-                                                        $x++;
-                                                    }
-                                                    echo '</tr>';
-                                                }
-                                                ?>
-                                            </tbody>
-                                            <tfoot>
-                                                <tr>
-                                                    <th>Installment Date</th> 
-                                                    <th>Installment Amount</th>                                                      
-                                                    <th>Due and Excess</th> 
-                                                </tr>   
-                                            </tfoot>
-                                        </table>  
+                                                    ?>
+                                                </tbody>
+                                                <tfoot>
+                                                    <tr>
+                                                        <th>ID</th>
+                                                        <th>Installment Date</th> 
+                                                        <th>Installment Amount</th>                                                      
+                                                        <th>Due and Excess</th> 
+                                                    </tr>   
+                                                </tfoot>
+                                            </table>  
+                                        </div>  
                                     </div>  
                                     <div class="col-md-1"></div>
                                 </div>

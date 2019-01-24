@@ -99,6 +99,7 @@ $today = date("Y-m-d");
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
+                                                <th class="text-center">ID</th> 
                                                 <th class="text-center">Installment Date</th> 
                                                 <th class="text-center">Installment Amount</th> 
                                                 <th class="text-center">Status</th> 
@@ -115,6 +116,7 @@ $today = date("Y-m-d");
                                             $start = new DateTime("$start_date");
 
                                             $x = 0;
+                                            $count = 0;
                                             $ins_total = 0;
                                             $total_paid = 0;
 
@@ -143,6 +145,7 @@ $today = date("Y-m-d");
                                                     $add_dates = '+7 day';
                                                 }
 
+                                                $count++;
                                                 $date = $start->format('Y-m-d');
                                                 $customer = $LOAN->customer;
 
@@ -160,7 +163,9 @@ $today = date("Y-m-d");
 
                                                 echo '<tr>';
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-
+                                                    echo '<td>';
+                                                    echo $count;
+                                                    echo '</td>';
                                                     echo '<td class="padd-td red">';
                                                     echo $date;
                                                     echo '</td>';
@@ -170,6 +175,9 @@ $today = date("Y-m-d");
 
                                                     $start->modify($add_dates);
                                                 } else {
+                                                    echo '<td>';
+                                                    echo $count;
+                                                    echo '</td>';
                                                     echo '<td class="padd-td f-style">';
                                                     echo $date;
                                                     echo '</td>';
@@ -207,7 +215,7 @@ $today = date("Y-m-d");
 
                                                     if ($due_and_excess > 0) {
 
-                                                        echo '<span style="color:green">' . number_format($due_and_excess , 2) . '</span>';
+                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess < 0) {
 
                                                         echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
@@ -261,6 +269,7 @@ $today = date("Y-m-d");
                                         </tbody>
                                         <tfoot>
                                             <tr>
+                                                <th class="text-center">ID</th> 
                                                 <th class="text-center">Installment Date</th> 
                                                 <th class="text-center">Installment Amount</th> 
                                                 <th class="text-center">Status</th> 

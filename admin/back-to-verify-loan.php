@@ -69,7 +69,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                         </ul>
                     </div> 
                     <div class="header" style="padding: 0px !important;"> 
-                         <div id="blanace__amount"> </div>
+                        <div id="blanace__amount"> </div>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
@@ -673,10 +673,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                             <thead>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Installment Date</th> 
                                                     <th>Installment Amount</th> 
-                                                    <th>Status</th> 
-                                                    <th>Paid Amount</th> 
                                                     <th>Due and Excess</th> 
 
                                                 </tr>
@@ -689,6 +688,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 $start = new DateTime("$start_date");
 
                                                 $x = 0;
+                                                $count = 0;
                                                 $ins_total = 0;
                                                 $total_paid = 0;
                                                 while ($x < $defultdata) {
@@ -716,6 +716,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         $add_dates = '+7 day';
                                                     }
 
+                                                    $count++;
                                                     $date = $start->format('Y-m-d');
                                                     $customer = $LOAN->customer;
 
@@ -726,16 +727,17 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     $Installment = new Installment(NULL);
                                                     $paid_amount = 0;
+
                                                     foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
                                                         $paid_amount += $paid['paid_amount'];
                                                     }
 
-
-
                                                     echo '<tr>';
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-
+                                                        echo '<td>';
+                                                        echo $count;
+                                                        echo '</td>';
                                                         echo '<td class="padd-td red">';
                                                         echo $date;
                                                         echo '</td>';
@@ -743,10 +745,11 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         echo '-- Postponed --';
                                                         echo '</td>';
 
-
-
                                                         $start->modify($add_dates);
                                                     } else {
+                                                        echo '<td>';
+                                                        echo $count;
+                                                        echo '</td>';
                                                         echo '<td class="padd-td f-style">';
                                                         echo $date;
                                                         echo '</td>';
@@ -754,35 +757,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         echo 'Rs: ' . number_format($amount, 2);
                                                         echo '</td>';
 
-                                                        echo '<td class="f-style">';
-                                                        if ($paid_amount) {
-                                                            echo 'Paid';
-                                                        } elseif ($date < date("Y-m-d")) {
-
-                                                            echo 'Unpaid';
-                                                        } else {
-                                                            echo 'Payble';
-                                                        }
-                                                        echo '</td>';
 
                                                         echo '<td class="f-style">';
-
-
-                                                        if ($paid_amount) {
-                                                            echo 'Rs: ' . number_format($paid_amount, 2);
-                                                        } else {
-                                                            echo '-';
-                                                        }
-                                                        echo '</td>';
-
-                                                        echo '<td class="f-style">';
-
 
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
 
                                                         echo number_format($total_paid - $ins_total, 2);
-
                                                         echo '</td>';
 
 
@@ -795,14 +776,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </tbody>
                                             <tfoot>
                                                 <tr>
+                                                    <th>ID</th>
                                                     <th>Installment Date</th> 
-                                                    <th>Installment Amount</th> 
-                                                    <th>Status</th> 
-                                                    <th>Paid Amount</th> 
+                                                    <th>Installment Amount</th>                                                      
                                                     <th>Due and Excess</th> 
                                                 </tr>   
                                             </tfoot>
-                                        </table>  
+                                        </table> 
                                     </div>  
                                     <div class="col-md-1"></div>
                                 </div>
