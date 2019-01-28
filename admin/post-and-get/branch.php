@@ -1,33 +1,32 @@
 <?php
+
 include_once(dirname(__FILE__) . '/../../class/include.php');
 
 
 if (isset($_POST['add-branch'])) {
-    
-    $BANK = new Branch(NULL);
+
+    $BRANCH = new Branch(NULL);
     $VALID = new Validator();
 
-    $BANK->name = $_POST['name'];
-    $BANK->bank_id = $_POST['bank_id'];
-    
-    $VALID->check($BANK, [
+    $BRANCH->name = $_POST['name'];
+    $BRANCH->code = $_POST['code'];
+    $BRANCH->bank_id = $_POST['bank_id'];
+
+    $VALID->check($BRANCH, [
         'name' => ['required' => TRUE],
-        
     ]);
- 
+
     if ($VALID->passed()) {
-        $BANK->create();
+        $BRANCH->create();
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your data was saved successfully", 'success');
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -37,33 +36,29 @@ if (isset($_POST['add-branch'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
- 
+
 if (isset($_POST['update'])) {
 
-    
-    $BANK = new Bank($_POST['id']);
 
-    $BANK->name = $_POST['name'];
+    $BRANCH = new Bank($_POST['id']);
 
+    $BRANCH->name = $_POST['name'];
+    $BRANCH->code = $_POST['code'];
 
     $VALID = new Validator();
-    $VALID->check($BANK, [
+    $VALID->check($BRANCH, [
         'name' => ['required' => TRUE],
-
     ]);
 
 
 
     if ($VALID->passed()) {
-        $BANK->update();
+        $BRANCH->update();
 
         if (!isset($_SESSION)) {
             session_start();
-
         }
 
         $VALID->addError("Your changes saved successfully", 'success');
@@ -71,7 +66,6 @@ if (isset($_POST['update'])) {
         $_SESSION['ERRORS'] = $VALID->errors();
 
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     } else {
 
         if (!isset($_SESSION)) {
@@ -80,8 +74,6 @@ if (isset($_POST['update'])) {
 
         $_SESSION['ERRORS'] = $VALID->errors();
         header('Location: ' . $_SERVER['HTTP_REFERER']);
-
     }
-
 }
 

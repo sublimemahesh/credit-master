@@ -89,6 +89,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <li ><a data-toggle="tab" href="#menu4"><h5>Guarantor 03</h5></a></li>
                             <?php } ?>
                             <li><a data-toggle="tab" href="#menu5"><h5>Loan Document</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu6"><h5>User History</h5></a></li>   
                         </ul> 
                     </div> 
                     <div class="tab-content">  
@@ -203,7 +204,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[2] == 0) {
                                                         
                                                     } else {
@@ -773,7 +774,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>
                             </div>
                         </div>
-
                         <div id="menu0" class="tab-pane fade">
                             <div class="body">
                                 <div class="row"> 
@@ -1192,7 +1192,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[1] == 0) {
                                                         
                                                     } else {
@@ -1208,7 +1208,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[2] == 0) {
                                                         
                                                     } else {
@@ -1511,7 +1511,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div> 
                             </div>
                         </div>
-
                         <div id="menu2" class="tab-pane fade">
                             <div class="body"> 
                                 <div class="row">
@@ -1816,7 +1815,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[1] == 0) {
                                                         
                                                     } else {
@@ -1832,7 +1831,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[2] == 0) {
                                                         
                                                     } else {
@@ -2124,7 +2123,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div> 
                             </div>
                         </div>
-
                         <div id="menu3" class="tab-pane fade">
                             <div class="body"> 
                                 <div class="row">
@@ -2413,7 +2411,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[1] == 0) {
                                                         
                                                     } else {
@@ -2429,7 +2427,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Telephone Numbers</label>
                                                 <div class="form-control">
-                                                     <?php
+                                                    <?php
                                                     if ($telephone_number[2] == 0) {
                                                         
                                                     } else {
@@ -3363,18 +3361,88 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 </div>
                                             </div>
                                         <?php } ?>
-                                    </div>     
-                                    <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                                    <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
-                                    <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
-                                    <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
+                                    </div>    
                                     <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
-                                    <input type="hidden" name="id" value="<?php echo $id ?>">
-                                    <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
-
                                 </div>
                             </div>
-
+                            <div id="menu6" class="tab-pane fade">
+                                <div class="body"> 
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="created_by">Created By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Created By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->create_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div>                                  
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="verified_by">Verified By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Verified By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->verify_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="approved_by">Approved By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Approved By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->approved_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div> 
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="issued_by">Issued By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Issued By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->issue_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div> 
+                                </div>
+                            </div>
+                            <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+                            <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
+                            <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
+                            <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
+                            <input type="hidden" name="id" value="<?php echo $id ?>">
+                            <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                         </div>
                     </div>
                 </div>

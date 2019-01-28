@@ -53,7 +53,7 @@ class DefaultData {
 
     public function getCreditLimit() {
 
-        return 40000;
+        return 0;
     }
 
     public function getFirstLetterName($string) {

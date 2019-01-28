@@ -191,7 +191,9 @@ $today = date("Y-m-d");
 
                                                     if ($paid_amount) {
                                                         echo 'Paid';
-                                                    } elseif ($date < $today) {
+                                                    } elseif ($date <= $today) {
+                                                        echo 'Posted';
+                                                    } elseif ($date > $today) {
                                                         echo 'Unpaid';
                                                     } else {
                                                         echo 'Payble';
