@@ -523,39 +523,6 @@ $(document).ready(function () {
 });
 
 
-$(document).ready(function () {
-
-// check customer has active loan
-    $('#customer').change(function () {
-        var customer = $(this).val();
-
-        $.ajax({
-            url: "post-and-get/ajax/loan.php",
-            type: "POST",
-            data: {
-                customer: customer,
-                action: 'CHECKCUSTOMERHASACTIVELOAN'
-            },
-
-            dataType: "JSON",
-            success: function (jsonStr) {
-                if (jsonStr.status) {
-                    swal({
-                        title: "This Customer has an active loan already!...",
-                        text: "Please complete it before going to new loan..",
-                        type: "error",
-                        showCancelButton: false,
-                        confirmButtonColor: "#00b0e4",
-                        confirmButtonText: "Enter Again.!",
-                        closeOnConfirm: false
-                    });
-                }
-            }
-
-        });
-
-    });
-});
 
 
 // Cheque guarantor 2

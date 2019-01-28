@@ -209,12 +209,13 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
     $CHECKCUSTOMER = new Loan(NULl);
 
     $result = $CHECKCUSTOMER->CheckCustomerHasActiveLoan($_POST["customer"]);
-
+  
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');
         echo json_encode($data);
-    } else {
+    } else {    
+           $data = array("status" => FALSE);
         header('Content-type: application/json');
         exit();
     }
