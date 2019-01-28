@@ -8,6 +8,7 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
+$INSTALLMENT = new Installment(NULL);
 
 $LOAN = new Loan(NULL);
 $LOAN->status = 'issued';
@@ -70,7 +71,7 @@ $LOAN->status = 'issued';
                                             <tr>
                                                 <th>Loan</th> 
                                                 <th>Customer Details</th> 
-                                                <th>Loan Details</th>  
+                                                <th>Payment Details</th>  
                                                 <th>Installment Details</th>                                                 
                                                 <th class="text-center">Options</th> 
                                             </tr>
@@ -79,6 +80,7 @@ $LOAN->status = 'issued';
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
                                                 ?>
+
                                                 <tr >
                                                     <td>
                                                         <b>
@@ -95,11 +97,20 @@ $LOAN->status = 'issued';
                                                             ?>
                                                         </b>
                                                         <br/>
-                                                        <b>Date: </b><?php echo $loan['create_date']; ?>
-                                                    </td>  
+                                                        <b>Date: </b><?php echo $loan['create_date']; ?>  <br/>
+                                                        <b>Amount: <?php echo number_format($loan['loan_amount'], 2); ?></b>
+                                                        <br/>
+                                                        <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
+                                                        <br/> 
+                                                        <b>Period: </b>
+                                                        <?php
+                                                        $PR = DefaultData::getLoanPeriod();
+                                                        echo $PR[$loan['loan_period']];
+                                                        ?>
+                                                    </td>
                                                     <td>
-                                                        <i class="glyphicon glyphicon-user"></i>
-                                                        <b> : 
+                                                        <i class = "glyphicon glyphicon-user"></i>
+                                                        <b> :
                                                             <?php
                                                             $Customer = new Customer($loan['customer']);
                                                             echo $Customer->title . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
@@ -126,15 +137,25 @@ $LOAN->status = 'issued';
                                                         </small> 
                                                     </td>
                                                     <td>
-                                                        <b>Amount: <?php echo number_format($loan['loan_amount'], 2); ?></b>
-                                                        <br/>
-                                                        <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
-                                                        <br/> 
-                                                        <b>Period: </b>
+                                                        <b>Paid Amount: </b>
                                                         <?php
-                                                        $PR = DefaultData::getLoanPeriod();
-                                                        echo $PR[$loan['loan_period']];
-                                                        ?> 
+                                                        $loan_Paid_amount = $INSTALLMENT->getAmountByLoanId($loan['id']);
+                                                        $Paid_amount = number_format($loan_Paid_amount[0], 2);
+                                                        echo $Paid_amount;
+                                                        echo '<br>';
+                                                        $total_loan_amount = ($loan['loan_amount'] += ($loan['loan_amount'] * $loan['interest_rate']) / 100);
+                                                        $due_and_excess = $loan_Paid_amount[0] - $total_loan_amount;
+
+                                                        if ($due_and_excess < 0) {
+                                                            echo '<b>Due : </b>' . '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } elseif ($due_and_excess > 0) {
+                                                            echo '<b>Excess : </b>' . '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } else {
+                                                            echo '<b>paid: </b>' . number_format($due_and_excess, 2);
+                                                        }
+                                                        ?>
+                                                        <br>
+
                                                     </td>
                                                     <td>
                                                         <b>
@@ -167,7 +188,7 @@ $LOAN->status = 'issued';
                                             <tr>
                                                 <th>Loan</th> 
                                                 <th>Customer Details</th> 
-                                                <th>Loan Details</th>  
+                                                <th>Payment Details</th>  
                                                 <th>Installment Details</th>                                                 
                                                 <th class="text-center">Options</th> 
                                             </tr>
