@@ -51,21 +51,34 @@ $BANK = new Bank($id);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2><?php echo $BANK->name ?> Braches</h2>
-                       
+                        <h2><?php echo $BANK->name ?> Branches</h2>
+
                     </div>
                     <div class="body">
                         <form class="" action="post-and-get/branch.php" method="post"  enctype="multipart/form-data"> 
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="Branch">Branch Name</label>
+                                    <label for="branch">Branch Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="Branch" class="hidden-lg hidden-md">Branch Name</label>
-                                            <input type="text" id="name"  name="name" placeholder="Enter Bank Name" class="form-control" autocomplete="off"  >
+                                            <label for="branch" class="hidden-lg hidden-md">Branch Name</label>
+                                            <input type="text" id="name"  name="name" placeholder="Enter Branch Name" class="form-control" autocomplete="off"  >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div> 
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="branch_code">Branch Code</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>
+                                            <input type="text" id="code"  name="code" placeholder="Enter Branch Code" class="form-control" autocomplete="off" required="" >
                                         </div>
                                     </div>
                                 </div>
@@ -100,6 +113,7 @@ $BANK = new Bank($id);
                                             <tr>
                                                 <th>ID</th>
                                                 <th>Branch Name</th>                                                  
+                                                <th>Branch Code</th>                                                  
                                                 <th>Option</th> 
                                             </tr>
                                         </thead>
@@ -112,6 +126,7 @@ $BANK = new Bank($id);
                                                 <tr id="row_<?php echo $branch['id']; ?>">
                                                     <td>#<?php echo $key; ?></td> 
                                                     <td><?php echo $branch ['name']; ?></td>  
+                                                    <td><?php echo $branch ['code']; ?></td>  
 
                                                     <td>
                                                         <a href="#"  class="delete-branch" data-id="<?php echo $branch['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
@@ -125,7 +140,8 @@ $BANK = new Bank($id);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Bank Name</th>                                                  
+                                                <th>Branch Name</th>    
+                                                <th>Branch Code</th>     
                                                 <th >Option</th>  
                                             </tr>
                                         </tfoot>

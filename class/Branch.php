@@ -9,6 +9,7 @@ class Branch {
 
     public $id;
     public $name;
+    public $code;
     public $bank_id;
 
     public function __construct($id) {
@@ -22,6 +23,7 @@ class Branch {
 
             $this->id = $result['id'];
             $this->name = $result['name'];
+            $this->code = $result['code'];
             $this->bank_id = $result['bank_id'];
 
 
@@ -31,8 +33,9 @@ class Branch {
 
     public function create() {
 
-        $query = "INSERT INTO `branch` (`name`,`bank_id`) VALUES  ('"
+        $query = "INSERT INTO `branch` (`name`,`code`,`bank_id`) VALUES  ('"
                 . $this->name . "', '"
+                . $this->code . "', '"
                 . $this->bank_id . "')";
 
 
@@ -80,10 +83,25 @@ class Branch {
         return $array_res;
     }
 
+    public function getBrachCode($branch) {
+
+
+        $query = "SELECT * FROM `branch` WHERE `id` = $branch LIMIT 1";
+        $db = new Database();
+
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_array($result);
+
+        return $row;
+    }
+
     public function update() {
 
         $query = "UPDATE  `branch` SET "
-                . "`name` ='" . $this->name . "'  "
+                . "`name` ='" . $this->name . "', "
+                . "`code` ='" . $this->code . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();

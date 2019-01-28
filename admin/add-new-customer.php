@@ -523,8 +523,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-lg-1">
-                                    <input
-                                        type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">
+                                    <input   type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">
                                     <!--                                                                      <a href="add-new-bank.php" class="btn btn-md">+</a>-->
                                 </div>
                             </div>
@@ -537,7 +536,9 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>
-                                            <input type="text" id="branch_code"  name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">
+                                                                                            
+                                            <input type="text" value="" id="branch_code"   name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">
+                                            
                                         </div>
                                     </div>
                                 </div>
@@ -678,7 +679,9 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
-
+        <script>
+                                     
+        </script>
     </body>
 
 </html> 

@@ -44,37 +44,7 @@ if ($_POST['action'] == 'CHECKNIC&MOBILEINCUSTOMER') {
         exit();
     }
 }
-//if ($_POST['action'] == 'CHECKNICNUMBERINCUSTOMER') {
-//
-//    $CUSTOMER = new Customer(NULL);
-//
-//    $result = $CUSTOMER->CheckNicNumberInCustomer($_POST["NicNumber"]);
-//
-//    if ($result == TRUE) {
-//        $data = array("nicstatus" => TRUE);
-//        header('Content-type: application/json');
-//        echo json_encode($data);
-//    } else {
-//        header('Content-type: application/json');
-//        exit();
-//    }
-//}
-//
-//if ($_POST['action'] == 'CHECKMOBILENUMBERINCUSTOMER') {
-//
-//    $CUSTOMER = new Customer(NULL);
-//
-//    $result = $CUSTOMER->CheckMobileNumberInCustomer($_POST["MobileNumber"]);
-//   
-//    if ($result == TRUE) {
-//        $data = array("mobilestatus" => TRUE);
-//        header('Content-type: application/json');
-//        echo json_encode($data);
-//    } else {
-//        header('Content-type: application/json');
-//        exit();
-//    }
-//}
+
 
 
 if ($_POST['action'] == 'CHECKNIC&MOBILEEXISTCUSTOMER') {
@@ -113,6 +83,23 @@ if ($_POST['action'] == 'GETBANKNAME') {
     }
 }
 
+//branch code
+
+if ($_POST['action'] == 'GETBRANCHCODE') {
+
+    $BRANCH = new Branch(NULL);
+    $result = $BRANCH->getBrachCode($_POST["branch_id"]);
+    
+    if ($result == TRUE) {        
+        echo json_encode(['branch_codes' => $result['code']]);
+        header('Content-type: application/json');
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+
 if ($_POST['action'] == 'ADDBRANCHNAME') {
 
     $BRANCH = new Branch(NULL);
@@ -135,7 +122,7 @@ if ($_POST['action'] == 'ADDBRANCHNAME') {
 }
 
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
-    
+
     if ($_POST['type'] == 'route') {
         $ROUTE = new Route(NULL);
         $result = $ROUTE->all();

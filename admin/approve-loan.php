@@ -86,6 +86,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <li ><a data-toggle="tab" href="#menu4"><h5>Guarantor 03</h5></a></li>
                             <?php } ?>
                             <li><a data-toggle="tab" href="#menu5"><h5>Loan Document</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu6"><h5>User History</h5></a></li>
                         </ul> 
                     </div> 
                     <div class="tab-content">  
@@ -3253,6 +3254,44 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     <?php } ?>
                                 </div>                                     
                                 <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
+                            </div>
+                        </div>
+                        <div id="menu6" class="tab-pane fade">
+                            <div class="body"> 
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="created_by">Created By :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <label  class="hidden-lg hidden-md">Created By :</label>
+                                                <div class="form-control"><?php
+                                                    $USER = new User($LOAN->create_by);
+                                                    echo $USER->name
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>                                  
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="verified_by">Verified By :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <label  class="hidden-lg hidden-md">Verified By :</label>
+                                                <div class="form-control"><?php
+                                                    $USER = new User($LOAN->verify_by);
+                                                    echo $USER->name
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>                                  
                             </div>
                         </div>
                     </div>

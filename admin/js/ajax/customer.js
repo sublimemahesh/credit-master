@@ -6,7 +6,7 @@ $(document).ready(function () {
         var center_leader = $("#center_leader").val();
         if (!type || center_leader == 1) {
             $('#route_row').hide();
-            $('#center_row').hide();         
+            $('#center_row').hide();
 
         }
 
@@ -178,79 +178,7 @@ $(document).ready(function () {
             }
         });
     });
-
-//    $('.check-customer').click(function () {
-//
-//        var nicNumber = $('#customer-nic').val();
-//        var mobileNumber = $('#moblie_number').val();
-//
-//        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
-//            swal({
-//                title: "Space characters not alowded in NIC Number.!",
-//                text: "containing space characters in nic number column..",
-//                type: "info",
-//                showCancelButton: false,
-//                confirmButtonColor: "#00b0e4",
-//                confirmButtonText: "Enter Again.!",
-//                closeOnConfirm: false
-//            });
-//            return false;
-//        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
-//            swal({
-//                title: "Space characters not alowded in Mobile Number.!",
-//                text: "containing space characters in mobile number column..",
-//                type: "info",
-//                showCancelButton: false,
-//                confirmButtonColor: "#00b0e4",
-//                confirmButtonText: "Enter Again.!",
-//                closeOnConfirm: false
-//            });
-//            return false;
-//        } else {
-//
-//            $.ajax({
-//                url: "post-and-get/ajax/customer.php",
-//                type: "POST",
-//                data: {
-//                    MobileNumber: mobileNumber,
-//                    NicNumber: nicNumber,
-//                    action: 'CHECKNIC&MOBILEINCUSTOMER'
-//                },
-//                dataType: "JSON",
-//                success: function (jsonStr) {
-//                    if (jsonStr.status == 'nicIsExist') {
-//                        swal({
-//                            title: "Duplicate NIC Number.!",
-//                            text: "You entered the duplicate NIC Number..",
-//                            type: "info",
-//                            showCancelButton: false,
-//                            confirmButtonColor: "#00b0e4",
-//                            confirmButtonText: "Enter Again.!",
-//                            closeOnConfirm: false
-//                        });
-//                        return false;
-//                    } else if (jsonStr.status == 'mobileIsExist') {
-//                        swal({
-//                            title: "Duplicate Mobile Number.!",
-//                            text: "You entered the duplicate Mobile Number..",
-//                            type: "info",
-//                            showCancelButton: false,
-//                            confirmButtonColor: "#00b0e4",
-//                            confirmButtonText: "Enter Again.!",
-//                            closeOnConfirm: false
-//                        });
-//                        return false;
-//                    } else {
-//                        return true;
-//                    }
-//                }
-//
-//            });
-//
-//        }
-//    });
-
-
+ 
 
 // customer create form
 
@@ -522,4 +450,21 @@ $(document).ready(function () {
         }
     });
 
+
+    $("#branch").change(function () {
+        var branch_id = $(this).val();
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                branch_id: branch_id,
+                action: 'GETBRANCHCODE'
+            },
+            dataType: "JSON",            
+            success: function (jsonStr) {                 
+                $("#branch_code").val(jsonStr.branch_codes);
+            }
+        });
+    });
 });
