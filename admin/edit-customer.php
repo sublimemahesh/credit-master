@@ -852,29 +852,53 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
+                            <?php
+                            $CHECKCUSTOMER = new Loan(NULl);
 
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
-                                    <div class="form-group">
-                                        <div class=" p-top ">
-                                            <input class="filled-in chk-col-pink" type="checkbox" <?php
-                                            if ($CUSTOMER->is_active == 1) {
-                                                echo 'checked';
-                                            }
-                                            ?> name="is_active" value="1" id="rememberme" />
-                                            <label for="rememberme" id="lable-active">Activate</label> </div>
+                            if ($CHECKCUSTOMER->CheckCustomerHasActiveLoan($CUSTOMER->id)) {
+                                ?>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                        <div class="form-group">
+                                            <div class=" p-top ">
+                                                <input class="filled-in chk-col-pink active_customer" type="checkbox" <?php
+                                                if ($CUSTOMER->is_active == 1) {
+                                                    echo 'checked';
+                                                }
+                                                ?> name="is_active" value="1" id="rememberme" />
+                                                <label for="rememberme" id="lable-active">Activate</label> </div>
+                                        </div>
                                     </div>
                                 </div>
-                            </div> 
+                            <?php } else { ?>
+                                <div class="row clearfix">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
+                                        <div class="form-group">
+                                            <div class=" p-top ">
+                                                <input class="filled-in chk-col-pink" type="checkbox" <?php
+                                                if ($CUSTOMER->is_active == 1) {
+                                                    echo 'checked';
+                                                }
+                                                ?> name="is_active" value="1" id="rememberme" />
+                                                <label for="rememberme" id="lable-active">Activate</label> </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            <?php } ?>
+
+
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left " type="submit" name="update" >Update</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left " type="submit" name="update" id="active_customer" >Update</button>
                                     <input type="hidden" name="update-cutomer" value="update"/>
-                                    <input type="hidden" id="id" value="<?php echo $CUSTOMER->id; ?>" name="id"/>
+                                    <input type="hidden" class="customer" id="id" value="<?php echo $CUSTOMER->id; ?>" name="id"  />
                                     <input type="hidden" id="oldImageNamePro" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageNamePro"/>
                                     <input type="hidden" id="oldImageNameNfp" value="<?php echo $CUSTOMER->nic_photo_front; ?>" name="oldImageNameNfp"/>
                                     <input type="hidden" id="oldImageNameNbp" value="<?php echo $CUSTOMER->nic_photo_back; ?>" name="oldImageNameNbp"/>

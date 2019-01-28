@@ -264,7 +264,7 @@ class Loan {
 
     public function CheckCustomerHasActiveLoan($customer) {
 
-        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' AND  `status` = 'actived'";
+        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' OR  `guarantor_1` ='" . $customer . "' OR  `guarantor_2` ='" . $customer . "' OR  `guarantor_3` ='" . $customer . "'  ";
 
         $db = new Database();
 
@@ -288,11 +288,11 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
-       
+
         $db = new Database();
         $result = $db->readQuery($query);
         $row = mysql_fetch_row($result);
-        
+
         return $row;
     }
 

@@ -178,7 +178,7 @@ $(document).ready(function () {
             }
         });
     });
- 
+
 
 // customer create form
 
@@ -461,10 +461,54 @@ $(document).ready(function () {
                 branch_id: branch_id,
                 action: 'GETBRANCHCODE'
             },
-            dataType: "JSON",            
-            success: function (jsonStr) {                 
+            dataType: "JSON",
+            success: function (jsonStr) {
                 $("#branch_code").val(jsonStr.branch_codes);
             }
         });
     });
+
+
+
+
+
+
+// check customer has active loan
+    $('.active_customer, .customer').click(function (event) {
+        event.preventDefault();
+        var active_customer = $('.active_customer').prop('checked');
+
+        var customer = $(".customer").val();
+      
+        if (active_customer === false) {
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    customer: customer,
+                    action: 'CHECKCUSTOMERHASACTIVELOAN'
+                },
+
+                dataType: "JSON",
+                success: function (jsonStr) {
+                  
+                    if (jsonStr.status) {
+                        swal({
+                            title: "This Customer has a Created loan or Assign for any Guarantor!...",
+                            text: "Please Check it now..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Ok.!",
+                            closeOnConfirm: false
+                        });
+                    }
+                }
+
+            });
+        }
+
+    });
+
 });
