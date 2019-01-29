@@ -799,6 +799,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 $x = 0;
                                                 $ins_total = 0;
                                                 $total_paid = 0;
+                                                $count = 0;
                                                 while ($x < $defultdata) {
                                                     if ($defultdata == 4) {
                                                         $add_dates = '+7 day';
@@ -824,6 +825,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         $add_dates = '+7 day';
                                                     }
 
+                                                    $count++;
                                                     $date = $start->format('Y-m-d');
                                                     $customer = $LOAN->customer;
 
@@ -841,7 +843,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     echo '<tr>';
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-
+                                                        echo '<td>';
+                                                        echo $count;
+                                                        echo '</td>';
                                                         echo '<td class="padd-td red">';
                                                         echo $date;
                                                         echo '</td>';
@@ -851,6 +855,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                         $start->modify($add_dates);
                                                     } else {
+                                                        echo '<td>';
+                                                        echo $count;
+                                                        echo '</td>';
                                                         echo '<td class="padd-td f-style">';
                                                         echo $date;
                                                         echo '</td>';

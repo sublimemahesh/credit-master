@@ -62,39 +62,64 @@ $loanid = $_GET['id'];
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th>User Id</th>
+                                                <th>User </th>
                                                 <th>Old Amount</th>   
-                                                <th>Modified date</th>
-                                                <th>Time</th>                                                
+                                                <th>Modified date / Time</th>
+                                                <th>Time</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
-                                            foreach ($INSTALLMENT->getInstallmentByLoanId($loanid) as $installemts) {
-                                                ?>
-                                                <tr id="row_ ">
+                                            foreach ($INSTALLMENT->getInstallmentByLoan($loanid) as $installemts) {
+                                                if ($installemts['history'] == 0) {
+                                                    ?>                                          
 
-                                                    <td></td> 
-                                                    <td>
+                                                    <?php
+                                                } else {
+                                                    $histories = (explode("///", $installemts['history']));
+                                                    foreach ($histories as $history) {
+                                                        $history_data = explode(",", $history);
+                                                        ?>
+                                                        <tr id="row_ ">
+                                                            <td>
+                                                                <?php
+                                                                $USER = new User($history_data[0]);
+                                                                echo $USER->name;
+                                                                ?>                                                             
+                                                            </td> 
+                                                            <td> <?php
+                                                                if (isset($history_data[1])) {
+                                                                    echo $history_data[1];
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                            <td> <?php
+                                                                if (isset($history_data[2])) {
+                                                                    echo $history_data[2];
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                            <td> <?php
+                                                                if (isset($history_data[3])) {
+                                                                    echo $history_data[3];
+                                                                }
+                                                                ?>
+                                                            </td>
 
-                                                    </td>
-
-                                                    <td><?php echo $installemts['installment_date']; ?></td>
-
-                                                    <td><?php echo $installemts['time']; ?>                                                    </td>
-
-
-                                                </tr>
-                                                <?php
+                                                        </tr>
+                                                        <?php
+                                                    }
+                                                }
                                             }
                                             ?>
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>User Id</th>
+                                                <th>User </th>
                                                 <th>Old Amount</th>    
-                                                <th>Modified date</th>
-                                                <th>Time</th>      
+                                                <th>Modified date / Time</th>    
+                                                <th>Time</th>    
                                             </tr>
                                         </tfoot>
                                     </table>

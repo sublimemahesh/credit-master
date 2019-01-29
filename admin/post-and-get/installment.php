@@ -18,6 +18,7 @@ if (isset($_POST['create'])) {
 
 
     $VALID->check($INSTALLMENT, [
+        'paid_date' => ['required' => TRUE],
         'paid_amount' => ['required' => TRUE],
     ]);
 
@@ -49,7 +50,8 @@ if (isset($_POST['create'])) {
 
 if (isset($_POST['update'])) {
 
-    
+
+
     $INSTALLMENT = new Installment($_POST['id']);
     $INSTALLMENT->installment_date = $_POST['installment_date'];
     $INSTALLMENT->paid_date = $_POST['paid_date'];
@@ -57,9 +59,24 @@ if (isset($_POST['update'])) {
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
     $INSTALLMENT->status = $_POST['status'];
 
+    date_default_timezone_set('Asia/Colombo');
+
+    $history = $INSTALLMENT->history;
+    $change_at = date('Y-m-d');
+    $change_time = date('h:i:s');
+    $user_id = $_POST['user_id'];
+    $old_amount = $_POST['old_amount'];
+
+    if ($history == NULL) {
+        $INSTALLMENT->history = $user_id . ',' . $old_amount . ',' . $change_at.','.$change_time;
+    } else {
+        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $old_amount . ',' . $change_at.','.$change_time;
+    }
+
+
     $VALID = new Validator();
     $VALID->check($INSTALLMENT, [
-        'paid_amount' => ['required' => TRUE],
+        'paid_date' => ['required' => TRUE],
     ]);
 
 
@@ -85,4 +102,3 @@ if (isset($_POST['update'])) {
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }
-

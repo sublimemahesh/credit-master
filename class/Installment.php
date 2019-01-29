@@ -23,6 +23,7 @@ class Installment {
     public $collector;
     public $receipt_no;
     public $status;
+    public $history;
 
     public function __construct($id) {
         if ($id) {
@@ -43,6 +44,7 @@ class Installment {
             $this->collector = $result['collector'];
             $this->receipt_no = $result['receipt_no'];
             $this->status = $result['status'];
+            $this->history = $result['history'];
 
             return $this;
         }
@@ -116,9 +118,10 @@ class Installment {
                 . "`additional_interest` ='" . $this->additional_interest . "', "
                 . "`collector` ='" . $this->collector . "', "
                 . "`receipt_no` ='" . $this->receipt_no . "', "
+                . "`history` ='" . $this->history . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -155,8 +158,8 @@ class Installment {
     public function CheckInstallmetByPaidDate($date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
-
-
+ 
+        
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -238,11 +241,11 @@ class Installment {
     }
 
     public function getPaybleNumberOfInstallments($number_of_installments, $paid_numbers_of_installments) {
-      
+     
         $payble_of_installments = ($number_of_installments - round($paid_numbers_of_installments, 1));
 
         return $payble_of_installments;
-           
+          
     }
 
     public function getPaybleInstallmentAmount($loan_id, $loan_amount, $rate) {
