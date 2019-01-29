@@ -44,25 +44,59 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
 
-//////////////////////////////////////////////////
-    $dir_dest_p = '../../upload/customer/profile';
-    $handle_p = new Upload($_FILES['profile_picture']);
+//////////////////////////////////////////////////          
+
+    $dir_dest_p = '../../upload/customer/profile/';
+    $dir_dest_p_thumb = '../../upload/customer/profile/thumb/';
+
+    $handle_br = new Upload($_FILES['profile_picture']);
+
     $img_name_p = null;
-    if ($handle_p->uploaded) {
-        $handle_p->image_resize = true;
-        $handle_p->file_new_name_ext = 'jpg';
-        $handle_p->image_ratio_crop = 'C';
-        $handle_p->file_new_name_body = Helper::randamId();
-        $handle_p->image_x = 250;
-        $handle_p->image_y = 250;
-        $handle_p->Process($dir_dest_p);
-        if ($handle_p->processed) {
-            $info = getimagesize($handle_p->file_dst_pathname);
-            $img_name_p = $handle_p->file_dst_name;
+    $img = Helper::randamId();
+
+    if ($handle_br->uploaded) {
+        $handle_br->image_resize = true;
+        $handle_br->file_new_name_body = TRUE;
+        $handle_br->file_overwrite = TRUE;
+        $handle_br->file_new_name_ext = 'jpg';
+        $handle_br->image_ratio_crop = 'C';
+        $handle_br->file_new_name_body = $img;
+        $image_dst_x = $handle_br->image_dst_x;
+        $image_dst_y = $handle_br->image_dst_y;
+        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+
+        $image_x = (int) $newSize[0];
+        $image_y = (int) $newSize[1];
+
+        $handle_br->image_x = $image_x;
+        $handle_br->image_y = $image_y;
+
+        $handle_br->Process($dir_dest_p);
+        if ($handle_br->processed) {
+            $info = getimagesize($handle_br->file_dst_pathname);
+            $img_name_p = $handle_br->file_dst_name;
+        }
+
+        $handle_br->image_resize = true;
+        $handle_br->file_new_name_body = TRUE;
+        $handle_br->file_overwrite = TRUE;
+        $handle_br->file_new_name_ext = 'jpg';
+        $handle_br->image_ratio_crop = 'C';
+        $handle_br->file_new_name_body = $img;
+        $handle_br->image_x = 250;
+        $handle_br->image_y = 250;
+
+        $handle_br->Process($dir_dest_p_thumb);
+
+        if ($handle_br->processed) {
+
+            $info = getimagesize($handle_br->file_dst_pathname);
+
+            $img_name_p = $handle_br->file_dst_name;
         }
     }
-    $CUSTOMER->profile_picture = $img_name_p;
 
+    $CUSTOMER->profile_picture = $img_name_p;
 //////////////////////////////////////////////////////////////////////
 
     $dir_dest_br = '../../upload/customer/br/';
@@ -422,11 +456,13 @@ if (isset($_POST['add-customer'])) {
 
 
 if (isset($_POST['update-cutomer'])) {
-/////////////////////////////////////
 
     $CUSTOMER = new Customer($_POST['id']);
 
-    $dir_dest_p = '../../upload/customer/profile';
+ //////////////////////////////////////////
+    $dir_dest_p = '../../upload/customer/profile/';
+    $dir_dest_p_thumb = '../../upload/customer/profile/thumb/';
+    
     $handle = new Upload($_FILES['profile_picture']);
 
     if ($handle->uploaded) {
@@ -436,8 +472,6 @@ if (isset($_POST['update-cutomer'])) {
             $handle->file_new_name_ext = 'jpg';
             $handle->image_ratio_crop = 'C';
             $handle->file_new_name_body = Helper::randamId();
-            $handle->image_x = 250;
-            $handle->image_y = 250;
         } else {
             $handle->image_resize = true;
             $handle->file_new_name_body = TRUE;
@@ -445,14 +479,44 @@ if (isset($_POST['update-cutomer'])) {
             $handle->file_new_name_ext = FALSE;
             $handle->image_ratio_crop = 'C';
             $handle->file_new_name_body = $_POST["oldImageNamePro"];
-            $handle->image_x = 250;
-            $handle->image_y = 250;
         }
+
+        $image_dst_x = $handle->image_dst_x;
+        $image_dst_y = $handle->image_dst_y;
+        $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
+
+        $image_x = (int) $newSize[0];
+        $image_y = (int) $newSize[1];
+
+        $handle->image_x = $image_x;
+        $handle->image_y = $image_y;
 
         $handle->Process($dir_dest_p);
 
+        if (empty($_POST["oldImageNamePro"])) {
+            $handle->image_resize = true;
+            $handle->file_new_name_body = TRUE;
+            $handle->file_new_name_ext = FALSE;
+            $handle->image_ratio_crop = 'C';
+            $handle->file_new_name_body = $handle->file_dst_name;
+        } else {
+            $handle->image_resize = true;
+            $handle->file_new_name_body = TRUE;
+            $handle->file_overwrite = TRUE;
+            $handle->file_new_name_ext = FALSE;
+            $handle->image_ratio_crop = 'C';
+            $handle->file_new_name_body = $_POST["oldImageNamePro"];
+        }
+
+        $handle->image_x = 250;
+        $handle->image_y = 250;
+
+        $handle->Process($dir_dest_p_thumb);
+
         $CUSTOMER->profile_picture = $handle->file_dst_name;
     }
+
+
 
     //////////////////////////////////////////////////
     $dir_dest_br = '../../upload/customer/br/';
@@ -736,7 +800,7 @@ if (isset($_POST['update-cutomer'])) {
         $CUSTOMER->signature_image = $handle_sp->file_dst_name;
     }
 
-    /////////////////////////////
+    ////////////////////////////////////
 
     $dir_dest_bbp = '../../upload/customer/bbp/';
     $dir_dest_bbp_thumb = '../../upload/customer/bbp/thumb/';
