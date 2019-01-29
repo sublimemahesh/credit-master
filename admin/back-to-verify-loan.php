@@ -886,7 +886,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <?php } else { ?>
 
                                                 <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/thumb/<?php echo $CUSTOMER->profile_picture; ?>">
                                                 </a> 
                                                 <?php
                                             }
@@ -1509,7 +1509,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                             <div   class="list-unstyled row clearfix aniimated-thumbnials ">
                                                 <a href="../upload/customer/profile/<?php echo $GR1->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $GR1->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/thumb/<?php echo $GR1->profile_picture; ?>">
                                                 </a> 
                                             </div>
                                             <?php
@@ -2123,7 +2123,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <?php } else { ?>
 
                                                 <a href="../upload/customer/profile/<?php echo $GR2->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $GR2->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail" src="../upload/customer/profile/thumb/<?php echo $GR2->profile_picture; ?>">
                                                 </a> 
                                                 <?php
                                             }
@@ -2736,7 +2736,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <?php } else { ?>
 
                                                 <a href="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>" data-sub-html=" ">
-                                                    <img class="img-responsive thumbnail " src="../upload/customer/profile/<?php echo $GR3->profile_picture; ?>">
+                                                    <img class="img-responsive thumbnail " src="../upload/customer/profile/thumb/<?php echo $GR3->profile_picture; ?>">
                                                 </a> 
                                                 <?php
                                             }

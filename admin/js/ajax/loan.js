@@ -98,9 +98,9 @@ $(document).ready(function () {
     });
 
     $('#customer').change(function () {
-        var credit_limit = $('option:selected', this).attr('credit_limit');
-        $('#loan_amount').val(credit_limit);
-        $("#loan_amount").attr("max", credit_limit);
+//        var credit_limit = $('option:selected', this).attr('credit_limit');
+//        $('#loan_amount').val(credit_limit);
+//        $("#loan_amount").attr("max", credit_limit);
 
         var customer = $(this).val();
 
