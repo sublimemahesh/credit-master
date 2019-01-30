@@ -11,7 +11,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 $INSTALLMENT = new Installment(NULL);
 
 $LOAN = new Loan(NULL);
-$LOAN->status = 'issued';
+$LOAN->status = 'released';
 ?> 
 <!DOCTYPE html>
 <html>
@@ -19,7 +19,7 @@ $LOAN->status = 'issued';
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Active Loans || Credit Master</title>
+        <title>Manage Release Loans || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -54,7 +54,7 @@ $LOAN->status = 'issued';
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Active Loans
+                                    Manage Active Release Loans
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -176,9 +176,9 @@ $LOAN->status = 'issued';
                                                         <br/>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
-                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View Installment History"></button></a>
+                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan "></button></a> | 
+                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installments"></button></a> | 
+                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View History"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php

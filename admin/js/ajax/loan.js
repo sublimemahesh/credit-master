@@ -352,33 +352,27 @@ $(document).ready(function () {
     });
 
     $('#loan_issue').click(function () {
+
         var loan_id = $('#loan_id').val();
         var issue_mode = $('#issue_mode').val();
         var effective_date = $('#effective_date').val();
         var balance_pays = $('#balance_pay').val();
+        
         var balance_pay = balance_pays.replace(",", "");
+        alert(balance_pay);
         var issued_date = $('#issued_date').val();
 
-        if (issue_mode === 'cheque') {
-            swal({
-                title: "Error!",
-                text: "You cannot issue this loan. This loan issu mode is Cash or Cheque..! ",
-                type: "error",
-                confirmButtonColor: "#00b0e4"
-
-            });
-        } else if (issue_mode === 'cash') {
-            window.location = 'transfer_loan_cash.php?id=' + loan_id + '&&balance_pay=' + balance_pay;
+        if (issue_mode === 'cash') {
+            window.location = 'release_cash_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
+        } else if (issue_mode === 'cheque') {
+            window.location = 'release_cheque_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
         } else {
-            window.location = 'transfer_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
-
+            window.location = 'issued_bank_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
         }
-
-
     });
 
 
-    $('#issue').click(function () {
+    $('#release_bank_loan').click(function () {
 
 
         var loan_id = $('#loan_id').val();
@@ -467,15 +461,80 @@ $(document).ready(function () {
                         } else {
                             alert('Error');
                         }
-
                     }
                 });
             });
         }
-
     });
 
 
+
+    $('#release').click(function () {
+
+        var loan_id = $('#loan_id').val();
+        var create_by = $('#create_by').val();
+        var release_by = $('#release_by').val();
+        var issued_date = $('#issued_date').val();
+        var issue_mode = $('#issue_mode').val();
+        var issue_note = $('#issue_note').val();
+        var effective_date = $('#effective_date').val();
+        var transaction_document = $('#transaction_document').val();
+        var transaction_id = $('#transaction_id').val();
+        var balance_pays = $('#balance_pay').val();
+        var balance_pay = balance_pays.replace(",", "");
+        var loan_processing_pre_amount = $('#loan_processing_pre_amount').val();
+        var result = validateForIssue(effective_date, issued_date, issue_mode);
+
+        if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the transaction document..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
+        } else if (result) {
+            swal({
+                title: "Released!",
+                text: "Do you really want to release this loan?...",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#2b982b",
+                confirmButtonText: "Yes, Release It!",
+                closeOnConfirm: false
+            }, function () {
+                $.ajax({
+                    url: "post-and-get/ajax/loan.php",
+                    type: "POST",
+
+                    data: {
+                        loan_id: loan_id,
+                        release_by: release_by,
+                        issued_date: issued_date,
+                        issue_mode: issue_mode,
+                        issue_note: issue_note,
+                        create_by: create_by,
+                        balance_pay: balance_pay,
+                        loan_processing_pre_amount: loan_processing_pre_amount,
+                        effective_date: effective_date,
+                        transaction_id: transaction_id,
+                        transaction_document: transaction_document,
+                        action: 'RELEASEYCASHORCHEQUE'
+                    },
+                    dataType: "JSON",
+                    success: function (jsonStr) {
+                        if (jsonStr.status == 'released') {
+                            window.location = 'manage-approved-loans.php';
+                        } else {
+                            alert('Error');
+                        }
+                    }
+                });
+            });
+        }
+    });
+    
 ///remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
@@ -522,13 +581,8 @@ $(document).ready(function () {
         } else {
             return true;
         }
-
-
     }
-
 });
-
-
 
 
 // Cheque guarantor 2
@@ -856,24 +910,19 @@ $('#customer,#issue_mode').change(function () {
             }
         }
 
-
     });
-
-
 });
 
 
 
 window.onload = function () {
 
-
     //get other page to issumode prices in onloard
     var issue_mode = $('#issue_mode_onloard').val();
     var loan_amount = $('#loan_amount').val();
 
     if (issue_mode == 'bank') {
-
-
+        
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
@@ -887,7 +936,6 @@ window.onload = function () {
                 issue_mode: issue_mode,
                 loan_amount: loan_amount,
                 action: `lOANPROCESSINGPRE`
-
             },
             dataType: "JSON",
             success: function (jsonStr) {
@@ -903,7 +951,7 @@ window.onload = function () {
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
-
+        $(`#bank_transaction_free_amount`).hide();
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -919,7 +967,6 @@ window.onload = function () {
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
             }
         });
-
 
     } else if (issue_mode == 'cheque') {
 
@@ -949,13 +996,10 @@ window.onload = function () {
     }
 
 
-
-
 //get last loan amount by customer
     var customer_id = $('#customer_id').val();
     var loan_amount = $('#loan_amount').val();
     var issue_mode = $('#issue_mode_onloard').val();
-
 
     $.ajax({
         url: "post-and-get/ajax/loan.php",
@@ -981,10 +1025,8 @@ window.onload = function () {
                 $('#total_deductions').val(jsonStr.total_deductions);
                 $('#balance_pay').val(jsonStr.balance_pay);
             }
-
         }
     });
-
 
 
 //view loan amount interest and loan amount

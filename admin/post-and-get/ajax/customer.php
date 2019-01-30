@@ -129,6 +129,7 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
         echo json_encode(['type' => 'route', 'data' => $result]);
         header('Content-type: application/json');
         exit();
+        
     } else if ($_POST['type'] == 'center') {
         $CENTER = new Center(NULL);
         $result = $CENTER->all();

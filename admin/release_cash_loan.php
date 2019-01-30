@@ -12,7 +12,9 @@ $id = '';
 $id = $_GET['id'];
 $LOAN = new Loan($id);
 $balance_pay = $_GET['balance_pay'];
-
+$issued_date = $_GET['issued_date'];
+$issue_mode = $_GET['issue_mode'];
+$effective_date = $_GET['effective_date'];
 
 $CUSTOMER = new Customer($LOAN->customer);
 ?>
@@ -56,7 +58,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                 <!-- Vertical Layout --> 
                 <div class="card">
                     <div class="header"> 
-                        <h2>Issue Loan :  <?php
+                        <h2>Release Loan :  <?php
                             if ($LOAN->installment_type == 30) {
                                 echo 'BLD' . $id;
                             } elseif ($LOAN->installment_type == 4) {
@@ -75,7 +77,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                     </div> 
 
 
-                    <form action="post-and-get/loan-transaction.php" method="POST" enctype="multipart/form-data">
+               
                         <div class="body"> 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -129,16 +131,24 @@ $CUSTOMER = new Customer($LOAN->customer);
                             <div class="row">
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"> 
-                                        <input type="hidden" name="id" value="<?php echo $id ?>"> 
-                                        <input type="hidden" name="create_by" value="<?php echo $LOAN->create_by ?>"> 
+                                        <input type="hidden" name="loan_id" id="loan_id" value="<?php echo $id ?>">                                      
+                                        <input type="hidden"  id="create_by" name="create_by" value="<?php echo $LOAN->create_by ?>">                                      
+                                        <input type="hidden" id="balance_pay" ame="balance_pay" value="<?php echo $balance_pay ?>"/>  
+                                        <input type="hidden" id="issued_date" name="issued_date" value="<?php echo $issued_date; ?>"/>
+                                        <input type="hidden" id="effective_date" name="effective_date" value="<?php echo $effective_date; ?>"/>
+                                        <input type="hidden" id="issue_mode" name="issue_mode" value="<?php echo $issue_mode; ?>"/>
+                                        <input type="hidden" id="loan_processing_pre_amount" name="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
+                                        <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>                                    
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="release_by" id="release_by">
+
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                                        <input type="submit"  class="btn btn-info pull-left"  name="create" value="Transaction"/> 
+                                        <input type="submit"  class="btn btn-info pull-left"   id="release" value="Release Loan"/> 
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </form>
+                  
                 </div> 
             </div> 
         </div>
