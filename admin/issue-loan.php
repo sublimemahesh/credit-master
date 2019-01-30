@@ -3338,7 +3338,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
-                                    <input type="submit" id="issue" class="btn btn-info"   value="Issue Loan Now"/> | 
+                                    <input type="submit" id="loan_issue" class="btn btn-info"   value="Issue Loan Now"/> | 
                                     <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                     <a href="edit-loan.php?id=<?php echo $loan_id ?>"> <input type="submit"   class="btn btn-info" value="Edit Loan"/></a>
                                     <input type="hidden" name="id" value="<?php echo $id ?>">

@@ -701,19 +701,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <!--                                <div class="row">
-                                                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                                                        <label for="total_payble_amount">  Due and Excess</label>
-                                                                    </div>
-                                                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                                                        <div class="form-group">
-                                                                            <div class="form-line">
-                                                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Due and Excess</label>
-                                
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>-->
+
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -752,7 +740,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issued_date" class="hidden-lg hidden-md">Issue Date</label>
-                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo date("Y-m-d"); ?>"  readonly="" class="form-control " autocomplete="off">
+                                                <input type="text" id="issued_date"  name="issued_date" value="<?php echo $LOAN->issued_date ?>"  readonly="" class="form-control " autocomplete="off">
                                             </div>
                                         </div>
                                     </div>
@@ -767,7 +755,47 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issue_note" class="hidden-lg hidden-md">Issue Note</label>
-                                                <textarea name="issue_note" id="issue_note" class="form-control" readonly=""></textarea> 
+                                                <textarea name="issue_note" id="issue_note" class="form-control" readonly=""><?php echo $LOAN->issue_note ?></textarea> 
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="transaction_id">Transaction Id</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="transaction_id" class="hidden-lg hidden-md">Transaction Id</label>
+                                                <input type="text" id="transaction_id"  name="transaction_id" value="<?php echo $LOAN->transaction_id ?>"  readonly="" class="form-control " autocomplete="off">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" class="list-unstyled   clearfix  ">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="transaction_document">Transaction Document</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-6 col-xs-6 p-bottom">
+                                        <div class="form-group">
+                                            <div  class="list-unstyled   clearfix aniimated-thumbnials">
+                                                <label for="transaction_document" class="hidden-lg hidden-md">Transaction Document</label>
+                                                <?php if (empty($LOAN->transaction_document)) {
+                                                    ?>
+                                                    <img class="img-responsive thumbnail image-width" src="../upload/sample.jpg">
+
+                                                <?php } else { ?>
+
+                                                    <a href="../upload/loan/transaction_document/<?php echo $LOAN->transaction_document ?>" data-sub-html=" ">
+                                                        <img class="img-responsive thumbnail image-width" src="../upload/loan/transaction_document/thumb/<?php echo $LOAN->transaction_document ?>">
+                                                    </a>  
+                                                    <?php
+                                                }
+                                                ?>
+
                                             </div>
                                         </div>
                                     </div>

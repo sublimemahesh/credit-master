@@ -77,7 +77,8 @@ if (isset($_GET['date'])) {
                                         </div>
                                     </div>
                                 </div>
-                            </div> 
+                            </div>
+                            
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_date">Paid Date</label>
@@ -90,6 +91,7 @@ if (isset($_GET['date'])) {
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-1 col-md-1 hidden-sm hidden-xs form-control-label">
                                     <label for="time">Time</label>
                                 </div>

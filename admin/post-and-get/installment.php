@@ -47,10 +47,7 @@ if (isset($_POST['create'])) {
 }
 
 
-
 if (isset($_POST['update'])) {
-
-
 
     $INSTALLMENT = new Installment($_POST['id']);
     $INSTALLMENT->installment_date = $_POST['installment_date'];

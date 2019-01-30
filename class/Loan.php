@@ -32,6 +32,8 @@ class Loan {
     public $collector;
     public $issue_by;
     public $status;
+    public $transaction_id;
+    public $transaction_document;
 
     public function __construct($id) {
         if ($id) {
@@ -67,6 +69,8 @@ class Loan {
             $this->collector = $result['collector'];
             $this->issue_by = $result['issue_by'];
             $this->status = $result['status'];
+            $this->transaction_id = $result['transaction_id'];
+            $this->transaction_document = $result['transaction_document'];
 
             return $this;
         }
@@ -194,10 +198,12 @@ class Loan {
                 . "`issue_note` ='" . $this->issue_note . "', "
                 . "`verify_comments` ='" . $this->verify_comments . "', "
                 . "`balance_of_last_loan` ='" . $this->balance_of_last_loan . "', "
-                . "`status` ='" . $this->status . "' "
+                . "`status` ='" . $this->status . "', "
+                . "`transaction_id` ='" . $this->transaction_id . "', "
+                . "`transaction_document` ='" . $this->transaction_document . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-
+        
         $db = new Database();
         $result = $db->readQuery($query);
 

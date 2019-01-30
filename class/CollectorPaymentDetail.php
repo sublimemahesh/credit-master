@@ -90,7 +90,7 @@ class CollectorPaymentDetail {
                 . "`is_settled` ='" . $this->is_settled . "'  "
                 . "WHERE `id` = '" . $this->id . "'";
 
-        dd($query);
+        
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -102,6 +102,29 @@ class CollectorPaymentDetail {
         }
     }
 
+    
+     public function updateAmountBycollector() {
+
+        $query = "UPDATE  `collector_payment_detail` SET "        
+                . "`date` ='" . $this->date . "', "
+                . "`ammount` ='" . $this->ammount . "',  "
+                . "`is_recived` ='" . $this->is_recived . "',  "
+                . "`is_issuied` ='" . $this->is_issuied . "',  "
+                . "`is_settled` ='" . $this->is_settled . "'  "
+                . "WHERE `collector_id` = '" . $this->collector_id . "'";
+
+        
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+
+            return FALSE;
+        }
+    }
+    
     public function delete() {
 
         $query = 'DELETE FROM `collector_payment_detail` WHERE id="' . $this->id . '"';
