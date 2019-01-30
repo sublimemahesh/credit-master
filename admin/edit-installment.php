@@ -7,7 +7,7 @@ $id = null;
 
 $id = '';
 $id = $_GET['id'];
-dd($id);
+ 
 $INSTALLMENT = new Installment($id);
 
 if (isset($_GET['date'])) {

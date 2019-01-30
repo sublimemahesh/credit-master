@@ -45,8 +45,6 @@ if ($_POST['action'] == 'CHECKNIC&MOBILEINCUSTOMER') {
     }
 }
 
-
-
 if ($_POST['action'] == 'CHECKNIC&MOBILEEXISTCUSTOMER') {
     $CUSTOMER = new Customer(NULL);
     $UPPERNIC = strtoupper($_POST["nicNumber"]);
@@ -84,13 +82,12 @@ if ($_POST['action'] == 'GETBANKNAME') {
 }
 
 //branch code
-
 if ($_POST['action'] == 'GETBRANCHCODE') {
 
     $BRANCH = new Branch(NULL);
     $result = $BRANCH->getBrachCode($_POST["branch_id"]);
-    
-    if ($result == TRUE) {        
+
+    if ($result == TRUE) {
         echo json_encode(['branch_codes' => $result['code']]);
         header('Content-type: application/json');
     } else {
@@ -98,7 +95,6 @@ if ($_POST['action'] == 'GETBRANCHCODE') {
         exit();
     }
 }
-
 
 if ($_POST['action'] == 'ADDBRANCHNAME') {
 
@@ -129,11 +125,28 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
         echo json_encode(['type' => 'route', 'data' => $result]);
         header('Content-type: application/json');
         exit();
-        
     } else if ($_POST['type'] == 'center') {
         $CENTER = new Center(NULL);
         $result = $CENTER->all();
         echo json_encode(['type' => 'center', 'data' => $result]);
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+///---Check Customer has Active loan--///
+
+if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
+
+    $LOAN = new Loan(NULL);
+
+    $result = $LOAN->CheckCustomerHasLoan($_POST["customer"]);
+   
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
         header('Content-type: application/json');
         exit();
     }

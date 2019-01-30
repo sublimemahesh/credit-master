@@ -5,8 +5,8 @@ include_once(dirname(__FILE__) . './auth.php');
 
 //check user level
 $USERS = new User($_SESSION['id']);
-$DEFAULTDATA = new DefaultData(NULL);
-$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+//$DEFAULTDATA = new DefaultData(NULL);
+//$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 
 

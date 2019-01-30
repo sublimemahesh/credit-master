@@ -359,7 +359,7 @@ $(document).ready(function () {
         var balance_pays = $('#balance_pay').val();
         
         var balance_pay = balance_pays.replace(",", "");
-        alert(balance_pay);
+         
         var issued_date = $('#issued_date').val();
 
         if (issue_mode === 'cash') {
@@ -664,7 +664,6 @@ $('#guarantor_3').change(function () {
 
 });
 
-
 //check loan processing free
 
 $(`#issue_mode`).change(function () {
@@ -873,7 +872,7 @@ $('.delete-customer').click(function () {
     });
 });
 
-
+//customer Last loan amount
 $('#customer,#issue_mode').change(function () {
 
     var customer_id = $(`#customer`).val();
@@ -914,6 +913,8 @@ $('#customer,#issue_mode').change(function () {
 });
 
 
+
+///-----------Windows Onloard----------//
 
 window.onload = function () {
 
