@@ -84,10 +84,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                                         #<?php echo $key ?>
                                                     </td> 
                                                     <td>
-                                                        <?php
-                                                        $USER = new Users($collecter_payment_details['collector_id']);
-                                                        echo $USER->name;
-                                                        ?>
+                                                            
                                                     </td> 
                                                     <td>
                                                         <?php echo $collecter_payment_details['date']; ?>

@@ -4,16 +4,13 @@ include_once(dirname(__FILE__) . '/../../class/include.php');
 
 if (isset($_POST['create'])) {
 
-    $LOAN_DETAILS = new LoanDocument(NULL);
-    $VALID = new Validator();
+    $LOAN = new Loan($_POST['id']);
+    $COLLECTOR = new CollectorPaymentDetail($_POST['create_by']);
 
-    $LOAN_DETAILS->loan = $_POST['id'];
-    $LOAN_DETAILS->caption = filter_input(INPUT_POST, 'caption');
+    $dir_dest = '../../upload/loan/transaction_document/';
+    $dir_dest_thumb = '../../upload/loan/transaction_document/thumb/';
 
-    $dir_dest = '../../upload/loan/document/';
-    $dir_dest_thumb = '../../upload/loan/document/thumb/';
-    $handle = new Upload($_FILES['image_name']);
-    $imgName = null;
+    $handle = new Upload($_FILES['transaction_document']);
 
 
     $img = Helper::randamId();
@@ -38,7 +35,7 @@ if (isset($_POST['create'])) {
         $handle->Process($dir_dest);
         if ($handle->processed) {
             $info = getimagesize($handle->file_dst_pathname);
-            $img_name = $handle->file_dst_name;
+            $img = $handle->file_dst_name;
         }
 
         $handle->image_resize = true;
@@ -56,29 +53,33 @@ if (isset($_POST['create'])) {
 
             $info = getimagesize($handle->file_dst_pathname);
 
-            $img_name = $handle->file_dst_name;
+            $img = $handle->file_dst_name;
         }
     }
 
+    $LOAN->transaction_document = $img;
+    /////////////////////////////////////////////////
 
-    $LOAN_DETAILS->image_name = $img_name;
-
-
-    $VALID->check($LOAN_DETAILS, [
-        'caption' => ['required' => TRUE],
-        'image_name' => ['required' => TRUE]
+    $LOAN->transaction_id = $_POST['transaction_id'];
+    $COLLECTOR->ammount = $_POST['balance_pay'];
+    $VALID = new Validator();
+    $VALID->check($LOAN, [
+        'transaction_id' => ['required' => TRUE],
     ]);
 
     if ($VALID->passed()) {
-        $LOAN_DETAILS->create();
+        $LOAN->update();
+        $COLLECTOR->updateAmountBycollector();
 
         if (!isset($_SESSION)) {
             session_start();
         }
-        $VALID->addError("Your data was saved successfully", 'success');
+
+        $VALID->addError("Your changes saved successfully", 'success');
+
         $_SESSION['ERRORS'] = $VALID->errors();
 
-        header('Location: ' . $_SERVER['HTTP_REFERER']);
+        header('Location: ../manage-active-loans.php');
     } else {
 
         if (!isset($_SESSION)) {
@@ -86,7 +87,6 @@ if (isset($_POST['create'])) {
         }
 
         $_SESSION['ERRORS'] = $VALID->errors();
-
         header('Location: ' . $_SERVER['HTTP_REFERER']);
     }
 }

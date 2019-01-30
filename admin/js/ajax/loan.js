@@ -351,6 +351,33 @@ $(document).ready(function () {
         });
     });
 
+    $('#loan_issue').click(function () {
+        var loan_id = $('#loan_id').val();
+        var issue_mode = $('#issue_mode').val();
+        var effective_date = $('#effective_date').val();
+        var balance_pays = $('#balance_pay').val();
+        var balance_pay = balance_pays.replace(",", "");
+        var issued_date = $('#issued_date').val();
+
+        if (issue_mode === 'cheque') {
+            swal({
+                title: "Error!",
+                text: "You cannot issue this loan. This loan issu mode is Cash or Cheque..! ",
+                type: "error",
+                confirmButtonColor: "#00b0e4"
+
+            });
+        } else if (issue_mode === 'cash') {
+            window.location = 'transfer_loan_cash.php?id=' + loan_id + '&&balance_pay=' + balance_pay;
+        } else {
+            window.location = 'transfer_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
+
+        }
+
+
+    });
+
+
     $('#issue').click(function () {
 
 
@@ -364,19 +391,11 @@ $(document).ready(function () {
         var result = validateForIssue(effective_date, issued_date, issue_mode);
 
 
-        if (issue_mode === 'cash' || issue_mode === 'cheque') {
+
+        if (!$('#bank').val() || $('#bank').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "You cannot issue this loan. This loan issu mode is Cash or Cheque..! ",
-                type: "error",
-                confirmButtonColor: "#00b0e4"
-
-            });
-
-        } else if (!$('#bank').val() || $('#bank').val().length === 0) {
-            swal({
-                title: "Error!",
-                text: "Please enter the bank name..!",
+                text: "Please enter the customer bank name..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
@@ -384,7 +403,7 @@ $(document).ready(function () {
         } else if (!$('#branch').val() || $('#branch').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter the branch ..!",
+                text: "Please enter the customer branch ..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
@@ -392,7 +411,7 @@ $(document).ready(function () {
         } else if (!$('#branch_code').val() || $('#branch_code').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter the branch code ..!",
+                text: "Please enter the customer branch code ..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
@@ -400,7 +419,7 @@ $(document).ready(function () {
         } else if (!$('#account_number').val() || $('#account_number').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter the account number ..!",
+                text: "Please enter the customer account number ..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
@@ -408,36 +427,22 @@ $(document).ready(function () {
         } else if (!$('#holder_name').val() || $('#holder_name').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter the holder name ..!",
+                text: "Please enter the customer holder name ..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
             });
+
         } else if (result) {
-            var bank = $('#bank').val();
-            var branch = $('#branch').val();
-            var branch_code = $('#branch_code').val();
-            var account_number = $('#account_number').val();
-            var holder_name = $('#holder_name').val();
-            var bank_book_picture = $('#bank_book_picture').val();
-            var balance_pay = $('#balance_pay').val();
-            
+
             swal({
                 title: "Issue!",
+                text: "Do you really want to issue this loan?...",
                 type: "info",
                 showCancelButton: true,
-                confirmButtonColor: "#00b0e4",
-                confirmButtonText: "Yes, Issue It!",
-                closeOnConfirm: false,
-                html: true,
-                text: '<h3 class="text-left m-bottom-p"> Balance Pay : ' + balance_pay + '</h3><br>\n\
-                       <h5 class="text-left m-bottom-p"> Bank : ' + bank + '</h5><br>\n\
-                       <h5 class="text-left m-bottom-p"> Branch : ' + branch + '</h5> <br> \n\
-                       <h5 class="text-left m-bottom-p"> Branch Code : ' + branch_code + '</h5> <br>\n\
-                       <h5 class="text-left m-bottom-p"> Account Number : ' + account_number + '</h5> <br>\n\
-                       <h5 class="text-left m-bottom-p"> Holder Name : ' + holder_name + '</h5> \n\
-                       <a href=../upload/customer/bbp/' + bank_book_picture + ' target="_blank" class="m-bottom-p text-left" > <h5 style="padding-top: 10px;"> Bank Book Image<h5></a> \n\
-                       <p style="padding-top: 20px;"> Do you really want to issue this loan?...</p> '
+                confirmButtonColor: "#2b982b",
+                confirmButtonText: "Yes, Approve It!",
+                closeOnConfirm: false
 
 
             }, function () {
@@ -467,6 +472,7 @@ $(document).ready(function () {
                 });
             });
         }
+
     });
 
 

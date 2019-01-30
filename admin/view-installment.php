@@ -57,7 +57,6 @@ $today = date("Y-m-d");
                                 <h2>
                                     View Installment
                                 </h2>
-
                             </div>
 
                             <div class="body">
@@ -216,13 +215,10 @@ $today = date("Y-m-d");
                                                     $due_and_excess = $total_paid - $ins_total;
 
                                                     if ($due_and_excess > 0) {
-
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess < 0) {
-
                                                         echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
                                                     } else {
-
                                                         echo number_format($due_and_excess, 2);
                                                     }
                                                     echo '</td>';

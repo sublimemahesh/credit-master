@@ -7,7 +7,6 @@ $(document).ready(function () {
             $('#route_row').hide();
             $('#center_row').hide();
         }
-
         $.ajax({
             url: "post-and-get/ajax/postpone-date.php",
             type: "POST",
@@ -41,18 +40,13 @@ $(document).ready(function () {
                     $('#center_row').show();
                     $('#route_row').hide();
                 }
-
             }
         });
     });
 });
 
 $('.customer-ref-postpone-date').change(function () {
-
-
-
     var type = this.id;
-
     var value = $(this).val();
 
     $.ajax({
@@ -65,7 +59,6 @@ $('.customer-ref-postpone-date').change(function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
-
 
             var html = '<option value="0"> -- All Customers -- </option>';
             $.each(jsonStr.data, function (i, data) {
