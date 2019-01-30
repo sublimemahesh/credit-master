@@ -176,6 +176,52 @@ if ($_POST['action'] == 'ISSUE') {
     exit();
 }
 
+if ($_POST['action'] == 'RELEASEYCASHORCHEQUE') {
+
+    ///loan details update///   
+
+    $LOAN = new Loan($_POST['loan_id']);
+    $LOAN->issued_date = $_POST['issued_date'];
+
+    $LOAN->effective_date = $_POST['effective_date'];
+    $LOAN->issue_mode = $_POST['issue_mode'];
+    $LOAN->issue_note = $_POST['issue_note'];
+    $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
+    $LOAN->release_by = $_POST['release_by'];
+    $LOAN->status = 'released';
+    $LOAN->transaction_id = $_POST['transaction_id'];
+
+    $result = $LOAN->update();
+
+    ///effective date details update///
+
+    $EffectiveDate = New EffectiveDate(NULL);
+
+    $EffectiveDate->loan = $LOAN->id;
+    $EffectiveDate->date = $LOAN->effective_date;
+    $EffectiveDate->loan_period = $LOAN->loan_period;
+    $EffectiveDate->installment_type = $LOAN->installment_type;
+    $EffectiveDate->installment_amount = $LOAN->installment_amount;
+
+    $EffectiveDate->create();
+
+    ///transactiopn Document image///
+
+    ///transfer amount in Collector///    
+
+    $COLLECTOR = new CollectorPaymentDetail($_POST['create_by']);
+    $COLLECTOR->ammount = $_POST['balance_pay'];
+    $COLLECTOR->create();
+
+    $VALID = new Validator();
+    $VALID->addError("Loan was successfully issued!...", 'success');
+    $_SESSION['ERRORS'] = $VALID->errors();
+
+    echo json_encode(['status' => 'released', 'data' => $result]);
+    header('Content-type: application/json');
+    exit();
+}
+
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $CHECKGUARANTER = new Loan(NULl);
     $result = $CHECKGUARANTER->CheckGuarantor_2($_POST["guarantor_2"]);
@@ -209,13 +255,13 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
     $CHECKCUSTOMER = new Loan(NULl);
 
     $result = $CHECKCUSTOMER->CheckCustomerHasActiveLoan($_POST["customer"]);
-  
+
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');
         echo json_encode($data);
-    } else {    
-           $data = array("status" => FALSE);
+    } else {
+        $data = array("status" => FALSE);
         header('Content-type: application/json');
         exit();
     }

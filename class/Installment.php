@@ -53,7 +53,7 @@ class Installment {
     public function create() {
 
 
-        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`time`,`paid_amount`,`additional_interest`,`collector`,`receipt_no`) VALUES  ('"
+        $query = "INSERT INTO `installment` (`loan`,`installment_date`,`paid_date`,`time`,`paid_amount`,`additional_interest`,`collector`,`receipt_no`,`history`) VALUES  ('"
                 . $this->loan . "','"
                 . $this->installment_date . "','"
                 . $this->paid_date . "', '"
@@ -61,8 +61,9 @@ class Installment {
                 . $this->paid_amount . "', '"
                 . $this->additional_interest . "', '"
                 . $this->collector . "', '"
-                . $this->receipt_no . "')";
-
+                . $this->receipt_no. "', '"
+                . $this->history . "')";
+        
 
         $db = new Database();
         $result = $db->readQuery($query);

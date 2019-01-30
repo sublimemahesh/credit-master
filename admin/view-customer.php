@@ -132,7 +132,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                 <label for="nic_photo_back">Profile Picture</label> 
                                 <div  class="list-unstyled   clearfix aniimated-thumbnials">
                                     <?php
-                                    $file_exists = file_exists('../upload/customer/profile/' . $CUSTOMER->profile_picture);
+                                    $file_exists = file_exists('../upload/customer/profile/thumb/' . $CUSTOMER->profile_picture);
                                     $empty = empty($CUSTOMER->profile_picture);
                                     if (!$file_exists || $empty) {
                                         ?>
@@ -141,7 +141,7 @@ $CUSTOMER = new Customer($_GET['id']);
                                     } else {
                                         ?>
                                         <a href="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" data-sub-html=" ">
-                                            <img class="img-responsive thumbnail" src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>">
+                                            <img class="img-responsive thumbnail" src="../upload/customer/profile/thumb/<?php echo $CUSTOMER->profile_picture; ?>">
                                         </a>
                                         <?php
                                     }

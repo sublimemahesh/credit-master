@@ -59,7 +59,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                 <!-- Vertical Layout --> 
                 <div class="card">
                     <div class="header"> 
-                        <h2>Issue Loan :  <?php
+                        <h2>Release Loan :  <?php
                             if ($LOAN->installment_type == 30) {
                                 echo 'BLD' . $id;
                             } elseif ($LOAN->installment_type == 4) {
@@ -76,9 +76,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                             </li>
                         </ul>
                     </div> 
-
-                    <div class="tab-content"> 
-                        <div id="home" class="tab-pane fade in active">
+                    <form id="form-data">
                             <div class="body"> 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -210,52 +208,60 @@ $CUSTOMER = new Customer($LOAN->customer);
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div>
 
-                    </div>
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="transaction_id" > Transaction id </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">                                         
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="transaction_id" class="hidden-lg hidden-md">Transaction id </label>
+                                                <input type="text" id="transaction_id"  name="transaction_id"  placeholder="Enter The Transaction id " class="form-control   " autocomplete="off" required="TRUE" min="0"  >
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="transaction_document" > Transaction document  </label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">                                         
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="transaction_document" class="hidden-lg hidden-md">Transaction document  </label>
+                                                <input type="file" id="transaction_document"  name="transaction_document"  placeholder="Enter The Transaction id " class="form-control   " autocomplete="off" required="TRUE" min="0"  >
+                                            </div>                                            
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>                        
 
                     <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
                         <div class="row">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">
-                                    <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
-                                    <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>    
-                                    <input type="hidden" id="doday" value="<?php echo date("Y-m-d"); ?>"/>
-                                    <input type="hidden" id="issued_date" value="<?php echo $issued_date; ?>"/>
+                                    <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>   
                                     <input type="hidden" id="issued_date" value="<?php echo $issued_date; ?>"/>
                                     <input type="hidden" id="effective_date" value="<?php echo $effective_date; ?>"/>
                                     <input type="hidden" id="issue_mode" value="<?php echo $issue_mode; ?>"/>
                                     <input type="hidden" id="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
                                     <input type="hidden" id="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>
                                     <input type="hidden" name="id" value="<?php echo $id ?>">
-                                    <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
-                                    <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+                                    <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="release_by"> 
 
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-
-                                    <input type="submit" id="issue" class="btn btn-info pull-left"   value="Issue Loan Now"/> 
-                                    <?php
-                                    if ($CUSTOMER->bank_book_picture == 0) {
-                                        ?>
-                                        <input type="hidden" value="<?php echo 'sample.jpg' ?>" id="bank_book_picture">
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <input type="hidden" value="<?php echo $CUSTOMER->bank_book_picture; ?>" id="bank_book_picture">
-                                        <?php
-                                    }
-                                    ?>
+                                    <input type="submit" id="release_bank_loan" class="btn btn-info pull-left"   value="Release Loan"/> 
                                 </div>
                             </div>
                         </div>
                     </div>
+                    </form>
                 </div> 
             </div> 
-
-        </div>
-    </div>
+ 
 </section>
 
 <script src="plugins/jquery/jquery.min.js"></script>

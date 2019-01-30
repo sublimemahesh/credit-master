@@ -53,18 +53,18 @@ $loanid = $_GET['id'];
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    View Edit History
+                                    Paid Installment History
                                 </h2>
 
                             </div> 
                             <div class="body">
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable" id = "installment">
                                         <thead>
                                             <tr>
                                                 <th>User </th>
-                                                <th>Old Amount</th>   
-                                                <th>Modified date / Time</th>
+                                                <th> Amount</th>   
+                                                <th>Modified date</th>
                                                 <th>Time</th>
 
                                             </tr>
@@ -117,8 +117,8 @@ $loanid = $_GET['id'];
                                         <tfoot>
                                             <tr>
                                                 <th>User </th>
-                                                <th>Old Amount</th>    
-                                                <th>Modified date / Time</th>    
+                                                <th>Amount</th>    
+                                                <th>Modified date</th>    
                                                 <th>Time</th>    
                                             </tr>
                                         </tfoot>
@@ -153,7 +153,15 @@ $loanid = $_GET['id'];
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
         <script src="js/ajax/loan.js" type="text/javascript"></script>
-        <script src="delete/js/customer.js" type="text/javascript"></script>
 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#installment').DataTable({
+                    destroy: true,
+                    "order": [[3, "desc"]],
+                     
+                });
+            });
+        </script>
     </body> 
 </html> 

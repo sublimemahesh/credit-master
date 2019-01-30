@@ -25,7 +25,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Issue Loan || Credit Master</title>
+        <title>Release Loan || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -57,7 +57,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                 <!-- Vertical Layout --> 
                 <div class="card">
                     <div class="header"> 
-                        <h2>Issue Loan :  <?php
+                        <h2>Release Loan :  <?php
                             if ($LOAN->installment_type == 30) {
                                 echo 'BLD' . $loan_id;
                             } elseif ($LOAN->installment_type == 4) {
@@ -3338,23 +3338,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
 
-                                    <input type="submit" id="loan_issue" class="btn btn-info"   value="Issue Loan Now"/> | 
+                                    <input type="submit" id="loan_issue" class="btn btn-info"   value="Release Loan"/> | 
                                     <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                     <a href="edit-loan.php?id=<?php echo $loan_id ?>"> <input type="submit"   class="btn btn-info" value="Edit Loan"/></a>
                                     <input type="hidden" name="id" value="<?php echo $id ?>">
                                     <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
                                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                                    <?php
-                                    if ($CUSTOMER->bank_book_picture == 0) {
-                                        ?>
-                                        <input type="hidden" value="<?php echo 'sample.jpg' ?>" id="bank_book_picture">
-                                        <?php
-                                    } else {
-                                        ?>
-                                        <input type="hidden" value="<?php echo $CUSTOMER->bank_book_picture; ?>" id="bank_book_picture">
-                                        <?php
-                                    }
-                                    ?>
+                                     
                                 </div>
                             </div>
                         </div>

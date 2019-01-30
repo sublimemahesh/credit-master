@@ -2,13 +2,12 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
 
-
-
 $date = null;
 $id = null;
 
 $id = '';
 $id = $_GET['id'];
+dd($id);
 $INSTALLMENT = new Installment($id);
 
 if (isset($_GET['date'])) {
@@ -24,7 +23,7 @@ if (isset($_GET['date'])) {
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Edit Installment || Credit Master</title>
+        <title>Edit Paid Installment || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -55,7 +54,7 @@ if (isset($_GET['date'])) {
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Paid Installment</h2>
+                        <h2>Edit Paid Installment</h2>
                         <ul class="header-dropdown">
                         </ul>
                     </div>

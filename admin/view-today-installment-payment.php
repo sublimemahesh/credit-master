@@ -158,7 +158,7 @@ $next = $ND->format('Y-m-d');
                                                     </td>
                                                     <td>
                                                         <a href="edit-installment.php?id=<?php echo $installment['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn"></button></a> |  
-                                                        <a href="view-edit-history.php?id=<?php echo $installment['loan']; ?>"> <button class="glyphicon glyphicon-circle-arrow-left arrange-btn"></button></a> 
+                                                        <a href="view-edit-history.php?id=<?php echo $installment['loan']; ?>"> <button class="glyphicon glyphicon-repeat arrange-btn"></button></a> 
                                                     </td>
 
                                                 </tr>

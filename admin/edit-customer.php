@@ -138,7 +138,7 @@ $CENTER = Center::all();
                                         <?php
                                         if ($CUSTOMER->profile_picture) {
                                             ?>
-                                            <img src="../upload/customer/profile/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
+                                        <img src="../upload/customer/profile/thumb/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
                                             <?php
                                         }
                                         ?> 

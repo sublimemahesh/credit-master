@@ -3,14 +3,16 @@ include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . './auth.php');
 
 
-////check user level
-//$USERS = new User($_SESSION['id']);
-//$DEFAULTDATA = new DefaultData(NULL);
-//$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
 
 
 $date = null;
 $id = null;
+
 
 if (isset($_GET['date'])) {
     $date = $_GET['date'];
@@ -78,7 +80,7 @@ if (isset($_GET['date'])) {
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_date">Paid Date</label>
@@ -91,7 +93,7 @@ if (isset($_GET['date'])) {
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-1 col-md-1 hidden-sm hidden-xs form-control-label">
                                     <label for="time">Time</label>
                                 </div>
@@ -141,6 +143,8 @@ if (isset($_GET['date'])) {
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <input type="hidden" value="<?php echo $USERS->id ?>" name="user_id">
+                                   
                                     <input type="hidden" value="<?php echo $loan ?>" name="loan">
                                     <input type="hidden" value="<?php echo $date ?>" name="installment_date">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>

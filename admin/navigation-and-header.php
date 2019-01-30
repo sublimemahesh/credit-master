@@ -135,6 +135,12 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
+                            <a href="manage-release-loan.php">
+                                <i class="material-icons">loop</i>
+                                <span>Release Loans</span>
+                            </a>
+                        </li>
+                        <li>
                             <a href="manage-rejected-loans.php">
                                 <i class="material-icons">remove_circle_outline</i>
                                 <span>Rejected Loans</span>

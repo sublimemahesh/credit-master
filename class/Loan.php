@@ -31,6 +31,7 @@ class Loan {
     public $approved_by;
     public $collector;
     public $issue_by;
+    public $release_by;
     public $status;
     public $transaction_id;
     public $transaction_document;
@@ -68,6 +69,7 @@ class Loan {
             $this->approved_by = $result['approved_by'];
             $this->collector = $result['collector'];
             $this->issue_by = $result['issue_by'];
+            $this->release_by = $result['release_by'];
             $this->status = $result['status'];
             $this->transaction_id = $result['transaction_id'];
             $this->transaction_document = $result['transaction_document'];
@@ -194,6 +196,7 @@ class Loan {
                 . "`collector` ='" . $this->collector . "', "
                 . "`approved_by` ='" . $this->approved_by . "', "
                 . "`issue_by` ='" . $this->issue_by . "', "
+                . "`release_by` ='" . $this->release_by . "', "
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`issue_note` ='" . $this->issue_note . "', "
                 . "`verify_comments` ='" . $this->verify_comments . "', "
@@ -202,7 +205,7 @@ class Loan {
                 . "`transaction_id` ='" . $this->transaction_id . "', "
                 . "`transaction_document` ='" . $this->transaction_document . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+      
         
         $db = new Database();
         $result = $db->readQuery($query);

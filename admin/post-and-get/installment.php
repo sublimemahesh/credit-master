@@ -8,13 +8,28 @@ if (isset($_POST['create'])) {
     $INSTALLMENT = new Installment(NULL);
     $VALID = new Validator();
 
-
+   
     $INSTALLMENT->loan = $_POST['loan'];
     $INSTALLMENT->installment_date = $_POST['installment_date'];
     $INSTALLMENT->paid_date = $_POST['paid_date'];
     $INSTALLMENT->time = $_POST['time'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
+
+
+    date_default_timezone_set('Asia/Colombo');
+
+    $history = $INSTALLMENT->history;
+    $change_at = $_POST['paid_date'];
+    $change_time = date('h:i:s');
+    $user_id = $_POST['user_id'];
+    $amount = $_POST['paid_amount'];
+   
+    if ($history == NULL) {
+        $INSTALLMENT->history = $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time;
+    } else {
+        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time;
+    }
 
 
     $VALID->check($INSTALLMENT, [
@@ -65,9 +80,9 @@ if (isset($_POST['update'])) {
     $old_amount = $_POST['old_amount'];
 
     if ($history == NULL) {
-        $INSTALLMENT->history = $user_id . ',' . $old_amount . ',' . $change_at.','.$change_time;
+        $INSTALLMENT->history = $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time;
     } else {
-        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $old_amount . ',' . $change_at.','.$change_time;
+        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time;
     }
 
 
