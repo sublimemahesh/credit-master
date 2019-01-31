@@ -143,8 +143,7 @@ if (isset($_GET['date'])) {
                                 <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
-                                    <input type="hidden" value="<?php echo $USERS->id ?>" name="user_id">
-                                   
+                                    <input type="hidden" value="<?php echo $USERS->id ?>" name="user_id">                                   
                                     <input type="hidden" value="<?php echo $loan ?>" name="loan">
                                     <input type="hidden" value="<?php echo $date ?>" name="installment_date">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>

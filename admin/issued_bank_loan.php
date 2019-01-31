@@ -76,7 +76,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                             </li>
                         </ul>
                     </div> 
-                    <form id="form-data">
+                    <form id="form-data" method="post" enctype="multipart/form-data">
                             <div class="body"> 
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -242,18 +242,18 @@ $CUSTOMER = new Customer($LOAN->customer);
                         <div class="row">
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs">
-                                    <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>   
-                                    <input type="hidden" id="issued_date" value="<?php echo $issued_date; ?>"/>
-                                    <input type="hidden" id="effective_date" value="<?php echo $effective_date; ?>"/>
-                                    <input type="hidden" id="issue_mode" value="<?php echo $issue_mode; ?>"/>
-                                    <input type="hidden" id="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
-                                    <input type="hidden" id="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>
+                                    <input type="hidden" id="loan_id" name="loan_id" value="<?php echo $LOAN->id; ?>"/>   
+                                    <input type="hidden" id="issued_date" name="issued_date" value="<?php echo $issued_date; ?>"/>
+                                    <input type="hidden" id="effective_date" name="effective_date" value="<?php echo $effective_date; ?>"/>
+                                    <input type="hidden" id="issue_mode" name="issue_mode" value="<?php echo $issue_mode; ?>"/>
+                                    <input type="hidden" id="loan_processing_pre_amount" name="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
+                                    <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>
                                     <input type="hidden" name="id" value="<?php echo $id ?>">
-                                    <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="release_by"> 
+                                    <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="release_by" name="release_by"> 
 
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                                    <input type="submit" id="release_bank_loan" class="btn btn-info pull-left"   value="Release Loan"/> 
+                                    <input type="submit" id="issue_bank_loan" class="btn btn-info pull-left"   value="Release Loan"/> 
                                 </div>
                             </div>
                         </div>
@@ -273,10 +273,10 @@ $CUSTOMER = new Customer($LOAN->customer);
 <script src="js/demo.js"></script> 
 <script src="plugins/jquery-ui/jquery-ui.js"></script>
 <script src="plugins/sweetalert/sweetalert.min.js"></script>
-<script src="js/ajax/loan.js"></script> 
+ 
 <script src="js/image.js" type="text/javascript"></script>
 <script src="plugins/light-gallery/js/lightgallery-all.js"></script> 
-
+<script src="js/ajax/issue_bank_loan.js" type="text/javascript"></script>
 <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 <script>
     $(function () {

@@ -146,7 +146,7 @@ if (isset($_GET['date'])) {
                                                     <?php
                                                 } else {
                                                     ?>
-                                                    <option   selected="">  Paid   </option>
+                                                    <option  value="Paid" selected="">  Paid   </option>
                                                     <option value="modified"  >  Modified   </option>
                                                     <?php
                                                 }

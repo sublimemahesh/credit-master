@@ -357,9 +357,9 @@ $(document).ready(function () {
         var issue_mode = $('#issue_mode').val();
         var effective_date = $('#effective_date').val();
         var balance_pays = $('#balance_pay').val();
-        
+
         var balance_pay = balance_pays.replace(",", "");
-         
+
         var issued_date = $('#issued_date').val();
 
         if (issue_mode === 'cash') {
@@ -469,21 +469,86 @@ $(document).ready(function () {
 
 
 
-    $('#release').click(function () {
+    $("#release").click(function (event) {
+        event.preventDefault();
 
-        var loan_id = $('#loan_id').val();
-        var create_by = $('#create_by').val();
-        var release_by = $('#release_by').val();
         var issued_date = $('#issued_date').val();
         var issue_mode = $('#issue_mode').val();
-        var issue_note = $('#issue_note').val();
         var effective_date = $('#effective_date').val();
-        var transaction_document = $('#transaction_document').val();
-        var transaction_id = $('#transaction_id').val();
-        var balance_pays = $('#balance_pay').val();
-        var balance_pay = balance_pays.replace(",", "");
-        var loan_processing_pre_amount = $('#loan_processing_pre_amount').val();
+
         var result = validateForIssue(effective_date, issued_date, issue_mode);
+        if (!$('#name').val() || $('#name').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter your name..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+
+
+
+
+        } else {
+
+            var formData = new FormData($("form#form-data")[0]);
+
+            $.ajax({
+                url: "comment/comment.php",
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (result) {
+
+                    if (result.status === 'error') {
+                        swal({
+                            title: "Error!",
+                            text: "Security code is invalid",
+                            type: 'error',
+                            timer: 2000,
+                            showConfirmButton: false
+                        });
+                    } else {
+                        swal({
+                            title: "Success.!",
+                            text: "Thank For You..! Your comment has been Active in few minutes.",
+                            type: 'success',
+                            timer: 2000,
+                            showConfirmButton: false
+                        }, function () {
+                            setTimeout(function () {
+                                window.location = 'manage-approved-loans.php';
+                            }, 2000);
+                        });
+                    }
+                }
+            });
+        }
+        return false;
+    });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    $('#release').click(function (event) {
+        event.preventDefault();
+
+
 
         if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
             swal({
@@ -495,6 +560,7 @@ $(document).ready(function () {
             });
 
         } else if (result) {
+
             swal({
                 title: "Released!",
                 text: "Do you really want to release this loan?...",
@@ -504,25 +570,18 @@ $(document).ready(function () {
                 confirmButtonText: "Yes, Release It!",
                 closeOnConfirm: false
             }, function () {
+
+                var formData = new FormData($("form#form-data")[0]);
+
                 $.ajax({
                     url: "post-and-get/ajax/loan.php",
                     type: "POST",
-
-                    data: {
-                        loan_id: loan_id,
-                        release_by: release_by,
-                        issued_date: issued_date,
-                        issue_mode: issue_mode,
-                        issue_note: issue_note,
-                        create_by: create_by,
-                        balance_pay: balance_pay,
-                        loan_processing_pre_amount: loan_processing_pre_amount,
-                        effective_date: effective_date,
-                        transaction_id: transaction_id,
-                        transaction_document: transaction_document,
-                        action: 'RELEASEYCASHORCHEQUE'
-                    },
-                    dataType: "JSON",
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    action: 'RELEASEYCASHORCHEQUE',
                     success: function (jsonStr) {
                         if (jsonStr.status == 'released') {
                             window.location = 'manage-approved-loans.php';
@@ -533,8 +592,9 @@ $(document).ready(function () {
                 });
             });
         }
+        return false;
     });
-    
+
 ///remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
@@ -923,7 +983,7 @@ window.onload = function () {
     var loan_amount = $('#loan_amount').val();
 
     if (issue_mode == 'bank') {
-        
+
         $(`#document_free`).show();
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
