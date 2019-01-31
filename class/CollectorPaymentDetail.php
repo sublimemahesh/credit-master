@@ -47,7 +47,7 @@ class CollectorPaymentDetail {
                 . $this->is_issuied . "', '"
                 . $this->is_settled . "')";
 
-
+        
         $db = new Database();
         $result = $db->readQuery($query);
 

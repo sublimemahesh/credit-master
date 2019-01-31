@@ -3453,23 +3453,43 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>                                    
                                     </div> 
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            <label for="issued_by">Issued By :</label>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <label  class="hidden-lg hidden-md">Issued By :</label>
-                                                    <div class="form-control"><?php
-                                                        $USER = new User($LOAN->issue_by);
-                                                        echo $USER->name;
-                                                        ?>
+                                    <?php if ($LOAN->issue_by == 0) { ?>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                                <label for="release_by">Release By :</label>
+                                            </div>
+                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">Release By :</label>
+                                                        <div class="form-control"><?php
+                                                            $USER = new User($LOAN->release_by);
+                                                            echo $USER->name;
+                                                            ?>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            </div>                                    
+                                        </div> 
+                                    <?php } else { ?>
+                                        <div class="row">
+                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                                <label for="issued_by">Issued By :</label>
                                             </div>
-                                        </div>                                    
-                                    </div> 
+                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <label  class="hidden-lg hidden-md">Issued By :</label>
+                                                        <div class="form-control"><?php
+                                                            $USER = new User($LOAN->issue_by);
+                                                            echo $USER->name;
+                                                            ?>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>                                    
+                                        </div> 
+                                    <?php } ?>
                                 </div>
                             </div>
                             <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >

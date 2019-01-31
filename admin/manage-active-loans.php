@@ -178,7 +178,8 @@ $LOAN->status = 'issued';
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View Installment History"></button></a>
+                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                        <a href="view-customer-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-log-out btn  btn-default" title="Customer History"></button></a>
                                                     </td> 
                                                 </tr>
                                                 <?php

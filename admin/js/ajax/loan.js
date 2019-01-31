@@ -372,16 +372,11 @@ $(document).ready(function () {
     });
 
 
-    $('#release_bank_loan').click(function () {
-
-
-        var loan_id = $('#loan_id').val();
-        var issue_by = $('#issue_by').val();
+    $('#issue_bank_loan').click(function (event) {
+        event.preventDefault();
         var issued_date = $('#issued_date').val();
         var issue_mode = $('#issue_mode').val();
-        var issue_note = $('#issue_note').val();
         var effective_date = $('#effective_date').val();
-        var loan_processing_pre_amount = $('#loan_processing_pre_amount').val();
         var result = validateForIssue(effective_date, issued_date, issue_mode);
 
 
@@ -426,103 +421,45 @@ $(document).ready(function () {
                 timer: 2000,
                 showConfirmButton: false
             });
-
-        } else if (result) {
-
-            swal({
-                title: "Issue!",
-                text: "Do you really want to issue this loan?...",
-                type: "info",
-                showCancelButton: true,
-                confirmButtonColor: "#2b982b",
-                confirmButtonText: "Yes, Approve It!",
-                closeOnConfirm: false
-
-
-            }, function () {
-
-                $.ajax({
-                    url: "post-and-get/ajax/loan.php",
-                    type: "POST",
-                    data: {
-                        loan_id: loan_id,
-                        issue_by: issue_by,
-                        issued_date: issued_date,
-                        issue_mode: issue_mode,
-                        issue_note: issue_note,
-                        loan_processing_pre_amount: loan_processing_pre_amount,
-                        effective_date: effective_date,
-                        action: 'ISSUE'
-                    },
-                    dataType: "JSON",
-                    success: function (jsonStr) {
-                        if (jsonStr.status == 'issued') {
-                            window.location = 'manage-approved-loans.php';
-                        } else {
-                            alert('Error');
-                        }
-                    }
-                });
-            });
-        }
-    });
-
-
-
-    $("#release").click(function (event) {
-        event.preventDefault();
-
-        var issued_date = $('#issued_date').val();
-        var issue_mode = $('#issue_mode').val();
-        var effective_date = $('#effective_date').val();
-
-        var result = validateForIssue(effective_date, issued_date, issue_mode);
-        if (!$('#name').val() || $('#name').val().length === 0) {
+        } else if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter your name..!",
+                text: "Please enter the transaction document ..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
             });
 
-
-
-
-        } else {
+        } else if (result) {
 
             var formData = new FormData($("form#form-data")[0]);
 
             $.ajax({
-                url: "comment/comment.php",
+                url: "post-and-get/ajax/issue_bank_loan.php",
                 type: 'POST',
                 data: formData,
                 async: false,
                 cache: false,
                 contentType: false,
                 processData: false,
-                success: function (result) {
+                success: function (jsonStr) {
 
-                    if (result.status === 'error') {
+                    if (jsonStr.status === 'issued') {
                         swal({
-                            title: "Error!",
-                            text: "Security code is invalid",
-                            type: 'error',
-                            timer: 2000,
-                            showConfirmButton: false
-                        });
-                    } else {
-                        swal({
-                            title: "Success.!",
-                            text: "Thank For You..! Your comment has been Active in few minutes.",
-                            type: 'success',
-                            timer: 2000,
-                            showConfirmButton: false
+                            title: "Issue!",
+                            text: "Do you really want to issue this loan?...",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonColor: "#2b982b",
+                            confirmButtonText: "Yes, Issue It!",
+                            closeOnConfirm: false
                         }, function () {
                             setTimeout(function () {
-                                window.location = 'manage-approved-loans.php';
+                                window.location.replace("manage-approved-loans.php");
                             }, 2000);
                         });
+                    } else {
+                        alert('Error');
                     }
                 }
             });
@@ -532,23 +469,13 @@ $(document).ready(function () {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
     $('#release').click(function (event) {
         event.preventDefault();
 
-
+        var issued_date = $('#issued_date').val();
+        var issue_mode = $('#issue_mode').val();
+        var effective_date = $('#effective_date').val();
+        var result = validateForIssue(effective_date, issued_date, issue_mode);
 
         if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
             swal({
@@ -561,35 +488,36 @@ $(document).ready(function () {
 
         } else if (result) {
 
-            swal({
-                title: "Released!",
-                text: "Do you really want to release this loan?...",
-                type: "info",
-                showCancelButton: true,
-                confirmButtonColor: "#2b982b",
-                confirmButtonText: "Yes, Release It!",
-                closeOnConfirm: false
-            }, function () {
+            var formData = new FormData($("form#form-data")[0]);
 
-                var formData = new FormData($("form#form-data")[0]);
+            $.ajax({
+                url: "post-and-get/ajax/release_loan.php",
+                type: 'POST',
+                data: formData,
+                async: false,
+                cache: false,
+                contentType: false,
+                processData: false,
+                success: function (jsonStr) {
 
-                $.ajax({
-                    url: "post-and-get/ajax/loan.php",
-                    type: "POST",
-                    data: formData,
-                    async: false,
-                    cache: false,
-                    contentType: false,
-                    processData: false,
-                    action: 'RELEASEYCASHORCHEQUE',
-                    success: function (jsonStr) {
-                        if (jsonStr.status == 'released') {
-                            window.location = 'manage-approved-loans.php';
-                        } else {
-                            alert('Error');
-                        }
+                    if (jsonStr.status === 'issued') {
+                        swal({
+                            title: "Issue!",
+                            text: "Do you really want to issue this loan?...",
+                            type: "info",
+                            showCancelButton: true,
+                            confirmButtonColor: "#2b982b",
+                            confirmButtonText: "Yes, Issue It!",
+                            closeOnConfirm: false
+                        }, function () {
+                            setTimeout(function () {
+                                window.location.replace("manage-approved-loans.php");
+                            }, 2000);
+                        });
+                    } else {
+                        alert('Error');
                     }
-                });
+                }
             });
         }
         return false;
