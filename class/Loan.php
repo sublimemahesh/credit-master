@@ -205,7 +205,7 @@ class Loan {
                 . "`transaction_id` ='" . $this->transaction_id . "', "
                 . "`transaction_document` ='" . $this->transaction_document . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-      
+        dd($query);
         
         $db = new Database();
         $result = $db->readQuery($query);
