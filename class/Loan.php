@@ -35,6 +35,7 @@ class Loan {
     public $status;
     public $transaction_id;
     public $transaction_document;
+    public $history;
 
     public function __construct($id) {
         if ($id) {
@@ -73,6 +74,7 @@ class Loan {
             $this->status = $result['status'];
             $this->transaction_id = $result['transaction_id'];
             $this->transaction_document = $result['transaction_document'];
+            $this->history = $result['history'];
 
             return $this;
         }
@@ -203,10 +205,10 @@ class Loan {
                 . "`balance_of_last_loan` ='" . $this->balance_of_last_loan . "', "
                 . "`status` ='" . $this->status . "', "
                 . "`transaction_id` ='" . $this->transaction_id . "', "
-                . "`transaction_document` ='" . $this->transaction_document . "' "
+                . "`transaction_document` ='" . $this->transaction_document . "', "
+                . "`history` ='" . $this->history . "' "
                 . "WHERE `id` = '" . $this->id . "'";
         dd($query);
-        
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -321,6 +323,195 @@ class Loan {
         $row = mysql_fetch_row($result);
 
         return $row;
+    }
+
+    public function getCustomersHistoryByloanId($id) {
+        
+        $LOAN = new Loan($id);        
+       
+        $CUSTOMER = new Customer($LOAN->customer);
+        $GUARANTOR_01 = new Customer($LOAN->guarantor_1);
+        $GUARANTOR_02 = new Customer($LOAN->guarantor_2);
+        $GUARANTOR_03 = new Customer($LOAN->guarantor_3);
+
+
+        $CUSTOMER_BANK = new Bank($CUSTOMER->bank);
+        $GUARANTOR_01_BANK = new Bank($GUARANTOR_01->bank);
+        $GUARANTOR_02_BANK = new Bank($GUARANTOR_02->bank);
+        $GUARANTOR_03_BANK = new Bank($GUARANTOR_03->bank);
+
+        $CUSTOMER_BRANCH = new Branch($CUSTOMER->branch);
+        $GUARANTOR_01_BRANCH = new Branch($GUARANTOR_01->branch);
+        $GUARANTOR_02_BRANCH = new Branch($GUARANTOR_02->branch);
+        $GUARANTOR_03_BRANCH = new Branch($GUARANTOR_03->branch);
+
+        $CUSTOMER_CITY = new City($CUSTOMER->city);
+        $GUARANTOR_01_CITY = new City($GUARANTOR_01->city);
+        $GUARANTOR_02_CITY = new City($GUARANTOR_01->city);
+        $GUARANTOR_03_CITY = new City($GUARANTOR_01->city);
+
+///---Customer table---///
+
+        $html = '<html>';
+        $html .= '<head>';
+        $html .= '</head>';
+        $html .= '<style>
+                   table {
+                   font-family: arial, sans-serif;
+                   border-collapse: collapse;
+                   width: 100%;
+                  }
+
+                    td, th {
+                    border: 1px solid #dddddd;
+                    text-align: left;
+                    padding: 8px;
+                  }
+
+                    tr:nth-child(even) {
+                    background-color: #dddddd;
+                    }
+                </style>';
+        $html .= '<body>';
+        $html .= '<table style=" font-family: arial, sans-serif; border-collapse: collapse;widtd: 100%;">';
+        $html .= '<tr>';
+        $html .= '<td>----</td>';
+        $html .= '<td>Customer</td>';
+        $html .= '<td>Gurantor_1</td>';
+        $html .= '<td>Gurantor_2</td>';
+        $html .= '<td>Gurantor_3</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<tr>';
+        $html .= '<td>Title:</td>';
+        $html .= '<td>' . $CUSTOMER->title . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->title . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->title . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->title . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>First Name:</td>';
+        $html .= '<td>' . $CUSTOMER->first_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->first_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->first_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->first_name . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Last Name:</td>';
+        $html .= '<td>' . $CUSTOMER->last_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->last_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->last_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->last_name . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Surname:</td>';
+        $html .= '<td>' . $CUSTOMER->surname . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->surname . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->surname . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->surname . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>NIC:</td>';
+        $html .= '<td>' . $CUSTOMER->nic_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->nic_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->nic_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->nic_number . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Birthday  Day:</td>';
+        $html .= '<td>' . $CUSTOMER->dob_day . '-' . $CUSTOMER->dob_month . '-' . $CUSTOMER->dob_year . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->dob_day . '-' . $GUARANTOR_01->dob_month . '-' . $GUARANTOR_01->dob_year . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->dob_day . '-' . $GUARANTOR_02->dob_month . '-' . $GUARANTOR_02->dob_year . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->dob_day . '-' . $GUARANTOR_03->dob_month . '-' . $GUARANTOR_03->dob_year . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Address:</td>';
+        $html .= '<td>' . $CUSTOMER->address_line_1 . '-' . $CUSTOMER->address_line_2 . '-' . $CUSTOMER->address_line_3 . '-' . $CUSTOMER->address_line_4 . '-' . $CUSTOMER->address_line_5 . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->address_line_1 . '-' . $GUARANTOR_01->address_line_2 . '-' . $GUARANTOR_01->address_line_3 . '-' . $GUARANTOR_01->address_line_4 . '-' . $GUARANTOR_01->address_line_5 . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->address_line_1 . '-' . $GUARANTOR_02->address_line_2 . '-' . $GUARANTOR_02->address_line_3 . '-' . $GUARANTOR_02->address_line_4 . '-' . $GUARANTOR_02->address_line_5 . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->address_line_1 . '-' . $GUARANTOR_03->address_line_2 . '-' . $GUARANTOR_03->address_line_3 . '-' . $GUARANTOR_03->address_line_4 . '-' . $GUARANTOR_03->address_line_5 . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>City:</td>';
+        $html .= '<td>' . $CUSTOMER_CITY->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01_CITY->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02_CITY->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03_CITY->name . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Email:</td>';
+        $html .= '<td>' . $CUSTOMER->email . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->email . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->email . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->email . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Mobile:</td>';
+        $html .= '<td>' . $CUSTOMER->mobile . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->mobile . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->mobile . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->mobile . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Telephone Num:</td>';
+        $html .= '<td>' . $CUSTOMER->telephone . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->telephone . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->telephone . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->telephone . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Registration Type:</td>';
+        $html .= '<td>' . $CUSTOMER->registration_type . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->registration_type . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->registration_type . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->registration_type . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Credit Limit</td>';
+        $html .= '<td>' . $CUSTOMER->credit_limit . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->credit_limit . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->credit_limit . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->credit_limit . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Bank Name:</td>';
+        $html .= '<td>' . $CUSTOMER_BANK->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01_BANK->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02_BANK->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03_BANK->name . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Branch Name:</td>';
+        $html .= '<td>' . $CUSTOMER_BRANCH->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01_BRANCH->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02_BRANCH->name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03_BRANCH->name . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Branch Code:</td>';
+        $html .= '<td>' . $CUSTOMER->branch_code . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->branch_code . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->branch_code . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->branch_code . '</td>';
+        $html .= '</tr>';
+        $html .= '<tr>';
+        $html .= '<td>Account Number</td>';
+        $html .= '<td>' . $CUSTOMER->account_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->account_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->account_number . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->account_number . '</td>';
+        $html .= '<tr>';
+        $html .= '<td>Holder Name</td>';
+        $html .= '<td>' . $CUSTOMER->holder_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_01->holder_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_02->holder_name . '</td>';
+        $html .= '<td>' . $GUARANTOR_03->holder_name . '</td>';
+        $html .= '</tr>';
+        $html .= '</table>';
+        $html .= '</body>';
+        $html .= '</html>';
+
+        return $html;
     }
 
 }

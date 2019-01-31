@@ -3,7 +3,6 @@ $(document).ready(function () {
 ///--Change registration Type--///
     $('#registration_type').change(function () {
         var type = $(this).val();
-
         var center_leader = $("#center_leader").val();
         if (!type || center_leader == 1) {
             $('#route_row').hide();
@@ -45,16 +44,13 @@ $(document).ready(function () {
             }
         });
     });
-
 ///---Edit Registration Type---///
     $('#edit_registration_type').change(function () {
         var type = $(this).val();
         var center_leader = $("#center_leader").val();
-
         if (!type || center_leader == 1) {
             $('#route_row').hide();
             $('#center_row').hide();
-
         }
         ;
         $.ajax({
@@ -77,7 +73,6 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
-
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
                     $.each(jsonStr.data, function (i, data) {
@@ -93,14 +88,12 @@ $(document).ready(function () {
             }
         });
     });
-
 ///---Add Branch Change Bank---///
 
     $('#add-new-branch').click(function () {
 
         var bankId = $("#selected_bank").attr("bankId");
         var branchName = $('#new_branch').val();
-
         if (branchName == '') {
             swal({
                 title: "Branch Name Required .!",
@@ -143,16 +136,13 @@ $(document).ready(function () {
             });
         }
     });
-
 ///--Selected Bank By Bank id---///
     $('#bank_id').change(function () {
 
         var bank_id = $(this).val();
         var bank_name = $(this).find('option:selected').text();
-
         $('#selected_bank').val(bank_name);
         $('#selected_bank').attr("bankId", bank_id);
-
         $.ajax({
 
             url: "post-and-get/ajax/customer.php",
@@ -172,14 +162,10 @@ $(document).ready(function () {
                 $('#branch').empty();
                 $('#branch').append(html);
                 $('#branch_row').show();
-
             }
         });
     });
-
-
 ///--- customer create form---//
-
     $("#customerform").submit(function (e) {
 
         var errors = $('#errors').val();
@@ -190,7 +176,6 @@ $(document).ready(function () {
 
         var nicNumber = $('#customer-nic').val();
         var mobileNumber = $('#moblie_number').val();
-
         //chech 18+ years in customer
         var month = $('#month').val();
         var day = $('#day').val();
@@ -200,9 +185,6 @@ $(document).ready(function () {
         birthday.setFullYear(year, month - 1, day);
         var currdate = new Date();
         currdate.setFullYear(currdate.getFullYear() - age);
-
-
-
         if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
             $('#errors').val(1);
             swal({
@@ -283,7 +265,6 @@ $(document).ready(function () {
                             }, 1000);
                             $('#customer-nic').focus();
                         });
-
                     } else if (jsonStr.status == 'mobileIsExist') {
                         $('#errors').val(1);
                         swal({
@@ -309,9 +290,6 @@ $(document).ready(function () {
             });
         }
     });
-
-
-
 ///---customer edit form---//
     $("#form").submit(function (e) {
         var errors = $('#errors').val();
@@ -323,8 +301,6 @@ $(document).ready(function () {
         var id = $('#id').val();
         var nicNumber = $('#customer_nic_number').val();
         var mobileNumber = $('#customer_moblie_number').val();
-
-
         //chech 18+ years in customer
         var month = $('#month').val();
         var day = $('#day').val();
@@ -334,9 +310,6 @@ $(document).ready(function () {
         birthday.setFullYear(year, month - 1, day);
         var currdate = new Date();
         currdate.setFullYear(currdate.getFullYear() - age);
-
-
-
         if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
             $('#errors').val(1);
             swal({
@@ -354,7 +327,6 @@ $(document).ready(function () {
                 }, 1000);
                 $('#customer_nic_number').focus();
             });
-
         } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
             $('#errors').val(1);
             swal({
@@ -419,7 +391,6 @@ $(document).ready(function () {
                             }, 1000);
                             $('#customer_nic_number').focus();
                         });
-
                     } else if (jsonStr.status == 'mobileIsExist') {
                         $('#errors').val(1);
                         swal({
@@ -445,11 +416,9 @@ $(document).ready(function () {
             });
         }
     });
-
 //--- Get Branch Code in Bank id---///
     $("#branch").change(function () {
         var branch_id = $(this).val();
-
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",
@@ -463,13 +432,10 @@ $(document).ready(function () {
             }
         });
     });
-
-
 ///---check customer has active loan---///
     $('.active_customer, .customer').click(function (event) {
         event.preventDefault();
         var active_customer = $('.active_customer').prop('checked');
-
         var customer = $(".customer").val();
         if (active_customer === false) {
             $.ajax({
@@ -479,7 +445,6 @@ $(document).ready(function () {
                     customer: customer,
                     action: 'CHECKCUSTOMERHASACTIVELOAN'
                 },
-
                 dataType: "JSON",
                 success: function (jsonStr) {
                     if (jsonStr.status) {
@@ -498,7 +463,6 @@ $(document).ready(function () {
         }
     });
 });
-
 ///-------Windowa Onloard Function--------///
 
 window.onload = function () {
@@ -507,7 +471,6 @@ window.onload = function () {
     var registration = $('#registration_type_onloard').val();
     var center_name = $('#center_name').val();
     var route_name = $('#route_name').val();
-     
     $.ajax({
         url: "post-and-get/ajax/customer.php",
         type: "POST",
@@ -528,18 +491,27 @@ window.onload = function () {
                     confirmButtonText: "Ok.!",
                     closeOnConfirm: false
                 });
+            } else if (registration == 1) {
+
+
+                $('#registration_type_append').val('Center leader');
+                $('.center').val(center_name);
+                $('.route').val(route_name);
+                $('.registration_type_append_show').show();
+                $('#edit_registration_type').hide();
+                $('#center').hide();
+                $('#route').hide();
+            } else if (registration == 0) {
 
                 $('#registration_type_append').val(registration);
                 $('.center').val(center_name);
                 $('.route').val(route_name);
                 $('.registration_type_append_show').show();
-                 
-                $('#edit_registration_type').hide();                
-                $('#center').hide();                
-                $('#route').hide();                
+                $('#edit_registration_type').hide();
+                $('#center').hide();
+                $('#route').hide();
             } else {
                 $('.registration_type_append_show').hide();
-                
             }
         }
     });

@@ -3,26 +3,24 @@
 include_once(dirname(__FILE__) . '/../../../class/include.php');
 include_once(dirname(__FILE__) . '/../../auth.php');
 
-///loan details update///   
+///loan details update///  
 
 $LOAN = new Loan($_POST['loan_id']);
 $LOAN->issued_date = $_POST['issued_date'];
-
 $LOAN->effective_date = $_POST['effective_date'];
 $LOAN->issue_mode = $_POST['issue_mode'];
 $LOAN->issue_note = $_POST['issue_note'];
 $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
-$LOAN->release_by = $_POST['issued_by'];
+$LOAN->release_by = $_POST['release_by'];
+$LOAN->status = 'released';
 $LOAN->transaction_id = $_POST['transaction_id'];
-$LOAN->status = 'issued';
-
-$history = $LOAN->getCustomersHistoryByloanId($LOAN->id);
-$LOAN->history = $history;
 
 $result = $LOAN->update();
+
 ///effective date details update///
 
 $EffectiveDate = New EffectiveDate(NULL);
+
 $EffectiveDate->loan = $LOAN->id;
 $EffectiveDate->date = $LOAN->effective_date;
 $EffectiveDate->loan_period = $LOAN->loan_period;
@@ -32,13 +30,12 @@ $EffectiveDate->installment_amount = $LOAN->installment_amount;
 $EffectiveDate->create();
 
 ///transactiopn Document image///
-
 $dir_dest = '../../upload/loan/transaction_document/';
 $dir_dest_thumb = '../../upload/loan/transaction_document/thumb/';
 
 $handle = new Upload($_FILES['transaction_document']);
 
-$img_name = null;
+$imgName = null;
 $img = Helper::randamId();
 
 if ($handle->uploaded) {
@@ -48,20 +45,14 @@ if ($handle->uploaded) {
     $handle->file_new_name_ext = 'jpg';
     $handle->image_ratio_crop = 'C';
     $handle->file_new_name_body = $img;
-    $image_dst_x = $handle->image_dst_x;
-    $image_dst_y = $handle->image_dst_y;
-    $newSize = Helper::calImgResize(1200, $image_dst_x, $image_dst_y);
-
-    $image_x = (int) $newSize[0];
-    $image_y = (int) $newSize[1];
-
-    $handle->image_x = $image_x;
-    $handle->image_y = $image_y;
+    $handle->image_x = 900;
+    $handle->image_y = 500;
 
     $handle->Process($dir_dest);
+
     if ($handle->processed) {
         $info = getimagesize($handle->file_dst_pathname);
-        $img_name = $handle->file_dst_name;
+        $imgName = $handle->file_dst_name;
     }
 
     $handle->image_resize = true;
@@ -70,20 +61,18 @@ if ($handle->uploaded) {
     $handle->file_new_name_ext = 'jpg';
     $handle->image_ratio_crop = 'C';
     $handle->file_new_name_body = $img;
-    $handle->image_x = 250;
-    $handle->image_y = 250;
+    $handle->image_x = 300;
+    $handle->image_y = 175;
 
     $handle->Process($dir_dest_thumb);
 
     if ($handle->processed) {
-
         $info = getimagesize($handle->file_dst_pathname);
-
-        $img_name = $handle->file_dst_name;
+        $imgName = $handle->file_dst_name;
     }
 }
 
-$LOAN->transaction_document = $img_name;
+$LOAN->transaction_document = $imgName;
 
 ///transfer amount in Collector///    
 
@@ -95,6 +84,6 @@ $VALID = new Validator();
 $VALID->addError("Loan was successfully issued!...", 'success');
 $_SESSION['ERRORS'] = $VALID->errors();
 
-echo json_encode(['status' => 'issued', 'data' => $result]);
+echo json_encode(['status' => 'released', 'data' => $result]);
 header('Content-type: application/json');
 exit();
