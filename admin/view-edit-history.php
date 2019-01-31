@@ -66,6 +66,7 @@ $loanid = $_GET['id'];
                                                 <th> Amount</th>   
                                                 <th>Modified date</th>
                                                 <th>Time</th>
+                                                <th>Status</th>
 
                                             </tr>
                                         </thead>
@@ -106,6 +107,12 @@ $loanid = $_GET['id'];
                                                                 }
                                                                 ?>
                                                             </td>
+                                                            <td> <?php
+                                                                if (isset($history_data[4])) {
+                                                                    echo $history_data[4];
+                                                                }
+                                                                ?>
+                                                            </td>
 
                                                         </tr>
                                                         <?php
@@ -120,6 +127,7 @@ $loanid = $_GET['id'];
                                                 <th>Amount</th>    
                                                 <th>Modified date</th>    
                                                 <th>Time</th>    
+                                                <th>Status</th>   
                                             </tr>
                                         </tfoot>
                                     </table>
@@ -157,11 +165,11 @@ $loanid = $_GET['id'];
         <script type="text/javascript">
             $(document).ready(function () {
                 $('#installment').DataTable({
-                    destroy: true,
-                    "order": [[3, "desc"]],
-                     
+                      destroy: true,
+                    "order": [[3, "desc"]]
                 });
             });
+             
         </script>
     </body> 
 </html> 

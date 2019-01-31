@@ -1,13 +1,13 @@
 $(document).ready(function () {
-    $('#registration_type').change(function () {
 
+///--Change registration Type--///
+    $('#registration_type').change(function () {
         var type = $(this).val();
 
         var center_leader = $("#center_leader").val();
         if (!type || center_leader == 1) {
             $('#route_row').hide();
             $('#center_row').hide();
-
         }
 
         $.ajax({
@@ -42,13 +42,12 @@ $(document).ready(function () {
                     $('#center_row').show();
                     $('#route_row').hide();
                 }
-
             }
         });
     });
 
+///---Edit Registration Type---///
     $('#edit_registration_type').change(function () {
-
         var type = $(this).val();
         var center_leader = $("#center_leader").val();
 
@@ -58,7 +57,6 @@ $(document).ready(function () {
 
         }
         ;
-
         $.ajax({
             url: "post-and-get/ajax/customer.php",
             type: "POST",
@@ -91,12 +89,12 @@ $(document).ready(function () {
                     $('#center').append(html);
                     $('#center_row').show();
                     $('#route_row').hide();
-
                 }
-
             }
         });
     });
+
+///---Add Branch Change Bank---///
 
     $('#add-new-branch').click(function () {
 
@@ -144,9 +142,9 @@ $(document).ready(function () {
                 }
             });
         }
-
     });
 
+///--Selected Bank By Bank id---///
     $('#bank_id').change(function () {
 
         var bank_id = $(this).val();
@@ -180,7 +178,7 @@ $(document).ready(function () {
     });
 
 
-// customer create form
+///--- customer create form---//
 
     $("#customerform").submit(function (e) {
 
@@ -309,14 +307,12 @@ $(document).ready(function () {
                     }
                 }
             });
-
         }
-
     });
 
 
 
-//customer edit form
+///---customer edit form---//
     $("#form").submit(function (e) {
         var errors = $('#errors').val();
         if (errors == 1) {
@@ -450,7 +446,7 @@ $(document).ready(function () {
         }
     });
 
-
+//--- Get Branch Code in Bank id---///
     $("#branch").change(function () {
         var branch_id = $(this).val();
 
@@ -469,19 +465,13 @@ $(document).ready(function () {
     });
 
 
-
-
-
-
-// check customer has active loan
+///---check customer has active loan---///
     $('.active_customer, .customer').click(function (event) {
         event.preventDefault();
         var active_customer = $('.active_customer').prop('checked');
 
         var customer = $(".customer").val();
-      
         if (active_customer === false) {
-
             $.ajax({
                 url: "post-and-get/ajax/loan.php",
                 type: "POST",
@@ -492,7 +482,6 @@ $(document).ready(function () {
 
                 dataType: "JSON",
                 success: function (jsonStr) {
-                  
                     if (jsonStr.status) {
                         swal({
                             title: "This Customer has a Created loan or Assign for any Guarantor!...",
@@ -505,10 +494,53 @@ $(document).ready(function () {
                         });
                     }
                 }
-
             });
         }
-
     });
-
 });
+
+///-------Windowa Onloard Function--------///
+
+window.onload = function () {
+
+    var customer = $('.customer').val();
+    var registration = $('#registration_type_onloard').val();
+    var center_name = $('#center_name').val();
+    var route_name = $('#route_name').val();
+     
+    $.ajax({
+        url: "post-and-get/ajax/customer.php",
+        type: "POST",
+        data: {
+            customer: customer,
+            action: 'CHECKCUSTOMERHASLOAN'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+
+            if (jsonStr.status) {
+                swal({
+                    title: "This Customer Registration Type Can't be Change.!",
+                    text: "The customer already exists loan. So Can't Change the registration type..",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Ok.!",
+                    closeOnConfirm: false
+                });
+
+                $('#registration_type_append').val(registration);
+                $('.center').val(center_name);
+                $('.route').val(route_name);
+                $('.registration_type_append_show').show();
+                 
+                $('#edit_registration_type').hide();                
+                $('#center').hide();                
+                $('#route').hide();                
+            } else {
+                $('.registration_type_append_show').hide();
+                
+            }
+        }
+    });
+};

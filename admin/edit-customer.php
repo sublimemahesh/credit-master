@@ -138,7 +138,7 @@ $CENTER = Center::all();
                                         <?php
                                         if ($CUSTOMER->profile_picture) {
                                             ?>
-                                        <img src="../upload/customer/profile/thumb/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
+                                            <img src="../upload/customer/profile/thumb/<?php echo $CUSTOMER->profile_picture; ?>" id="image" class="view-edit-img img img-responsive img-thumbnail" name="profile_picture" alt="old image">
                                             <?php
                                         }
                                         ?> 
@@ -414,12 +414,17 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Registration Type<span class="color-red"> *</span></label>
+                                            <div style="display: none;" class="registration_type_append_show">
+                                                <input type="text" value="" id="registration_type_append" class="form-control" readonly="" >
+                                            </div>
+
+
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
 
 
                                                 <?php if ($CUSTOMER->registration_type == "route") {
                                                     ?>
-                                                    <option value="" selected=""> -- Select Registration Type -- </option>
+                                                    <option value="" class="edit_registration_type" selected=""> -- Select Registration Type -- </option>
                                                     <option value="route" selected="">Route</option>
                                                     <option value="center"  >Center</option>
                                                     <option value="1" id="center_leader">Center Leader</option>
@@ -427,10 +432,10 @@ $CENTER = Center::all();
 
                                                 <?php } elseif ($CUSTOMER->registration_type == "center") {
                                                     ?>
-                                                    <option value="" selected=""> -- Select Registration Type -- </option>
-                                                    <option value="center"  selected="">Center</option>
-                                                    <option value="route" >Route</option>
-                                                    <option value="1" id="center_leader">Center Leader</option>
+                                                    <option value="" selected="" class="edit_registration_type"> -- Select Registration Type -- </option>
+                                                    <option value="center"  class="edit_registration_type" selected="">Center</option>
+                                                    <option value="route" class="edit_registration_type">Route</option>
+                                                    <option value="1" class="edit_registration_type" id="center_leader">Center Leader</option>
 
                                                 <?php } elseif ($CUSTOMER->registration_type == 1) {
                                                     ?>
@@ -466,8 +471,9 @@ $CENTER = Center::all();
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>                                               
                                                 <?php
                                                 $CENTER = new Center($CUSTOMER->center);
-                                                ?>        
-                                                <div class="form-control"><?php echo $CENTER->name; ?></div> 
+                                                ?>      
+
+                                                <div class="form-control" ><?php echo $CENTER->name; ?></div> 
 
                                             </div>
                                         </div>
@@ -485,6 +491,9 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="route" class="hidden-lg hidden-md">Route</label>
+                                                <div style="display: none;" class="registration_type_append_show">
+                                                    <input type="text" class="route form-control" readonly=""/>
+                                                </div>
                                                 <select class="form-control" autocomplete="off" id="route"  name="route">  
                                                     <?php
                                                     foreach ($ROUTE as $route) {
@@ -533,12 +542,18 @@ $CENTER = Center::all();
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
+                                                <div style="display: none;" class="registration_type_append_show">
+                                                    <input type="text" class="center form-control" readonly=""/>
+                                                </div>
+
+
                                                 <select class="form-control" autocomplete="off" id="center"   name="center">  
                                                     <?php
                                                     foreach ($CENTER as $center) {
                                                         if ($center['id'] == $CUSTOMER->center) {
                                                             ?>
                                                             <option value="<?php echo $center['id'] ?>" selected=""> <?php echo $center['name'] ?></option>
+
                                                             <?php
                                                         } else {
                                                             ?>
@@ -906,7 +921,17 @@ $CENTER = Center::all();
                                     <input type="hidden" id="oldImageNameSP" value="<?php echo $CUSTOMER->signature_image; ?>" name="oldImageNameSP"/>  
                                     <input type="hidden" id="oldImageNameBR" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBR"/>
                                     <input type="hidden" id="oldImageNameBBP" value="<?php echo $CUSTOMER->bank_book_picture; ?>" name="oldImageNameBBP"/> 
+                                    <input type="hidden" value="<?php echo $CUSTOMER->registration_type ?>"id="registration_type_onloard">
                                     <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
+
+                                    <input type="hidden" value="<?php
+                                    $CENTER = new Center($CUSTOMER->center);
+                                    echo $CENTER->name;
+                                    ?>" id="center_name"/>
+                                    <input type="hidden" value="<?php
+                                    $ROUTE = new Route($CUSTOMER->route);
+                                    echo $ROUTE->name;
+                                    ?>" id="route_name"/>
                                 </div>
                             </div> 
                             <input type="hidden" id="errors" value="1"/>

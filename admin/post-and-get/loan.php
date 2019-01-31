@@ -28,8 +28,7 @@ if (isset($_POST['create-new-loan'])) {
 
     $VALID->check($LOAN, [
         'create_date' => ['required' => TRUE],
-        'customer' => ['required' => TRUE], 
-        'guarantor_1' => ['required' => TRUE], 
+        'customer' => ['required' => TRUE],         
         'guarantor_2' => ['required' => TRUE],
         'loan_amount' => ['required' => TRUE],
         'interest_rate' => ['required' => TRUE],

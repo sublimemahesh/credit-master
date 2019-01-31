@@ -8,7 +8,7 @@ if (isset($_POST['create'])) {
     $INSTALLMENT = new Installment(NULL);
     $VALID = new Validator();
 
-   
+
     $INSTALLMENT->loan = $_POST['loan'];
     $INSTALLMENT->installment_date = $_POST['installment_date'];
     $INSTALLMENT->paid_date = $_POST['paid_date'];
@@ -24,11 +24,12 @@ if (isset($_POST['create'])) {
     $change_time = date('h:i:s');
     $user_id = $_POST['user_id'];
     $amount = $_POST['paid_amount'];
-   
+    $status = 'Paid';
+
     if ($history == NULL) {
-        $INSTALLMENT->history = $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time;
+        $INSTALLMENT->history = $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time . ',' . $status;
     } else {
-        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time;
+        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time . ',' . $status;
     }
 
 
@@ -78,11 +79,12 @@ if (isset($_POST['update'])) {
     $change_time = date('h:i:s');
     $user_id = $_POST['user_id'];
     $old_amount = $_POST['old_amount'];
+    $status = $_POST['status'];
 
     if ($history == NULL) {
-        $INSTALLMENT->history = $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time;
+        $INSTALLMENT->history = $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time . ',' . $status;
     } else {
-        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time;
+        $INSTALLMENT->history = $history . "///" . $user_id . ',' . $old_amount . ',' . $change_at . ',' . $change_time . ',' . $status;
     }
 
 
