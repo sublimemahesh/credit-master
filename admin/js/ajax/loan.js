@@ -98,10 +98,9 @@ $(document).ready(function () {
     });
 
     $('#customer').change(function () {
-//        var credit_limit = $('option:selected', this).attr('credit_limit');
+        var credit_limit = $('option:selected', this).attr('credit_limit');
 //        $('#loan_amount').val(credit_limit);
-//        $("#loan_amount").attr("max", credit_limit);
-
+        $("#loan_amount").attr("max", credit_limit);
         var customer = $(this).val();
 
 
@@ -500,14 +499,14 @@ $(document).ready(function () {
                 processData: false,
                 success: function (jsonStr) {
 
-                    if (jsonStr.status === 'issued') {
+                    if (jsonStr.status === 'released') {
                         swal({
-                            title: "Issue!",
-                            text: "Do you really want to issue this loan?...",
+                            title: "Release!",
+                            text: "Do you really want to Release this loan?...",
                             type: "info",
                             showCancelButton: true,
                             confirmButtonColor: "#2b982b",
-                            confirmButtonText: "Yes, Issue It!",
+                            confirmButtonText: "Yes, Release It!",
                             closeOnConfirm: false
                         }, function () {
                             setTimeout(function () {
