@@ -104,6 +104,7 @@ $today = date("Y-m-d");
                                                 <th class="text-center">Status</th> 
                                                 <th class="text-center">Paid Amount</th> 
                                                 <th class="text-center">Due and Excess</th> 
+                                                <th class="text-center">Aries Amount</th> 
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </thead>
@@ -183,10 +184,7 @@ $today = date("Y-m-d");
                                                     echo '<td class="f-style">';
                                                     echo 'Rs: ' . number_format($amount, 2);
                                                     echo '</td>';
-
                                                     echo '<td class="f-style">';
-
-
 
                                                     if ($paid_amount) {
                                                         echo 'Paid';
@@ -200,15 +198,13 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style">';
-
                                                     if ($paid_amount) {
-
                                                         echo 'Rs: ' . number_format($paid_amount, 2);
                                                     } else {
                                                         echo '-';
                                                     }
-
                                                     echo '</td>';
+
                                                     echo '<td class="f-style">';
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
@@ -217,11 +213,21 @@ $today = date("Y-m-d");
                                                     if ($due_and_excess > 0) {
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess < 0) {
+
                                                         echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
                                                     } else {
                                                         echo number_format($due_and_excess, 2);
                                                     }
                                                     echo '</td>';
+
+                                                    echo '<td>';
+                                                    if ($due_and_excess < 0) {
+                                                        $arries_interest = $LOAN->getOdIntereset($LOAN->customer, $due_and_excess, $LOAN->installment_type);
+                                                        echo round($arries_interest, 1);
+                                                    }
+
+                                                    echo '</td>';
+
                                                     echo '<td class="text-center">';
 
 
@@ -233,24 +239,12 @@ $today = date("Y-m-d");
                                                     </a>';
 
                                                         //show week payment button
+                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today)) {
 
-                                                        $start = new DateTime("$today");
-                                                        $date = '+7 day';
-                                                        $start->modify($date);
-                                                        $date = $start->format('Y-m-d');
-                                                    } elseif ($LOAN->installment_type == 4 && ($date == $today)) {
-
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . '&amount=' . $amount . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
-
-
-                                                        //show month payment button  
-                                                        $start = new DateTime("$today");
-                                                        $date = '+1 months';
-                                                        $start->modify($date);
-                                                        $date = $start->format('Y-m-d');
-                                                    } elseif ($LOAN->installment_type == 1 && ($date == $today)) {
+                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today)) {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
@@ -273,6 +267,7 @@ $today = date("Y-m-d");
                                                 <th class="text-center">Status</th> 
                                                 <th class="text-center">Paid Amount</th> 
                                                 <th class="text-center">Due and Excess</th> 
+                                                <th class="text-center">Aries Amount</th>  
                                                 <th class="text-center">Options</th> 
                                             </tr>   
                                         </tfoot>

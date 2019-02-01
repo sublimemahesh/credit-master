@@ -55,7 +55,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             </ul>
                         </div>
                         <div class="body">
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="title">Title <span class="color-red"> *</span></label>
@@ -238,7 +237,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="city_name">City<span class="color-red"> *</span></label>
@@ -303,6 +301,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         </div>
                                     </div>
                                 </div>
+                                
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
@@ -353,6 +352,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
+                            
                             <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="center">Center</label>
@@ -377,7 +377,21 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="credit_limit" class="hidden-lg hidden-md">Credit Limit<span class="color-red"> *</span></label>
-                                            <input type="number"   value="<?php echo DefaultData::getCreditLimit(); ?>"name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off"  step="0.001" >
+                                            <input type="number"   value="<?php echo DefaultData::getCreditLimit(); ?>" name="credit_limit" required="TRUE" placeholder="Enter Credit Limit" class="form-control" autocomplete="off"   >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="od_interest_limit">Od Interest Limi</label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="od_interest_limit" class="hidden-lg hidden-md">Od Interest Limit</label>
+                                            <input type="number"    name="od_interest_limit"  placeholder="Enter Od Interest Limit" class="form-control" autocomplete="off"   >
                                         </div>
                                     </div>
                                 </div>
@@ -481,7 +495,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             </ul>
                         </div>
                         <div class="body">
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="bank">Bank  </label>
@@ -523,8 +536,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                                 <div class="col-md-1 col-lg-1">
-                                    <input   type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">
-                                    <!--                                                                      <a href="add-new-bank.php" class="btn btn-md">+</a>-->
+                                    <input   type="button" class="btn btn-primary" data-toggle="modal"  value="+" data-target="#exampleModalCenter">                                  
                                 </div>
                             </div>
 
@@ -535,10 +547,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>
-                                                                                            
-                                            <input type="text" value="" id="branch_code"   name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">
-                                            
+                                            <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>                                                                                            
+                                           <input type="text" value="" id="branch_code"   name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">                                          
                                         </div>
                                     </div>
                                 </div>
@@ -588,7 +598,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                             <div class="row clearfix">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 padd-bottom">
                                     <div class="form-group">
@@ -662,8 +671,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                     </div>
                 </div> 
-
-
             </div>
         </div>
 

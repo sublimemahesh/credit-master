@@ -15,7 +15,7 @@ $LOAN->release_by = $_POST['release_by'];
 $LOAN->status = 'released';
 $LOAN->transaction_id = $_POST['transaction_id'];
 
-$result = $LOAN->update();
+
 
 ///effective date details update///
 
@@ -30,8 +30,8 @@ $EffectiveDate->installment_amount = $LOAN->installment_amount;
 $EffectiveDate->create();
 
 ///transactiopn Document image///
-$dir_dest = '../../upload/loan/transaction_document/';
-$dir_dest_thumb = '../../upload/loan/transaction_document/thumb/';
+$dir_dest = '../../../upload/loan/transaction_document/';
+$dir_dest_thumb = '../../../upload/loan/transaction_document/thumb/';
 
 $handle = new Upload($_FILES['transaction_document']);
 
@@ -74,6 +74,7 @@ if ($handle->uploaded) {
 
 $LOAN->transaction_document = $imgName;
 
+$result = $LOAN->update();
 ///transfer amount in Collector///    
 
 $COLLECTOR = new CollectorPaymentDetail($_POST['create_by']);

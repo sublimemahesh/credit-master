@@ -208,7 +208,9 @@ class Loan {
                 . "`transaction_document` ='" . $this->transaction_document . "', "
                 . "`history` ='" . $this->history . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-        dd($query);
+
+        
+        
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -326,9 +328,9 @@ class Loan {
     }
 
     public function getCustomersHistoryByloanId($id) {
-        
-        $LOAN = new Loan($id);        
-       
+
+        $LOAN = new Loan($id);
+
         $CUSTOMER = new Customer($LOAN->customer);
         $GUARANTOR_01 = new Customer($LOAN->guarantor_1);
         $GUARANTOR_02 = new Customer($LOAN->guarantor_2);
@@ -512,6 +514,44 @@ class Loan {
         $html .= '</html>';
 
         return $html;
+    }
+
+    public function getOdIntereset($customer, $due_amount, $installment_type) {
+
+        $CUSTOMER = new Customer(NULL);
+        $od_interest_limite = $CUSTOMER->getOdInteresetLimiteByCustomer($customer);
+
+        if ($od_interest_limite[0] >= $due_amount && (int) $installment_type == 30) {
+
+            $interest_amount_per_month = ($due_amount * 10) / 100;
+            $interest_amount = ($interest_amount_per_month / 30);
+
+            if ((int) $od_interest_limite[0] == 0) {
+                return 0;
+            } else {
+                return $interest_amount;
+            }
+        } else if ($od_interest_limite[0] <= $due_amount && (int) $installment_type == 4) {
+
+            $interest_amount_per_month = ($due_amount * 10) / 100;
+            $interest_amount_per_day = ($interest_amount_per_month / 30);
+            $interest_amount = ($interest_amount_per_day * 7);
+
+            if ((int) $od_interest_limite[0] == 0) {
+                return 0;
+            } else {
+                return $interest_amount;
+            }
+        } else {
+            $interest_amount_per_month = ($due_amount * 10) / 100;
+            $interest_amount = $interest_amount_per_month;
+
+            if ((int) $od_interest_limite[0] == 0) {
+                return 0;
+            } else {
+                return $interest_amount;
+            }
+        }
     }
 
 }

@@ -1,4 +1,4 @@
-    <?php
+<?php
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
@@ -619,8 +619,6 @@ $CENTER = Center::all();
                             <?php }
                             ?>  
 
-
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="credit_limit">Credit Limit<span class="color-red"> *</span></label>
@@ -634,6 +632,20 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
+                            
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="od_interest_limit">Od Interest Limit </label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="od_interest_limit" class="hidden-lg hidden-md">Od Interest Limit </label>
+                                            <input type="text" id="loan_amount"  name="od_interest_limit" value="<?php echo $CUSTOMER->od_interest_limit ?>" class="form-control"  autocomplete="off" min="0"    >
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -643,7 +655,6 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <label for="signature_image" class="hidden-lg hidden-md">Signature Image</label>
                                         <input type="file" id="bank_book_picture"  name="signature_image"  class="form-control" autocomplete="off">
-
                                         <?php
                                         if ($CUSTOMER->signature_image) {
                                             ?>
@@ -654,7 +665,6 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -717,7 +727,6 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-
                                         <label for="br_picture" class="hidden-lg hidden-md">BR Photo</label>
                                         <input type="file" id="bank_book_picture"  name="br_picture"  class="form-control" autocomplete="off">
                                         <?php
@@ -730,7 +739,6 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
@@ -854,7 +862,6 @@ $CENTER = Center::all();
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-
                                         <label for="bank_book_picture" class="hidden-lg hidden-md">Bank Book Photo</label>
                                         <input type="file" id="bank_book_picture"  name="bank_book_picture"  class="form-control" autocomplete="off">
                                         <?php
@@ -869,7 +876,6 @@ $CENTER = Center::all();
                             </div>
                             <?php
                             $CHECKCUSTOMER = new Loan(NULl);
-
                             if ($CHECKCUSTOMER->CheckCustomerHasActiveLoan($CUSTOMER->id)) {
                                 ?>
                                 <div class="row clearfix">
@@ -922,8 +928,7 @@ $CENTER = Center::all();
                                     <input type="hidden" id="oldImageNameBR" value="<?php echo $CUSTOMER->br_picture; ?>" name="oldImageNameBR"/>
                                     <input type="hidden" id="oldImageNameBBP" value="<?php echo $CUSTOMER->bank_book_picture; ?>" name="oldImageNameBBP"/> 
                                     <input type="hidden" value="<?php echo $CUSTOMER->registration_type ?>"id="registration_type_onloard">
-                                    <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div> 
-
+                                    <div class=" text-danger btn-padding pull-left error-mess" id="message" ></div>
                                     <input type="hidden" value="<?php
                                     $CENTER = new Center($CUSTOMER->center);
                                     echo $CENTER->name;
@@ -935,7 +940,6 @@ $CENTER = Center::all();
                                 </div>
                             </div> 
                             <input type="hidden" id="errors" value="1"/>
-
                         </div>
                     </div>
                 </form> 

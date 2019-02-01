@@ -491,18 +491,12 @@ window.onload = function () {
                     confirmButtonText: "Ok.!",
                     closeOnConfirm: false
                 });
-            } else if (registration == 1) {
 
 
-                $('#registration_type_append').val('Center leader');
-                $('.center').val(center_name);
-                $('.route').val(route_name);
-                $('.registration_type_append_show').show();
-                $('#edit_registration_type').hide();
-                $('#center').hide();
-                $('#route').hide();
-            } else if (registration == 0) {
 
+                if (registration == 1) {
+                    $('#registration_type_append').val('Center Leader');
+                }
                 $('#registration_type_append').val(registration);
                 $('.center').val(center_name);
                 $('.route').val(route_name);
