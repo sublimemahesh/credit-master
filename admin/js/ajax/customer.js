@@ -298,7 +298,7 @@ $(document).ready(function () {
             $('#errors').val(0);
         }
 
-        var id = $('#id').val();
+        var id = $('#customer_id').val();
         var nicNumber = $('#customer_nic_number').val();
         var mobileNumber = $('#customer_moblie_number').val();
         //chech 18+ years in customer
@@ -462,51 +462,58 @@ $(document).ready(function () {
             });
         }
     });
-});
+
 ///-------Windowa Onloard Function--------///
 
+    $('.registration_type_append_show').click(function () {
+        swal({
+            title: "This Customer Registration Type Can't be Change.!",
+            text: "The customer already exists loan. So Can't Change the registration type..",
+            type: "error",
+            showCancelButton: false,
+            confirmButtonColor: "#00b0e4",
+            confirmButtonText: "Ok.!",
+            closeOnConfirm: false
+        });
+    });
+
+
+
+});
 window.onload = function () {
 
-    var customer = $('.customer').val();
-    var registration = $('#registration_type_onloard').val();
-    var center_name = $('#center_name').val();
-    var route_name = $('#route_name').val();
-    $.ajax({
-        url: "post-and-get/ajax/customer.php",
-        type: "POST",
-        data: {
-            customer: customer,
-            action: 'CHECKCUSTOMERHASLOAN'
-        },
-        dataType: "JSON",
-        success: function (jsonStr) {
+    var customer = $('#customer_id').val();
+    if (customer) {
+        var registration = $('#registration_type_onloard').val();
+        var center_name = $('#center_name').val();
+        var route_name = $('#route_name').val();
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                customer: customer,
+                action: 'CHECKCUSTOMERHASLOAN'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
 
-            if (jsonStr.status) {
-                swal({
-                    title: "This Customer Registration Type Can't be Change.!",
-                    text: "The customer already exists loan. So Can't Change the registration type..",
-                    type: "error",
-                    showCancelButton: false,
-                    confirmButtonColor: "#00b0e4",
-                    confirmButtonText: "Ok.!",
-                    closeOnConfirm: false
-                });
-
-
-
-                if (registration == 1) {
-                    $('#registration_type_append').val('Center Leader');
+                if (jsonStr.status) {
+                    if (registration == 1) {
+                        $('#registration_type_append').val('Center Leader');
+                    }
+                    $('#registration_type_append').val(registration.toUpperCase());
+                    $('.center').val(center_name.toUpperCase());
+                    $('.route').val(route_name.toUpperCase());
+                    $('.registration_type_append_show').show();
+                    $('#edit_registration_type').hide();
+                    $('#center').hide();
+                    $('#route').hide();
+                } else {
+                    $('.registration_type_append_show').hide();
                 }
-                $('#registration_type_append').val(registration);
-                $('.center').val(center_name);
-                $('.route').val(route_name);
-                $('.registration_type_append_show').show();
-                $('#edit_registration_type').hide();
-                $('#center').hide();
-                $('#route').hide();
-            } else {
-                $('.registration_type_append_show').hide();
             }
-        }
-    });
+        });
+    }
 };
+
+

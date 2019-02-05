@@ -15,7 +15,7 @@ $balance_pay = $_GET['balance_pay'];
 $issued_date = $_GET['issued_date'];
 $issue_mode = $_GET['issue_mode'];
 $effective_date = $_GET['effective_date'];
-
+$balance_of_last_loan = $_GET['balance_of_last_loan'];
 $CUSTOMER = new Customer($LOAN->customer);
 ?>
 
@@ -25,7 +25,7 @@ $CUSTOMER = new Customer($LOAN->customer);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Transfer Loan || Credit Master</title>
+        <title>Transfer Loan cheque|| Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -77,7 +77,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                     </div> 
 
 
-                    <form id="form-data" method="post" enctype="multipart/form-data">
+                    <form  method="POST" enctype="multipart/form-data">
                         <div class="body"> 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -88,7 +88,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                                         <div class="form-line">
                                             <label for="balance_pay" class="hidden-lg hidden-md" style="font-size: 20px;"><b>Balance Pay</b> </label>
                                             <div class="form-control" style="font-size: 23px;">
-                                                <input type="text" name="" id="balance_pay" value="<?php echo number_format($balance_pay, 2); ?>" readonly="" class="form-control" style="font-size: 22px;font-weight: 800;">
+                                                <div style="font-size: 22px;font-weight: 800;"><?php echo number_format($balance_pay, 2); ?></div>      
                                                 <input type="hidden" name="balance_pay" id="balance_pay" value="<?php echo $balance_pay; ?>" readonly="" class="form-control" style="font-size: 22px;font-weight: 800;">
                                             </div>
                                         </div>
@@ -98,13 +98,13 @@ $CUSTOMER = new Customer($LOAN->customer);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="transaction_id" > Transaction id </label>
+                                    <label for="cheque_id" >Cheque id </label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">                                         
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="transaction_id" class="hidden-lg hidden-md">Transaction id </label>
-                                            <input type="text" id="transaction_id"  name="transaction_id"  placeholder="Enter The Transaction id " class="form-control   " autocomplete="off" required="TRUE" min="0"  >
+                                            <label for="cheque_id" class="hidden-lg hidden-md">Cheque id</label>
+                                            <input type="text" id="cheque_id"  name="cheque_id"  placeholder="Enter The Cheque id " class="form-control   " autocomplete="off" required="TRUE" min="0"  >
                                         </div>                                            
                                     </div>
                                 </div>
@@ -112,13 +112,13 @@ $CUSTOMER = new Customer($LOAN->customer);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="transaction_document" > Transaction document  </label>
+                                    <label for="cheque_document" > Cheque document  </label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">                                         
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="transaction_document" class="hidden-lg hidden-md">Transaction document  </label>
-                                            <input type="file" id="transaction_document"  name="transaction_document"  placeholder="Enter The Transaction id " class="form-control   " autocomplete="off" required="TRUE" min="0"  >
+                                            <label for="cheque_document" class="hidden-lg hidden-md">Cheque document  </label>
+                                            <input type="file" id="transaction_document"  name="transaction_document"    class="form-control   " autocomplete="off" required="TRUE" min="0"  >
                                         </div>                                            
                                     </div>
                                 </div>
@@ -132,17 +132,18 @@ $CUSTOMER = new Customer($LOAN->customer);
                                 <div class="row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs"> 
                                         <input type="hidden" name="loan_id" id="loan_id" value="<?php echo $id ?>">                                      
-                                        <input type="hidden"  id="create_by" name="create_by" value="<?php echo $LOAN->create_by ?>">                                      
-                                        <input type="hidden" id="balance_pay" ame="balance_pay" value="<?php echo $balance_pay ?>"/>  
-                                        <input type="hidden" id="issued_date" name="issued_date" value="<?php echo $issued_date; ?>"/>
-                                        <input type="hidden" id="effective_date" name="effective_date" value="<?php echo $effective_date; ?>"/>
-                                        <input type="hidden" id="issue_mode" name="issue_mode" value="<?php echo $issue_mode; ?>"/>
-                                        <input type="hidden" id="loan_processing_pre_amount" name="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
-                                        <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>                                    
-                                       <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="release_by" id="release_by">
+                                        <input type="hidden"  id="create_by" value="<?php echo $LOAN->create_by ?>">                                      
+                                        <input type="hidden" id="balance_pay" value="<?php echo $balance_pay ?>"/>  
+                                        <input type="hidden" id="issued_date" value="<?php echo $issued_date; ?>"/>
+                                        <input type="hidden" id="effective_date" value="<?php echo $effective_date; ?>"/>
+                                        <input type="hidden" id="issue_mode" value="<?php echo $issue_mode; ?>"/>
+                                        <input type="hidden" id="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
+                                        <input type="hidden" id="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>                                    
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
+                                        <input type="hidden" id="balance_of_last_loan" name="balance_of_last_loan" value="<?php echo $balance_of_last_loan ?>"/>  
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                                        <input type="submit"  class="btn btn-info pull-left"   id="release" value="Release Loan"/> 
+                                        <input type="submit"  class="btn btn-info pull-left"  name="create" id="issue_by_cash" value="Release Loan"/> 
                                     </div>
                                 </div>
                             </div>

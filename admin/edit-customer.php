@@ -11,6 +11,7 @@ $id = '';
 $id = $_GET['id'];
 
 $CUSTOMER = new Customer($id);
+$LOAN = new Loan(NULL);
 $ROUTE = Route::all();
 $CENTER = Center::all();
 ?>
@@ -417,8 +418,6 @@ $CENTER = Center::all();
                                             <div style="display: none;" class="registration_type_append_show">
                                                 <input type="text" value="" id="registration_type_append" class="form-control" readonly="" >
                                             </div>
-
-
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
 
 
@@ -456,11 +455,9 @@ $CENTER = Center::all();
                                 </div>
                             </div>
 
-
                             <?php
                             if ($CUSTOMER->registration_type == 1) {
                                 ?>
-
                                 <div class="row"  >
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="center">Center</label>
@@ -471,15 +468,12 @@ $CENTER = Center::all();
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>                                               
                                                 <?php
                                                 $CENTER = new Center($CUSTOMER->center);
-                                                ?>      
-
+                                                ?>     
                                                 <div class="form-control" ><?php echo $CENTER->name; ?></div> 
-
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-
+                                </div> 
                                 <?php
                             } else if ($CUSTOMER->route) {
                                 ?>
@@ -601,6 +595,7 @@ $CENTER = Center::all();
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row" style="display: none" id="center_row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="center">Center <span class="color-red"> *</span></label>
@@ -632,7 +627,7 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="od_interest_limit">Od Interest Limit </label>
@@ -641,7 +636,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="od_interest_limit" class="hidden-lg hidden-md">Od Interest Limit </label>
-                                            <input type="text" id="loan_amount"  name="od_interest_limit" value="<?php echo $CUSTOMER->od_interest_limit ?>" class="form-control"  autocomplete="off" min="0"    >
+                                            <input type="number" id="loan_amount"  name="od_interest_limit" value="<?php echo $CUSTOMER->od_interest_limit ?>" class="form-control"  autocomplete="off"    >
                                         </div>
                                     </div>
                                 </div>
@@ -875,8 +870,7 @@ $CENTER = Center::all();
                                 </div>
                             </div>
                             <?php
-                            $CHECKCUSTOMER = new Loan(NULl);
-                            if ($CHECKCUSTOMER->CheckCustomerHasActiveLoan($CUSTOMER->id)) {
+                            if ($LOAN->CheckCustomerHasActiveLoan($CUSTOMER->id)) {
                                 ?>
                                 <div class="row clearfix">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -919,7 +913,7 @@ $CENTER = Center::all();
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7"> 
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left " type="submit" name="update" id="active_customer" >Update</button>
                                     <input type="hidden" name="update-cutomer" value="update"/>
-                                    <input type="hidden" class="customer" id="id" value="<?php echo $CUSTOMER->id; ?>" name="id"  />
+                                    <input type="hidden" class="customer" id="customer_id" value="<?php echo $CUSTOMER->id; ?>" name="id"  />
                                     <input type="hidden" id="oldImageNamePro" value="<?php echo $CUSTOMER->profile_picture; ?>" name="oldImageNamePro"/>
                                     <input type="hidden" id="oldImageNameNfp" value="<?php echo $CUSTOMER->nic_photo_front; ?>" name="oldImageNameNfp"/>
                                     <input type="hidden" id="oldImageNameNbp" value="<?php echo $CUSTOMER->nic_photo_back; ?>" name="oldImageNameNbp"/>

@@ -129,15 +129,15 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-active-loans.php">
-                                <i class="material-icons">directions_bike</i>
-                                <span>Active Loans</span>
+                            <a href="manage-released-loan.php">
+                                <i class="material-icons">loop</i>
+                                <span>Release Loans</span>
                             </a>
                         </li>
                         <li>
-                            <a href="manage-release-loan.php">
-                                <i class="material-icons">loop</i>
-                                <span>Release Loans</span>
+                            <a href="manage-active-loans.php">
+                                <i class="material-icons">directions_bike</i>
+                                <span>Active Loans</span>
                             </a>
                         </li>
                         <li>

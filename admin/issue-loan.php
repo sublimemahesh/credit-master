@@ -25,7 +25,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Release Loan || Credit Master</title>
+        <title>Issue or Release Loan || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -246,7 +246,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
+                                                <div><?php echo ucfirst($LOAN->issue_mode); ?></div>
+                                                <input type="hidden"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -518,6 +519,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="">Number of Installment</label>
@@ -549,56 +551,23 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+7 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
-
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text"   disabled="" value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off"> 
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 30) {
 
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text"  disabled=""  value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 1) {
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 months');
                                                     $first_installment_date = $FID->format('Y-m-d');
-
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text"   disabled="" value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
-
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
                                                     <?php
                                                 }
                                                 ?>
@@ -606,7 +575,6 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -666,7 +634,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="issue_note" class="hidden-lg hidden-md">Issue Note</label>
-                                                <textarea name="issue_note" id="issue_note" class="form-control"></textarea> 
+                                                <textarea name="issue_note" id="issue_note" class="form-control" required=""><?php echo $LOAN->issue_note; ?></textarea> 
                                             </div>
                                         </div>
                                     </div>
@@ -3336,15 +3304,18 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>    
                                     <input type="hidden" id="doday" value="<?php echo date("Y-m-d"); ?>"/>
                                 </div>
-                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
-
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12"> 
+                                    <?php if ($LOAN->issue_mode == "bank") { ?>
+                                        <input type="submit" id="loan_issue" class="btn btn-info"   value="Issue Loan"/> | 
+                                    <?php } else { ?>
                                     <input type="submit" id="loan_issue" class="btn btn-info"   value="Release Loan"/> | 
+                                    <?php } ?>
+                                    <input type="submit" id="direct_issue" class="btn btn-info"   value="Direct Issue Loan"/> | 
                                     <input type="submit" id="reject" class="btn btn-warning" value="Reject Loan"/> | 
                                     <a href="edit-loan.php?id=<?php echo $loan_id ?>"> <input type="submit"   class="btn btn-info" value="Edit Loan"/></a>
                                     <input type="hidden" name="id" value="<?php echo $id ?>">
                                     <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issue_by">
                                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                                     
                                 </div>
                             </div>
                         </div>

@@ -14,6 +14,7 @@ $LOAN->issue_note = $_POST['issue_note'];
 $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
 $LOAN->issue_by = $_POST['issued_by'];
 $LOAN->transaction_id = $_POST['transaction_id'];
+$LOAN->balance_of_last_loan = $_POST['balance_of_last_loan'];
 $LOAN->status = 'issued';
 
 $history = $LOAN->getCustomersHistoryByloanId($LOAN->id);

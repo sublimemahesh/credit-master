@@ -14,6 +14,7 @@ $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
 $LOAN->release_by = $_POST['release_by'];
 $LOAN->status = 'released';
 $LOAN->transaction_id = $_POST['transaction_id'];
+$LOAN->balance_of_last_loan = $_POST['balance_of_last_loan'];
 
 
 

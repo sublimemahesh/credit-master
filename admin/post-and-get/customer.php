@@ -43,7 +43,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
-    $CUSTOMER->od_interest_limit = $_POST['od_interest_limit'];
+    $CUSTOMER->od_interest_limit = '-' . $_POST['od_interest_limit'];
 
 //////////////////////////////////////////////////          
 
@@ -460,10 +460,10 @@ if (isset($_POST['update-cutomer'])) {
 
     $CUSTOMER = new Customer($_POST['id']);
 
- //////////////////////////////////////////
+    //////////////////////////////////////////
     $dir_dest_p = '../../upload/customer/profile/';
     $dir_dest_p_thumb = '../../upload/customer/profile/thumb/';
-    
+
     $handle = new Upload($_FILES['profile_picture']);
 
     if ($handle->uploaded) {
@@ -893,7 +893,7 @@ if (isset($_POST['update-cutomer'])) {
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
-    $CUSTOMER->od_interest_limit = ucfirst($_POST['od_interest_limit']);
+    $CUSTOMER->od_interest_limit =   $_POST['od_interest_limit'];
     $CUSTOMER->is_active = $_POST['is_active'];
 
     $VALID = new Validator();
