@@ -86,9 +86,7 @@ $CUSTOMER = new Customer($LOAN->customer);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="balance_pay" class="hidden-lg hidden-md" style="font-size: 22px;font-weight: 800;"><b>Balance Pay</b> </label>
-                                            <div class="form-control" style="font-size: 22px;font-weight: 800;">
-                                                <?php echo $balance_pay ?>
-                                            </div>
+                                            <div style="font-size: 22px;font-weight: 800;"><?php echo number_format($balance_pay, 2); ?></div>      
                                         </div>
                                     </div>
                                 </div>
@@ -252,10 +250,10 @@ $CUSTOMER = new Customer($LOAN->customer);
                                         <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>
                                         <input type="hidden" name="id" value="<?php echo $id ?>">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="issued_by" name="issued_by"> 
-
+                                        <input type="hidden" id="balance_of_last_loan" name="balance_of_last_loan" value="<?php echo $balance_of_last_loan ?>"/>  
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">
-                                        <input type="submit" id="issue_bank_loan" class="btn btn-info pull-left"   value="Release Loan"/> 
+                                        <input type="submit" id="issue_bank_loan" class="btn btn-info pull-left"   value="Issue Loan"/> 
                                     </div>
                                 </div>
                             </div>

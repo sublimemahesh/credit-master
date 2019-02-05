@@ -455,11 +455,12 @@ class Customer {
     }
 
     public function updateCustomerCenter($center, $customer) {
+        
         $query = "UPDATE `customer` SET `center` ='" . $center . "' WHERE `id` = '" . $customer . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
-
+        
         if ($result) {
             return TRUE;
         } else {

@@ -101,12 +101,7 @@ $LOAN->status = 'issued';
                                                         <b>Amount: <?php echo number_format($loan['loan_amount'], 2); ?></b>
                                                         <br/>
                                                         <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
-                                                        <br/> 
-                                                        <b>Period: </b>
-                                                        <?php
-                                                        $PR = DefaultData::getLoanPeriod();
-                                                        echo $PR[$loan['loan_period']];
-                                                        ?>
+
                                                     </td>
                                                     <td>
                                                         <i class = "glyphicon glyphicon-user"></i>
@@ -155,7 +150,23 @@ $LOAN->status = 'issued';
                                                         }
                                                         ?>
                                                         <br>
-
+                                                        <b>Paid Nu of In: </b>
+                                                        <?php
+                                                        $paid_numbers_of_installments = $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']);
+                                                        echo '<span style=color:blue >' . round($paid_numbers_of_installments, 1) . '</span>';
+                                                        ?>
+                                                        <br/>
+                                                        <b>Payable Nu of In: </b>
+                                                        <?php
+                                                        $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']), $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']));
+                                                        echo '<span style=color:green >' . round($payble_of_installments, 1) . '</span>';
+                                                        ?>
+                                                        <br/>
+                                                        <b>System Due: </b>
+                                                        <?php
+                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
+                                                        echo number_format($system_due, 2);
+                                                        ?>
                                                     </td>
                                                     <td>
                                                         <b>
@@ -173,7 +184,12 @@ $LOAN->status = 'issued';
                                                         $numOfInst = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
                                                         echo $numOfInst;
                                                         ?>
-                                                        <br/>
+                                                        <br/>                                                       
+                                                        <b>Period: </b>
+                                                        <?php
+                                                        $PR = DefaultData::getLoanPeriod();
+                                                        echo $PR[$loan['loan_period']];
+                                                        ?>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 

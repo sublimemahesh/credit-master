@@ -160,6 +160,7 @@ $today = date("Y-m-d");
                                                 foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
+                                                 
 
                                                 echo '<tr>';
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
@@ -209,7 +210,8 @@ $today = date("Y-m-d");
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
                                                     $due_and_excess = $total_paid - $ins_total;
-
+                                                 
+                                                   
                                                     if ($due_and_excess > 0) {
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess < 0) {
@@ -246,10 +248,12 @@ $today = date("Y-m-d");
                                                     </a>';
                                                     } elseif ($LOAN->installment_type == 1 && ($date <= $today)) {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } else {
-                                                        echo ' <button class="glyphicon glyphicon-send btn btn-info disabled" title="Payment"></button>    ';
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" disabled=""></button> 
+                                                    </a>';
                                                     }
                                                     echo '</td>';
                                                     $start->modify($add_dates);

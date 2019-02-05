@@ -61,9 +61,9 @@ class Installment {
                 . $this->paid_amount . "', '"
                 . $this->additional_interest . "', '"
                 . $this->collector . "', '"
-                . $this->receipt_no. "', '"
+                . $this->receipt_no . "', '"
                 . $this->history . "')";
-        
+
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -122,7 +122,7 @@ class Installment {
                 . "`history` ='" . $this->history . "', "
                 . "`status` ='" . $this->status . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-       
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -159,8 +159,8 @@ class Installment {
     public function CheckInstallmetByPaidDate($date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
- 
-        
+
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -242,22 +242,28 @@ class Installment {
     }
 
     public function getPaybleNumberOfInstallments($number_of_installments, $paid_numbers_of_installments) {
-     
+
         $payble_of_installments = ($number_of_installments - round($paid_numbers_of_installments, 1));
 
         return $payble_of_installments;
-          
     }
 
-    public function getPaybleInstallmentAmount($loan_id, $loan_amount, $rate) {
+    public function getPaybleInstallmentAmount($loan_id, $loan_amount, $rate, $ins_type) {
 
         $Paid_amount = $this->getAmountByLoanId($loan_id);
 
-        $loan_amount += ($loan_amount * $rate) / 100;
+        $loan_amount += (($loan_amount * $rate) / 100) * ($ins_type / 30);
 
         $payble_amount = $loan_amount - $Paid_amount[0];
 
         return $payble_amount;
+    }
+
+    public function getSystemDue($loan_amount, $rate,$ins_type) {
+         
+        $loan_amount += (($loan_amount * $rate) / 100)* ($ins_type / 30);
+
+        return $loan_amount;
     }
 
 }

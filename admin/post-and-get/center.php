@@ -56,13 +56,13 @@ if (isset($_POST['update'])) {
 
 
     $CENTER = new Center($_POST['id']);
-
+    $CUSTOMER = new Customer($_POST['leader']);
     $CENTER->name = ucfirst($_POST['name']);
     $CENTER->address = $_POST['address'];
     $CENTER->leader = $_POST['leader'];
     $CENTER->collector = $_POST['collector'];
 
-
+    $CUSTOMER->updateCustomerCenter($_POST['id'], $_POST['leader']);
     $VALID = new Validator();
     $VALID->check($CENTER, [
         'name' => ['required' => TRUE],
@@ -74,7 +74,9 @@ if (isset($_POST['update'])) {
 
 
     if ($VALID->passed()) {
+
         $CENTER->update();
+
 
         if (!isset($_SESSION)) {
             session_start();

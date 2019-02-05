@@ -385,13 +385,13 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="od_interest_limit">Od Interest Limi</label>
+                                    <label for="od_interest_limit">OD Interest Limit</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="od_interest_limit" class="hidden-lg hidden-md">Od Interest Limit</label>
-                                            <input type="number"    name="od_interest_limit"  placeholder="Enter Od Interest Limit" class="form-control" autocomplete="off"   >
+                                            <label for="od_interest_limit" class="hidden-lg hidden-md">OD Interest Limit</label>
+                                            <input type="number"    name="od_interest_limit"  placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off"  >
                                         </div>
                                     </div>
                                 </div>

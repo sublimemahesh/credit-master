@@ -75,6 +75,7 @@ $(document).ready(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
+
                 var html = '<option value=""> -- Please Select a Customer -- </option>';
                 $.each(jsonStr.data, function (i, data) {
                     html += '<option value="' + data.id + '"  id="cu_' + data.id + '" credit_limit="' + data.credit_limit + '">';
@@ -89,8 +90,15 @@ $(document).ready(function () {
                 $('#guarantor_2').append(html);
                 $('#guarantor_3').empty();
                 $('#guarantor_3').append(html);
-                $('#guarantor_1_id').val(jsonStr.leader);
-                $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
+
+                if (type == 'center') {
+                    $('#guarantor_1_id').val(jsonStr.leader);
+                    $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
+                    $("#guarantor_1").attr("disabled", "TRUE");
+                } else {
+                    $("#guarantor_1").removeAttr("disabled", "TRUE");
+                }
+
                 $("#guarantor_2 option[id='cu_" + jsonStr.leader + "']").remove();
                 $("#guarantor_3 option[id='cu_" + jsonStr.leader + "']").remove();
             }
@@ -356,20 +364,70 @@ $(document).ready(function () {
         var issue_mode = $('#issue_mode').val();
         var effective_date = $('#effective_date').val();
         var balance_pays = $('#balance_pay').val();
-
+        var balance_of_last_loan = $('#balance_of_last_loan').val();
         var balance_pay = balance_pays.replace(",", "");
 
         var issued_date = $('#issued_date').val();
 
         if (issue_mode === 'cash') {
-            window.location = 'release_cash_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
+            window.location = 'release-cash-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
         } else if (issue_mode === 'cheque') {
-            window.location = 'release_cheque_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
+            window.location = 'release-cheque.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
         } else {
-            window.location = 'issued_bank_loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode;
+            window.location = 'issued-bank-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
         }
     });
 
+    $('#direct_issue').click(function () {
+
+        if (!$('#effective_date').val() || !$('#issued_date').val() || !$('#issue_note').val()) {
+            swal({
+                title: "Error!..",
+                text: "Effective Date, Issued Date, Issue Note is required",
+                type: "error",
+            });
+        } else {
+
+            swal({
+                title: "Issue!",
+                text: "Do you really want to Issue this loan?...",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#00b0e4",
+                confirmButtonText: "Yes, Issue It!",
+                closeOnConfirm: false
+            }, function () {
+
+                $.ajax({
+                    url: "post-and-get/ajax/direct_issue_loan.php",
+                    type: 'POST',
+                    data: {
+                        loan_id: $('#loan_id').val(),
+                        effective_date: $('#effective_date').val(),
+                        issued_date: $('#issued_date').val(),
+                        issue_by: $('#issue_by').val(),
+                        issue_note: $('#issue_note').val(),
+                        action: 'DIRECTISSUE'
+                    },
+                    success: function (jsonStr) {
+
+                        if (jsonStr.status === 'issued') {
+                            setTimeout(function () {
+                                window.location.replace("view-active-loan.php?id=" + jsonStr.data.id);
+                            }, 2000);
+                        } else {
+                            alert('Error');
+                        }
+                    }
+                });
+            });
+
+        }
+
+
+
+
+    });
 
     $('#issue_bank_loan').click(function (event) {
         event.preventDefault();
@@ -420,6 +478,14 @@ $(document).ready(function () {
                 timer: 2000,
                 showConfirmButton: false
             });
+        } else if (!$('#transaction_id').val() || $('#transaction_id').val().length === 0) {
+            swal({
+                title: "Error!",
+                text: "Please enter the transaction id ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
         } else if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
             swal({
                 title: "Error!",
@@ -433,40 +499,39 @@ $(document).ready(function () {
 
             var formData = new FormData($("form#form-data")[0]);
 
-            $.ajax({
-                url: "post-and-get/ajax/issue_bank_loan.php",
-                type: 'POST',
-                data: formData,
-                async: false,
-                cache: false,
-                contentType: false,
-                processData: false,
-                success: function (jsonStr) {
 
-                    if (jsonStr.status === 'issued') {
-                        swal({
-                            title: "Issue!",
-                            text: "Do you really want to issue this loan?...",
-                            type: "info",
-                            showCancelButton: true,
-                            confirmButtonColor: "#2b982b",
-                            confirmButtonText: "Yes, Issue It!",
-                            closeOnConfirm: false
-                        }, function () {
-                            setTimeout(function () {
-                                window.location.replace("manage-approved-loans.php");
-                            }, 2000);
-                        });
-                    } else {
-                        alert('Error');
+            swal({
+                title: "Issue!",
+                text: "Do you really want to issue this loan?...",
+                type: "info",
+                showCancelButton: true,
+                confirmButtonColor: "#2b982b",
+                confirmButtonText: "Yes, Issue It!",
+                closeOnConfirm: false
+            }, function () {
+
+                $.ajax({
+                    url: "post-and-get/ajax/issue_bank_loan.php",
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    dataType: "JSON",
+                    success: function (jsonStr) {
+                        if (jsonStr.status == 'issued') {
+                            window.location.replace("manage-approved-loans.php");
+                        } else {
+                            alert('Error');
+                        }
+
                     }
-                }
+                });
             });
         }
         return false;
     });
-
-
 
     $('#release').click(function (event) {
         event.preventDefault();
@@ -831,7 +896,7 @@ $(`.issue_mode,.loan_amount`).bind("keyup change", function () {
     }
 });
 
-///Before delete Cheque Customer '
+//Before delete Cheque Customer '
 $('.delete-customer').click(function () {
     var customer = $(this).attr("data-id");
 

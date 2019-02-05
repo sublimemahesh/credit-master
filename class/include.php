@@ -1,5 +1,7 @@
 <?php
 
+date_default_timezone_set('Asia/Colombo');
+
 include_once(dirname(__FILE__) . '/Setting.php');
 include_once(dirname(__FILE__) . '/Helper.php');
 include_once(dirname(__FILE__) . '/Upload.php');

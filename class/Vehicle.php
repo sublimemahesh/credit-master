@@ -114,11 +114,6 @@ class Vehicle {
         return $db->readQuery($query);
     }
 
-//    public function arrange($key, $vehicle) {
-//        $query = "UPDATE `vehicle` SET `sort` = '" . $key . "'  WHERE id = '" . $vehicle . "'";
-//        $db = new Database();
-//        $result = $db->readQuery($query);
-//        return $result;
-//    }
+ 
 
 }

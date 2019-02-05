@@ -19,7 +19,7 @@ $LOAN->status = 'released';
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Release Loans || Credit Master</title>
+        <title>Manage Released Loans || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -54,7 +54,7 @@ $LOAN->status = 'released';
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Active Release Loans
+                                    Manage Released Loans
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -101,12 +101,7 @@ $LOAN->status = 'released';
                                                         <b>Amount: <?php echo number_format($loan['loan_amount'], 2); ?></b>
                                                         <br/>
                                                         <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
-                                                        <br/> 
-                                                        <b>Period: </b>
-                                                        <?php
-                                                        $PR = DefaultData::getLoanPeriod();
-                                                        echo $PR[$loan['loan_period']];
-                                                        ?>
+
                                                     </td>
                                                     <td>
                                                         <i class = "glyphicon glyphicon-user"></i>
@@ -143,7 +138,8 @@ $LOAN->status = 'released';
                                                         $Paid_amount = number_format($loan_Paid_amount[0], 2);
                                                         echo $Paid_amount;
                                                         echo '<br>';
-                                                        $total_loan_amount = ($loan['loan_amount'] += ($loan['loan_amount'] * $loan['interest_rate']) / 100);
+                                                        $total_loan_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan['id'], $loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
+
                                                         $due_and_excess = $loan_Paid_amount[0] - $total_loan_amount;
 
                                                         if ($due_and_excess < 0) {
@@ -155,7 +151,23 @@ $LOAN->status = 'released';
                                                         }
                                                         ?>
                                                         <br>
-
+                                                        <b>Paid Nu of In: </b>
+                                                        <?php
+                                                        $paid_numbers_of_installments = $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']);
+                                                        echo '<span style=color:blue >' . round($paid_numbers_of_installments, 1) . '</span>';
+                                                        ?>
+                                                        <br/>
+                                                        <b>Payable Nu of In: </b>
+                                                        <?php
+                                                        $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']), $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']));
+                                                        echo '<span style=color:green >' . round($payble_of_installments, 1) . '</span>';
+                                                        ?>
+                                                        <br/>
+                                                        <b>System Due: </b>
+                                                        <?php
+                                                        $system_due= $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'],$loan['number_of_installments']);
+                                                        echo number_format($system_due,2);                                                        
+                                                        ?>
                                                     </td>
                                                     <td>
                                                         <b>
@@ -173,7 +185,12 @@ $LOAN->status = 'released';
                                                         $numOfInst = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
                                                         echo $numOfInst;
                                                         ?>
-                                                        <br/>
+                                                        <br/>                                                       
+                                                        <b>Period: </b>
+                                                        <?php
+                                                        $PR = DefaultData::getLoanPeriod();
+                                                        echo $PR[$loan['loan_period']];
+                                                        ?>
                                                     </td>
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan "></button></a> | 

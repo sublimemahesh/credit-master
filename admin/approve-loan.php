@@ -243,7 +243,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
+                                                <div><?php echo ucfirst($LOAN->issue_mode); ?></div>
+                                                <input type="hidden"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -543,59 +544,23 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+7 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
-
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text"   disabled="" value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off"> 
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 30) {
 
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-                                                    <input type="text"  disabled=""  value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
                                                     <?php
                                                 } elseif ($LOAN->installment_type == 1) {
                                                     $FID = new DateTime($LOAN->effective_date);
                                                     $FID->modify('+1 months');
                                                     $first_installment_date = $FID->format('Y-m-d');
-
-                                                    $year = date("Y", strtotime($first_installment_date));
-                                                    $month = date("m", strtotime($first_installment_date));
-
-
-                                                    $dateObj = DateTime::createFromFormat('!m', $month);
-                                                    $monthName = $dateObj->format('F');
-
-                                                    $date = date("d", strtotime($first_installment_date));
-                                                    $dateObj = DateTime::createFromFormat('!d', $date);
-                                                    $dateName = $dateObj->format('l');
                                                     ?>
-
-                                                    <input type="text"   disabled="" value="<?php echo $year . '  ' . $monthName . '  ' . $date . '  ' . $dateName . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " autocomplete="off">
-
-
-
+                                                    <input type="text"   value="<?php echo date("Y M d D", strtotime($first_installment_date)) . ' | ' . $pt ?>" placeholder="Please Select The Effective Date" class="form-control  " disabled="" autocomplete="off">
                                                     <?php
                                                 }
                                                 ?>
