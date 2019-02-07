@@ -158,6 +158,12 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <span>Areas loans</span>
                             </a>
                         </li>
+                        <li>
+                            <a href="manage-completed.php">
+                                <i class="material-icons">beenhere</i>
+                                <span>completed Loan</span>
+                            </a>
+                        </li>
                     </ul>
                 </li> 
 

@@ -365,16 +365,23 @@ $(document).ready(function () {
         var effective_date = $('#effective_date').val();
         var balance_pays = $('#balance_pay').val();
         var balance_of_last_loan = $('#balance_of_last_loan').val();
+        var balance_of_last_loans = $('#balance_of_last_loan').val();
+        var customer_id = $('#customer_id').val();
+        var issue_note = $('#issue_note').val();
+
+        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
+        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
+
         var balance_pay = balance_pays.replace(",", "");
 
         var issued_date = $('#issued_date').val();
 
         if (issue_mode === 'cash') {
-            window.location = 'release-cash-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
+            window.location = 'release-cash-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan + '&&customer_id=' + customer_id + '&&issue_note=' + issue_note;
         } else if (issue_mode === 'cheque') {
-            window.location = 'release-cheque.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
+            window.location = 'release-cheque.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan + '&&customer_id=' + customer_id + '&&issue_note=' + issue_note;
         } else {
-            window.location = 'issued-bank-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan;
+            window.location = 'issued-bank-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan + '&&customer_id=' + customer_id + '&&issue_note=' + issue_note;
         }
     });
 

@@ -300,7 +300,7 @@ class Loan {
 
     public function getLoanDetailsByCustomer($customer) {
 
-        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND  `status` = 'issued'";
+        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND `status` ='issued' ";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -520,7 +520,7 @@ class Loan {
 
         $CUSTOMER = new Customer(NULL);
         $od_interest_limite = $CUSTOMER->getOdInteresetLimiteByCustomer($customer);
-        
+
         if ($od_interest_limite[0] >= $due_amount && (int) $installment_type == 30) {
 
             $interest_amount_per_month = ($due_amount * 10) / 100;
