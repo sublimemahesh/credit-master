@@ -191,7 +191,7 @@ class Installment {
 
 
         $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `loan` ='" . $loan_id . "'";
-
+        
         $db = new Database();
 
         $result = $db->readQuery($query);

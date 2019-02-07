@@ -32,6 +32,46 @@ $EffectiveDate->installment_amount = $LOAN->installment_amount;
 
 $EffectiveDate->create();
 
+
+
+/// Installment update 
+$INSTALLMENT = new Installment(NULL);
+
+$loan_details = $LOAN->getLoanDetailsByCustomer($_POST['customer_id']);
+
+date_default_timezone_set('Asia/Colombo');
+$create_at = date('Y-m-d');
+$change_time = date('h:i:s');
+
+$INSTALLMENT->loan = $loan_details[0];
+$INSTALLMENT->paid_date = $create_at;
+$INSTALLMENT->installment_date = $create_at;
+$INSTALLMENT->time = $change_time;
+$INSTALLMENT->paid_amount = $_POST['balance_of_last_loan'];
+$INSTALLMENT->receipt_no = 'loanid00' . $loan_details[0];
+
+
+//completed before loan
+$LOAN_UPDATE = new Loan($loan_details[0]);
+$LOAN_UPDATE->status = 'completed';
+$LOAN_UPDATE->update();
+
+//update history colum
+$history = $INSTALLMENT->history;
+$change_at = $create_at;
+$change_time = date('h:i:s');
+$user_id = $_POST['issued_by'];
+$amount = $_POST['balance_of_last_loan'];
+$status = 'Paid';
+
+if ($history == NULL) {
+    $INSTALLMENT->history = $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time . ',' . $status;
+} else {
+    $INSTALLMENT->history = $history . "///" . $user_id . ',' . $amount . ',' . $change_at . ',' . $change_time . ',' . $status;
+}
+
+$INSTALLMENT->create();
+
 ///transactiopn Document image///
 
 $dir_dest = '../../../upload/loan/transaction_document/';

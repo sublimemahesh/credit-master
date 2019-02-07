@@ -16,6 +16,8 @@ $issued_date = $_GET['issued_date'];
 $issue_mode = $_GET['issue_mode'];
 $effective_date = $_GET['effective_date'];
 $balance_of_last_loan = $_GET['balance_of_last_loan'];
+$customer_id = $_GET['customer_id'];
+$issue_note = $_GET['issue_note'];
 
 
 
@@ -143,6 +145,10 @@ $CUSTOMER = new Customer($LOAN->customer);
                                         <input type="hidden" id="loan_processing_pre_amount" name="loan_processing_pre_amount" value="<?php echo $LOAN->loan_processing_pre; ?>"/>
                                         <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $LOAN->issue_note; ?>"/>                                    
                                         <input type="hidden" id="balance_of_last_loan" name="balance_of_last_loan" value="<?php echo $balance_of_last_loan ?>"/>                                    
+                                        <input type="hidden" id="customer_id" name="customer_id" value="<?php echo $customer_id ?>"/>                                    
+                                        <input type="hidden" id="issue_note" name="issue_note" value="<?php echo $issue_note ?>"/>                                    
+
+
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="release_by" id="release_by">
                                     </div>
                                     <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12">

@@ -144,8 +144,9 @@ if ($_POST['action'] == 'PENDING') {
 } 
 
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
-    $CHECKGUARANTER = new Loan(NULl);
-    $result = $CHECKGUARANTER->CheckGuarantor_2($_POST["guarantor_2"]);
+     $LOAN = new Loan(NULl);
+    
+    $result = $LOAN->CheckGuarantor_2($_POST["guarantor_2"]);
 
     if ($result == TRUE) {
         $data = array("status" => TRUE);
@@ -158,9 +159,9 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
 }
 
 if ($_POST['action'] == 'CHECKGUARANTER_3') {
-    $CHECKGUARANTER = new Loan(NULl);
+    $LOAN = new Loan(NULl);
 
-    $result = $CHECKGUARANTER->CheckGuarantor_3($_POST["guarantor_3"]);
+    $result = $LOAN->CheckGuarantor_3($_POST["guarantor_3"]);
 
     if ($result == TRUE) {
         $data = array("status" => TRUE);
@@ -173,9 +174,9 @@ if ($_POST['action'] == 'CHECKGUARANTER_3') {
 }
 
 if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
-    $CHECKCUSTOMER = new Loan(NULl);
-
-    $result = $CHECKCUSTOMER->CheckCustomerHasActiveLoan($_POST["customer"]);
+    
+    $LOAN = new Loan(NULl);
+    $result = $LOAN->CheckCustomerHasActiveLoan($_POST["customer"]);
 
     if ($result == TRUE) {
         $data = array("status" => TRUE);
@@ -255,7 +256,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
 
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
-
+        
         //get total loan amount in customer
         if ($loan[1] == NULL) {
             $amount = 0;
@@ -279,7 +280,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
             $total_deduction = ($balance_in_last_loan + $result["total"]);
 
             $balance_pay = $loan_amount - $total_deduction;
-
+         
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
             header('Content-type: application/json');
             exit();

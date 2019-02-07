@@ -241,7 +241,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         <div class="form-group">
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Issue Mode</label>
-                                                <input type="text"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
+                                                <div> <?php echo ucfirst($LOAN->issue_mode); ?></div>
+                                                <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -295,54 +296,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="balance_of_last_loan">Balance Of the last Loan</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
-                                                <div class="form-control"  > 
-                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="total_deductions">Total Deductions </label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
-                                                <div class="form-control">
-                                                    <input type="text" id="total_deductions"     placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="balance_pay">Balance Pay </label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
-                                                <div class="form-control">
-                                                    <input type="text" id="balance_pay"     placeholder="00.00" class="form-control font-weight-new " autocomplete="off" disabled="">
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-
+                                 
                                 <?php
                                 if ($LOAN->issue_mode == "bank") {
                                     ?>
