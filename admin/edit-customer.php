@@ -52,7 +52,7 @@ $CENTER = Center::all();
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data" id="form"> 
+                <form class="" action="post-and-get/customer.php" method="post"  enctype="multipart/form-data" id="edit-customer"> 
 
                     <div class="card">
                         <div class="header">

@@ -97,32 +97,38 @@ $LOAN->status = 'verified';
                                                         <br/>
                                                         <b>Date: </b><?php echo $loan['create_date']; ?>
                                                     </td>  
+
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b> : 
-    <?php
-    $Customer = new Customer($loan['customer']);
-    echo $Customer->title . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
-    ?>
+                                                            <?php
+                                                            $Customer = new Customer($loan['customer']);
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
+                                                            echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
+                                                            ?>
                                                         </b>
                                                         <br/>
                                                         <small>
                                                             <i class="glyphicon glyphicon-user"></i>
                                                             <i class="glyphicon glyphicon-user"></i> : 
-    <?php
-    $Customer1 = new Customer($loan['guarantor_1']);
-    echo $Customer1->title . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
-    ?>
+                                                            <?php
+                                                            $Customer1 = new Customer($loan['guarantor_1']);
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer1->surname));
+                                                            echo $Customer1->title . ' ' . $first_name . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
+                                                            ?>
                                                         </small>
-                                                        <br/>
-
+                                                        <br/> 
                                                         <small>
                                                             <i class="glyphicon glyphicon-user"></i>
                                                             <i class="glyphicon glyphicon-user"></i> : 
-    <?php
-    $Customer2 = new Customer($loan['guarantor_2']);
-    echo $Customer2->title . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
-    ?>
+                                                            <?php
+                                                            $Customer2 = new Customer($loan['guarantor_2']);
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer2->surname));
+                                                            echo $Customer2->title . ' ' . $first_name . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
+                                                            ?>
                                                         </small> 
                                                     </td>
                                                     <td>
@@ -131,21 +137,21 @@ $LOAN->status = 'verified';
                                                         <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
                                                         <br/> 
                                                         <b>Period: </b>
-    <?php
-    $PR = DefaultData::getLoanPeriod();
-    echo $PR[$loan['loan_period']];
-    ?> 
+                                                        <?php
+                                                        $PR = DefaultData::getLoanPeriod();
+                                                        echo $PR[$loan['loan_period']];
+                                                        ?> 
                                                     </td>
                                                     <td>
                                                         <b>
                                                             Type: <?php
-                                                    $PR = DefaultData::getInstallmentType();
-                                                    echo $PR[$loan['installment_type']];
-                                                    ?>
+                                                            $PR = DefaultData::getInstallmentType();
+                                                            echo $PR[$loan['installment_type']];
+                                                            ?>
                                                         </b>
                                                         <br/>
                                                         <b>Amount: </b>
-    <?php echo number_format($loan['installment_amount'], 2); ?>
+                                                        <?php echo number_format($loan['installment_amount'], 2); ?>
                                                         <br/> 
                                                         <b>Nu. of Inst.: </b>
                                                         <?php
@@ -159,9 +165,9 @@ $LOAN->status = 'verified';
                                                         <a href="#"  class="delete-loan" data-id="<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn btn btn-danger" title="Delete Loan #<?php echo str_pad($loan['id'], 6, '0', STR_PAD_LEFT); ?>"></button></a>
                                                     </td> 
                                                 </tr>
-    <?php
-}
-?>   
+                                                <?php
+                                            }
+                                            ?>   
                                         </tbody>
                                         <tfoot>
                                             <tr>

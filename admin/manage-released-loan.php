@@ -103,12 +103,15 @@ $LOAN->status = 'released';
                                                         <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
 
                                                     </td>
+
                                                     <td>
-                                                        <i class = "glyphicon glyphicon-user"></i>
-                                                        <b> :
+                                                        <i class="glyphicon glyphicon-user"></i>
+                                                        <b> : 
                                                             <?php
                                                             $Customer = new Customer($loan['customer']);
-                                                            echo $Customer->title . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
+                                                            echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
                                                             ?>
                                                         </b>
                                                         <br/>
@@ -117,17 +120,20 @@ $LOAN->status = 'released';
                                                             <i class="glyphicon glyphicon-user"></i> : 
                                                             <?php
                                                             $Customer1 = new Customer($loan['guarantor_1']);
-                                                            echo $Customer1->title . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer1->surname));
+                                                            echo $Customer1->title . ' ' . $first_name . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
                                                             ?>
                                                         </small>
-                                                        <br/>
-
+                                                        <br/> 
                                                         <small>
                                                             <i class="glyphicon glyphicon-user"></i>
                                                             <i class="glyphicon glyphicon-user"></i> : 
                                                             <?php
                                                             $Customer2 = new Customer($loan['guarantor_2']);
-                                                            echo $Customer2->title . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer2->surname));
+                                                            echo $Customer2->title . ' ' . $first_name . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
                                                             ?>
                                                         </small> 
                                                     </td>
@@ -165,8 +171,8 @@ $LOAN->status = 'released';
                                                         <br/>
                                                         <b>System Due: </b>
                                                         <?php
-                                                        $system_due= $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'],$loan['number_of_installments']);
-                                                        echo number_format($system_due,2);                                                        
+                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
+                                                        echo number_format($system_due, 2);
                                                         ?>
                                                     </td>
                                                     <td>

@@ -103,12 +103,15 @@ $LOAN->status = 'issued';
                                                         <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
 
                                                     </td>
+
                                                     <td>
-                                                        <i class = "glyphicon glyphicon-user"></i>
-                                                        <b> :
+                                                        <i class="glyphicon glyphicon-user"></i>
+                                                        <b> : 
                                                             <?php
                                                             $Customer = new Customer($loan['customer']);
-                                                            echo $Customer->title . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
+                                                            echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
                                                             ?>
                                                         </b>
                                                         <br/>
@@ -117,17 +120,20 @@ $LOAN->status = 'issued';
                                                             <i class="glyphicon glyphicon-user"></i> : 
                                                             <?php
                                                             $Customer1 = new Customer($loan['guarantor_1']);
-                                                            echo $Customer1->title . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer1->surname));
+                                                            echo $Customer1->title . ' ' . $first_name . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
                                                             ?>
                                                         </small>
-                                                        <br/>
-
+                                                        <br/> 
                                                         <small>
                                                             <i class="glyphicon glyphicon-user"></i>
                                                             <i class="glyphicon glyphicon-user"></i> : 
                                                             <?php
                                                             $Customer2 = new Customer($loan['guarantor_2']);
-                                                            echo $Customer2->title . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
+                                                            $DefaultData = new DefaultData();
+                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer2->surname));
+                                                            echo $Customer2->title . ' ' . $first_name . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
                                                             ?>
                                                         </small> 
                                                     </td>

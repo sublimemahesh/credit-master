@@ -16,7 +16,7 @@ class Database {
     
   
     private $host = 'localhost';
-    private $name = 'micro_credit';
+    private $name = 'credit-master';
     private $user = 'root';
     private $password = '';
 
