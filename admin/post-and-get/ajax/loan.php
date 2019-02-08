@@ -3,6 +3,7 @@
 include_once(dirname(__FILE__) . '/../../../class/include.php');
 include_once(dirname(__FILE__) . '/../../auth.php');
 
+//get registration type
 if ($_POST['action'] == 'GETREGTYPE') {
 
     if ($_POST['type'] == 'route') {
@@ -20,6 +21,7 @@ if ($_POST['action'] == 'GETREGTYPE') {
     }
 }
 
+//get customer
 if ($_POST['action'] == 'GETCUSTOMER') {
     header('Content-type: application/json');
 
@@ -40,8 +42,8 @@ if ($_POST['action'] == 'GETCUSTOMER') {
     }
 }
 
+//get gurantors
 if ($_POST['action'] == 'GETGURANTOR') {
-
     header('Content-type: application/json');
 
     if ($_POST['type'] == 'route') {
@@ -62,6 +64,7 @@ if ($_POST['action'] == 'GETGURANTOR') {
     }
 }
 
+//verify loan
 if ($_POST['action'] == 'VERIFY') {
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
@@ -81,6 +84,7 @@ if ($_POST['action'] == 'VERIFY') {
     exit();
 }
 
+//Reject loan
 if ($_POST['action'] == 'REJECT') {
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->status = 'rejected';
@@ -95,6 +99,7 @@ if ($_POST['action'] == 'REJECT') {
     exit();
 }
 
+//Delete loan
 if ($_POST['action'] == 'DELETE') {
     $LOAN = new Loan($_POST['loan_id']);
     $result = $LOAN->delete();
@@ -108,6 +113,7 @@ if ($_POST['action'] == 'DELETE') {
     exit();
 }
 
+//approve loan
 if ($_POST['action'] == 'APPROVE') {
 
     $LOAN = new Loan($_POST['loan_id']);
@@ -127,6 +133,7 @@ if ($_POST['action'] == 'APPROVE') {
     exit();
 }
 
+//pending loan
 if ($_POST['action'] == 'PENDING') {
     $LOAN = new Loan($_POST['loan_id']);
     $LOAN->effective_date = $_POST['effective_date'];
@@ -141,11 +148,12 @@ if ($_POST['action'] == 'PENDING') {
     echo json_encode(['status' => 'pending', 'data' => $result]);
     header('Content-type: application/json');
     exit();
-} 
+}
 
+//check gurantter 2
 if ($_POST['action'] == 'CHECKGUARANTER_2') {
-     $LOAN = new Loan(NULl);
-    
+    $LOAN = new Loan(NULl);
+
     $result = $LOAN->CheckGuarantor_2($_POST["guarantor_2"]);
 
     if ($result == TRUE) {
@@ -158,6 +166,7 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
     }
 }
 
+//check gurantter 3 
 if ($_POST['action'] == 'CHECKGUARANTER_3') {
     $LOAN = new Loan(NULl);
 
@@ -173,8 +182,9 @@ if ($_POST['action'] == 'CHECKGUARANTER_3') {
     }
 }
 
+//check customer has active loan
 if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
-    
+
     $LOAN = new Loan(NULl);
     $result = $LOAN->CheckCustomerHasActiveLoan($_POST["customer"]);
 
@@ -189,7 +199,24 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
     }
 }
 
+//check customer has loan before create
+if ($_POST['action'] == 'CUSTOMERHASLOAN') {
 
+    $LOAN = new Loan(NULl);
+    $result = $LOAN->CheckCustomerLoan($_POST["customer"]);
+   
+    if ($result == TRUE) {
+        $data = array("status" => TRUE);
+        header('Content-type: application/json');
+        echo json_encode($data);
+    } else {
+        $data = array("status" => FALSE);
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
+//get loan processign fee
 if ($_POST['action'] == 'lOANPROCESSINGPRE') {
     $amount = $_POST['loan_amount'];
 
@@ -221,7 +248,6 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
 }
 
 //Before Delete Customer has loan
-
 if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
 
     $LOAN = new Loan(NULL);
@@ -237,7 +263,6 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
         exit();
     }
 }
-
 
 //get Customer last loan amount
 if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
@@ -256,7 +281,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
 
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
-        
+
         //get total loan amount in customer
         if ($loan[1] == NULL) {
             $amount = 0;
@@ -280,7 +305,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
             $total_deduction = ($balance_in_last_loan + $result["total"]);
 
             $balance_pay = $loan_amount - $total_deduction;
-         
+
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
             header('Content-type: application/json');
             exit();
@@ -358,14 +383,13 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
             exit();
         }
     } else {
+
         $result = $DEFULTDATA->loanProcessingPreCash($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
 
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer
-
-
         $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
         $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
 
@@ -388,5 +412,4 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
         }
     }
 }
- 
     
