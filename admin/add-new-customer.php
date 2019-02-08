@@ -42,10 +42,10 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
-                <form action="post-and-get/customer.php" method="post" id="customerform" enctype="multipart/form-data"> 
+                <form action="post-and-get/customer.php" method="post" id="add-new-customer" enctype="multipart/form-data"> 
                     <div class="card">
                         <div class="header">
-                            <h2>Add Customer Details</h2>
+                            <h2>Add Customer</h2>
                             <ul class="header-dropdown">
                                 <li class="">
                                     <a href="view-active-customer.php">
@@ -301,7 +301,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
@@ -352,7 +352,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row" style="display: none" id="center_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="center">Center</label>
@@ -382,7 +382,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="od_interest_limit">OD Interest Limit</label>
@@ -548,7 +548,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="branch_code" class="hidden-lg hidden-md">Branch Code</label>                                                                                            
-                                           <input type="text" value="" id="branch_code"   name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">                                          
+                                            <input type="text" value="" id="branch_code"   name="branch_code" placeholder="Enter Branch Code" class="form-control" autocomplete="off">                                          
                                         </div>
                                     </div>
                                 </div>
@@ -687,7 +687,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
         <script>
-                                     
+
         </script>
     </body>
 

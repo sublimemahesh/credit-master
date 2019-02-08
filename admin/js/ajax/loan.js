@@ -78,8 +78,15 @@ $(document).ready(function () {
 
                 var html = '<option value=""> -- Please Select a Customer -- </option>';
                 $.each(jsonStr.data, function (i, data) {
+                    var short = '';
+                    $.each(data.surname.split(" "), function (index, value) {
+                        if (value != '') {
+                            short = short + value.charAt(0) + '. ';
+                        }
+                    });
+
                     html += '<option value="' + data.id + '"  id="cu_' + data.id + '" credit_limit="' + data.credit_limit + '">';
-                    html += data.title + ' ' + data.first_name + ' ' + data.last_name;
+                    html += data.title + ' ' + short + ' ' + data.first_name + ' ' + data.last_name;
                     html += '</option>';
                 });
                 $('#customer').empty();

@@ -166,7 +166,7 @@ $(document).ready(function () {
         });
     });
 ///--- customer create form---//
-    $("#customerform").submit(function (e) {
+    $("#add-new-customer").submit(function (e) {
 
         var errors = $('#errors').val();
         if (errors == 1) {
@@ -185,12 +185,12 @@ $(document).ready(function () {
         birthday.setFullYear(year, month - 1, day);
         var currdate = new Date();
         currdate.setFullYear(currdate.getFullYear() - age);
-        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
+        if (!/^[a-z0-9_]+$/i.test(nicNumber) || nicNumber == '') {
             $('#errors').val(1);
             swal({
                 title: "Space characters not alowded in NIC Number.!",
                 text: "containing space characters in nic number column..",
-                type: "error",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -202,12 +202,12 @@ $(document).ready(function () {
                         }, 1000);
                         $('#customer-nic').focus();
                     });
-        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
+        } else if (!/^[a-z0-9_]+$/i.test(mobileNumber) || mobileNumber == '') {
             $('#errors').val(1);
             swal({
                 title: "Space characters not alowded in Mobile Number.!",
                 text: "containing space characters in mobile number column..",
-                type: "error",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -224,7 +224,7 @@ $(document).ready(function () {
             swal({
                 title: "This Customer below 18 years..!",
                 text: "This Customer below 18 years old you ..",
-                type: "error",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -253,7 +253,7 @@ $(document).ready(function () {
                         swal({
                             title: "Duplicate NIC Number.!",
                             text: "You entered the duplicate NIC number..",
-                            type: "error",
+                            type: "warning",
                             showCancelButton: false,
                             confirmButtonColor: "#00b0e4",
                             confirmButtonText: "Enter Again.!",
@@ -270,7 +270,7 @@ $(document).ready(function () {
                         swal({
                             title: "Duplicate Mobile Number.!",
                             text: "You entered the duplicate mobile number..",
-                            type: "error",
+                            type: "warning",
                             showCancelButton: false,
                             confirmButtonColor: "#00b0e4",
                             confirmButtonText: "Enter Again.!",
@@ -284,14 +284,14 @@ $(document).ready(function () {
                         });
                     } else if (jsonStr.status == 'false') {
                         $('#errors').val(0);
-                        $('#customerform').unbind().submit();
+                        $('#add-new-customer').unbind().submit();
                     }
                 }
             });
         }
     });
 ///---customer edit form---//
-    $("#form").submit(function (e) {
+    $("#edit-customer").submit(function (e) {
         var errors = $('#errors').val();
         if (errors == 1) {
             e.preventDefault();
@@ -310,12 +310,14 @@ $(document).ready(function () {
         birthday.setFullYear(year, month - 1, day);
         var currdate = new Date();
         currdate.setFullYear(currdate.getFullYear() - age);
-        if (nicNumber.match(/^.*[^\s{1,}]\s.*/) || nicNumber == '') {
+
+        if (!/^[a-z0-9_]+$/i.test(nicNumber) || nicNumber == '') {
+
             $('#errors').val(1);
             swal({
                 title: "Space characters not alowded in NIC Number.!",
                 text: "containing space characters in nic number column..",
-                type: "info",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -327,12 +329,12 @@ $(document).ready(function () {
                 }, 1000);
                 $('#customer_nic_number').focus();
             });
-        } else if (mobileNumber.match(/^.*[^\s{1,}]\s.*/) || mobileNumber == '') {
+        } else if (!/^[a-z0-9_]+$/i.test(mobileNumber) || mobileNumber == '') {
             $('#errors').val(1);
             swal({
                 title: "Space characters not alowded in Mobile Number.!",
                 text: "containing space characters in mobile number column..",
-                type: "info",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -349,7 +351,7 @@ $(document).ready(function () {
             swal({
                 title: "This Customer Below 18 years..!",
                 text: "This Customer below 18 years old you ..",
-                type: "error",
+                type: "warning",
                 showCancelButton: false,
                 confirmButtonColor: "#00b0e4",
                 confirmButtonText: "Enter Again.!",
@@ -379,7 +381,7 @@ $(document).ready(function () {
                         swal({
                             title: "Duplicate NIC Number.!",
                             text: "You entered the duplicate NIC number..",
-                            type: "error",
+                            type: "warning",
                             showCancelButton: false,
                             confirmButtonColor: "#00b0e4",
                             confirmButtonText: "Enter Again.!",
@@ -396,7 +398,7 @@ $(document).ready(function () {
                         swal({
                             title: "Duplicate Mobile Number.!",
                             text: "You entered the duplicate mobile number..",
-                            type: "error",
+                            type: "warning",
                             showCancelButton: false,
                             confirmButtonColor: "#00b0e4",
                             confirmButtonText: "Enter Again.!",
@@ -410,7 +412,7 @@ $(document).ready(function () {
                         });
                     } else if (jsonStr.status == 'fales') {
                         $('#errors').val(0);
-                        $('#form').unbind().submit();
+                        $('#edit-customer').unbind().submit();
                     }
                 }
             });
