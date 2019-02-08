@@ -156,10 +156,9 @@ class Installment {
         return $row;
     }
 
-    public function CheckInstallmetByPaidDate($date, $loan_id) {
+    public function getModifiedInstallmentByCollector() {
 
-        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
-
+        $query = "SELECT * FROM `installment` WHERE `collector`= '" . $this->collector . "' AND `status`= 'modified'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -169,12 +168,24 @@ class Installment {
 
             array_push($array_res, $row);
         }
+        return $array_res;
+    }
 
+    public function CheckInstallmetByPaidDate($date, $loan_id) {
+
+        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND `loan`= '" . $loan_id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
         return $array_res;
     }
 
     public function getAllAmountByPaidDate($date) {
-
 
         $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
 

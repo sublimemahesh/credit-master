@@ -61,6 +61,14 @@ if ($_POST['action'] == 'center') {
             $Installment = new Installment(NULL);
             $paid_amount = 0;
 
+            if ($IT == 30) {
+                $loanId = 'BLD' . $loan['id'];
+            } elseif ($IT == 4) {
+                $loanId = 'BLW' . $loan['id'];
+            } else {
+                $loanId = 'BLM' . $loan['id'];
+            }
+
             foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
                 $paid_amount += $paid['paid_amount'];
             }
@@ -105,6 +113,7 @@ if ($_POST['action'] == 'center') {
 
                     $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                     $instrollment_data['id'] = $loan['id'];
+                    $instrollment_data['loan_id'] = $loanId;
                     $instrollment_data['customer_name'] = $customer_name;
                     $instrollment_data['customer_no'] = $CUSTOMER->mobile;
                     $instrollment_data['customer_address'] = $address;
@@ -178,6 +187,14 @@ if ($_POST['action'] == 'route') {
             $Installment = new Installment(NULL);
             $paid_amount = 0;
 
+            if ($IT == 30) {
+                $loanId = 'BLD' . $loan['id'];
+            } elseif ($IT == 4) {
+                $loanId = 'BLW' . $loan['id'];
+            } else {
+                $loanId = 'BLM' . $loan['id'];
+            }
+
             foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
                 $paid_amount += $paid['paid_amount'];
             }
@@ -222,6 +239,7 @@ if ($_POST['action'] == 'route') {
 
                     $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                     $instrollment_data['id'] = $loan['id'];
+                    $instrollment_data['loan_id'] = $loanId;
                     $instrollment_data['customer_name'] = $customer_name;
                     $instrollment_data['customer_no'] = $CUSTOMER->mobile;
                     $instrollment_data['customer_address'] = $address;
@@ -234,7 +252,7 @@ if ($_POST['action'] == 'route') {
                     $instrollment_data['total_paid'] = number_format($total_paid, 2);
                     $instrollment_data['installment_date'] = $date;
                     $instrollment_data['area'] = $area;
-                    
+
                     array_push($instrollment, $instrollment_data);
                 }
                 $start->modify($add_dates);
