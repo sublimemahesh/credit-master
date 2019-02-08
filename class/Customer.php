@@ -221,6 +221,20 @@ class Customer {
         return $array_res;
     }
 
+    public function getCustomerReport() {
+
+        $query = "SELECT * FROM `customer` WHERE profile_picture IN (NULL, '') || nic_photo_front IN (NULL, '') || nic_photo_back IN (NULL, '') || billing_proof_image IN (NULL, '')|| signature_image IN (NULL, '')|| bank_book_picture IN (NULL, '')   ";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
     public function activeCustomer() {
 
         $query = "SELECT * FROM `customer` WHERE `is_active` = 1";
@@ -455,12 +469,12 @@ class Customer {
     }
 
     public function updateCustomerCenter($center, $customer) {
-        
+
         $query = "UPDATE `customer` SET `center` ='" . $center . "' WHERE `id` = '" . $customer . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
-        
+
         if ($result) {
             return TRUE;
         } else {

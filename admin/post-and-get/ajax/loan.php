@@ -391,6 +391,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
         //get total loan amount in customer
         $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
+        
         $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
 
         //check loan has paid 75%
