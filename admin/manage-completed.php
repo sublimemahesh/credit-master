@@ -165,8 +165,8 @@ $LOAN->status = 'completed';
                                                         <br/>
                                                         <b>System Due: </b>
                                                         <?php
-                                                        $system_due= $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'],$loan['number_of_installments']);
-                                                        echo number_format($system_due,2);                                                        
+                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
+                                                        echo number_format($system_due, 2);
                                                         ?>
                                                     </td>
                                                     <td>
@@ -195,7 +195,8 @@ $LOAN->status = 'completed';
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan "></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installments"></button></a> | 
-                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View History"></button></a>
+                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View History"></button></a> 
+
                                                     </td> 
                                                 </tr>
                                                 <?php

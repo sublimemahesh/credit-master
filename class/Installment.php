@@ -260,7 +260,7 @@ class Installment {
     }
 
     public function getSystemDue($loan_amount, $rate,$ins_type) {
-         
+        
         $loan_amount += (($loan_amount * $rate) / 100)* ($ins_type / 30);
 
         return $loan_amount;

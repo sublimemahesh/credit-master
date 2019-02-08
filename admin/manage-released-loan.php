@@ -138,19 +138,24 @@ $LOAN->status = 'released';
                                                         </small> 
                                                     </td>
                                                     <td>
+                                                        <b>System Due: </b>
+                                                        <?php
+                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
+                                                        echo number_format($system_due, 2);
+                                                        ?>
+                                                        <br>
                                                         <b>Paid Amount: </b>
                                                         <?php
                                                         $loan_Paid_amount = $INSTALLMENT->getAmountByLoanId($loan['id']);
                                                         $Paid_amount = number_format($loan_Paid_amount[0], 2);
                                                         echo $Paid_amount;
                                                         echo '<br>';
-                                                        $total_loan_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan['id'], $loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
 
-                                                        $due_and_excess = $loan_Paid_amount[0] - $total_loan_amount;
+                                                        $due_and_excess = $system_due - $loan_Paid_amount[0];
 
-                                                        if ($due_and_excess < 0) {
+                                                        if ($due_and_excess < $system_due) {
                                                             echo '<b>Due : </b>' . '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                        } elseif ($due_and_excess > 0) {
+                                                        } elseif ($due_and_excess > $system_due) {
                                                             echo '<b>Excess : </b>' . '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                         } else {
                                                             echo '<b>paid: </b>' . number_format($due_and_excess, 2);
@@ -168,12 +173,14 @@ $LOAN->status = 'released';
                                                         $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']), $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']));
                                                         echo '<span style=color:green >' . round($payble_of_installments, 1) . '</span>';
                                                         ?>
+
                                                         <br/>
                                                         <b>System Due: </b>
                                                         <?php
                                                         $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
                                                         echo number_format($system_due, 2);
                                                         ?>
+
                                                     </td>
                                                     <td>
                                                         <b>

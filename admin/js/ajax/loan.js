@@ -61,7 +61,6 @@ $(document).ready(function () {
     });
 
     $('.customer-ref').change(function () {
-
         var type = this.id;
 
         var value = $(this).val();
@@ -105,7 +104,6 @@ $(document).ready(function () {
                 } else {
                     $("#guarantor_1").removeAttr("disabled", "TRUE");
                 }
-
                 $("#guarantor_2 option[id='cu_" + jsonStr.leader + "']").remove();
                 $("#guarantor_3 option[id='cu_" + jsonStr.leader + "']").remove();
             }
@@ -114,10 +112,10 @@ $(document).ready(function () {
 
     $('#customer').change(function () {
         var credit_limit = $('option:selected', this).attr('credit_limit');
+
 //        $('#loan_amount').val(credit_limit);
         $("#loan_amount").attr("max", credit_limit);
         var customer = $(this).val();
-
 
         $('select#guarantor_2').find('option').each(function () {
             if ($(this).val() === customer) {
@@ -127,7 +125,6 @@ $(document).ready(function () {
             }
         });
 
-
         $('select#guarantor_3').find('option').each(function () {
             if ($(this).val() === customer) {
                 $(this).hide();
@@ -135,9 +132,6 @@ $(document).ready(function () {
                 $(this).show();
             }
         });
-
-
-
     });
 
     $('.loan_amount, .interest_rate, .loan_period, .installment_type').bind("keyup change", function () {
@@ -217,6 +211,7 @@ $(document).ready(function () {
 
     });
 
+//reject loan
     $('#reject').click(function () {
         var loan_id = $('#loan_id').val();
 
@@ -251,6 +246,7 @@ $(document).ready(function () {
 
     });
 
+//delete loan
     $('#delete').click(function () {
         var loan_id = $('#loan_id').val();
 
@@ -285,6 +281,7 @@ $(document).ready(function () {
 
     });
 
+//approve loan
     $('#approve').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -327,6 +324,7 @@ $(document).ready(function () {
         });
     });
 
+//pending loan
     $('#pending').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -365,6 +363,7 @@ $(document).ready(function () {
         });
     });
 
+//issue loan
     $('#loan_issue').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -392,6 +391,7 @@ $(document).ready(function () {
         }
     });
 
+//direct issue loan
     $('#direct_issue').click(function () {
 
         if (!$('#effective_date').val() || !$('#issued_date').val() || !$('#issue_note').val()) {
@@ -435,22 +435,16 @@ $(document).ready(function () {
                     }
                 });
             });
-
         }
-
-
-
-
     });
 
+//issue bank loans
     $('#issue_bank_loan').click(function (event) {
         event.preventDefault();
         var issued_date = $('#issued_date').val();
         var issue_mode = $('#issue_mode').val();
         var effective_date = $('#effective_date').val();
         var result = validateForIssue(effective_date, issued_date, issue_mode);
-
-
 
         if (!$('#bank').val() || $('#bank').val().length === 0) {
             swal({
@@ -500,20 +494,10 @@ $(document).ready(function () {
                 timer: 2000,
                 showConfirmButton: false
             });
-        } else if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
-            swal({
-                title: "Error!",
-                text: "Please enter the transaction document ..!",
-                type: 'error',
-                timer: 2000,
-                showConfirmButton: false
-            });
 
         } else if (result) {
 
             var formData = new FormData($("form#form-data")[0]);
-
-
             swal({
                 title: "Issue!",
                 text: "Do you really want to issue this loan?...",
@@ -539,7 +523,6 @@ $(document).ready(function () {
                         } else {
                             alert('Error');
                         }
-
                     }
                 });
             });
@@ -547,6 +530,7 @@ $(document).ready(function () {
         return false;
     });
 
+//release loans
     $('#release').click(function (event) {
         event.preventDefault();
 
@@ -555,17 +539,16 @@ $(document).ready(function () {
         var effective_date = $('#effective_date').val();
         var result = validateForIssue(effective_date, issued_date, issue_mode);
 
-        if (!$('#transaction_document').val() || $('#transaction_document').val().length === 0) {
+        if (!$('#transaction_id').val() || $('#transaction_id').val().length === 0) {
             swal({
                 title: "Error!",
-                text: "Please enter the transaction document..!",
+                text: "Please enter the transaction id..!",
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
             });
 
         } else if (result) {
-
             var formData = new FormData($("form#form-data")[0]);
 
             $.ajax({
@@ -601,7 +584,7 @@ $(document).ready(function () {
         return false;
     });
 
-///remove Loan Period in select  installment type
+//remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
 
@@ -614,7 +597,7 @@ $(document).ready(function () {
             $('#period_100').show();
         }
     });
-
+//validate effective date , issue date , issue mode
     function validateForIssue(effective_date, issued_date, issue_mode) {
 
         if (!Date.parse(effective_date)) {
@@ -691,7 +674,6 @@ $('#guarantor_2').change(function () {
 });
 
 // Cheque guarantor 3
-
 $('#guarantor_3').change(function () {
     var guarantor_3 = $(this).val();
 
@@ -731,7 +713,6 @@ $('#guarantor_3').change(function () {
 });
 
 //check loan processing free
-
 $(`#issue_mode`).change(function () {
 
     var issue_mode = $(this).val();
@@ -751,13 +732,13 @@ $(`#issue_mode`).change(function () {
                 issue_mode: issue_mode,
                 loan_amount: loan_amount,
                 action: `lOANPROCESSINGPRE`
-
             },
             dataType: "JSON",
             success: function (jsonStr) {
                 $('#document_free_amount').val('Doc Fee: ' + jsonStr.result['document_free']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+
             }
         });
 
@@ -811,6 +792,7 @@ $(`#issue_mode`).change(function () {
                 $('#cheque_free_amount').val('Cheque Fee: ' + jsonStr.result['cheque_fee']);
                 $('#stamp_fee').val('Stamp Fee: ' + jsonStr.result['stamp_fee']);
                 $('#loan_processing_pre_amount').val(jsonStr.result['total']);
+
             }
         });
     } else {
@@ -822,7 +804,6 @@ $(`#issue_mode`).change(function () {
 });
 
 //issu mode get by class in edit loan 0
-
 $(`.issue_mode,.loan_amount`).bind("keyup change", function () {
 
     var issue_mode = $(`.issue_mode`).val();
@@ -938,6 +919,33 @@ $('.delete-customer').click(function () {
     });
 });
 
+//check customer has loan before create
+$('#customer').change(function () {
+    var customer = $(this).val();
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            customer: customer,
+            action: 'CUSTOMERHASLOAN'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
+                swal({
+                    title: "The customer already create a loan ..!",
+                    text: "The customer loan has proccesign..",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    confirmButtonText: "Ok.!",
+                    closeOnConfirm: false
+                });
+            }
+        }
+    });
+});
 //customer Last loan amount
 $('#customer,#issue_mode').change(function () {
 

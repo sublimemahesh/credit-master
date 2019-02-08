@@ -369,7 +369,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
+                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_fee" value="" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" readonly="">
                                         </div>
                                     </div>
                                 </div>

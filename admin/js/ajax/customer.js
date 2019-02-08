@@ -1,6 +1,6 @@
 $(document).ready(function () {
 
-///--Change registration Type--///
+//Change registrationType
     $('#registration_type').change(function () {
         var type = $(this).val();
         var center_leader = $("#center_leader").val();
@@ -44,7 +44,8 @@ $(document).ready(function () {
             }
         });
     });
-///---Edit Registration Type---///
+
+//Edit RegistrationType
     $('#edit_registration_type').change(function () {
         var type = $(this).val();
         var center_leader = $("#center_leader").val();
@@ -88,8 +89,8 @@ $(document).ready(function () {
             }
         });
     });
-///---Add Branch Change Bank---///
 
+//Add Branch Change Bank
     $('#add-new-branch').click(function () {
 
         var bankId = $("#selected_bank").attr("bankId");
@@ -136,7 +137,8 @@ $(document).ready(function () {
             });
         }
     });
-///--Selected Bank By Bank id---///
+
+//Selected Bank By Bank id
     $('#bank_id').change(function () {
 
         var bank_id = $(this).val();
@@ -165,8 +167,11 @@ $(document).ready(function () {
             }
         });
     });
+
+
 ///--- customer create form---//
     $("#add-new-customer").submit(function (e) {
+
 
         var errors = $('#errors').val();
         if (errors == 1) {
@@ -290,8 +295,10 @@ $(document).ready(function () {
             });
         }
     });
+
 ///---customer edit form---//
     $("#edit-customer").submit(function (e) {
+
         var errors = $('#errors').val();
         if (errors == 1) {
             e.preventDefault();
@@ -418,7 +425,8 @@ $(document).ready(function () {
             });
         }
     });
-//--- Get Branch Code in Bank id---///
+    
+//Get Branch Code in Bank id
     $("#branch").change(function () {
         var branch_id = $(this).val();
         $.ajax({
@@ -434,7 +442,8 @@ $(document).ready(function () {
             }
         });
     });
-///---check customer has active loan---///
+    
+//check customer has active loan
     $('.active_customer, .customer').click(function (event) {
         event.preventDefault();
         var active_customer = $('.active_customer').prop('checked');
@@ -465,8 +474,7 @@ $(document).ready(function () {
         }
     });
 
-///-------Windowa Onloard Function--------///
-
+//registration_type_append_show 
     $('.registration_type_append_show').click(function () {
         swal({
             title: "This Customer Registration Type Can't be Change.!",
@@ -479,9 +487,10 @@ $(document).ready(function () {
         });
     });
 
-
-
 });
+
+///-------Windowa Onloard Function--------///
+
 window.onload = function () {
 
     var customer = $('#customer_id').val();

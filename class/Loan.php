@@ -275,9 +275,9 @@ class Loan {
         }
     }
 
-    public function CheckCustomerHasActiveLoan($customer) {
+    public function CheckCustomerLoan($customer) {
 
-        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' OR  `guarantor_1` ='" . $customer . "' OR  `guarantor_2` ='" . $customer . "' OR  `guarantor_3` ='" . $customer . "'  ";
+        $query = "SELECT * FROM `loan` WHERE  customer='" . $customer . "'";
 
         $db = new Database();
 
@@ -290,17 +290,24 @@ class Loan {
         }
     }
 
-    public function approveLoan() {
+    public function CheckCustomerHasActiveLoan($customer) {
 
-        $query = "UPDATE  `loan` SET "
-                . "`issued_date` ='" . $this->issued_date . "', "
-                . "`status` ='issued'"
-                . "WHERE `id` = '" . $this->id . "'";
+        $query = "SELECT * FROM `loan` WHERE `customer` = '" . $customer . "' OR  `guarantor_1` ='" . $customer . "' OR  `guarantor_2` ='" . $customer . "' OR  `guarantor_3` ='" . $customer . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
     public function getLoanDetailsByCustomer($customer) {
 
-        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM `loan` WHERE `customer` ='" . $customer . "' AND `status` ='issued' ";
+        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "') AND  (`status` ='released') || (`status` ='issued')";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -325,6 +332,14 @@ class Loan {
         $row = mysql_fetch_row($result);
 
         return $row;
+    }
+
+    public function approveLoan() {
+
+        $query = "UPDATE  `loan` SET "
+                . "`issued_date` ='" . $this->issued_date . "', "
+                . "`status` ='issued'"
+                . "WHERE `id` = '" . $this->id . "'";
     }
 
     public function getCustomersHistoryByloanId($id) {

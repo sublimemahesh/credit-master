@@ -3,9 +3,6 @@ $(document).ready(function () {
     $('#issue_bank_loan').click(function (event) {
         event.preventDefault();
 
-
-
-
         if (!$('#bank').val() || $('#bank').val().length === 0) {
             swal({
                 title: "Error!",
