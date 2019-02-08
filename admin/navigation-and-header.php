@@ -199,6 +199,22 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li> 
                     </ul>
                 </li> 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">description</i>
+                        <span>Report</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="customer-report.php">
+                                <i class="material-icons">account_box</i>
+                                <span>Customer</span>
+                            </a>
+                        </li> 
+                         
+                       
+                    </ul>
+                </li> 
 
                 <li>
                     <a href="view-today-installment-payment.php">

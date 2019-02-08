@@ -173,14 +173,7 @@ $LOAN->status = 'released';
                                                         $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']), $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']));
                                                         echo '<span style=color:green >' . round($payble_of_installments, 1) . '</span>';
                                                         ?>
-
-                                                        <br/>
-                                                        <b>System Due: </b>
-                                                        <?php
-                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
-                                                        echo number_format($system_due, 2);
-                                                        ?>
-
+                                                         
                                                     </td>
                                                     <td>
                                                         <b>
