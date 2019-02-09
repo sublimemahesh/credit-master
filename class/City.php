@@ -11,12 +11,13 @@ class City {
     //put your code here
     public $id;
     public $name;
+    public $postal_code;
     public $sort;
 
     public function __construct($id = NULL) {
         if ($id) {
 
-            $query = "SELECT `id`,`name`,`sort` FROM `city` WHERE `id`=" . $id;
+            $query = "SELECT * FROM `city` WHERE `id`=" . $id;
 
             $db = new Database();
 
@@ -24,6 +25,7 @@ class City {
 
             $this->id = $result['id'];
             $this->name = $result['name'];
+            $this->postal_code = $result['postal_code'];
             $this->sort = $result['sort'];
 
             return $this;
@@ -32,10 +34,10 @@ class City {
 
     public function create() {
 
-
-        $query = "INSERT INTO `city` (`name`) VALUES  ('"
-                . $this->name . "')";
-
+        $query = "INSERT INTO `city` "
+                . "(`name`,`postal_code`)"
+                . " VALUES "
+                . "('" . $this->name . "','" . $this->postal_code . "')";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -67,7 +69,7 @@ class City {
 
     public function update() {
 
-        $query = 'UPDATE `city` SET `name`= "' . $this->name . '" WHERE id="' . $this->id . '"';
+        $query = 'UPDATE `city` SET `name`= "' . $this->name . '", `postal_code`= "' . $this->postal_code . '" WHERE id="' . $this->id . '"';
 
         $db = new Database();
         $result = $db->readQuery($query);

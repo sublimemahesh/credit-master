@@ -6,6 +6,11 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+$id = NULL;
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+}
+$CITY = new City($id);
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +19,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
-        <title>Create City  || Credit Master</title>
+        <title>Edit City || Credit Master</title>
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
         <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
@@ -43,7 +48,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header">
-                        <h2>Create City</h2>
+                        <h2>Edit City</h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-cities.php">
@@ -57,17 +62,18 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="city_name">Name</label>
+                                    <label for="name">Name</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
-                                            <label for="city_name" class="hidden-lg hidden-md">Name</label>
-                                            <input type="text" id="city_name"  name="city_name" placeholder="Enter Name" class="form-control" autocomplete="off">
+                                            <label for="name" class="hidden-lg hidden-md">Name</label>
+                                            <input type="text" id="name"  name="name" value="<?php echo $CITY->name; ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div> 
+
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="postal_code">Postal Code</label>
@@ -76,20 +82,19 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="postal_code" class="hidden-lg hidden-md">Postal Code</label>
-                                            <input type="text" id="postal_code"  name="postal_code" placeholder="Enter City Name" class="form-control" autocomplete="off">
+                                            <input type="text" id="postal_code"  name="postal_code" value="<?php echo $CITY->postal_code; ?>" class="form-control" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
                             </div> 
 
-                            <div class="row clearfix">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="add-city">Save Details</button>
-                                    </div> 
+                            <div class="row clearfix">   
+                                <div class="col-lg-2 col-md-2 col-sm-4 col-xs-5">  
                                 </div> 
+                                <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
+                                    <input type="hidden" id="id" value="<?php echo $CITY->id; ?>" name="id"/>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update">Update Details</button>
+                                </div>
                             </div> 
                         </form> 
                     </div>

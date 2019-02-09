@@ -211,8 +211,8 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <span>Customer</span>
                             </a>
                         </li> 
-                         
-                       
+
+
                     </ul>
                 </li> 
 
@@ -485,7 +485,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-city.php">
+                            <a href="manage-cities.php">
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
