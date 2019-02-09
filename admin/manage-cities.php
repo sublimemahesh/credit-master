@@ -52,7 +52,7 @@ $CITY = new City(NULL)
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage City
+                                    Manage Cities
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -68,8 +68,9 @@ $CITY = new City(NULL)
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>City Name</th>                                                  
-                                                <th>Option</th> 
+                                                <th>Name</th>  
+                                                <th>Postal Code</th>                                                  
+                                                <th>Options</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -79,10 +80,12 @@ $CITY = new City(NULL)
                                                 ?>
                                                 <tr id="row_<?php echo $city['id']; ?>">
                                                     <td>#<?php echo $key; ?></td> 
-                                                    <td><?php echo $city['name']; ?></td>  
-                                                    
+                                                    <td><?php echo $city['name']; ?></td> 
+                                                    <td><?php echo $city['postal_code']; ?></td>  
+
                                                     <td>
-                                                        <a href="#"  class="delete-city" data-id="<?php echo $city['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn"></button></a>
+                                                        <a href="#"  class="delete-city btn btn-danger btn-sm" data-id="<?php echo $city['id']; ?>"><i class="glyphicon glyphicon-trash"></i></a> | 
+                                                        <a href="edit-city.php?id=<?php echo $city['id']; ?>" class="btn btn-info btn-sm"> <i class="glyphicon glyphicon-pencil"></i></a>
                                                     </td> 
                                                 </tr>
                                                 <?php
@@ -92,8 +95,9 @@ $CITY = new City(NULL)
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>City Name</th>                                                  
-                                                <th>Option</th>  
+                                                <th>Name</th>    
+                                                <th>Postal Code</th>                                               
+                                                <th>Options</th>  
                                             </tr>
                                         </tfoot>
                                     </table>

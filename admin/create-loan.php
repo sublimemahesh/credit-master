@@ -492,9 +492,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="plugins/jquery-ui/jquery-ui.js"></script>
-        <script src="plugins/sweetalert/sweetalert.min.js"></script> 
-
-
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>   
         <script src="js/ajax/loan.js" type="text/javascript"></script>
 
         <script>

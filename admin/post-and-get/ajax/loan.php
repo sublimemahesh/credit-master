@@ -8,13 +8,13 @@ if ($_POST['action'] == 'GETREGTYPE') {
 
     if ($_POST['type'] == 'route') {
         $ROUTE = new Route(NULL);
-        $result = $ROUTE->getRouteByCollector($_POST['collector_id']);
+        $result = $ROUTE->all($_POST['collector_id']);
         echo json_encode(['type' => 'route', 'data' => $result]);
         header('Content-type: application/json');
         exit();
     } else if ($_POST['type'] == 'center') {
         $CENTER = new Center(NULL);
-        $result = $CENTER->getCentersByCollector($_POST['collector_id']);
+        $result = $CENTER->all($_POST['collector_id']);
         echo json_encode(['type' => 'center', 'data' => $result]);
         header('Content-type: application/json');
         exit();
@@ -204,7 +204,7 @@ if ($_POST['action'] == 'CUSTOMERHASLOAN') {
 
     $LOAN = new Loan(NULl);
     $result = $LOAN->CheckCustomerLoan($_POST["customer"]);
-   
+
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');
@@ -391,7 +391,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
 
         //get total loan amount in customer
         $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
-        
+
         $balance_in_last_loan = ($total_loan_amount - $paid_amount[0]);
 
         //check loan has paid 75%
