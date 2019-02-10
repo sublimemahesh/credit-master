@@ -420,18 +420,16 @@ $CENTER = Center::all();
                                             </div>
                                             <select class="form-control" autocomplete="off" id="edit_registration_type"  name="registration_type"   >
 
-
                                                 <?php if ($CUSTOMER->registration_type == "route") {
                                                     ?>
-                                                    <option value="" class="edit_registration_type" selected=""> -- Select Registration Type -- </option>
+                                                    <option value="" class="edit_registration_type"> -- Select Registration Type -- </option>
                                                     <option value="route" selected="">Route</option>
                                                     <option value="center"  >Center</option>
                                                     <option value="1" id="center_leader">Center Leader</option>
 
-
                                                 <?php } elseif ($CUSTOMER->registration_type == "center") {
                                                     ?>
-                                                    <option value="" selected="" class="edit_registration_type"> -- Select Registration Type -- </option>
+                                                    <option value="" class="edit_registration_type"> -- Select Registration Type -- </option>
                                                     <option value="center"  class="edit_registration_type" selected="">Center</option>
                                                     <option value="route" class="edit_registration_type">Route</option>
                                                     <option value="1" class="edit_registration_type" id="center_leader">Center Leader</option>
@@ -475,9 +473,9 @@ $CENTER = Center::all();
                                     </div>
                                 </div> 
                                 <?php
-                            } else if ($CUSTOMER->route) {
+                            } else if ($CUSTOMER->registration_type == 'route') {
                                 ?>
-                                <div class="row"   id="route_row">
+                                <div class="row" id="route_row">
                                     <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                         <label for="route">Route</label>
                                     </div>
@@ -489,6 +487,7 @@ $CENTER = Center::all();
                                                     <input type="text" class="route form-control" readonly=""/>
                                                 </div>
                                                 <select class="form-control" autocomplete="off" id="route"  name="route">  
+                                                    <option value=""> -- Please Select a Route -- </option>
                                                     <?php
                                                     foreach ($ROUTE as $route) {
                                                         if ($route['id'] == $CUSTOMER->route) {
@@ -525,7 +524,7 @@ $CENTER = Center::all();
                                 </div>
 
                                 <?php
-                            } elseif ($CUSTOMER->center) {
+                            } elseif ($CUSTOMER->registration_type == 'center') {
                                 ?>
 
                                 <div class="row" id="center_row">
@@ -538,10 +537,9 @@ $CENTER = Center::all();
                                                 <label for="center" class="hidden-lg hidden-md">Center</label>
                                                 <div style="display: none;" class="registration_type_append_show">
                                                     <input type="text" class="center form-control" readonly=""/>
-                                                </div>
-
-
-                                                <select class="form-control" autocomplete="off" id="center"   name="center">  
+                                                </div> 
+                                                <select class="form-control" autocomplete="off" id="center" name="center">  
+                                                    <option value=""> -- Please Select a Center -- </option>
                                                     <?php
                                                     foreach ($CENTER as $center) {
                                                         if ($center['id'] == $CUSTOMER->center) {
@@ -927,6 +925,7 @@ $CENTER = Center::all();
                                     $CENTER = new Center($CUSTOMER->center);
                                     echo $CENTER->name;
                                     ?>" id="center_name"/>
+
                                     <input type="hidden" value="<?php
                                     $ROUTE = new Route($CUSTOMER->route);
                                     echo $ROUTE->name;

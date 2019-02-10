@@ -517,8 +517,6 @@ if (isset($_POST['update-cutomer'])) {
         $CUSTOMER->profile_picture = $handle->file_dst_name;
     }
 
-
-
     //////////////////////////////////////////////////
     $dir_dest_br = '../../upload/customer/br/';
     $dir_dest_br_thumb = '../../upload/customer/br/thumb/';
@@ -574,7 +572,6 @@ if (isset($_POST['update-cutomer'])) {
 
         $CUSTOMER->br_picture = $handle_br->file_dst_name;
     }
-
 
     /////////////////////////////////////////////////
     $dir_dest_nfp = '../../upload/customer/nfp/';
@@ -860,7 +857,6 @@ if (isset($_POST['update-cutomer'])) {
 
     /////////////////////////////////////////////////
 
-
     $telephone_numbers = null;
     $telephone_numbers = $_POST['telephone1'] . ',' . + $_POST['telephone2'] . ',' . + $_POST['telephone3'];
 
@@ -880,9 +876,20 @@ if (isset($_POST['update-cutomer'])) {
     $CUSTOMER->email = $_POST['email'];
     $CUSTOMER->telephone = $telephone_numbers;
     $CUSTOMER->mobile = $_POST['mobile'];
-    $CUSTOMER->registration_type = $_POST['registration_type'];
-    $CUSTOMER->route = $_POST['route'];
-    $CUSTOMER->center = $_POST['center'];
+
+    if ($_POST['registration_type'] == 'route') {
+        $CUSTOMER->registration_type = 'route';
+        $CUSTOMER->route = $_POST['route'];
+        $CUSTOMER->center = '';
+    } elseif ($_POST['registration_type'] == 'center') {
+        $CUSTOMER->registration_type = 'center';
+        $CUSTOMER->route = '';
+        $CUSTOMER->center = $_POST['center'];
+    } elseif ($_POST['registration_type'] == '1') {
+        $CUSTOMER->registration_type = '1';
+        $CUSTOMER->route = '';
+    }
+
     $CUSTOMER->city = $_POST['city'];
     $CUSTOMER->credit_limit = $_POST['credit_limit'];
     $CUSTOMER->business_name = ucfirst($_POST['business_name']);
@@ -893,7 +900,7 @@ if (isset($_POST['update-cutomer'])) {
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
-    $CUSTOMER->od_interest_limit =   $_POST['od_interest_limit'];
+    $CUSTOMER->od_interest_limit = $_POST['od_interest_limit'];
     $CUSTOMER->is_active = $_POST['is_active'];
 
     $VALID = new Validator();

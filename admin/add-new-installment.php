@@ -8,8 +8,6 @@ $USERS = new User($_SESSION['id']);
 //$DEFAULTDATA = new DefaultData(NULL);
 //$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-
-
 $date = null;
 $id = null;
 
@@ -75,7 +73,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Paid Date" class="form-control  " disabled="true" autocomplete="off">
+                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Installment Date" class="form-control  " disabled="true" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -89,7 +87,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
-                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $date ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
+                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo date("Y-m-d"); ?>"placeholder="Enter Paid Date" class="form-control datepicker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>

@@ -425,7 +425,7 @@ $(document).ready(function () {
             });
         }
     });
-    
+
 //Get Branch Code in Bank id
     $("#branch").change(function () {
         var branch_id = $(this).val();
@@ -442,7 +442,7 @@ $(document).ready(function () {
             }
         });
     });
-    
+
 //check customer has active loan
     $('.active_customer, .customer').click(function (event) {
         event.preventDefault();
@@ -509,10 +509,15 @@ window.onload = function () {
             success: function (jsonStr) {
 
                 if (jsonStr.status) {
+
                     if (registration == 1) {
                         $('#registration_type_append').val('Center Leader');
+                    } else {
+                        $('#registration_type_append').val(registration.toUpperCase());
                     }
-                    $('#registration_type_append').val(registration.toUpperCase());
+
+
+
                     $('.center').val(center_name.toUpperCase());
                     $('.route').val(route_name.toUpperCase());
                     $('.registration_type_append_show').show();
