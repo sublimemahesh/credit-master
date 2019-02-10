@@ -13,10 +13,9 @@ class Database {
 //    private $name = 'gallnwxt_micro_credit';
 //    private $user = 'gallnwxt_micro_credit';
 //    private $password = 'o&nb[hu[}*#K';
-    
-  
+     
     private $host = 'localhost';
-    private $name = 'micro_credit';
+    private $name = 'credit-master';
     private $user = 'root';
     private $password = '';
 

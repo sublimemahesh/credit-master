@@ -112,8 +112,23 @@ $today = date("Y-m-d");
                                             <?php
                                             $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                            $start_date = $LOAN->effective_date;
-                                            $start = new DateTime("$start_date");
+                                            $first_installment_date = '';
+
+                                            if ($LOAN->installment_type == 4) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+7 day');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            } elseif ($LOAN->installment_type == 30) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+1 day');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            } elseif ($LOAN->installment_type == 1) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+1 months');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            }
+
+                                            $start = new DateTime($first_installment_date);
 
                                             $x = 0;
                                             $count = 0;
@@ -160,7 +175,7 @@ $today = date("Y-m-d");
                                                 foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
-                                                 
+
 
                                                 echo '<tr>';
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
@@ -210,8 +225,8 @@ $today = date("Y-m-d");
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
                                                     $due_and_excess = $total_paid - $ins_total;
-                                                 
-                                                   
+
+
                                                     if ($due_and_excess > 0) {
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } elseif ($due_and_excess < 0) {
@@ -252,7 +267,7 @@ $today = date("Y-m-d");
                                                     </a>';
                                                     } else {
                                                         echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" disabled=""></button> 
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" ></button> 
                                                     </a>';
                                                     }
                                                     echo '</td>';

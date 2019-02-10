@@ -292,8 +292,8 @@ $CUSTOMER = new Customer($LOAN->customer);
             $(function () {
                 $(".datepicker-effective").datepicker({
                     dateFormat: 'yy-mm-dd',
-                    minDate: '-3D',
-                    maxDate: '+3D',
+//                    minDate: '-3D',
+//                    maxDate: '+3D',
 
                 });
             });

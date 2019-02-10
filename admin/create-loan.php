@@ -6,8 +6,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
-?>
-
+?> 
 <!DOCTYPE html>
 <html> 
     <head>
@@ -164,7 +163,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_1"  name="test"  required="TRUE">
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_1"  name="test" >
                                                 <option  value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
 
@@ -181,7 +180,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_2" class="hidden-lg hidden-md">Guarantor 02</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" required="TRUE">
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_2"  name="guarantor_2" >
                                                 <option id="emptygr2" value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
                                         </div>
@@ -499,8 +498,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
             $(function () {
                 $(".datepicker").datepicker({
                     dateFormat: 'yy-mm-dd',
-                    minDate: '-3D',
-                    maxDate: '+3D',
+//                    minDate: '-3D',
+//                    maxDate: '+3D',
 
                 });
 
