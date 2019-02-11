@@ -535,13 +535,13 @@ class Loan {
 
         $CUSTOMER = new Customer(NULL);
         $od_interest_limite = $CUSTOMER->getOdInteresetLimiteByCustomer($customer);
-       
+
         if ($od_interest_limite[0] >= $due_amount && (int) $installment_type == 30) {
 
             $interest_amount_per_month = ($due_amount * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
 
-            if ((int) $od_interest_limite[0] == 0 ) {
+            if ((int) $od_interest_limite[0] == 0) {
                 return 0;
             } else {
                 return $interest_amount;
@@ -567,6 +567,100 @@ class Loan {
                 return $interest_amount;
             }
         }
+    }
+
+    public function getCurrentStatus() {
+
+        $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
+
+        $first_installment_date = '';
+
+        if ($this->installment_type == 4) {
+            $FID = new DateTime($this->effective_date);
+            $FID->modify('+7 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($this->installment_type == 30) {
+            $FID = new DateTime($this->effective_date);
+            $FID->modify('+1 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($this->installment_type == 1) {
+            $FID = new DateTime($this->effective_date);
+            $FID->modify('+1 months');
+            $first_installment_date = $FID->format('Y-m-d');
+        }
+
+        $start = new DateTime($first_installment_date);
+
+        $x = 0;
+        $total_installment_amount = 0;
+
+        while ($x < $numOfInstallments) {
+            if ($numOfInstallments == 4) {
+                $modify_range = '+7 day';
+            } elseif ($numOfInstallments == 30) {
+                $modify_range = '+1 day';
+            } elseif ($numOfInstallments == 8) {
+                $modify_range = '+7 day';
+            } elseif ($numOfInstallments == 60) {
+                $modify_range = '+1 day';
+            } elseif ($numOfInstallments == 2) {
+                $modify_range = '+1 months';
+            } elseif ($numOfInstallments == 1) {
+                $modify_range = '+1 months';
+            } elseif ($numOfInstallments == 90) {
+                $modify_range = '+1 day';
+            } elseif ($numOfInstallments == 12) {
+                $modify_range = '+7 day';
+            } elseif ($numOfInstallments == 3) {
+                $modify_range = '+1 months';
+            } elseif ($numOfInstallments == 100) {
+                $modify_range = '+1 day';
+            } elseif ($numOfInstallments == 13) {
+                $modify_range = '+7 day';
+            }
+
+            $date = $start->format('Y-m-d');
+
+            if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                break;
+            }
+
+            $customer = $this->customer;
+            $CUSTOMER = new Customer($customer);
+            $route = $CUSTOMER->route;
+            $center = $CUSTOMER->center;
+            $installment_amount = $this->installment_amount;
+
+            if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                $start->modify($modify_range);
+            } else {
+
+                $total_installment_amount += $installment_amount;
+
+                $start->modify($modify_range);
+                $x++;
+            }
+        }
+
+
+        $Installment = new Installment(NULL);
+        $total_paid_installment = 0;
+        foreach ($Installment->getInstallmentByLoan($this->id) as $installment) {
+            $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
+        }
+        
+        $loan_amount = $numOfInstallments * $this->installment_amount;
+        $system_due = $loan_amount - $total_installment_amount;
+        $system_due_num_of_ins = $system_due / $this->installment_amount;
+        $actual_due = $loan_amount - $total_paid_installment;
+        $actual_due_num_of_ins = $actual_due / $this->installment_amount;
+        
+        return [
+            'system-due-num-of-ins' => $system_due_num_of_ins,
+            'system-due' => $system_due,
+            'actual-due-num-of-ins' => $actual_due_num_of_ins,
+            'actual-due' => $actual_due,
+        ];
     }
 
 }
