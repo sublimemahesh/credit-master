@@ -140,26 +140,14 @@ $LOAN->status = 'issued';
                                                     <td>
                                                         <b>System Due: </b>
                                                         <?php
-                                                        $system_due = $INSTALLMENT->getSystemDue($loan['loan_amount'], $loan['interest_rate'], $loan['number_of_installments']);
-                                                        echo number_format($system_due, 2);
+                                                        $LOAN_1 = new Loan($loan['id']);
+                                                        $status = $LOAN_1->getCurrentStatus();
+                                                        echo $status["system-due-num-of-ins"] . ' / ' . $status["system-due"];
                                                         ?>
                                                         <br/>
-                                                        <b>Paid Amount: </b>
+                                                        <b>Actual Due: </b>
                                                         <?php
-                                                        $loan_Paid_amount = $INSTALLMENT->getAmountByLoanId($loan['id']);
-                                                        $Paid_amount = number_format($loan_Paid_amount[0], 2);
-                                                        echo $Paid_amount;
-                                                        echo '<br>';
-
-                                                        $due_and_excess = $system_due - $loan_Paid_amount[0];
-
-                                                        if ($due_and_excess < $system_due) {
-                                                            echo '<b>Due : </b>' . '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                        } elseif ($due_and_excess > $system_due) {
-                                                            echo '<b>Excess : </b>' . '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                        } else {
-                                                            echo '<b>paid: </b>' . number_format($due_and_excess, 2);
-                                                        }
+                                                        echo $status["actual-due-num-of-ins"] . ' / ' . $status["actual-due"];
                                                         ?>
                                                         <br>
                                                         <b>Paid Nu of In: </b>
