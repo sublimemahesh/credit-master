@@ -614,9 +614,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="total_payble_amount" class="hidden-lg hidden-md"> Payble Amount</label>
                                                 <?php
+                                                $LOAN_1 = new Loan($loan_id);
+                                                $status = $LOAN_1->getCurrentStatus();
+                                                
                                                 $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate, $LOAN->number_of_installments);
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($payble_amount, 2) ?>"   class="form-control  " autocomplete="off" readonly="">
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">
                                             </div>
                                         </div>
                                     </div>

@@ -104,8 +104,23 @@ $next = $ND->format('Y-m-d');
 
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
-                                                $start_date = $loan['effective_date'];
-                                                $start = new DateTime("$start_date");
+                                                $first_installment_date = '';
+
+                                                if ($loan['installment_type'] == 4) {
+                                                    $FID = new DateTime($loan['effective_date']);
+                                                    $FID->modify('+7 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($loan['installment_type'] == 30) {
+                                                    $FID = new DateTime($loan['effective_date']);
+                                                    $FID->modify('+1 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($loan['installment_type'] == 1) {
+                                                    $FID = new DateTime($loan['effective_date']);
+                                                    $FID->modify('+1 months');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                }
+
+                                                 $start = new DateTime($first_installment_date);
 
                                                 $x = 0;
                                                 $ins_total = 0;
@@ -264,4 +279,4 @@ $next = $ND->format('Y-m-d');
 
 
     </body> 
-</html> 
+</html>

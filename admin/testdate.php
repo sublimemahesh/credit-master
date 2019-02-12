@@ -1,173 +1,366 @@
 <?php
-
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
 
-$CUSTOMER = new Customer(10101);
-$GUARANTOR_01 = new Customer(10101);
-$GUARANTOR_02 = new Customer(10101);
-$GUARANTOR_03 = new Customer(10101);
-$GUARANTOR_04 = new Customer(10101);
+//check user level
+$USERS = new User($_SESSION['id']);
+$DEFAULTDATA = new DefaultData(NULL);
+$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$CUSTOMER_BANK = new Bank($CUSTOMER->bank);
-$GUARANTOR_01_BANK = new Bank($GUARANTOR_01->bank);
-$GUARANTOR_02_BANK = new Bank($GUARANTOR_02->bank);
-$GUARANTOR_03_BANK = new Bank($GUARANTOR_03->bank);
+$loan_id = $_GET['id'];
+$LOAN = new Loan($loan_id);
+$today = date("Y-m-d");
+?> 
+<!DOCTYPE html>
+<html>
 
-$CUSTOMER_BRANCH = new Branch($CUSTOMER->branch);
-$GUARANTOR_01_BRANCH = new Branch($GUARANTOR_01->branch);
-$GUARANTOR_02_BRANCH = new Branch($GUARANTOR_02->branch);
-$GUARANTOR_03_BRANCH = new Branch($GUARANTOR_03->branch);
+    <head>
+        <meta charset="UTF-8">
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <title>View Installment || Credit Master</title>
 
-$CUSTOMER_CITY = new City($CUSTOMER->city);
-$GUARANTOR_01_CITY = new City($GUARANTOR_01->city);
-$GUARANTOR_02_CITY = new City($GUARANTOR_01->city);
-$GUARANTOR_03_CITY = new City($GUARANTOR_01->city);
+        <!-- Favicon-->
+        <link rel="icon" href="favicon.ico" type="image/x-icon">
 
-///---Customer table---///
+        <!-- Google Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,700&subset=latin,cyrillic-ext" rel="stylesheet" type="text/css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" type="text/css">
+        <link href="plugins/bootstrap/css/bootstrap.css" rel="stylesheet">
+        <link href="plugins/node-waves/waves.css" rel="stylesheet" />
+        <link href="plugins/animate-css/animate.css" rel="stylesheet" />
+        <link href="plugins/jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css" rel="stylesheet">
+        <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
+        <link href="css/style.css" rel="stylesheet">
+        <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
+    </head>
+    <style>
+        .font-colors{
+            color: black;
+        }
+        .tr-color{
+            background-color:#927676b3;;
+        }
+        .font-color-2{
+            color: white;  
+        }
+    </style>
 
-$html = '<html>';
-$html .= '<head>';
-$html .= '</head>';
-$html .= '<body>';
-$html .= '<table style=" font-family: arial, sans-serif; border-collapse: collapse;widtd: 100%;">';
-$html .= '<tr>';
-$html .= '<td>----</td>';
-$html .= '<td>Customer</td>';
-$html .= '<td>Gurantor_1</td>';
-$html .= '<td>Gurantor_2</td>';
-$html .= '<td>Gurantor_3</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<tr>';
-$html .= '<td>Title:</td>';
-$html .= '<td>' . $CUSTOMER->title . '</td>';
-$html .= '<td>' . $GUARANTOR_01->title . '</td>';
-$html .= '<td>' . $GUARANTOR_02->title . '</td>';
-$html .= '<td>' . $GUARANTOR_03->title . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>First Name:</td>';
-$html .= '<td>' . $CUSTOMER->first_name . '</td>';
-$html .= '<td>' . $GUARANTOR_01->first_name . '</td>';
-$html .= '<td>' . $GUARANTOR_02->first_name . '</td>';
-$html .= '<td>' . $GUARANTOR_03->first_name . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Last Name:</td>';
-$html .= '<td>' . $CUSTOMER->last_name . '</td>';
-$html .= '<td>' . $GUARANTOR_01->last_name . '</td>';
-$html .= '<td>' . $GUARANTOR_02->last_name . '</td>';
-$html .= '<td>' . $GUARANTOR_03->last_name . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Surname:</td>';
-$html .= '<td>' . $CUSTOMER->surname . '</td>';
-$html .= '<td>' . $GUARANTOR_01->surname . '</td>';
-$html .= '<td>' . $GUARANTOR_02->surname . '</td>';
-$html .= '<td>' . $GUARANTOR_03->surname . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>NIC:</td>';
-$html .= '<td>' . $CUSTOMER->nic_number . '</td>';
-$html .= '<td>' . $GUARANTOR_01->nic_number . '</td>';
-$html .= '<td>' . $GUARANTOR_02->nic_number . '</td>';
-$html .= '<td>' . $GUARANTOR_03->nic_number . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Birthday  Day:</td>';
-$html .= '<td>' . $CUSTOMER->dob_day . '-' . $CUSTOMER->dob_month . '-' . $CUSTOMER->dob_year . '</td>';
-$html .= '<td>' . $GUARANTOR_01->dob_day . '-' . $GUARANTOR_01->dob_month . '-' . $GUARANTOR_01->dob_year . '</td>';
-$html .= '<td>' . $GUARANTOR_02->dob_day . '-' . $GUARANTOR_02->dob_month . '-' . $GUARANTOR_02->dob_year . '</td>';
-$html .= '<td>' . $GUARANTOR_03->dob_day . '-' . $GUARANTOR_03->dob_month . '-' . $GUARANTOR_03->dob_year . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Address:</td>';
-$html .= '<td>' . $CUSTOMER->address_line_1 . '-' . $CUSTOMER->address_line_2 . '-' . $CUSTOMER->address_line_3 . '-' . $CUSTOMER->address_line_4 . '-' . $CUSTOMER->address_line_5 . '</td>';
-$html .= '<td>' . $GUARANTOR_01->address_line_1 . '-' . $GUARANTOR_01->address_line_2 . '-' . $GUARANTOR_01->address_line_3 . '-' . $GUARANTOR_01->address_line_4 . '-' . $GUARANTOR_01->address_line_5 . '</td>';
-$html .= '<td>' . $GUARANTOR_02->address_line_1 . '-' . $GUARANTOR_02->address_line_2 . '-' . $GUARANTOR_02->address_line_3 . '-' . $GUARANTOR_02->address_line_4 . '-' . $GUARANTOR_02->address_line_5 . '</td>';
-$html .= '<td>' . $GUARANTOR_03->address_line_1 . '-' . $GUARANTOR_03->address_line_2 . '-' . $GUARANTOR_03->address_line_3 . '-' . $GUARANTOR_03->address_line_4 . '-' . $GUARANTOR_03->address_line_5 . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>City:</td>';
-$html .= '<td>' . $CUSTOMER_CITY->name . '</td>';
-$html .= '<td>' . $GUARANTOR_01_CITY->name . '</td>';
-$html .= '<td>' . $GUARANTOR_02_CITY->name . '</td>';
-$html .= '<td>' . $GUARANTOR_03_CITY->name . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Email:</td>';
-$html .= '<td>' . $CUSTOMER->email . '</td>';
-$html .= '<td>' . $GUARANTOR_01->email . '</td>';
-$html .= '<td>' . $GUARANTOR_02->email . '</td>';
-$html .= '<td>' . $GUARANTOR_03->email . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Mobile:</td>';
-$html .= '<td>' . $CUSTOMER->mobile . '</td>';
-$html .= '<td>' . $GUARANTOR_01->mobile . '</td>';
-$html .= '<td>' . $GUARANTOR_02->mobile . '</td>';
-$html .= '<td>' . $GUARANTOR_03->mobile . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Telephone Num:</td>';
-$html .= '<td>' . $CUSTOMER->telephone . '</td>';
-$html .= '<td>' . $GUARANTOR_01->telephone . '</td>';
-$html .= '<td>' . $GUARANTOR_02->telephone . '</td>';
-$html .= '<td>' . $GUARANTOR_03->telephone . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Registration Type:</td>';
-$html .= '<td>' . $CUSTOMER->registration_type . '</td>';
-$html .= '<td>' . $GUARANTOR_01->registration_type . '</td>';
-$html .= '<td>' . $GUARANTOR_02->registration_type . '</td>';
-$html .= '<td>' . $GUARANTOR_03->registration_type . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Credit Limit</td>';
-$html .= '<td>' . $CUSTOMER->credit_limit . '</td>';
-$html .= '<td>' . $GUARANTOR_01->credit_limit . '</td>';
-$html .= '<td>' . $GUARANTOR_02->credit_limit . '</td>';
-$html .= '<td>' . $GUARANTOR_03->credit_limit . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Bank Name:</td>';
-$html .= '<td>' . $CUSTOMER_BANK->name . '</td>';
-$html .= '<td>' . $GUARANTOR_01_BANK->name . '</td>';
-$html .= '<td>' . $GUARANTOR_02_BANK->name . '</td>';
-$html .= '<td>' . $GUARANTOR_03_BANK->name . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Branch Name:</td>';
-$html .= '<td>' . $CUSTOMER_BRANCH->name . '</td>';
-$html .= '<td>' . $GUARANTOR_01_BRANCH->name . '</td>';
-$html .= '<td>' . $GUARANTOR_02_BRANCH->name . '</td>';
-$html .= '<td>' . $GUARANTOR_03_BRANCH->name . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Branch Code:</td>';
-$html .= '<td>' . $CUSTOMER->branch_code . '</td>';
-$html .= '<td>' . $GUARANTOR_01->branch_code . '</td>';
-$html .= '<td>' . $GUARANTOR_02->branch_code . '</td>';
-$html .= '<td>' . $GUARANTOR_03->branch_code . '</td>';
-$html .= '</tr>';
-$html .= '<tr>';
-$html .= '<td>Account Number</td>';
-$html .= '<td>' . $CUSTOMER->account_number . '</td>';
-$html .= '<td>' . $GUARANTOR_01->account_number . '</td>';
-$html .= '<td>' . $GUARANTOR_02->account_number . '</td>';
-$html .= '<td>' . $GUARANTOR_03->account_number . '</td>';
-$html .= '<tr>';
-$html .= '<td>Holder Name</td>';
-$html .= '<td>' . $CUSTOMER->holder_name . '</td>';
-$html .= '<td>' . $GUARANTOR_01->holder_name . '</td>';
-$html .= '<td>' . $GUARANTOR_02->holder_name . '</td>';
-$html .= '<td>' . $GUARANTOR_03->holder_name . '</td>';
-$html .= '</tr>';
-$html .= '</table>';
-$html .= '</body>';
-$html .= '</html>';
+    <body class="theme-red">
+        <?php
+        include './navigation-and-header.php';
+        ?>
+        <section class="content">
+            <div class="container-fluid"> 
+                <?php
+                $vali = new Validator();
 
-echo $html;
+                $vali->show_message();
+                ?>
+                <!-- Manage Districts -->
+                <div class="row clearfix">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
 
+                        <div class="card">
+                            <div class="header">
+                                <h2>
+                                    View Installment
+                                </h2>
+                            </div>
+
+                            <div class="body">
+                                <div> 
+                                    <h5> ID: <?php
+                                        if ($LOAN->installment_type == 30) {
+                                            echo 'BLD' . $loan_id;
+                                        } elseif ($LOAN->installment_type == 4) {
+                                            echo 'BLW' . $loan_id;
+                                        } else {
+                                            echo 'BLM' . $loan_id;
+                                        }
+                                        ?></h5>
+                                    <h5>
+                                        Customer Name : 
+                                        <?php
+                                        $customer = new Customer($LOAN->customer);
+                                        echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Loan Amount : <?php echo $LOAN->loan_amount ?> </h5>
+
+                                    <h5>Installment Type : 
+                                        <?php
+                                        $IT = DefaultData::getInstallmentType();
+                                        echo $IT[$LOAN->installment_type];
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Loan Period : 
+                                        <?php
+                                        $LP = DefaultData::getLoanPeriod();
+                                        echo $LP[$LOAN->loan_period];
+                                        ?> 
+                                    </h5>
+                                </div> 
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">ID</th> 
+                                                <th class="text-center">Installment Date</th> 
+                                                <th class="text-center">Installment Amount</th> 
+                                                <th class="text-center">Status</th> 
+                                                <th class="text-center">Paid Amount</th> 
+                                                <th class="text-center">Due and Excess</th> 
+                                                <th class="text-center">Aries Amount</th> 
+                                                <th class="text-center">Options</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+
+                                            $first_installment_date = '';
+
+                                            if ($LOAN->installment_type == 4) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+7 day');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            } elseif ($LOAN->installment_type == 30) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+1 day');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            } elseif ($LOAN->installment_type == 1) {
+                                                $FID = new DateTime($LOAN->effective_date);
+                                                $FID->modify('+1 months');
+                                                $first_installment_date = $FID->format('Y-m-d');
+                                            }
+                                            $start = new DateTime($first_installment_date);
+
+                                            $first_date = $start->format('Y-m-d');
+                                            $INSTALLMENT = new Installment(NULL);
+
+                                            foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
+                                                ?>
+                                                <tr style="background-color: white;">
+                                                    <td></td>
+                                                    <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $installments['paid_date'] . ' / Time ' . $installments['time']; ?></td>                                                   
+                                                    <td class="font-colors"><?php echo 'Status: ' . $installments['status']; ?></td>
+                                                    <td class="font-colors"><?php echo 'Amount: ' . $installments['paid_amount']; ?></td>
+                                                    <td class="font-colors"><?php echo $installments['paid_amount']; ?></td>                                                   
+                                                    <td> </td>
+                                                    <td> </td>
+                                                </tr> 
+                                                <?php
+                                            }
+                                            $previus_amount = 0;
+                                            $previus_amount += $installments['paid_amount'];
+
+                                            $x = 0;
+                                            $count = 0;
+                                            $ins_total = 0;
+                                            $total_paid = 0;
+
+                                            while ($x < $defultdata) {
+                                                if ($defultdata == 4) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 30) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 8) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 60) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 2) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 1) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 90) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 12) {
+                                                    $add_dates = '+7 day';
+                                                } elseif ($defultdata == 3) {
+                                                    $add_dates = '+1 months';
+                                                } elseif ($defultdata == 100) {
+                                                    $add_dates = '+1 day';
+                                                } elseif ($defultdata == 13) {
+                                                    $add_dates = '+7 day';
+                                                }
+
+                                                $count++;
+                                                $date = $start->format('Y-m-d');
+                                                $customer = $LOAN->customer;
+
+                                                $CUSTOMER = new Customer($customer);
+                                                $route = $CUSTOMER->route;
+                                                $center = $CUSTOMER->center;
+                                                $amount = $LOAN->installment_amount;
+                                                $INSTALLMENT = new Installment(NULL);
+                                                $paid_amount = 0;
+
+
+                                                foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+                                                    $paid_amount += $paid['paid_amount'];
+                                                }
+
+                                                echo '<tr class"tr-color" >';
+                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                                                    echo '<td class"tr-color font-color-2">';
+                                                    echo $count;
+                                                    echo '</td>';
+                                                    echo '<td class="padd-td red ">';
+                                                    echo $date;
+                                                    echo '</td>';
+                                                    echo '<td class="padd-td gray text-center" colspan=5>';
+                                                    echo '-- Postponed --';
+                                                    echo '</td>';
+
+                                                    $start->modify($add_dates);
+                                                } else {
+
+                                                    echo '<td class"tr-color font-color-2">';
+                                                    echo $count;
+                                                    echo '</td>';
+                                                    echo '<td class="padd-td f-style tr-color font-color-2">';
+                                                    echo $date;
+                                                    echo '</td>';
+                                                    echo '<td class="f-style tr-color font-color-2">';
+                                                    echo 'Rs: ' . number_format($amount, 2);
+                                                    echo '</td>';
+                                                    echo '<td class="f-style tr-color font-color-2">';
+
+                                                    if ($paid_amount) {
+                                                        echo 'Paid';
+                                                    } elseif ($date <= $today) {
+                                                        echo 'Posted';
+                                                    } elseif ($date > $today) {
+                                                        echo 'Unpaid';
+                                                    } else {
+                                                        echo 'Payble';
+                                                    }
+                                                    echo '</td>';
+
+                                                    echo '<td class="f-style tr-color font-color-2">';
+
+                                                    $all_pament = ($previus_amount - $amount);
+
+                                                    echo '<td class="f-style tr-color font-color-2">';
+                                                    echo '';
+                                                    echo '</td>';
+
+                                                    echo '<td class="f-style tr-color font-color-2">';
+
+                                                    echo '</td>';
+
+                                                    echo '<td class="tr-color">';
+
+                                                    echo '</td>';
+
+                                                    echo '<td class="text-center tr-color">';
+
+
+                                                    //check payment button 
+
+                                                    if ($date == $today) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+
+                                                        //show week payment button
+                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today)) {
+
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today)) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+                                                    } else {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" ></button> 
+                                                    </a>';
+                                                    }
+                                                    echo '</td>';
+                                                }
+                                                echo '</tr>';
+
+                                                $FID = new DateTime($date);
+                                                $FID->modify($add_dates);
+                                                $second_installment_date = $FID->format('Y-m-d');
+                                                $installment_amounts_all = $INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId_2($date, $second_installment_date, $loan_id, $today);
+                                                
+
+                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $Installment_payment) {
+                                                    ?>
+                                                    <tr style="background-color: white;">
+                                                        <td></td>
+                                                        <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $Installment_payment['paid_date'] . '/ Time:' . $Installment_payment['time']; ?></td>
+                                                        <td class="font-colors"><?php echo 'Status: ' . $Installment_payment['status']; ?></td>
+                                                        <td class="font-colors"><?php echo 'Amount: ' . number_format($Installment_payment['paid_amount'], 2); ?></td>
+                                                        <td class="font-colors"><?php
+                                                            $installemt_amount = $LOAN->installment_amount;
+
+                                                            $amount += $Installment_payment['paid_amount'];
+
+                                                            $all_installments = ($all_pament + $amount) - $installemt_amount;
+                                                            
+                                                            echo $all_installments;
+                                                            ?>
+                                                        </td>
+                                                        <td></td>
+                                                        <td></td>
+                                                    </tr>
+                                                    <?php
+                                                }
+
+                                                $start->modify($add_dates);
+                                                $x++;
+                                            }
+                                            ?>
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                                <th class="text-center">ID</th> 
+                                                <th class="text-center">Installment Date</th> 
+                                                <th class="text-center">Installment Amount</th> 
+                                                <th class="text-center">Status</th> 
+                                                <th class="text-center">Paid Amount</th> 
+                                                <th class="text-center">Due and Excess</th> 
+                                                <th class="text-center">Aries Amount</th>  
+                                                <th class="text-center">Options</th> 
+                                            </tr>   
+                                        </tfoot>
+                                    </table>  
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <script src = "plugins/jquery/jquery.min.js"></script>
+        <script src="plugins/bootstrap/js/bootstrap.js"></script>
+        <script src="plugins/bootstrap-select/js/bootstrap-select.js"></script>
+        <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+        <script src="plugins/node-waves/waves.js"></script>
+
+        <script src="plugins/jquery-datatable/jquery.dataTables.js"></script>
+        <script src="plugins/jquery-datatable/skin/bootstrap/js/dataTables.bootstrap.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/dataTables.buttons.min.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/buttons.flash.min.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/jszip.min.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/pdfmake.min.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/vfs_fonts.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/buttons.html5.min.js"></script>
+        <script src="plugins/jquery-datatable/extensions/export/buttons.print.min.js"></script>
+
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
+        <script src="js/admin.js"></script>
+        <script src="js/pages/tables/jquery-datatable.js"></script>
+        <script src="js/demo.js"></script>
+        <script src="delete/js/loan.js" type="text/javascript"></script>
+    </body> 
+</html> 
