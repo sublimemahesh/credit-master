@@ -642,24 +642,27 @@ class Loan {
             }
         }
 
-
         $Installment = new Installment(NULL);
         $total_paid_installment = 0;
         foreach ($Installment->getInstallmentByLoan($this->id) as $installment) {
             $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
         }
-        
+
         $loan_amount = $numOfInstallments * $this->installment_amount;
         $system_due = $loan_amount - $total_installment_amount;
         $system_due_num_of_ins = $system_due / $this->installment_amount;
         $actual_due = $loan_amount - $total_paid_installment;
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
-        
+
         return [
             'system-due-num-of-ins' => $system_due_num_of_ins,
             'system-due' => $system_due,
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
+            'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
+            'receipt' => $total_paid_installment,
+            'arrears-excess-num-of-ins' => ($total_installment_amount - $total_paid_installment) / $this->installment_amount,
+            'arrears-excess' => $total_installment_amount - $total_paid_installment,
         ];
     }
 

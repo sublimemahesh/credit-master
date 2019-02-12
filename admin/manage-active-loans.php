@@ -69,22 +69,20 @@ $LOAN->status = 'issued';
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th>Loan</th> 
-                                                <th>Customer Details</th> 
-                                                <th>Payment Details</th>  
-                                                <th>Installment Details</th>                                                 
+                                                <th>Loan Details</th>  
+                                                <th>Installment Details</th>
+                                                <th>Payment Details</th>                                                   
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
-                                                ?>
-
-                                                <tr >
-                                                    <td>
-                                                        <b>
-                                                            ID:  
+                                                ?> 
+                                                <tr>
+                                                    <td> 
+                                                        <i class="glyphicon glyphicon-info-sign"></i>
+                                                        <b> : 
                                                             <?php
                                                             $LT = $loan['installment_type'];
                                                             if ($LT == 30) {
@@ -97,14 +95,7 @@ $LOAN->status = 'issued';
                                                             ?>
                                                         </b>
                                                         <br/>
-                                                        <b>Date: </b><?php echo $loan['create_date']; ?>  <br/>
-                                                        <b>Amount: <?php echo number_format($loan['loan_amount'], 2); ?></b>
-                                                        <br/>
-                                                        <b>Int. Rate: </b><?php echo $loan['interest_rate']; ?>%
 
-                                                    </td>
-
-                                                    <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b> : 
                                                             <?php
@@ -115,54 +106,18 @@ $LOAN->status = 'issued';
                                                             ?>
                                                         </b>
                                                         <br/>
-                                                        <small>
-                                                            <i class="glyphicon glyphicon-user"></i>
-                                                            <i class="glyphicon glyphicon-user"></i> : 
-                                                            <?php
-                                                            $Customer1 = new Customer($loan['guarantor_1']);
-                                                            $DefaultData = new DefaultData();
-                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer1->surname));
-                                                            echo $Customer1->title . ' ' . $first_name . ' ' . $Customer1->first_name . ' ' . $Customer1->last_name;
-                                                            ?>
-                                                        </small>
-                                                        <br/> 
-                                                        <small>
-                                                            <i class="glyphicon glyphicon-user"></i>
-                                                            <i class="glyphicon glyphicon-user"></i> : 
-                                                            <?php
-                                                            $Customer2 = new Customer($loan['guarantor_2']);
-                                                            $DefaultData = new DefaultData();
-                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($Customer2->surname));
-                                                            echo $Customer2->title . ' ' . $first_name . ' ' . $Customer2->first_name . ' ' . $Customer2->last_name;
-                                                            ?>
-                                                        </small> 
-                                                    </td>
-                                                    <td>
-                                                        <b>System Due: </b>
-                                                        <?php
-                                                        $LOAN_1 = new Loan($loan['id']);
-                                                        $status = $LOAN_1->getCurrentStatus();
-                                                        echo $status["system-due-num-of-ins"] . ' / ' . $status["system-due"];
-                                                        ?>
+
+                                                        <i class="glyphicon glyphicon-calendar"></i>
+                                                        <b> :
+                                                            <?php echo $loan['create_date']; ?>  
+                                                        </b>
                                                         <br/>
-                                                        <b>Actual Due: </b>
-                                                        <?php
-                                                        echo $status["actual-due-num-of-ins"] . ' / ' . $status["actual-due"];
-                                                        ?>
-                                                        <br>
-                                                        <b>Paid Nu of In: </b>
-                                                        <?php
-                                                        $paid_numbers_of_installments = $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']);
-                                                        echo '<span style=color:blue >' . round($paid_numbers_of_installments, 1) . '</span>';
-                                                        ?>
-                                                        <br/>
-                                                        <b>Payable Nu of In: </b>
-                                                        <?php
-                                                        $payble_of_installments = $INSTALLMENT->getPaybleNumberOfInstallments(DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']), $INSTALLMENT->getPaidNumberOfInstallment($loan['installment_amount'], $loan['id']));
-                                                        echo '<span style=color:green >' . round($payble_of_installments, 1) . '</span>';
-                                                        ?>
+
+                                                        <i class="glyphicon glyphicon-usd"></i>
+                                                        <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
 
                                                     </td>
+
                                                     <td>
                                                         <b>
                                                             Type: <?php
@@ -186,6 +141,41 @@ $LOAN->status = 'issued';
                                                         echo $PR[$loan['loan_period']];
                                                         ?>
                                                     </td>
+
+                                                    <td>
+                                                        <b>Sys Due: </b>
+                                                        <?php
+                                                        $LOAN_1 = new Loan($loan['id']);
+                                                        $status = $LOAN_1->getCurrentStatus();
+                                                        echo round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2);
+                                                        ?>
+                                                        <br/>
+
+                                                        <b>Act Due: </b>
+                                                        <?php
+                                                        echo round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2);
+                                                        ?>
+                                                        <br>
+
+                                                        <b class="text-info">Receipt: </b>
+                                                        <span  class="text-info">
+                                                            <?php
+                                                            echo round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2);
+                                                            ?>
+                                                        </span>
+                                                        <br> 
+                                                        <?php
+                                                        if ($status["arrears-excess"] > 0) {
+                                                            echo '<b class="text-danger">Arrears: </b>';
+                                                            echo '<span  class="text-danger">' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>';
+                                                        } else {
+                                                            echo '<b class="text-success">Excess: </b>';
+                                                            echo '<span  class="text-success">' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>';
+                                                        }
+                                                        ?>
+
+                                                    </td>
+
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
@@ -199,10 +189,9 @@ $LOAN->status = 'issued';
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Loan</th> 
-                                                <th>Customer Details</th> 
-                                                <th>Payment Details</th>  
-                                                <th>Installment Details</th>                                                 
+                                                <th>Loan Details</th>  
+                                                <th>Installment Details</th>  
+                                                <th>Payment Details</th>                                                 
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </tfoot>

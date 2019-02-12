@@ -1,8 +1,8 @@
 $(function () {
     $('.js-basic-example').DataTable({
         responsive: true,
-        iDisplayLength: 20,
-        aLengthMenu: [[20, 50, 100, 200, -1], [20, 50, 100, 200, "All"]]
+        iDisplayLength: 100,
+        aLengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, "All"]]
     });
 
     //Exportable table
