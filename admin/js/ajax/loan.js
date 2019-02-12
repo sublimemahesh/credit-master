@@ -597,6 +597,7 @@ $(document).ready(function () {
             $('#period_100').show();
         }
     });
+
 //validate effective date , issue date , issue mode
     function validateForIssue(effective_date, issued_date, issue_mode) {
 
@@ -633,7 +634,6 @@ $(document).ready(function () {
     }
 });
 
-
 // Cheque guarantor 2
 $('#guarantor_2').change(function () {
     var guarantor_2 = $(this).val();
@@ -658,6 +658,7 @@ $('#guarantor_2').change(function () {
         dataType: "JSON",
         success: function (jsonStr) {
             if (jsonStr.status) {
+                $('option:selected', $('#guarantor_2')).remove();
                 swal({
                     title: "You can not enter this Guarantor .!",
                     text: "You entered this Guarantor in two loans..",
@@ -697,6 +698,8 @@ $('#guarantor_3').change(function () {
         dataType: "JSON",
         success: function (jsonStr) {
             if (jsonStr.status) {
+
+                $('option:selected', $('#guarantor_3')).remove();
                 swal({
                     title: "You can not enter this Guarantor .!",
                     text: "You entered this Guarantor in two loans..",
@@ -933,6 +936,7 @@ $('#customer').change(function () {
         dataType: "JSON",
         success: function (jsonStr) {
             if (jsonStr.status) {
+                $('option:selected', $('#customer')).remove();
                 swal({
                     title: "The customer already create a loan ..!",
                     text: "The customer loan has proccesign..",
@@ -946,6 +950,7 @@ $('#customer').change(function () {
         }
     });
 });
+
 //customer Last loan amount
 $('#customer,#issue_mode').change(function () {
 
@@ -986,10 +991,7 @@ $('#customer,#issue_mode').change(function () {
     });
 });
 
-
-
-///-----------Windows Onloard----------//
-
+///-----------Windows Onloard----------// 
 window.onload = function () {
 
     //get other page to issumode prices in onloard
