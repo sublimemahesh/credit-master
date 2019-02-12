@@ -185,6 +185,47 @@ class Installment {
         return $array_res;
     }
 
+    public function CheckInstallmetDateByLoanId($date, $loan_id) {
+
+        $query = "SELECT * FROM `installment` WHERE `paid_date`< '" . $date . "' AND `loan`= '" . $loan_id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
+
+    public function CheckInstallmetBeetwenTwoDateByLoanId($first_date, $second_date, $loan_id, $today) {
+
+        $query = "SELECT * FROM `installment` WHERE  `paid_date`  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "' AND `paid_date`>= '" . $first_date . "' || `paid_date`= '" . $today . "' ";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
+
+    public function CheckInstallmetBeetwenTwoDateByLoanId_2($first_date, $second_date, $loan_id, $today) {
+
+        $query = "SELECT  sum(`paid_amount`) FROM `installment` WHERE  `paid_date`  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "' AND `paid_date`>= '" . $first_date . "' || `paid_date`= '" . $today . "' ";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_row($result);
+
+        return $row;
+    }
+
     public function getAllAmountByPaidDate($date) {
 
         $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "'";
@@ -202,7 +243,7 @@ class Installment {
 
 
         $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `loan` ='" . $loan_id . "'";
-        
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -270,9 +311,9 @@ class Installment {
         return $payble_amount;
     }
 
-    public function getSystemDue($loan_amount, $rate,$ins_type) {
-        
-        $loan_amount += (($loan_amount * $rate) / 100)* ($ins_type / 30);
+    public function getSystemDue($loan_amount, $rate, $ins_type) {
+
+        $loan_amount += (($loan_amount * $rate) / 100) * ($ins_type / 30);
 
         return $loan_amount;
     }

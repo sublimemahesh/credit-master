@@ -147,30 +147,30 @@ $LOAN->status = 'issued';
                                                         <?php
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
-                                                        echo round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2);
+                                                        echo '<b>'.round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2).'</b>';
                                                         ?>
                                                         <br/>
 
                                                         <b>Act Due: </b>
                                                         <?php
-                                                        echo round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2);
+                                                        echo '<b>'.round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2).'</b>';
                                                         ?>
                                                         <br>
 
                                                         <b class="text-info">Receipt: </b>
                                                         <span  class="text-info">
                                                             <?php
-                                                            echo round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2);
+                                                            echo '<b>'.round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2).'</b>';
                                                             ?>
                                                         </span>
                                                         <br> 
                                                         <?php
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger">Arrears: </b>';
-                                                            echo '<span  class="text-danger">' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>';
+                                                            echo '<span  class="text-danger">' . '<b>'.round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>'.'<b>';
                                                         } else {
                                                             echo '<b class="text-success">Excess: </b>';
-                                                            echo '<span  class="text-success">' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>';
+                                                            echo '<span  class="text-success">' .'<b>'. round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>'.'<b>';
                                                         }
                                                         ?>
 
@@ -179,7 +179,7 @@ $LOAN->status = 'issued';
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-                                                        <a href="view-edit-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                        <a href="testdate.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
                                                         <a href="view-customer-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-log-out btn  btn-default" title="Customer History"></button></a>
                                                     </td> 
                                                 </tr>
