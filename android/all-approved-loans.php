@@ -2,7 +2,7 @@
 
 include_once(dirname(__FILE__) . '/../class/include.php');
 $LOAN = new Loan(NULL);
-$LOAN->status = 'approve';
+$LOAN->status = 'released';
 $LOAN->collector = $_POST['uid'];
 $DefaultData = new DefaultData(NULL);
 
@@ -46,7 +46,7 @@ foreach ($LOAN->getAllApprovedLoansByCollector() as $key => $loan) {
         $area = 'Route - ' . $ROUTE->name;
     }
 
-
+    $amount_payable = $loan['loan_amount'] - $loan['loan_processing_pre'];
 
     $instrollment_data['customer'] = $customer_name;
     $instrollment_data['customer_no'] = $CUSTOMER->mobile;
@@ -56,6 +56,7 @@ foreach ($LOAN->getAllApprovedLoansByCollector() as $key => $loan) {
     $instrollment_data['loan_id'] = $loanId;
     $instrollment_data['create_date'] = $loan['create_date'];
     $instrollment_data['loan_amount'] = number_format($loan['loan_amount'], 2);
+    $instrollment_data['loan_amount_payable'] = number_format($amount_payable, 2);
     $instrollment_data['installment_type'] = $LT[$loan['installment_type']];
     $instrollment_data['area'] = $area;
     $instrollment_data['loan_period'] = $LP[$loan['loan_period']];

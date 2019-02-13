@@ -14,5 +14,5 @@ if ($RESULT) {
     $response["message"] = "Please Try Again!";
     die(json_encode($response));
 }
-echo json_encode($RESULT);
+// echo json_encode($RESULT);
 ?>
