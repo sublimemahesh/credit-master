@@ -49,10 +49,10 @@ if (isset($_GET['date'])) {
 
                 $vali->show_message();
                 ?>
-              
+
                 <div class="card">
                     <div class="header">
-                        <h2><?php echo $title?></h2>
+                        <h2><?php echo $title ?></h2>
                         <ul class="header-dropdown">
                             <li class="">
                                 <a href="manage-postpone-dates.php">
@@ -71,7 +71,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="registration_type" class="hidden-lg hidden-md">Select the Type</label>
-                                            <select class="form-control " autocomplete="off" id="registration_type" name="all"  required="TRUE">
+                                            <select class="form-control registration_type_append_show" autocomplete="off" id="registration_type" name="all"  required="TRUE">
                                                 <option value=""> -- Please Select the Type -- </option>
                                                 <option  value="0"  > All </option>
                                                 <option value="route"> Route </option>
@@ -122,9 +122,11 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE">
+                                            <select class="form-control  " autocomplete="off" id="customer-empty" name="customer" required="TRUE" style="display: none">                                                 
+                                                <option  > -- Please select the type--  </option> 
+                                            </select>                                             
+                                            <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE"  >                                                 
                                                 <option value="1"> -- All Customers --  </option> 
-
                                             </select> 
                                         </div>
                                     </div>

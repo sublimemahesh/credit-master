@@ -51,7 +51,7 @@ class PostponeDate {
                 . $this->customer . "', '"
                 . $this->by . "')";
 
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -315,6 +315,33 @@ class PostponeDate {
 
         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `all`= '1'";
 
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    
+    public function CheckIsPostPoneByDateCenterAll($date) {
+
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '99999' AND `route`!= '0'";
+
+        $db = new Database();
+        $result = mysql_fetch_array($db->readQuery($query));
+
+        if ($result) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+    public function CheckIsPostPoneByDateRouteAll($date) {
+
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '88888' AND `center`!= '0' ";
+       
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
 
