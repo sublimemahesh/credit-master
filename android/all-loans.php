@@ -17,13 +17,27 @@ if ($_POST['action'] == 'center') {
 
         $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
-        $start_date = $loan['effective_date'];
-        $start = new DateTime("$start_date");
+        $first_installment_date = '';
+
+        if ($loan['installment_type'] == 4) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+7 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($loan['installment_type'] == 30) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+1 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($loan['installment_type'] == 1) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+1 months');
+            $first_installment_date = $FID->format('Y-m-d');
+        }
+
+        $start = new DateTime($first_installment_date);
 
         $x = 0;
         $ins_total = 0;
         $total_paid = 0;
-        $instrollment_data = array();
         while ($x < $defultdata) {
             if ($defultdata == 4) {
                 $add_dates = '+7 day';
@@ -49,7 +63,6 @@ if ($_POST['action'] == 'center') {
                 $add_dates = '+7 day';
             }
 
-
             $date = $start->format('Y-m-d');
             $customer = $loan['customer'];
             $CUSTOMER = new Customer($customer);
@@ -57,6 +70,7 @@ if ($_POST['action'] == 'center') {
             $center = $CUSTOMER->center;
             $LP = DefaultData::getLoanPeriod();
             $IT = DefaultData::getInstallmentType();
+            $LPasDays = DefaultData::getLoanPeriodAsDays();
             $amount = $loan['installment_amount'];
             $Installment = new Installment(NULL);
             $paid_amount = 0;
@@ -69,20 +83,28 @@ if ($_POST['action'] == 'center') {
                 $loanId = 'BLM' . $loan['id'];
             }
 
-            foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
-                $paid_amount += $paid['paid_amount'];
+//            $total_paid_amount = $Installment->getAmountByLoanId($loan['id']);
+//
+//            foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
+//                $paid_amount += $paid['paid_amount'];
+//            }
+
+          
+            foreach ($Installment->getInstallmentByLoan($loan['id']) as $installment) {
+                $paid_amount = $paid_amount + $installment["paid_amount"];
             }
 
-            $ins_total += $amount;
-            $total_paid += $paid_amount;
+       
 
+            $ins_total += $amount;
+           
 
             if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
                 $start->modify($add_dates);
             } else {
 //$_POST['date']
 
-                if ($date == $_POST['date'] && $_POST['centerid'] == $CUSTOMER->center) {
+                 if ($date == $_POST['date'] && $_POST['centerid'] == $CUSTOMER->center) {
 
 
 
@@ -94,24 +116,73 @@ if ($_POST['action'] == 'center') {
 //                    $ROUTE = new Route($CUSTOMER->route);
 //                    $area = 'Route - ' . $ROUTE->name;
 //                }
-                    $due_and_excess = $total_paid - $ins_total;
+                   
+                  
+            
+            
+                    $due_and_excess = $paid_amount - $ins_total;
+                    
+         
+                    //       if ($due_and_excess < 0) {
+                    //           $due =  $total_paid - $ins_total;
+                    //           $due_amount = number_format($due, 2);
+                    //           if($CUSTOMER->od_interest_limit < (-1*($due))){
+                    //          $arries_interest = number_format($LOAN->getOdIntereset($loan['customer'], $due_and_excess, $loan['installment_type']), 2);
+                    //     }else{
+                    //         $arries_interest = '00.00';
+                    //     }
+                    //                       }else{
+                    //           $due =  '0.00';
+                    //             $arries_interest = '00.00';
+                    //       }
+                    //         if ($due_and_excess > 0) {
+                    //             $excess_amount = number_format($due_and_excess, 2);
+                    // } else {
+                    //     $excess_amount = '0.00';
+                    // }
+                    // $due_and_excess = $total_paid - $ins_total;
 
                     if ($due_and_excess < 0) {
-                        $due_amount = number_format($due_and_excess, 2);
+                        $arriers_amount = $due_and_excess;
+//                        $arries_interest = number_format($LOAN->getOdIntereset($loan['customer'], $due_and_excess, $loan['installment_type']), 2);
                     } else {
-                        $due_amount = '0.00';
+                        $arriers_amount = '0.00';
                     }
 
                     if ($due_and_excess > 0) {
-                        $excess_amount = number_format($due_and_excess, 2);
+                        $excess_amount = $due_and_excess;
                     } else {
                         $excess_amount = '0.00';
                     }
 
+
+
+
+                    $LOAN_1 = new Loan($loan['id']);
+                    $status = $LOAN_1->getCurrentStatus();
+                    
+                                                        // if ($status["arrears-excess"] > 0) {
+                                                        //  $arriers_amount  = -1 * ($status["arrears-excess"]);
+                                                        // } else {
+                                                        //     $arriers_amount = '0.00';
+                                                        // }
+                                                        
+                                                        // if ($status["arrears-excess"] < 0) {
+                                                        //  $excess_amount  = -1 * ($status["arrears-excess"]);
+                                                        // } else {
+                                                        //  $excess_amount = '0.00';
+                                                        // }
+                                                    
+                                                    
+
+                    //     echo round($arries_interest, 1);
+                    // }
+
+
                     $fullAddress = [$CUSTOMER->address_line_1, $CUSTOMER->address_line_2, $CUSTOMER->address_line_3, $CUSTOMER->address_line_4, $CUSTOMER->address_line_5];
                     $address = implode(',', array_filter($fullAddress, 'strlen'));
 
-                    $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                    $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                     $instrollment_data['id'] = $loan['id'];
                     $instrollment_data['loan_id'] = $loanId;
                     $instrollment_data['customer_name'] = $customer_name;
@@ -121,9 +192,12 @@ if ($_POST['action'] == 'center') {
                     $instrollment_data['loan_period'] = $LP[$loan['loan_period']];
                     $instrollment_data['installment_type'] = $IT[$loan['installment_type']];
                     $instrollment_data['installment_amount'] = number_format($amount, 2);
-                    $instrollment_data['due'] = $due_amount;
+                    $instrollment_data['arriers'] = $arriers_amount;
+                    $instrollment_data['total_due'] = $status["actual-due"];
+                    $instrollment_data['start_date'] = $first_installment_date;
                     $instrollment_data['excess'] = $excess_amount;
-                    $instrollment_data['total_paid'] = $total_paid;
+                    $instrollment_data['total_paid'] = $paid_amount;
+                    $instrollment_data['ins_total'] = $ins_total;
                     $instrollment_data['installment_date'] = $date;
                     $instrollment_data['area'] = $area;
 
@@ -139,17 +213,31 @@ if ($_POST['action'] == 'center') {
 }
 
 if ($_POST['action'] == 'route') {
-    foreach ($LOAN->allByStatus() as $key => $loan) {
+     foreach ($LOAN->allByStatus() as $key => $loan) {
 
         $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
-        $start_date = $loan['effective_date'];
-        $start = new DateTime("$start_date");
+        $first_installment_date = '';
+
+        if ($loan['installment_type'] == 4) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+7 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($loan['installment_type'] == 30) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+1 day');
+            $first_installment_date = $FID->format('Y-m-d');
+        } elseif ($loan['installment_type'] == 1) {
+            $FID = new DateTime($loan['effective_date']);
+            $FID->modify('+1 months');
+            $first_installment_date = $FID->format('Y-m-d');
+        }
+
+        $start = new DateTime($first_installment_date);
 
         $x = 0;
         $ins_total = 0;
         $total_paid = 0;
-        $instrollment_data = array();
         while ($x < $defultdata) {
             if ($defultdata == 4) {
                 $add_dates = '+7 day';
@@ -175,7 +263,6 @@ if ($_POST['action'] == 'route') {
                 $add_dates = '+7 day';
             }
 
-
             $date = $start->format('Y-m-d');
             $customer = $loan['customer'];
             $CUSTOMER = new Customer($customer);
@@ -195,33 +282,65 @@ if ($_POST['action'] == 'route') {
                 $loanId = 'BLM' . $loan['id'];
             }
 
-            foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
-                $paid_amount += $paid['paid_amount'];
+//            $total_paid_amount = $Installment->getAmountByLoanId($loan['id']);
+//
+//            foreach ($Installment->CheckInstallmetByPaidDate($date, $loan['id']) as $paid) {
+//                $paid_amount += $paid['paid_amount'];
+//            }
+
+          
+            foreach ($Installment->getInstallmentByLoan($loan['id']) as $installment) {
+                $paid_amount = $paid_amount + $installment["paid_amount"];
             }
 
-            $ins_total += $amount;
-            $total_paid += $paid_amount;
+       
 
+            $ins_total += $amount;
+           
 
             if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
                 $start->modify($add_dates);
             } else {
 //$_POST['date']
 
-                if ($date == $_POST['date'] && $_POST['routeid'] == $CUSTOMER->route) {
+                 if ($date == $_POST['date'] && $_POST['centerid'] == $CUSTOMER->center) {
 
 
 
-                    $ROUTE = new Center($CUSTOMER->route);
-                    if ($CUSTOMER->route = $ROUTE->id) {
-                        $area = 'Route - ' . $ROUTE->name;
+                    $CENTER = new Center($CUSTOMER->center);
+                    if ($CUSTOMER->center = $CENTER->id) {
+                        $area = 'Center - ' . $CENTER->name;
                     }
-
-
-                    $due_and_excess = $total_paid - $ins_total;
+//                else {
+//                    $ROUTE = new Route($CUSTOMER->route);
+//                    $area = 'Route - ' . $ROUTE->name;
+//                }
+                   
+                    $due_and_excess = $paid_amount - $ins_total;
+                    
+         
+                    //       if ($due_and_excess < 0) {
+                    //           $due =  $total_paid - $ins_total;
+                    //           $due_amount = number_format($due, 2);
+                    //           if($CUSTOMER->od_interest_limit < (-1*($due))){
+                    //          $arries_interest = number_format($LOAN->getOdIntereset($loan['customer'], $due_and_excess, $loan['installment_type']), 2);
+                    //     }else{
+                    //         $arries_interest = '00.00';
+                    //     }
+                    //                       }else{
+                    //           $due =  '0.00';
+                    //             $arries_interest = '00.00';
+                    //       }
+                    //         if ($due_and_excess > 0) {
+                    //             $excess_amount = number_format($due_and_excess, 2);
+                    // } else {
+                    //     $excess_amount = '0.00';
+                    // }
+                    // $due_and_excess = $total_paid - $ins_total;
 
                     if ($due_and_excess < 0) {
-                        $due_amount = number_format($due_and_excess, 2);
+                        $due_amount = $due_and_excess;
+//                        $arries_interest = number_format($LOAN->getOdIntereset($loan['customer'], $due_and_excess, $loan['installment_type']), 2);
                     } else {
                         $due_amount = '0.00';
                     }
@@ -232,26 +351,35 @@ if ($_POST['action'] == 'route') {
                         $excess_amount = '0.00';
                     }
 
+                    $LOAN_1 = new Loan($loan['id']);
+                    $status = $LOAN_1->getCurrentStatus();
+
+
+                    //     echo round($arries_interest, 1);
+                    // }
+
+
                     $fullAddress = [$CUSTOMER->address_line_1, $CUSTOMER->address_line_2, $CUSTOMER->address_line_3, $CUSTOMER->address_line_4, $CUSTOMER->address_line_5];
                     $address = implode(',', array_filter($fullAddress, 'strlen'));
 
-
-
-                    $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . ' ' . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
+                    $customer_name = $DefaultData->getFirstLetterName(ucwords($CUSTOMER->surname)) . $CUSTOMER->first_name . ' ' . $CUSTOMER->last_name;
                     $instrollment_data['id'] = $loan['id'];
                     $instrollment_data['loan_id'] = $loanId;
                     $instrollment_data['customer_name'] = $customer_name;
                     $instrollment_data['customer_no'] = $CUSTOMER->mobile;
                     $instrollment_data['customer_address'] = $address;
                     $instrollment_data['loan_amount'] = number_format($loan['loan_amount'], 2);
-                    $instrollment_data['loan_period'] = $LP[$loan['loan_period']];
+                    $instrollment_data['loan_period'] = $LPasDays[$loan['loan_period']];
                     $instrollment_data['installment_type'] = $IT[$loan['installment_type']];
                     $instrollment_data['installment_amount'] = number_format($amount, 2);
-                    $instrollment_data['due'] = $due_amount;
+                    $instrollment_data['arriers'] = $due_amount;
+                    $instrollment_data['total_due'] = $status["actual-due"];
+                    $instrollment_data['start_date'] = $first_installment_date;
                     $instrollment_data['excess'] = $excess_amount;
-                    $instrollment_data['total_paid'] = number_format($total_paid, 2);
+                    $instrollment_data['total_paid'] = $paid_amount;
                     $instrollment_data['installment_date'] = $date;
                     $instrollment_data['area'] = $area;
+
 
                     array_push($instrollment, $instrollment_data);
                 }

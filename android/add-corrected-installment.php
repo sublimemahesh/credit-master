@@ -4,7 +4,7 @@ require("config.php");
 
 
 if (!empty($_POST)) {
-    $query = "UPDATE `installment` SET `paid_date` = :paiddate ,`time` = :paidtime,`paid_amount`= :paidamount,`status` = 'paid' WHERE `id` = :loan";
+    $query = "UPDATE `installment` SET `paid_date` = :paiddate ,`time` = :paidtime,`paid_amount`= :paidamount,`status`= 'paid' WHERE `id` = :loan";
     $params = array(
         ':loan' => $_POST['loan'],
         ':paidtime' => $_POST['paidtime'],
