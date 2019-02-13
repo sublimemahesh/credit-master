@@ -178,14 +178,14 @@ $today = date("Y-m-d");
 
 
                                                 echo '<tr>';
-                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) ) {
                                                     echo '<td>';
                                                     echo $count;
                                                     echo '</td>';
                                                     echo '<td class="padd-td red">';
                                                     echo $date;
                                                     echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" colspan=5>';
+                                                    echo '<td class="padd-td gray text-center" colspan=6>';
                                                     echo '-- Postponed --';
                                                     echo '</td>';
 

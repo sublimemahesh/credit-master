@@ -243,7 +243,7 @@ $today = date("Y-m-d");
 
                                                     echo '<td class="f-style tr-color font-color-2">';
 
-                                                    $all_pament = ($previus_amount - $amount);
+                                                    $previse_payment = ($previus_amount - $amount);
 
                                                     echo '<td class="f-style tr-color font-color-2">';
                                                     echo '';
@@ -255,33 +255,6 @@ $today = date("Y-m-d");
 
                                                     echo '<td class="tr-color">';
 
-                                                    echo '</td>';
-
-                                                    echo '<td class="text-center tr-color">';
-
-
-                                                    //check payment button 
-
-                                                    if ($date == $today) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                    </a>';
-
-                                                        //show week payment button
-                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today)) {
-
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                    </a>';
-                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today)) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                    </a>';
-                                                    } else {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" ></button> 
-                                                    </a>';
-                                                    }
                                                     echo '</td>';
                                                 }
                                                 echo '</tr>';
@@ -301,11 +274,8 @@ $today = date("Y-m-d");
                                                         <td class="font-colors"><?php echo 'Amount: ' . number_format($Installment_payment['paid_amount'], 2); ?></td>
                                                         <td class="font-colors"><?php
                                                             $installemt_amount = $LOAN->installment_amount;
-
-                                                            $amount += $Installment_payment['paid_amount'];
-
-                                                            $all_installments = ($all_pament + $amount) - $installemt_amount;
-                                                            
+                                                            $amount += $Installment_payment['paid_amount'];                                                         
+                                                            $all_installments = ($previse_payment + $amount) - $installemt_amount;
                                                             echo $all_installments;
                                                             ?>
                                                         </td>

@@ -1,4 +1,3 @@
-
 $(document).ready(function () {
     $('#registration_type').change(function () {
 
@@ -18,6 +17,8 @@ $(document).ready(function () {
             success: function (jsonStr) {
                 if (jsonStr.type == 'route') {
                     var html = '<option> -- Please Select a Route -- </option>';
+                    html += '<option value="88888"> All</option>';
+
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
                         html += data.name;
@@ -27,9 +28,11 @@ $(document).ready(function () {
                     $('#route').append(html);
                     $('#route_row').show();
                     $('#center_row').hide();
+                    $('#customer-postpone-date').empty();
 
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
+                    html += '<option value="99999"> All</option>';
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
                         html += data.name;
@@ -39,16 +42,24 @@ $(document).ready(function () {
                     $('#center').append(html);
                     $('#center_row').show();
                     $('#route_row').hide();
+                    $('#customer-postpone-date').empty();
                 }
             }
         });
     });
 });
 
-$('.customer-ref-postpone-date').change(function () {
+$('.customer-ref-postpone-date,.registration_type_append_show').change(function () {
     var type = this.id;
     var value = $(this).val();
+    var registration_type_append_show = $('.registration_type_append_show').val();
 
+    if (registration_type_append_show) {
+        $('#customer-empty').show();
+        $('#customer-postpone-date').hide();
+    } else if (!registration_type_append_show) {
+        $('#customer-postpone-date').empty();
+    }
     $.ajax({
         url: "post-and-get/ajax/postpone-date.php",
         type: "POST",
@@ -59,15 +70,17 @@ $('.customer-ref-postpone-date').change(function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
-
             var html = '<option value="0"> -- All Customers -- </option>';
+
             $.each(jsonStr.data, function (i, data) {
                 html += '<option value="' + data.id + '">';
                 html += data.title + ' ' + data.first_name + ' ' + data.last_name;
                 html += '</option>';
             });
             $('#customer-postpone-date').empty();
-            $('#customer-postpone-date').append(html); 
+            $('#customer-empty').hide();
+            $('#customer-postpone-date').show();
+            $('#customer-postpone-date').append(html);
 
         }
     });
