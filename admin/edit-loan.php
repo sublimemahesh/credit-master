@@ -37,6 +37,7 @@ $CENTER = Center::all();
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">        
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -464,6 +465,38 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="od_interest_limit">OD Interest Limit</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                            <input type="number"    name="od_interest_limit"  placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit ?>" autocomplete="off" min="0" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">                                            
+                                            <input type="text"    name="od_date"  placeholder="Enter OD Interest Limit Date" class="form-control od_date" value="<?php echo $LOAN->od_date ?>"autocomplete="off"  >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div  style="margin-top: 15px;">
+                                            <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
+                                            if ($LOAN->od_interest_limit !== 'NOT') {
+                                                echo 'checked';
+                                            }
+                                            ?> id="rememberme"  />
+                                            <label for="rememberme" id="lable-active">Activate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>  
+
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -659,6 +692,9 @@ $CENTER = Center::all();
                     minDate: '-3D',
                     maxDate: '+3D',
 
+                });
+                $(".od_date").datepicker({
+                    dateFormat: 'yy-mm-dd',
                 });
             });
 

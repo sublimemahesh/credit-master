@@ -43,7 +43,15 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->is_active = $_POST['is_active'];
-    $CUSTOMER->od_interest_limit = '-' . $_POST['od_interest_limit'];
+
+
+    if ($_POST['od_active'] == 1) {
+        $CUSTOMER->od_interest_limit = $_POST['od_interest_limit'];
+        $CUSTOMER->od_date = $_POST['od_date'];
+    } else {
+        $CUSTOMER->od_interest_limit = 'NOT';
+    }
+
 
 //////////////////////////////////////////////////          
 

@@ -169,7 +169,7 @@ $(document).ready(function () {
     });
 
 
-///--- customer create form---//
+//--- customer create form---//
     $("#add-new-customer").submit(function (e) {
 
 
@@ -296,7 +296,7 @@ $(document).ready(function () {
         }
     });
 
-///---customer edit form---//
+//---customer edit form---//
     $("#edit-customer").submit(function (e) {
 
         var errors = $('#errors').val();
@@ -489,7 +489,7 @@ $(document).ready(function () {
 
 });
 
-///-------Windowa Onloard Function--------///
+//-------Windowa Onloard Function--------//
 
 window.onload = function () {
 
@@ -515,9 +515,6 @@ window.onload = function () {
                     } else {
                         $('#registration_type_append').val(registration.toUpperCase());
                     }
-
-
-
                     $('.center').val(center_name.toUpperCase());
                     $('.route').val(route_name.toUpperCase());
                     $('.registration_type_append_show').show();

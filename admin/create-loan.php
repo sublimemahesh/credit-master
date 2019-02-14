@@ -6,6 +6,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+ 
 ?> 
 <!DOCTYPE html>
 <html> 
@@ -28,7 +29,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
-
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
+    
     </head>
 
     <body class="theme-red">
@@ -282,6 +284,35 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="od_interest_limit">OD Interest Limit</label>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                            <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
+                                          
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">                                            
+                                            <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off"  >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div  style="margin-top: 15px;">
+                                            <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1"  id="rememberme"  />
+                                            <label for="rememberme" id="lable-active">Activate</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="period_price">Net Amount</label>
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
@@ -468,7 +499,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                                 <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
-                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan">Save Details</button>
+                                        <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create-new-loan" id="create">Save Details</button>
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                         <input type="hidden" value="<?php echo $USERS->id; ?>" id="collector_id">
@@ -504,6 +535,10 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                 });
 
                 $(".create_date").datepicker({
+                    dateFormat: 'yy-mm-dd',
+
+                });
+                $(".od_date").datepicker({
                     dateFormat: 'yy-mm-dd',
 
                 });

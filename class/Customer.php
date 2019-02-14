@@ -50,7 +50,6 @@ class Customer {
     public $bank_book_picture;
     public $is_active;
     public $queue;
-    public $od_interest_limit;
     public $status;
 
     public function __construct($id) {
@@ -102,7 +101,6 @@ class Customer {
             $this->bank_book_picture = $result['bank_book_picture'];
             $this->is_active = $result['is_active'];
             $this->queue = $result['queue'];
-            $this->od_interest_limit = $result['od_interest_limit'];
             $this->status = $result['status'];
 
             return $this;
@@ -150,7 +148,6 @@ class Customer {
                 . "`holder_name`,"
                 . "`bank_book_picture`,"
                 . "`is_active`,"
-                . "`od_interest_limit`,"
                 . "`status`"
                 . ") VALUES  ('"
                 . $this->title . "','"
@@ -191,7 +188,6 @@ class Customer {
                 . $this->holder_name . "','"
                 . $this->bank_book_picture . "','"
                 . $this->is_active . "','"
-                . $this->od_interest_limit . "','"
                 . $this->status . "')";
 
         $db = new Database();
@@ -374,8 +370,7 @@ class Customer {
                 . "`account_number` ='" . $this->account_number . "', "
                 . "`holder_name` ='" . $this->holder_name . "', "
                 . "`bank_book_picture` ='" . $this->bank_book_picture . "', "
-                . "`is_active` ='" . $this->is_active . "', "
-                . "`od_interest_limit` ='" . $this->od_interest_limit . "' "
+                . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
 
@@ -481,19 +476,6 @@ class Customer {
 
             return FALSE;
         }
-    }
-
-    public function getOdInteresetLimiteByCustomer($customer) {
-
-        $query = 'SELECT `od_interest_limit` FROM `customer` WHERE id="' . $customer . '"';
-
-        $db = new Database();
-
-        $result = $db->readQuery($query);
-
-        $row = mysql_fetch_array($result);
-
-        return $row;
     }
 
 }

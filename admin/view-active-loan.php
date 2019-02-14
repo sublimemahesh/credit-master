@@ -39,7 +39,8 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
-        <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+        <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">        
+        <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -89,6 +90,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                             <?php } ?>
                             <li><a data-toggle="tab" href="#menu5"><h5>Loan Document</h5></a></li>
                             <li><a data-toggle="tab" href="#menu6"><h5>User History</h5></a></li>   
+                            <li><a data-toggle="tab" href="#menu7"><h5>Od Limite</h5></a></li>   
                         </ul> 
                     </div> 
                     <div class="tab-content">  
@@ -616,7 +618,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <?php
                                                 $LOAN_1 = new Loan($loan_id);
                                                 $status = $LOAN_1->getCurrentStatus();
-                                                
+
                                                 $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate, $LOAN->number_of_installments);
                                                 ?>
                                                 <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">
@@ -654,6 +656,27 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+                                <?php if ($LOAN->od_interest_limit !== 'NOT') { ?>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="od_interest_limit">OD Interest Limit</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <input type="number" name="od_interest_limit"  placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit ?>" autocomplete="off" min="0" >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">                                            
+                                                    <input type="text" name="od_date"  placeholder="Enter OD Interest Limit Date" class="form-control od_date" value="<?php echo $LOAN->od_date ?>"autocomplete="off"  >
+                                                </div>
+                                            </div>
+                                        </div>                                        
+                                    </div>  
+                                <?php } ?>
                                 <hr/>
 
                                 <div class="row">
@@ -1017,32 +1040,32 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                if ($CUSTOMER->dob_month == 1) {
-                                                    echo 'Jan';
-                                                } elseif ($CUSTOMER->dob_month == 2) {
-                                                    echo 'Feb';
-                                                } elseif ($CUSTOMER->dob_month == 3) {
-                                                    echo 'Mar';
-                                                } elseif ($CUSTOMER->dob_month == 4) {
-                                                    echo 'Apr';
-                                                } elseif ($CUSTOMER->dob_month == 5) {
-                                                    echo 'May';
-                                                } elseif ($CUSTOMER->dob_month == 6) {
-                                                    echo 'Jun';
-                                                } elseif ($CUSTOMER->dob_month == 7) {
-                                                    echo 'Jul';
-                                                } elseif ($CUSTOMER->dob_month == 8) {
-                                                    echo 'Aug';
-                                                } elseif ($CUSTOMER->dob_month == 9) {
-                                                    echo 'Sep';
-                                                } elseif ($CUSTOMER->dob_month == 10) {
-                                                    echo 'Oct';
-                                                } elseif ($CUSTOMER->dob_month == 11) {
-                                                    echo 'Nov';
-                                                } else {
-                                                    echo 'Dec';
-                                                }
-                                                ?></div>
+                                                                if ($CUSTOMER->dob_month == 1) {
+                                                                    echo 'Jan';
+                                                                } elseif ($CUSTOMER->dob_month == 2) {
+                                                                    echo 'Feb';
+                                                                } elseif ($CUSTOMER->dob_month == 3) {
+                                                                    echo 'Mar';
+                                                                } elseif ($CUSTOMER->dob_month == 4) {
+                                                                    echo 'Apr';
+                                                                } elseif ($CUSTOMER->dob_month == 5) {
+                                                                    echo 'May';
+                                                                } elseif ($CUSTOMER->dob_month == 6) {
+                                                                    echo 'Jun';
+                                                                } elseif ($CUSTOMER->dob_month == 7) {
+                                                                    echo 'Jul';
+                                                                } elseif ($CUSTOMER->dob_month == 8) {
+                                                                    echo 'Aug';
+                                                                } elseif ($CUSTOMER->dob_month == 9) {
+                                                                    echo 'Sep';
+                                                                } elseif ($CUSTOMER->dob_month == 10) {
+                                                                    echo 'Oct';
+                                                                } elseif ($CUSTOMER->dob_month == 11) {
+                                                                    echo 'Nov';
+                                                                } else {
+                                                                    echo 'Dec';
+                                                                }
+                                                                ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -1267,9 +1290,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                $CENTER = new Center($CUSTOMER->center);
-                                echo $CENTER->name;
-                                    ?></div>
+                                                        $CENTER = new Center($CUSTOMER->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -1393,9 +1416,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="bank" class="hidden-lg hidden-md">Bank</label>
                                                 <div class="form-control"><?php
-                                                $BANK = new Bank($CUSTOMER->bank);
-                                                echo $BANK->name;
-                                                ?></div>
+                                                    $BANK = new Bank($CUSTOMER->bank);
+                                                    echo $BANK->name;
+                                                    ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1412,7 +1435,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-control"><?php
                                                     $BRANCH = new Branch($CUSTOMER->branch);
                                                     echo $BRANCH->name;
-                                                ?></div>
+                                                    ?></div>
                                             </div>
                                         </div>
                                     </div>
@@ -1640,32 +1663,32 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                if ($GR1->dob_month == 1) {
-                                                    echo 'Jan';
-                                                } elseif ($GR1->dob_month == 2) {
-                                                    echo 'Feb';
-                                                } elseif ($GR1->dob_month == 3) {
-                                                    echo 'Mar';
-                                                } elseif ($GR1->dob_month == 4) {
-                                                    echo 'Apr';
-                                                } elseif ($GR1->dob_month == 5) {
-                                                    echo 'May';
-                                                } elseif ($GR1->dob_month == 6) {
-                                                    echo 'Jun';
-                                                } elseif ($GR1->dob_month == 7) {
-                                                    echo 'Jul';
-                                                } elseif ($GR1->dob_month == 8) {
-                                                    echo 'Aug';
-                                                } elseif ($GR1->dob_month == 9) {
-                                                    echo 'Sep';
-                                                } elseif ($GR1->dob_month == 10) {
-                                                    echo 'Oct';
-                                                } elseif ($GR1->dob_month == 11) {
-                                                    echo 'Nov';
-                                                } else {
-                                                    echo 'Dec';
-                                                }
-                                                ?></div>
+                                                                if ($GR1->dob_month == 1) {
+                                                                    echo 'Jan';
+                                                                } elseif ($GR1->dob_month == 2) {
+                                                                    echo 'Feb';
+                                                                } elseif ($GR1->dob_month == 3) {
+                                                                    echo 'Mar';
+                                                                } elseif ($GR1->dob_month == 4) {
+                                                                    echo 'Apr';
+                                                                } elseif ($GR1->dob_month == 5) {
+                                                                    echo 'May';
+                                                                } elseif ($GR1->dob_month == 6) {
+                                                                    echo 'Jun';
+                                                                } elseif ($GR1->dob_month == 7) {
+                                                                    echo 'Jul';
+                                                                } elseif ($GR1->dob_month == 8) {
+                                                                    echo 'Aug';
+                                                                } elseif ($GR1->dob_month == 9) {
+                                                                    echo 'Sep';
+                                                                } elseif ($GR1->dob_month == 10) {
+                                                                    echo 'Oct';
+                                                                } elseif ($GR1->dob_month == 11) {
+                                                                    echo 'Nov';
+                                                                } else {
+                                                                    echo 'Dec';
+                                                                }
+                                                                ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -1869,9 +1892,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                $CENTER = new Center($GR1->center);
-                                echo $CENTER->name;
-                                    ?></div>
+                                                        $CENTER = new Center($GR1->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2255,32 +2278,32 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-group" style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                if ($GR2->dob_month == 1) {
-                                                    echo 'Jan';
-                                                } elseif ($GR2->dob_month == 2) {
-                                                    echo 'Feb';
-                                                } elseif ($GR2->dob_month == 3) {
-                                                    echo 'Mar';
-                                                } elseif ($GR2->dob_month == 4) {
-                                                    echo 'Apr';
-                                                } elseif ($GR2->dob_month == 5) {
-                                                    echo 'May';
-                                                } elseif ($GR2->dob_month == 6) {
-                                                    echo 'Jun';
-                                                } elseif ($GR2->dob_month == 7) {
-                                                    echo 'Jul';
-                                                } elseif ($GR2->dob_month == 8) {
-                                                    echo 'Aug';
-                                                } elseif ($GR2->dob_month == 9) {
-                                                    echo 'Sep';
-                                                } elseif ($GR2->dob_month == 10) {
-                                                    echo 'Oct';
-                                                } elseif ($GR2->dob_month == 11) {
-                                                    echo 'Nov';
-                                                } else {
-                                                    echo 'Dec';
-                                                }
-                                                ?></div>
+                                                                if ($GR2->dob_month == 1) {
+                                                                    echo 'Jan';
+                                                                } elseif ($GR2->dob_month == 2) {
+                                                                    echo 'Feb';
+                                                                } elseif ($GR2->dob_month == 3) {
+                                                                    echo 'Mar';
+                                                                } elseif ($GR2->dob_month == 4) {
+                                                                    echo 'Apr';
+                                                                } elseif ($GR2->dob_month == 5) {
+                                                                    echo 'May';
+                                                                } elseif ($GR2->dob_month == 6) {
+                                                                    echo 'Jun';
+                                                                } elseif ($GR2->dob_month == 7) {
+                                                                    echo 'Jul';
+                                                                } elseif ($GR2->dob_month == 8) {
+                                                                    echo 'Aug';
+                                                                } elseif ($GR2->dob_month == 9) {
+                                                                    echo 'Sep';
+                                                                } elseif ($GR2->dob_month == 10) {
+                                                                    echo 'Oct';
+                                                                } elseif ($GR2->dob_month == 11) {
+                                                                    echo 'Nov';
+                                                                } else {
+                                                                    echo 'Dec';
+                                                                }
+                                                                ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -2466,9 +2489,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                $CENTER = new Center($GR2->center);
-                                echo $CENTER->name;
-                                    ?></div>
+                                                        $CENTER = new Center($GR2->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -2865,32 +2888,32 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-group"  style="margin-top: -20px;">
                                                         <div class="form-line"> 
                                                             <div class="form-control"><?php
-                                                if ($GR3->dob_month == 1) {
-                                                    echo 'Jan';
-                                                } elseif ($GR3->dob_month == 2) {
-                                                    echo 'Feb';
-                                                } elseif ($GR3->dob_month == 3) {
-                                                    echo 'Mar';
-                                                } elseif ($GR3->dob_month == 4) {
-                                                    echo 'Apr';
-                                                } elseif ($GR3->dob_month == 5) {
-                                                    echo 'May';
-                                                } elseif ($GR3->dob_month == 6) {
-                                                    echo 'Jun';
-                                                } elseif ($GR3->dob_month == 7) {
-                                                    echo 'Jul';
-                                                } elseif ($GR3->dob_month == 8) {
-                                                    echo 'Aug';
-                                                } elseif ($GR3->dob_month == 9) {
-                                                    echo 'Sep';
-                                                } elseif ($GR3->dob_month == 10) {
-                                                    echo 'Oct';
-                                                } elseif ($GR3->dob_month == 11) {
-                                                    echo 'Nov';
-                                                } else {
-                                                    echo 'Dec';
-                                                }
-                                                ?></div>
+                                                                if ($GR3->dob_month == 1) {
+                                                                    echo 'Jan';
+                                                                } elseif ($GR3->dob_month == 2) {
+                                                                    echo 'Feb';
+                                                                } elseif ($GR3->dob_month == 3) {
+                                                                    echo 'Mar';
+                                                                } elseif ($GR3->dob_month == 4) {
+                                                                    echo 'Apr';
+                                                                } elseif ($GR3->dob_month == 5) {
+                                                                    echo 'May';
+                                                                } elseif ($GR3->dob_month == 6) {
+                                                                    echo 'Jun';
+                                                                } elseif ($GR3->dob_month == 7) {
+                                                                    echo 'Jul';
+                                                                } elseif ($GR3->dob_month == 8) {
+                                                                    echo 'Aug';
+                                                                } elseif ($GR3->dob_month == 9) {
+                                                                    echo 'Sep';
+                                                                } elseif ($GR3->dob_month == 10) {
+                                                                    echo 'Oct';
+                                                                } elseif ($GR3->dob_month == 11) {
+                                                                    echo 'Nov';
+                                                                } else {
+                                                                    echo 'Dec';
+                                                                }
+                                                                ?></div>
                                                         </div>
                                                     </div> 
                                                 </div>
@@ -3076,9 +3099,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-line">
                                                     <label for="center" class="hidden-lg hidden-md">Center</label>
                                                     <div class="form-control"><?php
-                                $CENTER = new Center($GR2->center);
-                                echo $CENTER->name;
-                                    ?></div>
+                                                        $CENTER = new Center($GR2->center);
+                                                        echo $CENTER->name;
+                                                        ?></div>
                                                 </div>
                                             </div>
                                         </div>
@@ -3352,9 +3375,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                 <div class="form-line"> 
                                                     <label  class="hidden-lg hidden-md">Created By :</label>
                                                     <div class="form-control"><?php
-                                        $USER = new User($LOAN->create_by);
-                                        echo $USER->name;
-                                        ?>
+                                                        $USER = new User($LOAN->create_by);
+                                                        echo $USER->name;
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3371,7 +3394,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-control"><?php
                                                         $USER = new User($LOAN->verify_by);
                                                         echo $USER->name;
-                                        ?>
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3388,7 +3411,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-control"><?php
                                                         $USER = new User($LOAN->approved_by);
                                                         echo $USER->name;
-                                        ?>
+                                                        ?>
                                                     </div>
                                                 </div>
                                             </div>
@@ -3404,9 +3427,9 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-line"> 
                                                         <label  class="hidden-lg hidden-md">Release By :</label>
                                                         <div class="form-control"><?php
-                                        $USER = new User($LOAN->release_by);
-                                        echo $USER->name;
-                                        ?>
+                                                            $USER = new User($LOAN->release_by);
+                                                            echo $USER->name;
+                                                            ?>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -3422,15 +3445,67 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <div class="form-line"> 
                                                         <label  class="hidden-lg hidden-md">Issued By :</label>
                                                         <div class="form-control"><?php
-                                        $USER = new User($LOAN->issue_by);
-                                        echo $USER->name;
-                                        ?>
+                                                            $USER = new User($LOAN->issue_by);
+                                                            echo $USER->name;
+                                                            ?>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>                                    
                                         </div> 
                                     <?php } ?>
+                                </div>
+                            </div>
+                            <div id="menu7" class="tab-pane fade">
+                                <div class="body"> 
+                                    <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
+
+
+                                        <div class="row">
+                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                                <label for="od_interest_limit">OD Interest Limit</label>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line"> 
+                                                        <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit; ?>"  autocomplete="off" min="0" >
+
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div class="form-line">                                            
+                                                        <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off" value="<?php echo $LOAN->od_date; ?>"  >
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <div  style="margin-top: 15px;">
+                                                        <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
+                                                        if ($LOAN->od_interest_limit !== 'NOT') {
+                                                            echo 'checked';
+                                                        }
+                                                        ?> id="rememberme"  />
+                                                        <label for="rememberme" id="lable-active">Activate</label>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+
+                                        <div class="row clearfix">
+                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            </div>
+                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                                <div class="form-group">
+                                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-od"  >Save Details</button>
+                                                </div> 
+                                                <input type="hidden" name="id" value="<?php echo $loan_id ?>">
+                                            </div> 
+                                        </div>
+                                    </form>  
                                 </div>
                             </div>
                             <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
@@ -3461,6 +3536,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <script>
             $(function () {
                 $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+                $(".od_date").datepicker({
+                    dateFormat: 'yy-mm-dd',
+
+                });
             });
         </script>
     </body> 

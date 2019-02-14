@@ -36,6 +36,8 @@ class Loan {
     public $transaction_id;
     public $transaction_document;
     public $history;
+    public $od_interest_limit;
+    public $od_date;
 
     public function __construct($id) {
         if ($id) {
@@ -75,6 +77,8 @@ class Loan {
             $this->transaction_id = $result['transaction_id'];
             $this->transaction_document = $result['transaction_document'];
             $this->history = $result['history'];
+            $this->od_interest_limit = $result['od_interest_limit'];
+            $this->od_date = $result['od_date'];
 
             return $this;
         }
@@ -99,6 +103,8 @@ class Loan {
                 . "`effective_date`,"
                 . "`create_by`,"
                 . "`collector`,"
+                . "`od_interest_limit`,"
+                . "`od_date`,"
                 . "`status`"
                 . ") VALUES  ('"
                 . $this->create_date . "','"
@@ -117,6 +123,8 @@ class Loan {
                 . $this->effective_date . "', '"
                 . $this->create_by . "', '"
                 . $this->collector . "', '"
+                . $this->od_interest_limit . "', '"
+                . $this->od_date . "', '"
                 . "pending')";
 
 
@@ -206,10 +214,29 @@ class Loan {
                 . "`status` ='" . $this->status . "', "
                 . "`transaction_id` ='" . $this->transaction_id . "', "
                 . "`transaction_document` ='" . $this->transaction_document . "', "
-                . "`history` ='" . $this->history . "' "
+                . "`history` ='" . $this->history . "', "
+                . "`od_interest_limit` ='" . $this->od_interest_limit . "', "
+                . "`od_date` ='" . $this->od_date . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
 
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function updateOd() {
+
+        $query = "UPDATE  `loan` SET "
+                . "`od_interest_limit` ='" . $this->od_interest_limit . "', "
+                . "`od_date` ='" . $this->od_date . "' "
+                . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -531,43 +558,7 @@ class Loan {
         return $html;
     }
 
-    public function getOdIntereset($customer, $due_amount, $installment_type) {
-
-        $CUSTOMER = new Customer(NULL);
-        $od_interest_limite = $CUSTOMER->getOdInteresetLimiteByCustomer($customer);
-
-        if ($od_interest_limite[0] >= $due_amount && (int) $installment_type == 30) {
-
-            $interest_amount_per_month = ($due_amount * 10) / 100;
-            $interest_amount = ($interest_amount_per_month / 30);
-
-            if ((int) $od_interest_limite[0] == 0) {
-                return 0;
-            } else {
-                return $interest_amount;
-            }
-        } else if ($od_interest_limite[0] >= $due_amount && (int) $installment_type == 4) {
-
-            $interest_amount_per_month = ($due_amount * 10) / 100;
-            $interest_amount_per_day = ($interest_amount_per_month / 30);
-            $interest_amount = ($interest_amount_per_day * 7);
-
-            if ((int) $od_interest_limite[0] == 0) {
-                return 0;
-            } else {
-                return $interest_amount;
-            }
-        } else {
-            $interest_amount_per_month = ($due_amount * 10) / 100;
-            $interest_amount = $interest_amount_per_month;
-
-            if ((int) $od_interest_limite[0] == 0) {
-                return 0;
-            } else {
-                return $interest_amount;
-            }
-        }
-    }
+    
 
     public function getCurrentStatus() {
 
@@ -621,6 +612,7 @@ class Loan {
 
             $date = $start->format('Y-m-d');
 
+
             if (strtotime(date("Y/m/d")) < strtotime($date)) {
                 break;
             }
@@ -642,6 +634,7 @@ class Loan {
             }
         }
 
+
         $Installment = new Installment(NULL);
         $total_paid_installment = 0;
         foreach ($Installment->getInstallmentByLoan($this->id) as $installment) {
@@ -653,6 +646,8 @@ class Loan {
         $system_due_num_of_ins = $system_due / $this->installment_amount;
         $actual_due = $loan_amount - $total_paid_installment;
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
+
+
 
         return [
             'system-due-num-of-ins' => $system_due_num_of_ins,
@@ -667,5 +662,3 @@ class Loan {
     }
 
 }
-
-

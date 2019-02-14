@@ -30,6 +30,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
         <link href="css/custom.css" rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 
     <body class="theme-red">
         <?php
@@ -383,19 +384,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="od_interest_limit">OD Interest Limit</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="od_interest_limit" class="hidden-lg hidden-md">OD Interest Limit</label>
-                                            <input type="number"    name="od_interest_limit"  placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off"  >
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -686,9 +675,8 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="js/demo.js"></script>  
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
-        <script>
-
-        </script>
+        <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+      
     </body>
 
 </html> 
