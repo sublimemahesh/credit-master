@@ -59,7 +59,7 @@ $(document).ready(function () {
             var issue_mode = $('#issue_mode').val();
             var effective_date = $('#effective_date').val();
             var result = validateForIssue(effective_date, issued_date, issue_mode);
-            alert(result);
+            
         } else if (result) {
 
 

@@ -73,7 +73,7 @@ if (isset($_GET['date'])) {
                                             <label for="registration_type" class="hidden-lg hidden-md">Select the Type</label>
                                             <select class="form-control registration_type_append_show" autocomplete="off" id="registration_type" name="all"  required="TRUE">
                                                 <option value=""> -- Please Select the Type -- </option>
-                                                <option  value="0"  > All </option>
+                                                <option  value="1"  > All </option>
                                                 <option value="route"> Route </option>
                                                 <option value="center"> Center </option> 
                                             </select> 
@@ -114,7 +114,8 @@ if (isset($_GET['date'])) {
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+
+                            <div class="row" style="display: none" id="customer_postpone_date_row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="customer">Customer</label>
                                 </div>
@@ -122,16 +123,14 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="customer" class="hidden-lg hidden-md">Customer</label>
-                                            <select class="form-control  " autocomplete="off" id="customer-empty" name="customer" required="TRUE" style="display: none">                                                 
-                                                <option  > -- Please select the type--  </option> 
-                                            </select>                                             
-                                            <select class="form-control  " autocomplete="off" id="customer-postpone-date" name="customer" required="TRUE"  >                                                 
-                                                <option value="1"> -- All Customers --  </option> 
-                                            </select> 
+                                            <select class="form-control " autocomplete="off" id="customer-postpone-date"  name="customer">  
+                                                <option value=""> -- Please Select a Customer -- </option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                             
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">

@@ -63,7 +63,7 @@ if (isset($_GET['date'])) {
                         </ul>
                     </div>
                     <div class="body">
-                        <form class="" action="post-and-get/installment.php" method="post"  enctype="multipart/form-data"> 
+                        <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data"> 
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -117,7 +117,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="address"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value="<?php echo $amount ?>" autocomplete="off" min="0" step="0.001" >
+                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value="<?php echo $amount ?>" autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>
@@ -144,7 +144,12 @@ if (isset($_GET['date'])) {
                                     <input type="hidden" value="<?php echo $USERS->id ?>" name="user_id">                                   
                                     <input type="hidden" value="<?php echo $loan ?>" name="loan">
                                     <input type="hidden" value="<?php echo $date ?>" name="installment_date">
-                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="create">Save Details</button>
+                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit"  id="paid_installment">Save Details</button>
+                                    <?php
+                                    $LOAN_1 = new Loan($loan);
+                                    $status = $LOAN_1->getCurrentStatus();
+                                    ?>
+                                    <input type="hidden" value="<?php echo $status["actual-due"] ?>" id="actual-due">
                                 </div>
                             </div>
                         </form> 
@@ -154,15 +159,20 @@ if (isset($_GET['date'])) {
         </section>
 
         <!-- Jquery Core Js -->
+
         <script src="plugins/jquery/jquery.min.js"></script>
         <script src="plugins/bootstrap/js/bootstrap.js"></script> 
         <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
         <script src="plugins/node-waves/waves.js"></script>
         <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+        <script src="plugins/sweetalert/sweetalert.min.js"></script>
+
         <script src="js/admin.js"></script>
         <script src="js/demo.js"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
         <script src="js/jquery.timepicker.min.js" type="text/javascript"></script>
+        <script src="js/ajax/paid_installment.js" type="text/javascript"></script>
+
         <script>
             $(function () {
                 $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
