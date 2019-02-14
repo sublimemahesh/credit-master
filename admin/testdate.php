@@ -104,206 +104,59 @@ $today = date("Y-m-d");
                                         ?> 
                                     </h5>
                                 </div> 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th> 
-                                                <th class="text-center">Installment Amount</th> 
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th> 
-                                                <th class="text-center">Options</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                <?php
+                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                            $first_installment_date = '';
+                                $first_installment_date = '';
 
-                                            if ($LOAN->installment_type == 4) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+7 day');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            } elseif ($LOAN->installment_type == 30) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+1 day');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            } elseif ($LOAN->installment_type == 1) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+1 months');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            }
-                                            $start = new DateTime($first_installment_date);
+                                if ($LOAN->installment_type == 4) {
+                                    $FID = new DateTime($LOAN->effective_date);
+                                    $FID->modify('+7 day');
+                                    $first_installment_date = $FID->format('Y-m-d');
+                                } elseif ($LOAN->installment_type == 30) {
+                                    $FID = new DateTime($LOAN->effective_date);
+                                    $FID->modify('+1 day');
+                                    $first_installment_date = $FID->format('Y-m-d');
+                                } elseif ($LOAN->installment_type == 1) {
+                                    $FID = new DateTime($LOAN->effective_date);
+                                    $FID->modify('+1 months');
+                                    $first_installment_date = $FID->format('Y-m-d');
+                                }
+                                $start = new DateTime($first_installment_date);
 
-                                            $first_date = $start->format('Y-m-d');
-                                            $INSTALLMENT = new Installment(NULL);
-
-                                            foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
-                                                ?>
-                                                <tr style="background-color: white;">
-                                                    <td></td>
-                                                    <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $installments['paid_date'] . ' / Time ' . $installments['time']; ?></td>                                                   
-                                                    <td class="font-colors"><?php echo 'Status: ' . $installments['status']; ?></td>
-                                                    <td class="font-colors"><?php echo 'Amount: ' . $installments['paid_amount']; ?></td>
-                                                    <td class="font-colors"><?php echo $installments['paid_amount']; ?></td>                                                   
-                                                    <td> </td>
-                                                    <td> </td>
-                                                </tr> 
-                                                <?php
-                                            }
-                                            $previus_amount = 0;
-                                            $previus_amount += $installments['paid_amount'];
-
-                                            $x = 0;
-                                            $count = 0;
-                                            $ins_total = 0;
-                                            $total_paid = 0;
-
-                                            while ($x < $defultdata) {
-                                                if ($defultdata == 4) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 30) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 8) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 60) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 2) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 1) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 90) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 12) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 3) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 100) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 13) {
-                                                    $add_dates = '+7 day';
-                                                }
-
-                                                $count++;
-                                                $date = $start->format('Y-m-d');
-                                                $customer = $LOAN->customer;
-
-                                                $CUSTOMER = new Customer($customer);
-                                                $route = $CUSTOMER->route;
-                                                $center = $CUSTOMER->center;
-                                                $amount = $LOAN->installment_amount;
-                                                $INSTALLMENT = new Installment(NULL);
-                                                $paid_amount = 0;
+                                $first_date = $start->format('Y-m-d');
+                                $INSTALLMENT = new Installment(NULL);
+                                $installments = 0;
+                                foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
+                                    ?>
 
 
-                                                foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
-                                                    $paid_amount += $paid['paid_amount'];
-                                                }
+                                    <?php echo 'P-D: ' . $installments['paid_date'] . ' / Time ' . $installments['time']; ?>                                                   
+                                    <?php echo 'Status: ' . $installments['status']; ?> 
+                                    <?php echo 'Amount: ' . $installments['paid_amount']; ?> 
+                                    <?php echo $installments['paid_amount']; ?>                                                   
 
-                                                echo '<tr class"tr-color" >';
-                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                    echo '<td class"tr-color font-color-2">';
-                                                    echo $count;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td red ">';
-                                                    echo $date;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" colspan=5>';
-                                                    echo '-- Postponed --';
-                                                    echo '</td>';
 
-                                                    $start->modify($add_dates);
-                                                } else {
 
-                                                    echo '<td class"tr-color font-color-2">';
-                                                    echo $count;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td f-style tr-color font-color-2">';
-                                                    echo $date;
-                                                    echo '</td>';
-                                                    echo '<td class="f-style tr-color font-color-2">';
-                                                    echo 'Rs: ' . number_format($amount, 2);
-                                                    echo '</td>';
-                                                    echo '<td class="f-style tr-color font-color-2">';
+                                    <?php
+                                }
+                               
+                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $key => $Installment_payment) {
+                                    ?>
 
-                                                    if ($paid_amount) {
-                                                        echo 'Paid';
-                                                    } elseif ($date <= $today) {
-                                                        echo 'Posted';
-                                                    } elseif ($date > $today) {
-                                                        echo 'Unpaid';
-                                                    } else {
-                                                        echo 'Payble';
-                                                    }
-                                                    echo '</td>';
 
-                                                    echo '<td class="f-style tr-color font-color-2">';
+                                    <?php echo 'P-D: ' . $Installment_payment['paid_date'] . '/ Time:' . $Installment_payment['time']; ?>
+                                    <?php echo 'Status: ' . $Installment_payment['status']; ?>
+                                    <?php echo 'Amount: ' . number_format($Installment_payment['paid_amount'], 2); ?>
+                                    <?php
+                                    $installemt_amount = $LOAN->installment_amount;
+                                    $amount += $Installment_payment['paid_amount'];
+                                    $all_installments = ($previse_amount + $amount) - $installemt_amount;
+                                    echo $all_installments;
+                                }
+                                ?>
 
-                                                    $previse_payment = ($previus_amount - $amount);
 
-                                                    echo '<td class="f-style tr-color font-color-2">';
-                                                    echo '';
-                                                    echo '</td>';
-
-                                                    echo '<td class="f-style tr-color font-color-2">';
-
-                                                    echo '</td>';
-
-                                                    echo '<td class="tr-color">';
-
-                                                    echo '</td>';
-                                                }
-                                                echo '</tr>';
-
-                                                $FID = new DateTime($date);
-                                                $FID->modify($add_dates);
-                                                $second_installment_date = $FID->format('Y-m-d');
-                                                $installment_amounts_all = $INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId_2($date, $second_installment_date, $loan_id, $today);
-                                                
-
-                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $Installment_payment) {
-                                                    ?>
-                                                    <tr style="background-color: white;">
-                                                        <td></td>
-                                                        <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $Installment_payment['paid_date'] . '/ Time:' . $Installment_payment['time']; ?></td>
-                                                        <td class="font-colors"><?php echo 'Status: ' . $Installment_payment['status']; ?></td>
-                                                        <td class="font-colors"><?php echo 'Amount: ' . number_format($Installment_payment['paid_amount'], 2); ?></td>
-                                                        <td class="font-colors"><?php
-                                                            $installemt_amount = $LOAN->installment_amount;
-                                                            $amount += $Installment_payment['paid_amount'];                                                         
-                                                            $all_installments = ($previse_payment + $amount) - $installemt_amount;
-                                                            echo $all_installments;
-                                                            ?>
-                                                        </td>
-                                                        <td></td>
-                                                        <td></td>
-                                                    </tr>
-                                                    <?php
-                                                }
-
-                                                $start->modify($add_dates);
-                                                $x++;
-                                            }
-                                            ?>
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th> 
-                                                <th class="text-center">Installment Amount</th> 
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th>  
-                                                <th class="text-center">Options</th> 
-                                            </tr>   
-                                        </tfoot>
-                                    </table>  
-                                </div>
                             </div>
                         </div>
                     </div>

@@ -14,11 +14,10 @@ $postpone_dates = NULL;
 
 if (isset($_GET['date'])) {
     $postpone_dates = $POSTPONE_DATE->getPostPoneDateByDate($_GET['date']);
-    $title= 'Manage Postpone Date : '.$_GET['date'];
-    
+    $title = 'Manage Postpone Date : ' . $_GET['date'];
 } else {
     $postpone_dates = $POSTPONE_DATE->all();
-     $title= 'Manage Postpone Date';
+    $title = 'Manage Postpone Date';
 }
 ?> 
 <!DOCTYPE html>
@@ -62,7 +61,7 @@ if (isset($_GET['date'])) {
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                   <?php echo $title?>
+                                    <?php echo $title ?>
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -94,10 +93,14 @@ if (isset($_GET['date'])) {
                                                     <td>
                                                         <?php
                                                         if ($postpone_date['all']) {
-                                                            echo 'All';
+                                                            echo "<b>" .'All'."</b>" ;
+                                                        } elseif ($postpone_date['route'] == "88888") {
+                                                            echo "<b>" . 'All Routes ' . "</b>";
                                                         } elseif ($postpone_date['route']) {
                                                             $ROUTE = new Route($postpone_date['route']);
                                                             echo "<b>" . 'Route - ' . "</b>" . $ROUTE->name;
+                                                        } else if($postpone_date['center'] == 99999)  {                                                            
+                                                            echo "<b>" . 'All Centers' . "</b>";
                                                         } else {
                                                             $CENTER = new Center($postpone_date['center']);
                                                             echo "<b>" . 'Center - ' . "</b>" . $CENTER->name;

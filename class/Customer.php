@@ -223,7 +223,7 @@ class Customer {
 
     public function getCustomerReport() {
 
-        $query = "SELECT * FROM `customer` WHERE profile_picture IN (NULL, '') || nic_photo_front IN (NULL, '') || nic_photo_back IN (NULL, '') || billing_proof_image IN (NULL, '')|| signature_image IN (NULL, '')|| bank_book_picture IN (NULL, '')   ";
+        $query = "SELECT * FROM `customer` WHERE title IN (NULL, '') || last_name IN (NULL, '') || profile_picture IN (NULL, '') || nic_photo_front IN (NULL, '') || nic_photo_back IN (NULL, '') || billing_proof_image IN (NULL, '')|| email IN (NULL, '')|| telephone IN (NULL, '')|| signature_image IN (NULL, '')|| business_name IN (NULL, '')|| br_number IN (NULL, '')|| nature_of_business IN (NULL, '')|| br_picture IN (NULL, '')|| bank IN (NULL, '')|| branch IN (NULL, '')|| branch_code IN (NULL, '')|| bank_book_picture IN (NULL, '')|| account_number IN (NULL, '')|| holder_name IN (NULL, '')   ";
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();

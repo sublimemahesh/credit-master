@@ -49,7 +49,7 @@ $CUSTOMER = new Customer(NULL);
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                     Customers Report
+                                    Customers Report
                                 </h2>
                                 <ul class="header-dropdown">
                                     <li>
@@ -65,9 +65,9 @@ $CUSTOMER = new Customer(NULL);
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
-                                                <th>Full Name</th>   
-                                                <th>Address</th>
-                                                <th>Mobile</th> 
+                                                <th>Personal Details</th>   
+                                                <th>Business Details</th>
+                                                <th>Bank Details</th> 
                                                 <th>Options</th> 
                                             </tr>
                                         </thead>
@@ -81,15 +81,15 @@ $CUSTOMER = new Customer(NULL);
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td><?php echo $customer['id'] ?></td> 
                                                     <td>
-                                                        <i class="glyphicon glyphicon-user"></i>
-                                                        <b>: 
-                                                            <?php
-                                                            $first_name = $DefaultData->getFirstLetterName(ucwords($customer['surname']));
-                                                            echo $first_name . ' ' . $customer['first_name'] . ' ' . $customer['last_name']
-                                                            ?> 
-                                                        </b>
+                                                        <?php
+                                                        if (empty($customer['title'] || $customer['last_name'] || $customer['profile_picture'] || $customer['nic_photo_front'] || $customer['nic_photo_back'] || $customer['billing_proof_image'] || $customer['email'] || $customer['telephone'] || $customer['signature_image'])) {
+                                                            echo 'Some Customer Details are empty';
+                                                        }else{
+                                                            
+                                                        }
+                                                        ?>
                                                         <br>
-                                                        <b>ID No : </b>  <?php echo $customer['nic_number']; ?>
+
                                                     </td>
 
                                                     <td>
@@ -116,8 +116,8 @@ $CUSTOMER = new Customer(NULL);
                                                     <td>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a>
-                                                         
-                                                        
+
+
                                                     </td> 
                                                 </tr>
                                                 <?php

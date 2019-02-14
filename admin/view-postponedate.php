@@ -98,7 +98,7 @@ $POSTPONEDATE = new PostponeDate($id);
                                         <div class="form-line">
                                             <label for="all" class="hidden-lg hidden-md">All</label>
                                             <div class="form-control"> 
-                                                <?php echo 'All'?>
+                                                <?php echo 'All' ?>
                                             </div>
                                         </div>
                                     </div>
@@ -115,8 +115,12 @@ $POSTPONEDATE = new PostponeDate($id);
                                             <label for="route" class="hidden-lg hidden-md">Route</label>
                                             <div class="form-control"> 
                                                 <?php
+                                                if ($POSTPONEDATE->route == 88888) {
+                                                    echo 'All Routes';
+                                                }else{                                                    
                                                 $ROUTE = new Route($POSTPONEDATE->route);
-                                                echo $ROUTE->name;
+                                                    echo $ROUTE->name;
+                                                }
                                                 ?>
                                             </div>
                                         </div>
@@ -134,8 +138,13 @@ $POSTPONEDATE = new PostponeDate($id);
                                             <label for="center" class="hidden-lg hidden-md">Center</label>
                                             <div class="form-control"> 
                                                 <?php
+                                                if($POSTPONEDATE->center == 99999){
+                                                    echo 'All Centers';
+                                                }else{
+                                                    
                                                 $CENTER = new Center($POSTPONEDATE->center);
-                                                echo $CENTER->name;
+                                                        echo $CENTER->name;
+                                                    }
                                                 ?>
                                             </div>
                                         </div>

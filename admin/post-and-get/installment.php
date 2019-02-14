@@ -15,10 +15,7 @@ if (isset($_POST['create'])) {
     $INSTALLMENT->time = $_POST['time'];
     $INSTALLMENT->paid_amount = $_POST['paid_amount'];
     $INSTALLMENT->additional_interest = $_POST['additional_interest'];
-    $INSTALLMENT->collector = $_POST['user_id'];
-
-
-     
+    $INSTALLMENT->collector = $_POST['user_id'];    
 
 
     $VALID->check($INSTALLMENT, [
