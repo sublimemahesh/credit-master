@@ -1,13 +1,10 @@
 $(document).ready(function () {
-
     $('#paid_installment').click(function (event) {
         event.preventDefault();
-
         var actual_due = $("#actual-due").val();
         var amount = $("#paid_amount").val();
 
         if (actual_due < amount) {
-
             var due_amount = amount - actual_due;
 
             swal({
@@ -21,12 +18,12 @@ $(document).ready(function () {
             });
         } else {
             swal({
-                title: "Reject!",
-                text: "Do you really want to reject this loan?...",
+                title: "Paid Now!",
+                text: "Do you really want to Paid this amount?...",
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ff9600",
-                confirmButtonText: "Yes, Reject It!",
+                confirmButtonText: "Yes, Paid It!",
                 closeOnConfirm: false
             }, function () {
                 var formData = new FormData($("form#form-data")[0]);
@@ -43,10 +40,7 @@ $(document).ready(function () {
                         if (result.status === 'error') {
                             alert('Error');
                         } else {
-                            function () {
-
-                            }
-                            
+                            window.location = 'manage-released-loan.php';
                         }
                     }
 
@@ -55,6 +49,7 @@ $(document).ready(function () {
                 return false;
             });
         }
+
     });
 });
 

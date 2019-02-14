@@ -168,6 +168,7 @@ $(document).ready(function () {
             $('#installment_price').val(installment_price.toFixed(2));
         }
     });
+
 //loan type
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
@@ -546,7 +547,7 @@ $(document).ready(function () {
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
-            });
+            }); 
 
         } else if (result) {
             var formData = new FormData($("form#form-data")[0]);
@@ -632,6 +633,10 @@ $(document).ready(function () {
             return true;
         }
     }
+
+//Create loan od limite active or inactive
+
+
 });
 
 // Cheque guarantor 2
@@ -990,6 +995,8 @@ $('#customer,#issue_mode').change(function () {
 
     });
 });
+
+
 
 ///-----------Windows Onloard----------// 
 window.onload = function () {

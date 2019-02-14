@@ -99,7 +99,7 @@ $LOAN->status = 'pending';
                                                     <td>
                                                         <i class="glyphicon glyphicon-user"></i>
                                                         <b> : 
-                                                            <?php
+                                                            <?php                                                             
                                                             $Customer = new Customer($loan['customer']);
                                                             $DefaultData = new DefaultData();
                                                             $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
