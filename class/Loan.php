@@ -558,7 +558,33 @@ class Loan {
         return $html;
     }
 
-    
+    public function getOdIntereset($due_amount, $installment_type, $od_interest_limit) {
+
+        $due = explode("-", $due_amount);
+        $DUE = (int) $due[1];
+        
+        if ($DUE > (int) $od_interest_limit && (int) $installment_type == 30) {
+
+            $interest_amount_per_month = ($DUE * 10) / 100;
+            $interest_amount = ($interest_amount_per_month / 30);
+        
+            return $interest_amount;
+        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 4) {
+
+            $interest_amount_per_month = ($DUE * 10) / 100;
+            $interest_amount_per_day = ($interest_amount_per_month / 30);
+             
+            $interest_amount = ($interest_amount_per_day * 7);
+           
+            return $interest_amount;
+        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 1) {
+            
+            $interest_amount_per_month = ($DUE * 10) / 100;
+            $interest_amount = $interest_amount_per_month;
+
+            return $interest_amount;
+        }
+    }
 
     public function getCurrentStatus() {
 
