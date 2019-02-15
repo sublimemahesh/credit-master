@@ -169,8 +169,7 @@ $(document).ready(function () {
         }
     });
 
-//create loan 
-
+//create loan before check customer bank details completed
     $('#issue_mode').change(function () {
         var issue_mode = $(this).val();
         var customer = $('#customer').val();
@@ -184,7 +183,6 @@ $(document).ready(function () {
                     customer: customer,
                     action: 'CHECKCUSTOMERBANKDETAILS'
                 },
-
                 dataType: "JSON",
                 success: function (jsonStr) {
 
@@ -200,13 +198,9 @@ $(document).ready(function () {
                                 confirmButtonText: "Enter Again.!",
                                 closeOnConfirm: false
                             });
-                            
-                           
                         });
-
                     }
                 }
-
             });
         }
     });
@@ -628,6 +622,31 @@ $(document).ready(function () {
         return false;
     });
 
+//check od limite active innactive 
+    $('#rememberme').click(function () {
+        var id = $(this).val();
+
+        if (!$('#od_interest_limit').val() || $('#od_interest_limit').val().length === 0 && id == 1) {
+            $("#rememberme").prop("checked", false);
+            swal({
+                title: "Error!",
+                text: "Please enter the od interest limit ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        } else if (!$('#od_date').val() || $('#od_date').val().length === 0 && id == 1) {
+            $("#rememberme").prop("checked", false);
+            swal({
+                title: "Error!",
+                text: "Please enter the od date ..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+        }
+    });
+
 //remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
@@ -1036,7 +1055,8 @@ $('#customer,#issue_mode').change(function () {
     var customer_id = $(`#customer`).val();
     var issue_mode = $(`#issue_mode`).val();
     var loan_amount = $(`#loan_amount`).val();
-
+   
+   
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",

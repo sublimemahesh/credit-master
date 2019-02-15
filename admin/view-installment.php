@@ -116,7 +116,7 @@ $today = date("Y-m-d");
                                                 <th class="text-center">Status</th> 
                                                 <th class="text-center">Paid Amount</th> 
                                                 <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th> 
+                                                <th class="text-center">Od Interest</th> 
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </thead>
@@ -146,7 +146,7 @@ $today = date("Y-m-d");
                                             $count = 0;
                                             $ins_total = 0;
                                             $total_paid = 0;
-
+                                            $data = array();
                                             while ($x < $defultdata) {
                                                 if ($defultdata == 4) {
                                                     $add_dates = '+7 day';
@@ -184,6 +184,7 @@ $today = date("Y-m-d");
                                                 $Installment = new Installment(NULL);
                                                 $paid_amount = 0;
 
+
                                                 foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
@@ -199,9 +200,7 @@ $today = date("Y-m-d");
                                                     echo '<td class="padd-td gray text-center" colspan=5>';
                                                     echo '-- Postponed --';
                                                     echo '</td>';
-
-                                                    $start->modify($add_dates);
-                                                    
+                                                    $x--;
                                                 } else {
                                                     echo '<td class="tr-color font-color-2">';
                                                     echo $count;
@@ -212,7 +211,6 @@ $today = date("Y-m-d");
 
 
                                                     echo '<td class="f-style tr-color font-color-2">';
-
                                                     if ($paid_amount) {
                                                         echo 'Paid';
                                                     } elseif ($date <= $today) {
@@ -249,6 +247,20 @@ $today = date("Y-m-d");
 
                                                     echo '<td class="tr-color font-color-2">';
 
+                                                    if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                                                        
+                                                    } else {
+                                                        if (strtotime($LOAN->od_date) <= strtotime($date) ) {
+
+                                                            if ($due_and_excess < 0) {
+                                                                $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->installment_type, $LOAN->od_interest_limit);
+
+                                                                $data[] = $od_interest;
+                                                            }
+                                                            echo json_encode(round(array_sum($data), 2));
+                                                        }
+                                                    }
+
                                                     echo '</td>';
                                                     echo '<td class="text-center tr-color font-color-2">';
 
@@ -278,9 +290,8 @@ $today = date("Y-m-d");
                                                     echo '</td>';
                                                 }
                                                 echo '</tr>';
-
-
                                                 $start->modify($add_dates);
+
                                                 $x++;
                                             }
                                             ?>
@@ -292,7 +303,7 @@ $today = date("Y-m-d");
                                                 <th class="text-center">Status</th> 
                                                 <th class="text-center">Paid Amount</th> 
                                                 <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th>  
+                                                <th class="text-center">Od Interest</th>  
                                                 <th class="text-center">Options</th> 
                                             </tr>   
                                         </tfoot>

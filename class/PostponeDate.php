@@ -272,7 +272,7 @@ class PostponeDate {
     public function CheckIsPostPoneByDateAndCustomer($date, $customer) {
 
         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `customer`= '" . $customer . "'";
-
+  
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
 
@@ -285,8 +285,8 @@ class PostponeDate {
 
     public function CheckIsPostPoneByDateAndRoute($date, $route) {
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '" . $route . "'";
-
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '" . $route . "' AND `route` !=0";
+       
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
 
@@ -299,8 +299,8 @@ class PostponeDate {
 
     public function CheckIsPostPoneByDateAndCenter($date, $center) {
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '" . $center . "'";
-
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '" . $center . "' AND `center` !=0";
+       
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
 
@@ -327,7 +327,7 @@ class PostponeDate {
     
     public function CheckIsPostPoneByDateCenterAll($date) {
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '99999' AND `route`!= '0'";
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '99999' AND `route` = '0'";
 
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
@@ -340,7 +340,7 @@ class PostponeDate {
     }
     public function CheckIsPostPoneByDateRouteAll($date) {
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '88888' AND `center`!= '0' ";
+        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '88888' AND `center`= '0' ";
        
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));

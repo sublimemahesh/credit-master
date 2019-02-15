@@ -444,7 +444,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                             </div>
 
 
-                            <div class="row">
+                            <div class="row" >
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="">Balance Of the last Loan</label>
                                 </div>
@@ -460,7 +460,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row" id="total_deductions_row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="total_deductions">Total Deductions </label>
                                 </div>
