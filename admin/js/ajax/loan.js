@@ -169,6 +169,49 @@ $(document).ready(function () {
         }
     });
 
+//create loan 
+
+    $('#issue_mode').change(function () {
+        var issue_mode = $(this).val();
+        var customer = $('#customer').val();
+
+        if (issue_mode === 'bank') {
+
+            $.ajax({
+                url: "post-and-get/ajax/customer.php",
+                type: "POST",
+                data: {
+                    customer: customer,
+                    action: 'CHECKCUSTOMERBANKDETAILS'
+                },
+
+                dataType: "JSON",
+                success: function (jsonStr) {
+
+                    if (jsonStr.status == 'sucess') {
+                        $.each(jsonStr.data, function (i, data) {
+                            $('option:selected', $('#issue_mode')).remove();
+                            swal({
+                                title: "You can not create this loan .!",
+                                text: "This Customer has not completed bank details..",
+                                type: "error",
+                                showCancelButton: false,
+                                confirmButtonColor: "#00b0e4",
+                                confirmButtonText: "Enter Again.!",
+                                closeOnConfirm: false
+                            });
+                            
+                           
+                        });
+
+                    }
+                }
+
+            });
+        }
+    });
+
+
 //loan type
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
@@ -547,7 +590,7 @@ $(document).ready(function () {
                 type: 'error',
                 timer: 2000,
                 showConfirmButton: false
-            }); 
+            });
 
         } else if (result) {
             var formData = new FormData($("form#form-data")[0]);
@@ -955,6 +998,37 @@ $('#customer').change(function () {
         }
     });
 });
+
+// crate loan check od limite and date add
+$('#create_loan').click(function (event) {
+    event.preventDefault();
+
+    if (!$('#od_interest_limit').val() || $('#od_interest_limit').val().length === 0) {
+        swal({
+            title: "Error!",
+            text: "Please enter the od interest limit..!",
+            type: 'error',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+    } else if (!$('#od_date').val() || $('#od_date').val().length === 0) {
+        swal({
+            title: "Error!",
+            text: "Please enter the od_date ..!",
+            type: 'error',
+            timer: 2000,
+            showConfirmButton: false
+        });
+
+    } else if (result) {
+
+
+    }
+    return false;
+});
+
+
 
 //customer Last loan amount
 $('#customer,#issue_mode').change(function () {

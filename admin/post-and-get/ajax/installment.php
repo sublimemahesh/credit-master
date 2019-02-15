@@ -13,7 +13,7 @@ $INSTALLMENT->time = $_POST['time'];
 $INSTALLMENT->paid_amount = $_POST['paid_amount'];
 $INSTALLMENT->additional_interest = $_POST['additional_interest'];
 $INSTALLMENT->collector = $_POST['user_id'];
-
+ 
 $INSTALLMENT->create(); 
 $result = ["status" => 'success'];
 echo json_encode($result);

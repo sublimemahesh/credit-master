@@ -231,6 +231,21 @@ class Customer {
         return $array_res;
     }
 
+    public function checkCustomerBankDetails($customer) {
+
+        $query = "SELECT * FROM `customer` WHERE `id` ='" . $customer . "' AND  bank IN (NULL, '') AND branch IN (NULL, '') AND branch_code IN (NULL, '') AND bank_book_picture IN (NULL, '')AND account_number IN (NULL, '') AND holder_name IN (NULL, '') ";
+         
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
     public function activeCustomer() {
 
         $query = "SELECT * FROM `customer` WHERE `is_active` = 1";
