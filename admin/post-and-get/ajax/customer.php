@@ -96,6 +96,21 @@ if ($_POST['action'] == 'GETBRANCHCODE') {
     }
 }
 
+//check customer bank details
+if ($_POST['action'] == 'CHECKCUSTOMERBANKDETAILS') {
+
+    $CUSTOMER = new Customer(NULL);
+    $result = $CUSTOMER->checkCustomerBankDetails($_POST["customer"]);
+  
+    if ($result == TRUE) {
+        echo json_encode(['status' => 'sucess','data' => $result]);
+        header('Content-type: application/json');
+    } else {
+        header('Content-type: application/json');
+        exit();
+    }
+}
+
 if ($_POST['action'] == 'ADDBRANCHNAME') {
 
     $BRANCH = new Branch(NULL);
@@ -134,14 +149,14 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
     }
 }
 
-///---Check Customer has Active loan--///
+//customer has active loan
 
 if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
 
     $LOAN = new Loan(NULL);
 
     $result = $LOAN->CheckCustomerHasLoan($_POST["customer"]);
-   
+
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');

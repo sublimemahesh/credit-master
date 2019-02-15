@@ -626,40 +626,7 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
-
-
-
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="od_interest_limit">OD Interest Limit</label>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line"> 
-                                            <input type="number" id="loan_amount"  name="od_interest_limit" value="<?php echo $CUSTOMER->od_interest_limit ?>" class="form-control"  autocomplete="off"    >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">                                            
-                                            <input type="text" name="od_date"  placeholder="Enter OD Interest Limit Date" class="form-control datepicker" autocomplete="off" value="<?php echo $CUSTOMER->od_date ?>" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div  style="margin-top: 10px;">
-                                            <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
-                                                if ($CUSTOMER->od_interest_limit !== 'NOT') {
-                                                    echo 'checked';
-                                                }
-                                                ?> id="rememberme"  />
-                                            <label for="rememberme" id="lable-active">Activate</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+  
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">

@@ -6,7 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
- 
 ?> 
 <!DOCTYPE html>
 <html> 
@@ -30,7 +29,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
         <link href="css/materialize.css" rel="stylesheet" type="text/css"/>
-    
+
     </head>
 
     <body class="theme-red">
@@ -290,7 +289,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line"> 
                                             <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
-                                          
                                         </div>
                                     </div>
                                 </div>
@@ -368,7 +366,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="issue_mode">Issue Mode</label>
@@ -392,6 +389,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
+                            
                             <div  class="row" style="display: none" id="loan_processing_pre">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="issue_mode">Loan Processing Fee</label>
@@ -413,7 +411,6 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         </div>
                                     </div>
 
-
                                     <div  style="display: none" id="cheque_free">
                                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
@@ -423,6 +420,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                             </div>
                                         </div>
                                     </div>
+
                                     <div   style="display: none" id="stamp_fee_amount">                                   
                                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
@@ -432,6 +430,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                             </div>
                                         </div>
                                     </div>
+
                                     <div   style="display: none" id="bank_transaction_free_amount">                                   
                                         <div class="col-lg-2 col-md-2 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
