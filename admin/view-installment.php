@@ -247,18 +247,12 @@ $today = date("Y-m-d");
 
                                                     echo '<td class="tr-color font-color-2">';
 
-                                                    if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                                                    if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
                                                         
-                                                    } else {
-                                                        if (strtotime($LOAN->od_date) <= strtotime($date) ) {
-
-                                                            if ($due_and_excess < 0) {
-                                                                $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->installment_type, $LOAN->od_interest_limit);
-
-                                                                $data[] = $od_interest;
-                                                            }
-                                                            echo json_encode(round(array_sum($data), 2));
-                                                        }
+                                                    } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
+                                                        $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->installment_type, $LOAN->od_interest_limit);
+                                                        $data[] = $od_interest;
+                                                        echo json_encode(round(array_sum($data), 2));
                                                     }
 
                                                     echo '</td>';
