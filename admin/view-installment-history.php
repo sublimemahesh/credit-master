@@ -11,7 +11,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
 $today = date("Y-m-d");
-?> 
+?>
 <!DOCTYPE html>
 <html>
 
@@ -40,10 +40,10 @@ $today = date("Y-m-d");
             color: black;
         }
         .tr-color{
-            background-color:#927676b3;;
+            background-color:#a7a4a4b3;
         }
         .font-color-2{
-            color: white;  
+            color: black; 
         }
     </style>
 
@@ -52,7 +52,7 @@ $today = date("Y-m-d");
         include './navigation-and-header.php';
         ?>
         <section class="content">
-            <div class="container-fluid"> 
+            <div class="container-fluid">
                 <?php
                 $vali = new Validator();
 
@@ -70,7 +70,7 @@ $today = date("Y-m-d");
                             </div>
 
                             <div class="body">
-                                <div> 
+                                <div>
                                     <h5> ID: <?php
                                         if ($LOAN->installment_type == 30) {
                                             echo 'BLD' . $loan_id;
@@ -81,50 +81,50 @@ $today = date("Y-m-d");
                                         }
                                         ?></h5>
                                     <h5>
-                                        Customer Name : 
+                                        Customer Name :
                                         <?php
                                         $customer = new Customer($LOAN->customer);
                                         echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
-                                        ?> 
+                                        ?>
                                     </h5>
 
                                     <h5>Loan Amount : <?php echo $LOAN->loan_amount ?> </h5>
 
-                                    <h5>Installment Type : 
+                                    <h5>Installment Type :
                                         <?php
                                         $IT = DefaultData::getInstallmentType();
                                         echo $IT[$LOAN->installment_type];
-                                        ?> 
+                                        ?>
                                     </h5>
 
-                                    <h5>Loan Period : 
+                                    <h5>Loan Period :
                                         <?php
                                         $LP = DefaultData::getLoanPeriod();
                                         echo $LP[$LOAN->loan_period];
-                                        ?> 
+                                        ?>
                                     </h5>
-                                </div> 
+                                </div>
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <table class="table table-bordered table-striped table-hover dataTable" id="history-table">
                                         <thead>
                                             <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th> 
-                                                <th class="text-center">Installment Amount</th> 
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th> 
-                                                <th class="text-center">Options</th> 
+                                                <th class="text-right">ID</th>
+                                                <th class="text-right">Installment Date </th>                                               
+                                                <th class="text-right">Status</th>
+                                                <th class="text-right">DEBIT</th>
+                                                <th class="text-right">CREDIT</th>
+                                                <th class="text-right">BALANCE</th>
+
                                             </tr>
                                         </thead>
                                         <tbody>
                                             <?php
+                                            $row_count = 0;
                                             $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                             $first_installment_date = '';
                                             $installments = 0;
-                                            
+
                                             if ($LOAN->installment_type == 4) {
                                                 $FID = new DateTime($LOAN->effective_date);
                                                 $FID->modify('+7 day');
@@ -144,19 +144,21 @@ $today = date("Y-m-d");
                                             $INSTALLMENT = new Installment(NULL);
 
                                             foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
+                                                $row_count++;
                                                 ?>
                                                 <tr style="background-color: white;">
-                                                    <td></td>
-                                                    <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $installments['paid_date'] . ' / Time ' . $installments['time']; ?></td>                                                   
+                                                    <td><?php echo $row_count; ?></td>
+                                                    <td   class="font-colors"><?php echo 'P-D: ' . $installments['paid_date'] . ' / Time ' . $installments['time']; ?></td>                                                  
                                                     <td class="font-colors"><?php echo 'Status: ' . $installments['status']; ?></td>
                                                     <td class="font-colors"><?php echo 'Amount: ' . $installments['paid_amount']; ?></td>
-                                                    <td class="font-colors"><?php echo $installments['paid_amount']; ?></td>                                                   
+                                                    <td class="font-colors"><?php echo $installments['paid_amount']; ?></td>                                                  
                                                     <td> </td>
                                                     <td> </td>
-                                                </tr> 
+                                                </tr>
                                                 <?php
                                             }
                                             $previus_amount = 0;
+                                            $paid_amount_beetwen_dates = 0;
                                             $previus_amount += $installments['paid_amount'];
 
                                             $x = 0;
@@ -199,16 +201,26 @@ $today = date("Y-m-d");
                                                 $amount = $LOAN->installment_amount;
                                                 $INSTALLMENT = new Installment(NULL);
                                                 $paid_amount = 0;
+                                                $balance = 0;
 
 
-                                                foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+                                                $FID = new DateTime($date);
+                                                $FID->modify($add_dates);
+                                                $second_installment_date = $FID->format('Y-m-d');
+
+
+                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
 
+
+
+
                                                 echo '<tr class"tr-color" >';
+                                                $row_count++;
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
                                                     echo '<td class"tr-color font-color-2">';
-                                                    echo $count;
+                                                    echo $row_count;
                                                     echo '</td>';
                                                     echo '<td class="padd-td red ">';
                                                     echo $date;
@@ -217,18 +229,17 @@ $today = date("Y-m-d");
                                                     echo '-- Postponed --';
                                                     echo '</td>';
 
-                                                    $start->modify($add_dates);
+                                                    $x--;
                                                 } else {
 
-                                                    echo '<td class"tr-color font-color-2">';
-                                                    echo $count;
+                                                    echo '<td class"tr-color font-color-2" style="background-color:#a7a4a4b3;">';
+                                                    echo $row_count;
                                                     echo '</td>';
                                                     echo '<td class="padd-td f-style tr-color font-color-2">';
                                                     echo $date;
                                                     echo '</td>';
-                                                    echo '<td class="f-style tr-color font-color-2">';
-                                                    echo 'Rs: ' . number_format($amount, 2);
-                                                    echo '</td>';
+
+
                                                     echo '<td class="f-style tr-color font-color-2">';
 
                                                     if ($paid_amount) {
@@ -244,51 +255,71 @@ $today = date("Y-m-d");
 
                                                     echo '<td class="f-style tr-color font-color-2">';
 
-                                                    $all_pament = ($previus_amount - $amount);
+                                                    $ins_total += $amount;
+                                                    $total_paid += $paid_amount;
+                                                    $due_and_excess = $total_paid - $ins_total;
 
-                                                    echo '<td class="f-style tr-color font-color-2">';
-                                                    echo '';
+                                                    if ($due_and_excess > 0) {
+                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                    } else if ($due_and_excess < 0) {
+
+                                                        echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
+                                                    } else {
+                                                        echo number_format($due_and_excess, 2);
+                                                    }
+
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2">';
 
                                                     echo '</td>';
 
-                                                    echo '<td class="tr-color">';
+                                                    echo '<td class="f-style tr-color font-color-2">';
 
+                                                    if ($due_and_excess > 0) {
+                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                    } else if ($due_and_excess < 0) {
+                                                        echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
+                                                    } else {
+                                                        echo number_format($due_and_excess, 2);
+                                                    }
                                                     echo '</td>';
-
-                                                    
                                                 }
                                                 echo '</tr>';
 
-                                                $FID = new DateTime($date);
-                                                $FID->modify($add_dates);
-                                                $second_installment_date = $FID->format('Y-m-d');
+
 
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $Installment_payment) {
+                                                    $row_count++;
                                                     ?>
-                                                    <tr style="background-color: white;">
+
+                                                    <tr style="background-color: white;">  
+                                                        <td><?php echo $row_count; ?></td>
+                                                        <td class="font-colors text-right"><?php echo $Installment_payment['paid_date'] .' / '. $Installment_payment['time']; ?></td>
+
+                                                        <td class="font-colors text-right"><?php echo $Installment_payment['status']; ?></td>
                                                         <td></td>
-                                                        <td colspan="2" class="font-colors"><?php echo 'P-D: ' . $Installment_payment['paid_date'] . '/ Time:' . $Installment_payment['time']; ?></td>
-                                                        <td class="font-colors"><?php echo 'Status: ' . $Installment_payment['status']; ?></td>
-                                                        <td class="font-colors"><?php echo 'Amount: ' . number_format($Installment_payment['paid_amount'], 2); ?></td>
-                                                        <td class="font-colors"><?php
-                                                            $installemt_amount = $LOAN->installment_amount;
-
-                                                            $amount += $Installment_payment['paid_amount'];
-
-                                                            $all_installments = ($all_pament + $amount) - $installemt_amount;
-
-                                                            echo $all_installments;
-                                                            ?>
+                                                        <td class="font-colors text-right"><?php echo number_format($Installment_payment['paid_amount'], 2); ?></td>
+                                                        <td class="font-colors text-right"> 
+                                                            <?php
+                                                            $balance += $Installment_payment['paid_amount'];
+                                                            if ($due_and_excess < 0) {
+                                                                $due_amount = $due_and_excess - $paid_amount;
+                                                                echo   $due_amount + $balance;
+                                                            } else if ($due_and_excess > 0) {
+                                                                $due_amount = $due_and_excess - $paid_amount;
+                                                                echo $due_amount + $balance;
+                                                            }
+                                                            ?> 
                                                         </td>
-                                                        <td></td>
-                                                        <td></td>
+
                                                     </tr>
                                                     <?php
                                                 }
 
+                                                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                                                    break;
+                                                }
                                                 $start->modify($add_dates);
                                                 $x++;
                                             }
@@ -296,17 +327,15 @@ $today = date("Y-m-d");
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th> 
-                                                <th class="text-center">Installment Amount</th> 
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Aries Amount</th>  
-                                                <th class="text-center">Options</th> 
-                                            </tr>   
+                                                <th class="text-right">ID</th>
+                                                <th class="text-right">Installment Date</th> 
+                                                <th class="text-right">Status</th>
+                                                <th class="text-right">DEBIT</th>
+                                                <th class="text-right">CREDIT</th>
+                                                <th >BALANCE</th>
+                                            </tr>  
                                         </tfoot>
-                                    </table>  
+                                    </table> 
                                 </div>
                             </div>
                         </div>
@@ -336,5 +365,18 @@ $today = date("Y-m-d");
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
         <script src="delete/js/loan.js" type="text/javascript"></script>
-    </body> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#history-table').DataTable({
+                    "order": [[0, "desc"]],
+                    responsive: true,
+                    iDisplayLength: 100,
+                    aLengthMenu: [[100, 500, 1000, 2000, -1], [100, 500, 1000, 2000, "All"]],
+                    dom: 'Bfrtip',
+                    buttons: [
+                        'copy', 'csv', 'excel', 'pdf', 'print'
+                    ]
+                });
+            });</script>
+    </body>
 </html> 
