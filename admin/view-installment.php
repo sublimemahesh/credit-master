@@ -181,13 +181,18 @@ $today = date("Y-m-d");
                                                 $center = $CUSTOMER->center;
                                                 $amount = $LOAN->installment_amount;
 
-                                                $Installment = new Installment(NULL);
+                                                $INSTALLMENT = new Installment(NULL);
                                                 $paid_amount = 0;
 
 
-                                                foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
+                                                $FID = new DateTime($date);
+                                                $FID->modify($add_dates);
+                                                $second_installment_date = $FID->format('Y-m-d');
+
+                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
+
                                                 echo '<tr>';
 
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
@@ -231,6 +236,7 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style">';
+
                                                     $ins_total += $amount;
                                                     $total_paid += $paid_amount;
                                                     $due_and_excess = $total_paid - $ins_total;
@@ -239,7 +245,7 @@ $today = date("Y-m-d");
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } else if ($due_and_excess < 0) {
 
-                                                        echo '<span style="color:red">' . number_format($due_and_excess - $paid_amount, 2) . '</span>';
+                                                        echo '<span style="color:red">' . number_format($due_and_excess , 2) . '</span>';
                                                     } else {
                                                         echo number_format($due_and_excess, 2);
                                                     }
