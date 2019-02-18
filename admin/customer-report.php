@@ -76,48 +76,74 @@ $CUSTOMER = new Customer(NULL);
                                             $DefaultData = new DefaultData(NULl);
 
                                             foreach ($CUSTOMER->getCustomerReport() as $key => $customer) {
+
                                                 $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td><?php echo $customer['id'] ?></td> 
                                                     <td>
                                                         <?php
-                                                        if (empty($customer['title'] || $customer['last_name'] || $customer['profile_picture'] || $customer['nic_photo_front'] || $customer['nic_photo_back'] || $customer['billing_proof_image'] || $customer['email'] || $customer['telephone'] || $customer['signature_image'])) {
-                                                            echo 'Some Customer Details are empty';
-                                                        }else{
-                                                            
+                                                        if ($customer['last_name'] == NULL) {
+                                                            echo 'Last Name is empty.';
+                                                        } elseif ($customer['profile_picture'] == NULL) {
+                                                            echo 'Profile Picture is empty.';
+                                                        } elseif ($customer['nic_photo_front'] == NULL) {
+                                                            echo 'NIC Front is empty.';
+                                                        } elseif ($customer['nic_photo_back'] == NULL) {
+                                                            echo 'NIC Back is empty.';
+                                                        } elseif ($customer['billing_proof_image'] == NULL) {
+                                                            echo 'Billing Proof Image is empty.';
+                                                        } elseif ($customer['email'] == NULL) {
+                                                            echo 'Email is empty.';
+                                                        } elseif ($customer['telephone'] == NULL) {
+                                                            echo 'Telephone Number is empty.';
+                                                        } elseif ($customer['signature_image'] == NULL) {
+                                                            echo 'Signature Image is empty.';
+                                                        } else {
+                                                            echo 'Customer Details is Completed';
                                                         }
-                                                        ?>
-                                                        <br>
-
+                                                        ?> 
                                                     </td>
 
-                                                    <td>
-                                                        <i class="glyphicon glyphicon-road"></i> : 
+                                                    <td> 
                                                         <?php
-                                                        if ($customer['route']) {
-                                                            $ROUTE = new Route($customer['route']);
-                                                            echo '<b>' . 'Route - ' . '</b>' . $ROUTE->name;
-                                                        } elseif ($customer['center']) {
-                                                            $CENTER = new Center($customer['center']);
-                                                            echo '<b>' . 'Center - ' . '</b>' . $CENTER->name;
-                                                        } elseif ($customer['registration_type'] == 1) {
-                                                            echo '<b>' . 'Center leader ' . '</b>';
+                                                        if ($customer['business_name'] == NULL) {
+                                                            echo 'Business Name is empty.';
+                                                        } elseif ($customer['br_number'] == NULL) {
+                                                            echo 'Br Number Name is empty.';
+                                                        } elseif ($customer['nature_of_business'] == NULL) {
+                                                            echo 'Nature Of Business is empty.';
+                                                        } elseif ($customer['br_picture'] == NULL) {
+                                                            echo 'Br Picture is empty.';
+                                                        } else {
+                                                            echo 'Business Details is Completed';
                                                         }
                                                         ?>
-                                                        <br/>
-                                                        <?php echo $customer['address_line_1'] . '</br>' . $customer['address_line_2'] . '</br>' . $customer['address_line_3'] . '</br>' . $customer['address_line_4'] . '</br>' . $customer['address_line_5']; ?>
                                                     </td>
 
                                                     <td>
-                                                        <?php echo $customer['mobile']; ?>
+                                                        <?php
+                                                        if ($customer['bank'] == NULL) {
+                                                            echo 'Bank Name is empty.';
+                                                        } elseif ($customer['branch'] == NULL) {
+                                                            echo 'Branch Name is empty.';
+                                                        } elseif ($customer['branch_code'] == NULL) {
+                                                            echo 'Branch Code Name is empty.';
+                                                        } elseif ($customer['bank_book_picture'] == NULL) {
+                                                            echo 'Bank Book Picture is empty.';
+                                                        } elseif ($customer['account_number'] == NULL) {
+                                                            echo 'Account Number is empty.';
+                                                        } elseif ($customer['holder_name'] == NULL) {
+                                                            echo 'Holder Name is empty.';
+                                                        } else {
+                                                            echo 'Bank Details is Completed';
+                                                        }
+                                                        ?>
                                                     </td>
 
                                                     <td>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a>
-
-
                                                     </td> 
                                                 </tr>
                                                 <?php
