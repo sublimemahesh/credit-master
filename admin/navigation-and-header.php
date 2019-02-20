@@ -331,7 +331,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                         <i class="material-icons">
                             local_library
                         </i>
-                        <span>Account Type</span>
+                        <span>Accounts</span>
                     </a>
                     <ul class="ml-menu">
                         <li>
@@ -345,6 +345,13 @@ include_once(dirname(__FILE__) . '/auth.php');
                                 <i class="material-icons">list</i>
                                 <span>Manage</span>
                             </a>
+                        </li>
+                        <li>
+                            <a href="manage-account-types.php">
+                                <i class="material-icons">list</i>
+                                <span>Account Types</span>
+                            </a>
+
                         </li> 
                     </ul>
                 </li> 
@@ -492,7 +499,32 @@ include_once(dirname(__FILE__) . '/auth.php');
                         </li>
 
                     </ul>
-                </li>
+                </li> 
+                <li>
+                    <a href="javascript:void(0);" class="menu-toggle">
+                        <i class="material-icons">
+                            directions_bike
+                        </i>
+
+                        <span>Collectors</span>
+                    </a>
+                    <ul class="ml-menu">
+                        <li>
+                            <a href="create-collector.php">
+                                <i class="material-icons">add</i>
+                                <span>Create</span>
+                            </a>
+                        </li> 
+                        <li>
+                            <a href="manage-collectors.php">
+                                <i class="material-icons">
+                                    list
+                                </i>
+                                <span>Manage</span>
+                            </a>
+                        </li> 
+                    </ul>
+                </li> 
 
                 <li>
                     <a href="javascript:void(0);" class="menu-toggle">
@@ -527,8 +559,16 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                     </ul>
-                </li> 
+                </li>
             </ul>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
+            <br/>
             <br/>
             <br/>
             <br/>

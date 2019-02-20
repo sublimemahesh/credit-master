@@ -39,8 +39,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <section class="content">
             <div class="container-fluid"> 
                 <?php
-                $vali = new Validator();
-
+                $vali = new Validator(); 
                 $vali->show_message();
                 ?>
                 <!-- Vertical Layout -->
@@ -389,7 +388,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div  class="row" style="display: none" id="loan_processing_pre">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="issue_mode">Loan Processing Fee</label>

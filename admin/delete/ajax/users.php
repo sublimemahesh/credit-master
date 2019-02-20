@@ -5,9 +5,11 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 
 
 if ($_POST['option'] == 'delete') {
-
     $USERS = new User($_POST['id']);
-    unlink('../../../upload/upload/users/' . $USERS->image_name);
+    if (!empty($USERS->image_name)) {
+        unlink('../../../upload/upload/users/' . $USERS->image_name);
+    } 
+
     $result = $USERS->delete();
 
     if ($result) {

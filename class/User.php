@@ -10,6 +10,9 @@ class User {
 
     public $id;
     public $name;
+    public $nic_number;
+    public $address;
+    public $phone;
     public $email;
     public $createdAt;
     public $isActive;
@@ -19,19 +22,21 @@ class User {
     public $user_level;
     public $resetCode;
     public $image_name;
-    private $password;
+    public $nic_photo_front;
+    public $nic_photo_back;
+    public $password;
 
     public function __construct($id) {
         if ($id) {
-
-            $query = "SELECT `id`,`name`,`email`,`createdAt`,`isActive`,`authToken`,`lastLogin`,`username`,`user_level`,`image_name`,`resetcode` FROM `user` WHERE `id`=" . $id;
-
+            $query = "SELECT * FROM `user` WHERE `id`=" . $id;
             $db = new Database();
-
             $result = mysql_fetch_array($db->readQuery($query));
 
             $this->id = $result['id'];
             $this->name = $result['name'];
+            $this->nic_number = $result['nic_number'];
+            $this->address = $result['address'];
+            $this->phone = $result['phone'];
             $this->email = $result['email'];
             $this->createdAt = $result['createdAt'];
             $this->isActive = $result['isActive'];
@@ -39,6 +44,8 @@ class User {
             $this->username = $result['username'];
             $this->user_level = $result['user_level'];
             $this->image_name = $result['image_name'];
+            $this->nic_photo_front = $result['nic_photo_front'];
+            $this->nic_photo_front = $result['nic_photo_front'];
             $this->authToken = $result['authToken'];
             $this->resetCode = $result['resetcode'];
 
@@ -46,15 +53,40 @@ class User {
         }
     }
 
-    public function create($name, $email, $username, $userlevel, $imgName, $password) {
-
-        $enPass = md5($password);
+    public function create() {
 
         date_default_timezone_set('Asia/Colombo');
+        $this->createdAt = date('Y-m-d H:i:s');
+        $this->password = md5($this->password);
 
-        $createdAt = date('Y-m-d H:i:s');
-
-        $query = "INSERT INTO `user` (name, email, createdAt, isActive, username,user_level,image_name, password) VALUES  ('" . $name . "', '" . $email . "', '" . $createdAt . "',  '" . 1 . "','" . $username . "', '" . $userlevel . "' , '" . $imgName . "' ,'" . $enPass . "')";
+        $query = "INSERT INTO `user` ("
+                . "name, "
+                . "nic_number, "
+                . "address, "
+                . "phone, "
+                . "email, "
+                . "createdAt,"
+                . "isActive, "
+                . "username, "
+                . "user_level, "
+                . "password, "
+                . "image_name, "
+                . "nic_photo_front, "
+                . "nic_photo_back"
+                . ") VALUES  ("
+                . "'" . $this->name . "',"
+                . " '" . $this->nic_number . "',"
+                . " '" . $this->address . "',"
+                . " '" . $this->phone . "',"
+                . " '" . $this->email . "',"
+                . " '" . $this->createdAt . "',"
+                . " '" . $this->isActive . "',"
+                . " '" . $this->username . "',"
+                . " '" . $this->user_level . "',"
+                . " '" . $this->password . "',"
+                . "'" . $this->image_name . "',"
+                . " '" . $this->nic_photo_front . "' ,"
+                . "'" . $this->nic_photo_back . "')";
 
         $db = new Database();
 
@@ -79,10 +111,6 @@ class User {
         }
 
         return $array_res;
-    }
-
-    public function __call($name, $arguments) {
-        ;
     }
 
     public function login($username, $password) {
@@ -220,13 +248,17 @@ class User {
 
         $query = "UPDATE  `user` SET "
                 . "`name` ='" . $this->name . "', "
-                . "`username` ='" . $this->username . "', "
+                . "`nic_number` ='" . $this->nic_number . "', "
+                . "`address` ='" . $this->address . "', "
+                . "`phone` ='" . $this->phone . "', "
                 . "`email` ='" . $this->email . "', "
-                . "`isActive` ='" . $this->isActive . "', "
-                . "`user_level` ='" . $this->user_level . "', "
-                . "`image_name` ='" . $this->image_name . "' "
+                . "`username` ='" . $this->username . "', "
+                . "`password` ='" . $this->password . "', "
+                . "`image_name` ='" . $this->image_name . "', "
+                . "`nic_photo_front` ='" . $this->nic_photo_front . "', " 
+                . "`nic_photo_back` ='" . $this->nic_photo_back . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-       
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -380,6 +412,16 @@ class User {
 
         return $db->readQuery($query);
     }
- 
+
+    public function getAllCollectors() {
+        $query = "SELECT * FROM `user` WHERE `user_level` = '2'";
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
 
 }

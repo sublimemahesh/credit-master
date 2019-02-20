@@ -6,8 +6,6 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
-
-$DEFAULTDATA = new DefaultData(NULL);
 ?> 
 ﻿<!DOCTYPE html>
 <html> 
@@ -120,10 +118,10 @@ $DEFAULTDATA = new DefaultData(NULL);
                                                     <select id="user_level" name="user_level" class="form-control" required="">
 
                                                         <option value="">-- Please Select the user level --</option> 
-                                                            <?php
-                                                            $USELEVEL = $DEFAULTDATA->GetUserLevels();
-                                                            foreach ($USELEVEL as $key => $userlevel) {
-                                                                ?>
+                                                        <?php
+                                                        $USELEVEL = $DEFAULTDATA->GetUserLevels();
+                                                        foreach ($USELEVEL as $key => $userlevel) {
+                                                            ?>
                                                             <option value="<?php echo $key ?>"><?php echo $userlevel ?></option> 
                                                             <?php
                                                         }
