@@ -7,7 +7,7 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
- 
+
 
 $asia_date = new DateTime('now', new DateTimezone('Asia/Dhaka'));
 $today = $asia_date->format('Y-m-d');
@@ -110,14 +110,17 @@ $next = $ND->format('Y-m-d');
                                                 $first_installment_date = '';
 
                                                 if ($loan['installment_type'] == 4) {
+
                                                     $FID = new DateTime($loan['effective_date']);
                                                     $FID->modify('+7 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
                                                 } elseif ($loan['installment_type'] == 30) {
+
                                                     $FID = new DateTime($loan['effective_date']);
                                                     $FID->modify('+1 day');
                                                     $first_installment_date = $FID->format('Y-m-d');
                                                 } elseif ($loan['installment_type'] == 1) {
+
                                                     $FID = new DateTime($loan['effective_date']);
                                                     $FID->modify('+1 months');
                                                     $first_installment_date = $FID->format('Y-m-d');

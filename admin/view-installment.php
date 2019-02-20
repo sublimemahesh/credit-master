@@ -122,6 +122,7 @@ $today = date("Y-m-d");
                                         </thead>
                                         <tbody>
                                             <?php
+                                            
                                             $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                             $first_installment_date = '';
@@ -266,19 +267,19 @@ $today = date("Y-m-d");
 
 
                                                     //check payment button 
-                                                    if ($date == $today) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                    if ($date == $today || $due_and_excess < 0) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 
                                                         //show week payment button
-                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today)) {
+                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
 
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
-                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today)) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
+                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } else {
