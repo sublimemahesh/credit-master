@@ -103,7 +103,7 @@ if (isset($_GET['date'])) {
                                             date_default_timezone_set("Asia/Calcutta");
                                             $time = date('H:i:s');
                                             echo $time;
-                                            ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off">
+                                            ?>  "   class="form-control date-time-picker" autocomplete="off">
                                         </div>
                                     </div>
                                 </div>
@@ -113,14 +113,30 @@ if (isset($_GET['date'])) {
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_amount"> Amount </label>
                                 </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control"  autocomplete="off" min="0" step="0.001" >
+                                            <input type="number" id="all_amount"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control"  autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>
+
+                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line"> 
+                                           <input type="text" id="due_and_excess"   placeholder="Due Amount" class="form-control"  autocomplete="off" readonly="" >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">                                            
+                                            <input type="text" id="od_limite"   placeholder="Od Limite" class="form-control"  autocomplete="off" readonly="" >
+                                        </div>
+                                    </div>
+                                </div>
+
                             </div> 
 
                             <div class="row">
@@ -142,7 +158,7 @@ if (isset($_GET['date'])) {
                                 </div>  
                                 <div class="col-lg-10 col-md-10 col-sm-8 col-xs-7">
                                     <input type="hidden" value="<?php echo $USERS->id ?>" name="user_id">                                   
-                                    <input type="hidden" value="<?php echo $loan ?>" name="loan">
+                                    <input type="hidden" value="<?php echo $loan ?>" name="loan" id="loan_id">
                                     <input type="hidden" value="<?php echo $date ?>" name="installment_date">
                                     <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit"  id="paid_installment">Save Details</button>
                                     <?php

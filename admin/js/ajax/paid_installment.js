@@ -2,7 +2,7 @@ $(document).ready(function () {
 
     $('#paid_installment').click(function (event) {
         event.preventDefault();
-        
+
         var actual_due = $("#actual-due").val();
         var amount = $("#paid_amount").val();
 
@@ -81,5 +81,29 @@ $(document).ready(function () {
         }
         return false;
     });
+
+    $('#paid_date').change(function () {
+
+        var paid_date = $('#paid_date').val();
+        var loan_id = $('#loan_id').val();
+
+        $.ajax({
+            url: "post-and-get/ajax/paid_installment.php",
+            type: "POST",
+            data: {
+                paid_date: paid_date,
+                loan_id: loan_id,
+
+                action: 'CHECKOD'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+                $('#od_limite').val(jsonStr.od_limite);
+                $('#due_and_excess').val(jsonStr.due_and_excess);
+                $('#all_amount').val(jsonStr.all_amount);
+            }
+        });
+    });
 });
 
+ 
