@@ -703,7 +703,6 @@ class Loan {
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
 
-
         return [
             'system-due-num-of-ins' => $system_due_num_of_ins,
             'system-due' => $system_due,
