@@ -5,6 +5,8 @@ $(document).ready(function () {
 
         var actual_due = $("#actual-due").val();
         var amount = $("#paid_amount").val();
+        var od_limite = $("#od_limite").val();
+
 
         if (!amount) {
             swal({
@@ -14,8 +16,18 @@ $(document).ready(function () {
                 timer: 2000,
                 showConfirmButton: false
             });
+
+        } else if (parseInt(amount) < parseInt(od_limite)) {
+            swal({
+                title: "Error!",
+                text: "Amount is less than Od limite, You cannot Paid..!",
+                type: 'error',
+                timer: 2000,
+                showConfirmButton: false
+            });
+             
         } else if (parseInt(actual_due) < parseInt(amount)) {
-            $excess = parseInt(amount) - parseInt(actual_due);
+          var  $excess = parseInt(amount) - parseInt(actual_due);
 
             swal({
                 html: true,
@@ -42,7 +54,7 @@ $(document).ready(function () {
                         if (result.status === 'error') {
                             alert('Error');
                         } else {
-                            window.location = 'manage-released-loan.php';
+                            window.location = 'manage-active-loans.php';
                         }
                     }
                 });
@@ -72,7 +84,7 @@ $(document).ready(function () {
                         if (result.status === 'error') {
                             alert('Error');
                         } else {
-                            window.location = 'manage-released-loan.php';
+                            window.location = 'manage-active-loans.php';
                         }
                     }
 
@@ -88,19 +100,18 @@ $(document).ready(function () {
         var loan_id = $('#loan_id').val();
 
         $.ajax({
-            url: "post-and-get/ajax/paid_installment.php",
+            url: "post-and-get/ajax/od-limite.php",
             type: "POST",
             data: {
                 paid_date: paid_date,
                 loan_id: loan_id,
-
                 action: 'CHECKOD'
             },
             dataType: "JSON",
             success: function (jsonStr) {
                 $('#od_limite').val(jsonStr.od_limite);
                 $('#due_and_excess').val(jsonStr.due_and_excess);
-                $('#all_amount').val(jsonStr.all_amount);
+                $('#paid_amount').val(jsonStr.all_amount);
             }
         });
     });

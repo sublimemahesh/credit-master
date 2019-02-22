@@ -9,9 +9,12 @@ $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
 $INSTALLMENT = new Installment(NULL);
-
 $LOAN = new Loan(NULL);
+
 $LOAN->status = 'issued';
+
+date_default_timezone_set('Asia/Colombo');
+$today = date('Y-m-d');
 ?> 
 <!DOCTYPE html>
 <html>
@@ -147,30 +150,32 @@ $LOAN->status = 'issued';
                                                         <?php
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
-                                                        echo '<b>'.round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2).'</b>';
+                                                        echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
                                                         ?>
                                                         <br/>
 
                                                         <b>Act Due: </b>
                                                         <?php
-                                                        echo '<b>'.round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2).'</b>';
+                                                        echo '<b>' . round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2) . '</b>';
                                                         ?>
                                                         <br>
 
                                                         <b class="text-info">Receipt: </b>
                                                         <span  class="text-info">
                                                             <?php
-                                                            echo '<b>'.round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2).'</b>';
+                                                            echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
                                                             ?>
                                                         </span>
+                                                         
+                                                         
                                                         <br> 
                                                         <?php
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger">Arrears: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>'.round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>'.'<b>';
+                                                            echo '<span  class="text-danger">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
                                                         } else {
                                                             echo '<b class="text-success">Excess: </b>';
-                                                            echo '<span  class="text-success">' .'<b>'. round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>'.'<b>';
+                                                            echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
 
