@@ -130,7 +130,7 @@ $paid_amount = $amount[1] + $od_amount;
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="due_and_excess"   placeholder="Due Amount" class="form-control"  autocomplete="off"  value="<?php echo round($amount[1],2) ?>"readonly="" >
+                                            <input type="text" id="due_and_excess"   placeholder="Due Amount" class="form-control"  autocomplete="off"  value="<?php echo number_format($amount[1],2) ?>"readonly="" >
                                         </div>
                                     </div>
                                 </div>

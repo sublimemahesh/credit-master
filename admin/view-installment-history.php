@@ -394,7 +394,7 @@ $today = date("Y-m-d");
                                                             OD Amount
                                                         </td>
                                                         <td class="font-colors text-right">
-                                                            <?php echo number_format($od_amount, 2); ?>
+                                                            <?php echo  $od_amount; ?>
                                                         </td>
 
                                                         <td class="font-colors text-right"> </td>
