@@ -103,8 +103,6 @@ $next = $ND->format('Y-m-d');
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
 
-
-
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
                                                 $first_installment_date = '';

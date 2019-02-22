@@ -108,7 +108,7 @@ $today = date("Y-m-d");
                                     </h5>
                                 </div> 
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                    <table class="table table-bordered table-striped table-hover dataTable" id="installment-table">
                                         <thead>
                                             <tr>
                                                 <th class="text-center">ID</th> 
@@ -122,7 +122,6 @@ $today = date("Y-m-d");
                                         </thead>
                                         <tbody>
                                             <?php
-                                            
                                             $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                             $first_installment_date = '';
@@ -147,7 +146,8 @@ $today = date("Y-m-d");
                                             $count = 0;
                                             $ins_total = 0;
                                             $total_paid = 0;
-                                            $data = array();
+                                            $od_array = array();
+
                                             while ($x < $defultdata) {
                                                 if ($defultdata == 4) {
                                                     $add_dates = '+7 day';
@@ -184,10 +184,12 @@ $today = date("Y-m-d");
 
                                                 $INSTALLMENT = new Installment(NULL);
                                                 $paid_amount = 0;
-
+                                                $od_amount = 0;
 
                                                 $FID = new DateTime($date);
                                                 $FID->modify($add_dates);
+                                                $day_remove = '-1 day';
+                                                $FID->modify($day_remove);
                                                 $second_installment_date = $FID->format('Y-m-d');
 
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
@@ -246,7 +248,7 @@ $today = date("Y-m-d");
                                                         echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                     } else if ($due_and_excess < 0) {
 
-                                                        echo '<span style="color:red">' . number_format($due_and_excess , 2) . '</span>';
+                                                        echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
                                                     } else {
                                                         echo number_format($due_and_excess, 2);
                                                     }
@@ -257,9 +259,11 @@ $today = date("Y-m-d");
                                                     if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
                                                         
                                                     } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
+
                                                         $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->installment_type, $LOAN->od_interest_limit);
-                                                        $data[] = $od_interest;
-                                                        echo json_encode(round(array_sum($data), 2));
+                                                        $od_array[] = $od_interest;
+                                                        $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                        echo $od_amount;
                                                     }
 
                                                     echo '</td>';
@@ -267,24 +271,24 @@ $today = date("Y-m-d");
 
 
                                                     //check payment button 
-                                                    if ($date == $today || $due_and_excess < 0) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
+                                                    if ($date <= $today || $due_and_excess < 0) {
+                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 
                                                         //show week payment button
                                                     } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
 
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
+                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '">
+                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
                                                     } else {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $amount . '">
-                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment" ></button> 
+                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"  disabled></button> 
                                                     </a>';
                                                     }
 
@@ -338,5 +342,15 @@ $today = date("Y-m-d");
         <script src="js/pages/tables/jquery-datatable.js"></script>
         <script src="js/demo.js"></script>
         <script src="delete/js/loan.js" type="text/javascript"></script>
-    </body> 
+        <script type="text/javascript">
+            $(document).ready(function () {
+                $('#installment-table').DataTable({
+                    "order": [[0, "desc"]],
+                    responsive: true,
+
+                });
+            });
+        </script>
+    </body>
+</body> 
 </html> 
