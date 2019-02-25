@@ -304,7 +304,7 @@ class Loan {
 
     public function CheckCustomerLoan($customer) {
 
-        $query = "SELECT * FROM `loan` WHERE  customer='" . $customer . "'";
+        $query = "SELECT * FROM `loan` WHERE  customer='" . $customer . "'   AND  `status` = 'approve'";
 
         $db = new Database();
 
@@ -561,15 +561,15 @@ class Loan {
     public function getOdIntereset($due_amount, $installment_type, $od_interest_limit) {
 
         $due = explode("-", $due_amount);
-        $DUE = (int) $due[1];
+        $DUE = (float) $due[1];
 
-        if ($DUE > (int) $od_interest_limit && (int) $installment_type == 30) {
+        if ($DUE > (float) $od_interest_limit && (float) $installment_type == 30) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
 
             return $interest_amount;
-        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 4) {
+        } else if ($DUE > (float) $od_interest_limit && (float) $installment_type == 4) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount_per_day = ($interest_amount_per_month / 30);
@@ -577,7 +577,7 @@ class Loan {
             $interest_amount = ($interest_amount_per_day * 7);
 
             return $interest_amount;
-        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 1) {
+        } else if ($DUE > (float) $od_interest_limit && (float) $installment_type == 1) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = $interest_amount_per_month;
@@ -589,15 +589,15 @@ class Loan {
     public function getOdInteresetByDays($due_amount, $installment_type, $od_interest_limit) {
 
         $due = explode("-", $due_amount);
-        $DUE = (int) $due[1];
+        $DUE = (float) $due[1];
 
-        if ($DUE > (int) $od_interest_limit && (int) $installment_type == 30) {
+        if ($DUE > (float) $od_interest_limit && (float) $installment_type == 30) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
 
             return $interest_amount;
-        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 4) {
+        } else if ($DUE > (float) $od_interest_limit && (float) $installment_type == 4) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount_per_day = ($interest_amount_per_month / 30);
@@ -605,7 +605,7 @@ class Loan {
             $interest_amount = $interest_amount_per_day;
 
             return $interest_amount;
-        } else if ($DUE > (int) $od_interest_limit && (int) $installment_type == 1) {
+        } else if ($DUE > (float) $od_interest_limit && (float) $installment_type == 1) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = $interest_amount_per_month;
@@ -715,9 +715,7 @@ class Loan {
         ];
     }
 
-   
-    
-     public function getOdAmount($paid_dates) {
+    public function getOdAmount($paid_dates) {
 
         $defultdata = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
@@ -805,7 +803,6 @@ class Loan {
                 $total_paid += $paid_amount;
                 $due_and_excess = $total_paid - $ins_total;
 
-
                 if (strtotime($this->od_date) <= strtotime($date) && strtotime($paid_dates) <= strtotime($date) && $due_and_excess < 0) {
 
                     $due = explode("-", $due_and_excess);
@@ -842,7 +839,7 @@ class Loan {
                     }
 
 
-                    $od_array[] = $interest_amount;
+                    $od_array[] = (float) $interest_amount;
                     $od_amount = json_encode(round(array_sum($od_array), 2));
                     $all_amount = (float) $od_amount + $DUE;
 

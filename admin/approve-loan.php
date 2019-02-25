@@ -38,6 +38,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+         <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -625,8 +626,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                             <div class="body">
                                 <div class="row"> 
                                     <div class="col-md-1"></div>
-                                    <div class="table-responsive col-md-10">
-                                        <div class="table-responsive col-md-10">
+                                    <div class="table-responsive col-md-10">                                         
                                             <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                                 <thead>
                                                     <tr>
@@ -707,17 +707,17 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                         echo '<tr>';
                                                         if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                            echo '<td>';
-                                                            echo $count;
-                                                            echo '</td>';
-                                                            echo '<td class="padd-td red">';
-                                                            echo $date;
-                                                            echo '</td>';
-                                                            echo '<td class="padd-td red gray text-center" colspan=5>';
-                                                            echo '-- Postponed --';
-                                                            echo '</td>';
+                                                            echo '<td class="padd-td gray ">';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-right">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td   gray text-center" colspan=5>';
+                                                        echo '-- Postponed --';
+                                                        echo '</td>';
 
-                                                            $start->modify($add_dates);
+                                                        $start->modify($add_dates);
                                                         } else {
                                                             echo '<td>';
                                                             echo $count;
@@ -754,8 +754,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         <th>Due and Excess</th> 
                                                     </tr>   
                                                 </tfoot>
-                                            </table>  
-                                        </div>  
+                                            </table>                                            
                                     </div>  
                                     <div class="col-md-1"></div>
                                 </div>

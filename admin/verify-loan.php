@@ -37,6 +37,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
+         <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red"  onLoad="focusOnMyInputBox()">
@@ -693,13 +694,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     echo '<tr>';
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                        echo '<td>';
+                                                        echo '<td class="padd-td gray ">';
                                                         echo $count;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td red">';
+                                                        echo '<td class="padd-td gray text-right">';
                                                         echo $date;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td red gray text-center" colspan=5>';
+                                                        echo '<td class="padd-td   gray text-center" colspan=5>';
                                                         echo '-- Postponed --';
                                                         echo '</td>';
 
