@@ -715,12 +715,14 @@ class Loan {
         ];
     }
 
-    public function getOdAmount($paid_dates) {
+   
+    
+     public function getOdAmount($paid_dates) {
 
         $defultdata = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
         $first_installment_date = '';
-       
+
         if ($this->installment_type == 4) {
             $FID = new DateTime($this->effective_date);
             $FID->modify('+7 day');
@@ -807,18 +809,18 @@ class Loan {
                 if (strtotime($this->od_date) <= strtotime($date) && strtotime($paid_dates) <= strtotime($date) && $due_and_excess < 0) {
 
                     $due = explode("-", $due_and_excess);
-                    $DUE = (int) $due[1];
+                    $DUE = (float) $due[1];
 
-                    if ($DUE > (int) $this->od_interest_limit && (int) $this->installment_type == 30) {
+                    if ($DUE > (float) $this->od_interest_limit && (float) $this->installment_type == 30 && $paid_dates == $date) {
 
 
                         $interest_amount_per_month = ($DUE * 10) / 100;
                         $interest_amount = ($interest_amount_per_month / 30);
-                    } else if ($DUE > (int) $this->od_interest_limit && (int) $this->installment_type == 4) {
+                    } else if ($DUE > (float) $this->od_interest_limit && (float) $this->installment_type == 4 && $paid_dates <= $date) {
 
 
-                        $date1 = date_create($paid_dates);
-                        $date2 = date_create($date);
+                        $date1 = date_create($date);
+                        $date2 = date_create($paid_dates);
                         $diff = date_diff($date1, $date2);
                         $day_count = $diff->format("%a");
 
@@ -831,9 +833,9 @@ class Loan {
 
                             $interest_amount_per_month = ($DUE * 10) / 100;
                             $interest_amount_per_day = ($interest_amount_per_month / 30);
-                            $interest_amount = ($interest_amount_per_day * $day_count);
+                            $interest_amount = $interest_amount_per_day;
                         }
-                    } else if ($DUE > (int) $this->od_interest_limit && (int) $this->installment_type == 1) {
+                    } else if ($DUE > (float) $this->od_interest_limit && (float) $this->installment_type == 1 && $paid_dates <= $date) {
 
                         $interest_amount_per_month = ($DUE * 10) / 100;
                         $interest_amount = $interest_amount_per_month;
@@ -841,21 +843,34 @@ class Loan {
 
 
                     $od_array[] = $interest_amount;
-
                     $od_amount = json_encode(round(array_sum($od_array), 2));
-
-                    echo json_encode(round(array_sum($od_array), 2));
-
                     $all_amount = (float) $od_amount + $DUE;
+
                     return [
-                        'od_limite' => $od_amount,
-                        'due_and_excess' => $due_and_excess,
-                        'all_amount' => $all_amount,
+                        'od_amount' => (float) $od_amount,
+                        'due_and_excess' => (float) $due_and_excess,
+                        'all_amount' => (float) $all_amount,
                     ];
                 }
             }
             $start->modify($add_dates);
             $x++;
+        }
+    }
+
+    public function updateLoanCompleted() {
+
+        $query = "UPDATE  `loan` SET "
+                . "`status` ='" . $this->status . "' "
+                . "WHERE `id` = '" . $this->id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+            return FALSE;
         }
     }
 
