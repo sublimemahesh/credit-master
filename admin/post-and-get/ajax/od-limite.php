@@ -9,8 +9,10 @@ if ($_POST['action'] == 'CHECKOD') {
     $LOAN = new Loan($_POST["loan_id"]);
 
     $result = $LOAN->getOdAmount($_POST["paid_date"]);
-    dd($result['od_limite']);
-    echo json_encode(['od_limite' => $result['od_limite'], 'due_and_excess' => $result['due_and_excess'],'all_amount' => $result['all_amount'] ]);
+   
+    echo json_encode( ['all_amount' =>$result['all_amount'], 'od_amount' =>$result['od_amount'],'due_and_excess' => $result['due_and_excess']]);
+       
     header('Content-type: application/json');
     exit();
 }
+

@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 
     $('#paid_installment').click(function (event) {
@@ -25,9 +26,9 @@ $(document).ready(function () {
                 timer: 2000,
                 showConfirmButton: false
             });
-             
-        } else if (parseInt(actual_due) < parseInt(amount)) {
-          var  $excess = parseInt(amount) - parseInt(actual_due);
+
+        } else if (parseInt(actual_due) <= parseInt(amount)) {
+            var $excess = parseInt(amount) - parseInt(actual_due);
 
             swal({
                 html: true,
@@ -42,7 +43,7 @@ $(document).ready(function () {
             }, function () {
                 var formData = new FormData($("form#form-data")[0]);
                 $.ajax({
-                    url: "post-and-get/ajax/installment.php",
+                    url: "post-and-get/ajax/completed-loan.php",
                     type: 'POST',
                     data: formData,
                     async: false,
@@ -99,6 +100,7 @@ $(document).ready(function () {
         var paid_date = $('#paid_date').val();
         var loan_id = $('#loan_id').val();
 
+
         $.ajax({
             url: "post-and-get/ajax/od-limite.php",
             type: "POST",
@@ -109,12 +111,10 @@ $(document).ready(function () {
             },
             dataType: "JSON",
             success: function (jsonStr) {
-                $('#od_limite').val(jsonStr.od_limite);
+                $('#od_limite').val(jsonStr.od_amount);
                 $('#due_and_excess').val(jsonStr.due_and_excess);
                 $('#paid_amount').val(jsonStr.all_amount);
             }
         });
     });
-});
-
- 
+}); 
