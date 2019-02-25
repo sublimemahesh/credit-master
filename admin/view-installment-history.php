@@ -219,17 +219,109 @@ $today = date("Y-m-d");
                                                 echo '<tr class"tr-color" >';
                                                 $row_count++;
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                    echo '<td class"tr-color font-color-2">';
+
+                                                    echo '<td class="padd-td gray">';
                                                     echo $row_count;
                                                     echo '</td>';
                                                     echo '<td class="padd-td red ">';
                                                     echo $date;
                                                     echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" colspan=5>';
+                                                    echo '<td class="padd-td gray text-center" colspan=4>';
                                                     echo '-- Postponed --';
                                                     echo '</td>';
 
-                                                    $x--;
+
+                                                    if ($LOAN->installment_type == 4 || $LOAN->installment_type == 1) {
+
+                                                        $POSTD = new DateTime($date);
+                                                        $POSTD->modify('+1 day');
+                                                        $date = $POSTD->format('Y-m-d');
+
+                                                        $count++;
+
+                                                        echo '<td class="tr-color font-color-2">';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td f-style tr-color font-color-2">';
+                                                        echo $date;
+                                                        echo '</td>';
+
+
+                                                        echo '<td class="f-style tr-color font-color-2">';
+                                                        if ($paid_amount) {
+                                                            echo 'Paid';
+                                                        } elseif ($date <= $today) {
+                                                            echo 'Posted';
+                                                        } elseif ($date > $today) {
+                                                            echo 'Unpaid';
+                                                        } else {
+                                                            echo 'Payble';
+                                                        }
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style">';
+                                                        if ($paid_amount) {
+                                                            echo 'Rs: ' . number_format($paid_amount, 2);
+                                                        } else {
+                                                            echo '-';
+                                                        }
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style">';
+
+                                                        $ins_total += $amount;
+                                                        $total_paid += $paid_amount;
+                                                        $due_and_excess = $total_paid - $ins_total;
+
+                                                        if ($due_and_excess > 0) {
+                                                            echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } else if ($due_and_excess < 0) {
+
+                                                            echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } else {
+                                                            echo number_format($due_and_excess, 2);
+                                                        }
+                                                        echo '</td>';
+
+                                                        echo '<td class="tr-color font-color-2">';
+
+                                                        if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
+                                                            
+                                                        } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
+
+                                                            $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->installment_type, $LOAN->od_interest_limit);
+                                                            $od_array[] = $od_interest;
+                                                            $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                            echo $od_amount;
+                                                        }
+
+                                                        echo '</td>';
+
+                                                        echo '<td class="text-center tr-color font-color-2">';
+
+                                                        //check payment button 
+                                                        if ($date <= $today || $due_and_excess < 0) {
+                                                            echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+
+                                                            //show week payment button
+                                                        } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
+
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+                                                        } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
+                                                        } else {
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"  disabled></button> 
+                                                    </a>';
+                                                        }
+                                                        echo '</td>';
+                                                    }
                                                 } else {
 
                                                     echo '<td class"tr-color font-color-2" style="background-color:#a7a4a4b3;">';
@@ -239,9 +331,7 @@ $today = date("Y-m-d");
                                                     echo $date;
                                                     echo '</td>';
 
-
                                                     echo '<td class="f-style tr-color font-color-2">';
-
                                                     if ($paid_amount) {
                                                         echo 'Paid';
                                                     } elseif ($date <= $today) {
@@ -254,14 +344,10 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2">';
-
                                                     echo $amount;
-
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2">';
-
-
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2">';
@@ -394,7 +480,7 @@ $today = date("Y-m-d");
                                                             OD Amount
                                                         </td>
                                                         <td class="font-colors text-right">
-                                                            <?php echo  $od_amount; ?>
+                                                            <?php echo $od_amount; ?>
                                                         </td>
 
                                                         <td class="font-colors text-right"> </td>
@@ -420,6 +506,29 @@ $today = date("Y-m-d");
                                                 }
                                                 $start->modify($add_dates);
                                                 $x++;
+                                            }
+                                            if ($LOAN->status == "completed") {
+                                                $row_count++;
+                                                ?>
+                                                <tr style="background-color: #75d44b">   
+                                                    <td> <?php echo $row_count ?></td>
+                                                    <td class="font-colors text-right"> 
+                                                        <?php echo $Installment_payment['paid_date'] . ' / ' . $Installment_payment['time']; ?>
+
+                                                    </td>
+                                                    <td class="font-colors text-right"> 
+                                                        Completed
+                                                    </td>
+                                                    <td class="font-colors text-right"> 
+
+                                                    </td>
+                                                    <td class="font-colors text-right"></td>
+                                                    <td class="font-colors text-right">                                                                
+                                                        00.00
+                                                    </td>
+                                                </tr>
+
+                                                <?php
                                             }
                                             ?>
                                         </tbody>
