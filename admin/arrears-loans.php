@@ -2,24 +2,34 @@
 include_once(dirname(__FILE__) . '/../class/include.php');
 include_once(dirname(__FILE__) . '/auth.php');
 
-
 //check user level
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$INSTALLMENT = new Installment(NULL);
 
+$today = date("Y-m-d");
 $LOAN = new Loan(NULL);
-$LOAN->status = 'released';
+$LOAN->status = 'issued';
+
+if (isset($_GET['date'])) {
+    $today = $_GET['date'];
+}
+
+$BD = new DateTime($today);
+$BD->modify('-1 day');
+$back = $BD->format('Y-m-d');
+
+$ND = new DateTime($today);
+$ND->modify('+1 day');
+$next = $ND->format('Y-m-d');
 ?> 
 <!DOCTYPE html>
-<html>
-
+<html> 
     <head>
         <meta charset="UTF-8">
         <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
-        <title>Manage Released Loans || Credit Master</title>
+        <title> Arrears Loans || Credit Master</title>
 
         <!-- Favicon-->
         <link rel="icon" href="favicon.ico" type="image/x-icon">
@@ -34,6 +44,7 @@ $LOAN->status = 'released';
         <link href="plugins/sweetalert/sweetalert.css" rel="stylesheet" />
         <link href="css/style.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
+        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -44,7 +55,6 @@ $LOAN->status = 'released';
             <div class="container-fluid"> 
                 <?php
                 $vali = new Validator();
-
                 $vali->show_message();
                 ?>
                 <!-- Manage Districts -->
@@ -54,27 +64,27 @@ $LOAN->status = 'released';
                         <div class="card">
                             <div class="header">
                                 <h2>
-                                    Manage Released Loans
+                                    Arrears Loans :
+                                    <?php
+                                    echo $today;
+                                    ?>
                                 </h2>
-                                <ul class="header-dropdown">
-                                    <li>
-                                        <a href="create-loan.php">
-                                            <i class="material-icons">add</i> 
-                                        </a>
-                                    </li>
-                                </ul>
+
+
                             </div> 
-                            <div class="body">
+
+                            <div class="body">                            
                                 <div class="table-responsive">
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th>Loan</th>                                                
-                                                <th>Installment Details</th>  
-                                                <th>Payment Details</th>                                                 
-                                                <th>Options</th> 
+                                                <th>Loan Details</th>  
+                                                <th>Installment Details</th>
+                                                <th>Number of arrears</th>                                                 
+                                              
                                             </tr>
-                                        </thead>                                         
+                                        </thead>
+
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
@@ -104,18 +114,7 @@ $LOAN->status = 'released';
                                                             $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
                                                             echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
                                                             ?>
-                                                        </b>
-                                                        <br/>
-
-                                                        <i class="glyphicon glyphicon-calendar"></i>
-                                                        <b> :
-                                                            <?php echo $loan['create_date']; ?>  
-                                                        </b>
-                                                        <br/>
-
-                                                        <i class="glyphicon glyphicon-usd"></i>
-                                                        <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
-
+                                                        </b> 
                                                     </td>
 
                                                     <td>
@@ -134,37 +133,14 @@ $LOAN->status = 'released';
                                                         $numOfInst = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
                                                         echo $numOfInst;
                                                         ?>
-                                                        <br/>                                                       
-                                                        <b>Period: </b>
-                                                        <?php
-                                                        $PR = DefaultData::getLoanPeriod();
-                                                        echo $PR[$loan['loan_period']];
-                                                        ?>
+                                                        
                                                     </td>
 
                                                     <td>
-                                                        <b>Sys Due: </b>
                                                         <?php
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
-                                                        echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
-                                                        ?>
-                                                        <br/>
 
-                                                        <b>Act Due: </b>
-                                                        <?php
-                                                        echo '<b>' . round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2) . '</b>';
-                                                        ?>
-                                                        <br>
-
-                                                        <b class="text-info">Receipt: </b>
-                                                        <span  class="text-info">
-                                                            <?php
-                                                            echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
-                                                            ?>
-                                                        </span>
-                                                        <br> 
-                                                        <?php
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger">Arrears: </b>';
                                                             echo '<span  class="text-danger">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
@@ -173,27 +149,19 @@ $LOAN->status = 'released';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
-
                                                         <br> 
                                                         <?php
                                                         if ($status["od_amount"] == 0) {
                                                             
                                                         } else {
                                                             echo '<b class="text-success">Od Amount: </b>';
-                                                            echo '<span  class="text-success">' . '<b>' . round($status["od_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<span  class="text-success">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
                                                             echo '<br>';
                                                             echo '<b class="text-danger"  >All Aress Amount: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . round($status["all_arress"], 2) . '</span>' . '<b>';
+                                                            echo '<span  class="text-danger">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>  
-
-                                                    </td>
-
-                                                    <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan "></button></a> | 
-                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installments"></button></a> | 
-                                                        <a href="view-installment-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View History"></button></a>
-                                                    </td> 
+                                                    </td>                                                   
                                                 </tr>
                                                 <?php
                                             }
@@ -201,13 +169,13 @@ $LOAN->status = 'released';
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th>Loan</th>                                                
-                                                <th>Installment Details</th>  
-                                                <th>Payment Details</th>                                                 
-                                                <th>Options</th> 
+                                                <th>Loan Details</th>  
+                                                <th>Installment Details</th>
+                                                <th>Number of arrears</th>                                                
+                                                
                                             </tr>
                                         </tfoot>
-                                    </table>
+                                    </table> 
                                 </div>
                             </div>
                         </div>
@@ -235,6 +203,8 @@ $LOAN->status = 'released';
         <script src="plugins/sweetalert/sweetalert.min.js"></script>
         <script src="js/admin.js"></script>
         <script src="js/pages/tables/jquery-datatable.js"></script>
-        <script src="js/demo.js"></script> 
+        <script src="js/demo.js"></script>
+
+
     </body> 
 </html> 

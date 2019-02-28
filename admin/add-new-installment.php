@@ -69,7 +69,6 @@ $paid_amount = $amount[1] + $od_amount;
                     </div>
                     <div class="body">
                         <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data"> 
-
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="installment_date">Installment Date</label>
@@ -141,7 +140,6 @@ $paid_amount = $amount[1] + $od_amount;
                                         </div>
                                     </div>
                                 </div>
-
                             </div> 
 
                             <div class="row">

@@ -1055,8 +1055,8 @@ $('#customer,#issue_mode').change(function () {
     var customer_id = $(`#customer`).val();
     var issue_mode = $(`#issue_mode`).val();
     var loan_amount = $(`#loan_amount`).val();
-   
-   
+
+
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",
@@ -1070,6 +1070,7 @@ $('#customer,#issue_mode').change(function () {
         success: function (jsonStr) {
 
             if (jsonStr.status) {
+                $('option:selected', $('#customer')).remove();
                 swal({
                     title: "The new loan cannot be processed..!",
                     text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",

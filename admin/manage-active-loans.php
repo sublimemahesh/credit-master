@@ -166,8 +166,8 @@ $today = date('Y-m-d');
                                                             echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
                                                             ?>
                                                         </span>
-                                                         
-                                                         
+
+
                                                         <br> 
                                                         <?php
                                                         if ($status["arrears-excess"] > 0) {
@@ -178,7 +178,18 @@ $today = date('Y-m-d');
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
-
+                                                        <br> 
+                                                        <?php
+                                                        if ($status["od_amount"] == 0) {
+                                                            
+                                                        } else {
+                                                            echo '<b class="text-success">Od Amount: </b>';
+                                                            echo '<span  class="text-success">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<br>';
+                                                            echo '<b class="text-danger"  >All Aress Amount: </b>';
+                                                            echo '<span  class="text-danger">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
+                                                        }
+                                                        ?>  
                                                     </td>
 
                                                     <td class="text-center" style="padding-top: 24px;">
