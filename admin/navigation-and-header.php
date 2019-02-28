@@ -153,7 +153,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="arrears_loans.php">
+                            <a href="arrears-loans.php">
                                 <i class="material-icons">offline_bolt</i>
                                 <span>Areas loans</span>
                             </a>

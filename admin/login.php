@@ -52,7 +52,7 @@ include_once(dirname(__FILE__) . '/../class/include.php');
         <div class="login-box">
             <div class="logo">
                 <a href="javascript:void(0);"><b>Control Panel</b></a>
-                <small>Support Lanka</small>
+                <small>MICRO CREDIT</small>
             </div>
             <div class="card">
                 <div class="body">
