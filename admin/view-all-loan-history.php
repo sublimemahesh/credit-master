@@ -8,9 +8,9 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$loan_id = $_GET['id'];
+$id = $_GET['id'];
 
-$LOAN = new Loan($loan_id);
+$LOAN = new Loan(NULL);
 
 $today = date("Y-m-d");
 ?>
@@ -75,17 +75,18 @@ $today = date("Y-m-d");
                                 <div>
                                     <h5> ID: <?php
                                         if ($LOAN->installment_type == 30) {
-                                            echo 'BLD' . $loan_id;
+                                            echo 'BLD' . $LOAN->id;
+                                            
                                         } elseif ($LOAN->installment_type == 4) {
-                                            echo 'BLW' . $loan_id;
+                                            echo 'BLW' . $LOAN->id;
                                         } else {
-                                            echo 'BLM' . $loan_id;
+                                            echo 'BLM' . $LOAN->id;
                                         }
                                         ?></h5>
                                     <h5>
                                         Customer Name :
                                         <?php
-                                        $customer = new Customer($LOAN->customer);
+                                        $customer = new Customer($id);
                                         echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
                                         ?>
                                     </h5>
@@ -124,7 +125,7 @@ $today = date("Y-m-d");
 
                                             <?php
                                             $row_count = 0;
-                                            foreach ($LOAN->getloanByCustomer($LOAN->customer) as $key => $loan) {
+                                            foreach ($LOAN->getloanByCustomer($id) as $key => $loan) {
                                                 $row_count = 0;
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 

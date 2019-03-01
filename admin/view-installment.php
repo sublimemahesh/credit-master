@@ -108,143 +108,137 @@ $today = date("Y-m-d");
                                     </h5>
                                 </div> 
                                 <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover dataTable" id="installment-table">
-                                        <thead>
-                                            <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th>  
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Od Interest</th> 
-                                                <th class="text-center">Options</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                    <?php if ($LOAN->installment_type == 30) {
+                                        ?>
+                                        <table class="table table-bordered table-striped table-hover dataTable  js-basic-example "  >
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">ID</th> 
+                                                    <th class="text-center">Installment Date</th>  
+                                                    <th class="text-center">Status</th> 
+                                                    <th class="text-center">Paid Amount</th> 
+                                                    <th class="text-center">Due and Excess</th> 
+                                                    <th class="text-center">Od Interest</th> 
+                                                    <th class="text-center">Options</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                            $first_installment_date = '';
-                                            $installments = 0;
-                                            if ($LOAN->installment_type == 4) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+7 day');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            } elseif ($LOAN->installment_type == 30) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+1 day');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            } elseif ($LOAN->installment_type == 1) {
-                                                $FID = new DateTime($LOAN->effective_date);
-                                                $FID->modify('+1 months');
-                                                $first_installment_date = $FID->format('Y-m-d');
-                                            }
-                                            $start = new DateTime($first_installment_date);
-
-                                            $first_date = $start->format('Y-m-d');
-
-                                            foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
-                                                
-                                            }
-
-
-                                            $x = 0;
-                                            $count = 0;
-                                            $ins_total = 0;
-                                            $total_paid = 0;
-                                            $od_array = array();
-
-                                            while ($x < $defultdata) {
-                                                if ($defultdata == 4) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 30) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 8) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 60) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 2) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 1) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 90) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 12) {
-                                                    $add_dates = '+7 day';
-                                                } elseif ($defultdata == 3) {
-                                                    $add_dates = '+1 months';
-                                                } elseif ($defultdata == 100) {
-                                                    $add_dates = '+1 day';
-                                                } elseif ($defultdata == 13) {
-                                                    $add_dates = '+7 day';
+                                                $first_installment_date = '';
+                                                $installments = 0;
+                                                if ($LOAN->installment_type == 4) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+7 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 30) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 1) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 months');
+                                                    $first_installment_date = $FID->format('Y-m-d');
                                                 }
+                                                $start = new DateTime($first_installment_date);
 
-                                                $count++;
-                                                $date = $start->format('Y-m-d');
-                                                $customer = $LOAN->customer;
+                                                $first_date = $start->format('Y-m-d');
 
-                                                $CUSTOMER = new Customer($customer);
-                                                $route = $CUSTOMER->route;
-                                                $center = $CUSTOMER->center;
-                                                $amount = $LOAN->installment_amount;
-
-                                                $INSTALLMENT = new Installment(NULL);
-                                                $paid_amount = 0;
-                                                $od_amount = 0;
-
-                                                $previus_amount = 0;
-                                                $FID = new DateTime($date);
-                                                $FID->modify($add_dates);
-                                                $day_remove = '-1 day';
-                                                $FID->modify($day_remove);
-                                                $second_installment_date = $FID->format('Y-m-d');
-
-                                                $previus_amount += $installments['paid_amount'];
-                                                echo $previus_amount;
-                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
-                                                    $paid_amount += $paid['paid_amount'];
+                                                foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
+                                                    
                                                 }
 
 
-                                                echo '<tr>';
+                                                $x = 0;
+                                                $count = 0;
+                                                $ins_total = 0;
+                                                $total_paid = 0;
+                                                $od_array = array();
 
-                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                while ($x < $defultdata) {
+                                                    if ($defultdata == 4) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 30) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 8) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 60) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 2) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 1) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 90) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 12) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 3) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 100) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 13) {
+                                                        $add_dates = '+7 day';
+                                                    }
+
+                                                    $count++;
+                                                    $date = $start->format('Y-m-d');
+                                                    $customer = $LOAN->customer;
+
+                                                    $CUSTOMER = new Customer($customer);
+                                                    $route = $CUSTOMER->route;
+                                                    $center = $CUSTOMER->center;
+                                                    $amount = $LOAN->installment_amount;
+
+                                                    $INSTALLMENT = new Installment(NULL);
+                                                    $paid_amount = 0;
+                                                    $od_amount = 0;
+
+                                                    $previus_amount = 0;
+                                                    $FID = new DateTime($date);                                                   
+                                                    $day_remove = '-1 day';
+                                                    $FID->modify($day_remove);
+                                                    $second_installment_date = $FID->format('Y-m-d');
+
+                                                    $previus_amount += $installments['paid_amount'];
+                                                    
+                                                    foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
+                                                        $paid_amount += $paid['paid_amount'];
+                                                    }
 
 
-                                                    echo '<td class="padd-td gray ">';
-                                                    echo $count;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td red">';
-                                                    echo $date;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" >';
-                                                    echo '-- Postponed --';
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" >';
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" >';
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" >';
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td gray text-center" >';
-                                                    echo '</td>';
+                                                    echo '<tr>';
 
-                                                    $x--;
-                                                    if ($LOAN->installment_type == 4 || $LOAN->installment_type == 1) {
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
 
-                                                        $POSTD = new DateTime($date);
-                                                        $POSTD->modify('+1 day');
-                                                        $date = $POSTD->format('Y-m-d');
 
-                                                        $count++;
-                                                        echo '<tr>';
+                                                        echo '<td class="padd-td gray ">';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td red">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '-- Postponed --';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+
+                                                        $x--;
+                                                    } else {
+
                                                         echo '<td class="tr-color font-color-2">';
                                                         echo $count;
                                                         echo '</td>';
                                                         echo '<td class="padd-td f-style tr-color font-color-2">';
                                                         echo $date;
                                                         echo '</td>';
-
 
                                                         echo '<td class="f-style tr-color font-color-2">';
                                                         if ($paid_amount) {
@@ -259,7 +253,9 @@ $today = date("Y-m-d");
                                                         echo '</td>';
 
                                                         echo '<td class="f-style">';
+
                                                         if ($paid_amount) {
+
                                                             echo 'Rs: ' . number_format($paid_amount + $previus_amount, 2);
                                                         } else {
                                                             echo '-';
@@ -272,6 +268,8 @@ $today = date("Y-m-d");
                                                         $total_paid += $paid_amount;
                                                         $due_and_excess = $total_paid - $ins_total;
 
+
+
                                                         if ($due_and_excess > 0) {
                                                             echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                         } else if ($due_and_excess < 0) {
@@ -282,7 +280,8 @@ $today = date("Y-m-d");
                                                         }
                                                         echo '</td>';
 
-                                                        echo '<td class="f-style font-color-2 text-right">';
+
+                                                        echo '<td class="f-style">';
 
                                                         if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
                                                             
@@ -305,7 +304,6 @@ $today = date("Y-m-d");
                                                                 if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
                                                                     break;
                                                                 }
-
                                                                 $od_array[] = $od_interest;
                                                                 $od_amount = json_encode(round(array_sum($od_array), 2));
 
@@ -330,7 +328,7 @@ $today = date("Y-m-d");
 
                                                                 $od_date = $od_date_start->format('Y-m-d');
 
-                                                                if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                                                if (strtotime(date("Y/m/d")) < strtotime($od_date)) {
                                                                     break;
                                                                 }
 
@@ -342,206 +340,501 @@ $today = date("Y-m-d");
                                                             }
                                                             echo number_format($od_amount, 2);
                                                         } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
-
                                                             $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
                                                             $od_array[] = $od_interest;
                                                             $od_amount = json_encode(round(array_sum($od_array), 2));
                                                             echo $od_amount;
                                                         }
+
                                                         echo '</td>';
 
+
                                                         echo '<td class="text-center tr-color font-color-2">';
+
 
                                                         //check payment button 
                                                         if ($date <= $today || $due_and_excess < 0) {
                                                             echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
-                                                        <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                        </a>';
+                                                    <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
 
                                                             //show week payment button
                                                         } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
 
                                                             echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
-                                                             <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                        </a>';
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
                                                         } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
                                                             echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
-                                                             <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                        </a>';
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                    </a>';
                                                         } else {
                                                             echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
+                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"  disabled></button> 
+                                                    </a>';
+                                                        }
+
+                                                        echo '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                    $start->modify($add_dates);
+                                                    $x++;
+                                                }
+                                                ?>
+
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th class="text-center">ID</th> 
+                                                    <th class="text-center">Installment Date</th>  
+                                                    <th class="text-center">Status</th> 
+                                                    <th class="text-center">Paid Amount</th> 
+                                                    <th class="text-center">Due and Excess</th> 
+                                                    <th class="text-center">Od Interest</th>  
+                                                    <th class="text-center">Options</th> 
+                                                </tr>   
+                                            </tfoot>
+                                        </table>  
+                                    <?php } else {
+                                        ?>
+                                        <table class="table table-bordered table-striped table-hover dataTable" id="installment-table">
+                                            <thead>
+                                                <tr>
+                                                    <th class="text-center">ID</th> 
+                                                    <th class="text-center">Installment Date</th>  
+                                                    <th class="text-center">Status</th> 
+                                                    <th class="text-center">Paid Amount</th> 
+                                                    <th class="text-center">Due and Excess</th> 
+                                                    <th class="text-center">Od Interest</th> 
+                                                    <th class="text-center">Options</th> 
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+
+                                                $first_installment_date = '';
+                                                $installments = 0;
+                                                if ($LOAN->installment_type == 4) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+7 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 30) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 1) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 months');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                }
+                                                $start = new DateTime($first_installment_date);
+
+                                                $first_date = $start->format('Y-m-d');
+
+                                                foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
+                                                    
+                                                }
+
+
+                                                $x = 0;
+                                                $count = 0;
+                                                $ins_total = 0;
+                                                $total_paid = 0;
+                                                $od_array = array();
+
+                                                while ($x < $defultdata) {
+                                                    if ($defultdata == 4) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 30) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 8) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 60) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 2) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 1) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 90) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 12) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 3) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 100) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 13) {
+                                                        $add_dates = '+7 day';
+                                                    }
+
+                                                    $count++;
+                                                    $date = $start->format('Y-m-d');
+                                                    $customer = $LOAN->customer;
+
+                                                    $CUSTOMER = new Customer($customer);
+                                                    $route = $CUSTOMER->route;
+                                                    $center = $CUSTOMER->center;
+                                                    $amount = $LOAN->installment_amount;
+
+                                                    $INSTALLMENT = new Installment(NULL);
+                                                    $paid_amount = 0;
+                                                    $od_amount = 0;
+
+                                                    $previus_amount = 0;
+                                                    $FID = new DateTime($date);
+                                                    $FID->modify($add_dates);
+                                                    $day_remove = '-1 day';
+                                                    $FID->modify($day_remove);
+                                                    $second_installment_date = $FID->format('Y-m-d');
+
+                                                    $previus_amount += $installments['paid_amount'];
+                                                    
+                                                    foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
+                                                        $paid_amount += $paid['paid_amount'];
+                                                    }
+
+
+                                                    echo '<tr>';
+
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+
+
+                                                        echo '<td class="padd-td gray ">';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td red">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '-- Postponed --';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td gray text-center" >';
+                                                        echo '</td>';
+
+                                                        $x--;
+                                                        if ($LOAN->installment_type == 4 || $LOAN->installment_type == 1) {
+
+                                                            $POSTD = new DateTime($date);
+                                                            $POSTD->modify('+1 day');
+                                                            $date = $POSTD->format('Y-m-d');
+
+                                                            $count++;
+                                                            echo '<tr>';
+                                                            echo '<td class="tr-color font-color-2">';
+                                                            echo $count;
+                                                            echo '</td>';
+                                                            echo '<td class="padd-td f-style tr-color font-color-2">';
+                                                            echo $date;
+                                                            echo '</td>';
+
+
+                                                            echo '<td class="f-style tr-color font-color-2">';
+                                                            if ($paid_amount) {
+                                                                echo 'Paid';
+                                                            } elseif ($date <= $today) {
+                                                                echo 'Posted';
+                                                            } elseif ($date > $today) {
+                                                                echo 'Unpaid';
+                                                            } else {
+                                                                echo 'Payble';
+                                                            }
+                                                            echo '</td>';
+
+                                                            echo '<td class="f-style">';
+                                                            if ($paid_amount) {
+                                                                echo 'Rs: ' . number_format($paid_amount + $previus_amount, 2);
+                                                            } else {
+                                                                echo '-';
+                                                            }
+                                                            echo '</td>';
+
+                                                            echo '<td class="f-style">';
+
+                                                            $ins_total += $amount;
+                                                            $total_paid += $paid_amount;
+                                                            $due_and_excess = $total_paid - $ins_total;
+
+                                                            if ($due_and_excess > 0) {
+                                                                echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                            } else if ($due_and_excess < 0) {
+                                                                $due_and_excess = $due_and_excess + $previus_amount;
+                                                                echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                            } else {
+                                                                echo number_format($due_and_excess, 2);
+                                                            }
+                                                            echo '</td>';
+
+                                                            echo '<td class="f-style font-color-2 text-right">';
+
+                                                            if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
+                                                                
+                                                            } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
+
+                                                                $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
+
+                                                                $y = 0;
+                                                                $od_date_start = new DateTime($date);
+                                                                $defult_val = 6;
+
+                                                                while ($y <= $defult_val) {
+
+                                                                    if ($defult_val <= 6 && $LOAN->od_date <= $od_date_start) {
+                                                                        $od_dates = '+1 day';
+                                                                    }
+
+                                                                    $od_date = $od_date_start->format('Y-m-d');
+
+                                                                    if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                                                        break;
+                                                                    }
+
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                                                                    $od_date_start->modify($od_dates);
+                                                                    $y++;
+                                                                }
+
+                                                                echo number_format($od_amount, 2);
+                                                            } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 1) {
+
+                                                                $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
+
+                                                                $y = 0;
+                                                                $od_date_start = new DateTime($date);
+                                                                $defult_val = 30;
+
+                                                                while ($y <= $defult_val) {
+
+                                                                    if ($defult_val <= 30 && $LOAN->od_date <= $od_date_start) {
+                                                                        $od_dates = '+1 day';
+                                                                    }
+
+                                                                    $od_date = $od_date_start->format('Y-m-d');
+
+                                                                    if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                                                        break;
+                                                                    }
+
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                                                                    $od_date_start->modify($od_dates);
+                                                                    $y++;
+                                                                }
+                                                                echo number_format($od_amount, 2);
+                                                            } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
+
+                                                                $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
+                                                                $od_array[] = $od_interest;
+                                                                $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                                echo $od_amount;
+                                                            }
+                                                            echo '</td>';
+
+                                                            echo '<td class="text-center tr-color font-color-2">';
+
+                                                            //check payment button 
+                                                            if ($date <= $today || $due_and_excess < 0) {
+                                                                echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                        <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                        </a>';
+
+                                                                //show week payment button
+                                                            } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
+
+                                                                echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                             <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                        </a>';
+                                                            } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
+                                                                echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                             <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                        </a>';
+                                                            } else {
+                                                                echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
                                                              <button class="glyphicon glyphicon-send btn btn-info" title="Payment"  disabled></button> 
                                                         </a>';
+                                                            }
+                                                            echo '</td>';
+                                                            echo '</tr>';
+                                                        }
+                                                    } else {
+
+                                                        echo '<td class="tr-color font-color-2">';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td f-style tr-color font-color-2">';
+                                                        echo $date;
+                                                        echo '</td>';
+
+                                                        echo '<td class="f-style tr-color font-color-2">';
+                                                        if ($paid_amount) {
+                                                            echo 'Paid';
+                                                        } elseif ($date <= $today) {
+                                                            echo 'Posted';
+                                                        } elseif ($date > $today) {
+                                                            echo 'Unpaid';
+                                                        } else {
+                                                            echo 'Payble';
                                                         }
                                                         echo '</td>';
-                                                        echo '</tr>';
-                                                    }
-                                                } else {
 
-                                                    echo '<td class="tr-color font-color-2">';
-                                                    echo $count;
-                                                    echo '</td>';
-                                                    echo '<td class="padd-td f-style tr-color font-color-2">';
-                                                    echo $date;
-                                                    echo '</td>';
+                                                        echo '<td class="f-style">';
 
-                                                    echo '<td class="f-style tr-color font-color-2">';
-                                                    if ($paid_amount) {
-                                                        echo 'Paid';
-                                                    } elseif ($date <= $today) {
-                                                        echo 'Posted';
-                                                    } elseif ($date > $today) {
-                                                        echo 'Unpaid';
-                                                    } else {
-                                                        echo 'Payble';
-                                                    }
-                                                    echo '</td>';
+                                                        if ($paid_amount) {
 
-                                                    echo '<td class="f-style">';
+                                                            echo 'Rs: ' . number_format($paid_amount + $previus_amount, 2);
+                                                        } else {
+                                                            echo '-';
+                                                        }
+                                                        echo '</td>';
 
-                                                    if ($paid_amount) {
+                                                        echo '<td class="f-style">';
 
-                                                        echo 'Rs: ' . number_format($paid_amount + $previus_amount, 2);
-                                                    } else {
-                                                        echo '-';
-                                                    }
-                                                    echo '</td>';
-
-                                                    echo '<td class="f-style">';
-
-                                                    $ins_total += $amount;
-                                                    $total_paid += $paid_amount;
-                                                    $due_and_excess = $total_paid - $ins_total;
-                                                    
-                                                   
-                                                    
-                                                    if ($due_and_excess > 0) {
-                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                    } else if ($due_and_excess < 0) {
-                                                        $due_and_excess = $due_and_excess + $previus_amount;
-                                                        echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                    } else {
-                                                        echo number_format($due_and_excess, 2);
-                                                    }
-                                                    echo '</td>';
+                                                        $ins_total += $amount;
+                                                        $total_paid += $paid_amount;
+                                                        $due_and_excess = $total_paid - $ins_total;
 
 
-                                                    echo '<td class="f-style">';
 
-                                                    if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
-                                                        
-                                                    } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
+                                                        if ($due_and_excess > 0) {
+                                                            echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } else if ($due_and_excess < 0) {
+                                                            $due_and_excess = $due_and_excess + $previus_amount;
+                                                            echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
+                                                        } else {
+                                                            echo number_format($due_and_excess, 2);
+                                                        }
+                                                        echo '</td>';
 
-                                                        $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
 
-                                                        $y = 0;
-                                                        $od_date_start = new DateTime($date);
-                                                        $defult_val = 6;
+                                                        echo '<td class="f-style">';
 
-                                                        while ($y <= $defult_val) {
+                                                        if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT") {
+                                                            
+                                                        } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
 
-                                                            if ($defult_val <= 6 && $LOAN->od_date <= $od_date_start) {
-                                                                $od_dates = '+1 day';
+                                                            $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
+
+                                                            $y = 0;
+                                                            $od_date_start = new DateTime($date);
+                                                            $defult_val = 6;
+
+                                                            while ($y <= $defult_val) {
+
+                                                                if ($defult_val <= 6 && $LOAN->od_date <= $od_date_start) {
+                                                                    $od_dates = '+1 day';
+                                                                }
+
+                                                                $od_date = $od_date_start->format('Y-m-d');
+
+                                                                if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                                                    break;
+                                                                }
+                                                                $od_array[] = $od_interest;
+                                                                $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                                                                $od_date_start->modify($od_dates);
+                                                                $y++;
                                                             }
 
-                                                            $od_date = $od_date_start->format('Y-m-d');
+                                                            echo number_format($od_amount, 2);
+                                                        } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 1) {
 
-                                                            if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
-                                                                break;
+                                                            $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
+
+                                                            $y = 0;
+                                                            $od_date_start = new DateTime($date);
+                                                            $defult_val = 30;
+
+                                                            while ($y <= $defult_val) {
+
+                                                                if ($defult_val <= 30 && $LOAN->od_date <= $od_date_start) {
+                                                                    $od_dates = '+1 day';
+                                                                }
+
+                                                                $od_date = $od_date_start->format('Y-m-d');
+
+                                                                if (strtotime(date("Y/m/d")) < strtotime($od_date)) {
+                                                                    break;
+                                                                }
+
+                                                                $od_array[] = $od_interest;
+                                                                $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                                                                $od_date_start->modify($od_dates);
+                                                                $y++;
                                                             }
+                                                            echo number_format($od_amount, 2);
+                                                        } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
+                                                            $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
                                                             $od_array[] = $od_interest;
                                                             $od_amount = json_encode(round(array_sum($od_array), 2));
-
-                                                            $od_date_start->modify($od_dates);
-                                                            $y++;
+                                                            echo $od_amount;
                                                         }
 
-                                                        echo number_format($od_amount, 2);
-                                                    } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 1) {
-
-                                                        $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
-
-                                                        $y = 0;
-                                                        $od_date_start = new DateTime($date);
-                                                        $defult_val = 30;
-
-                                                        while ($y <= $defult_val) {
-
-                                                            if ($defult_val <= 30 && $LOAN->od_date <= $od_date_start) {
-                                                                $od_dates = '+1 day';
-                                                            }
-
-                                                            $od_date = $od_date_start->format('Y-m-d');
-
-                                                            if (strtotime(date("Y/m/d")) < strtotime($od_date)) {
-                                                                break;
-                                                            }
-
-                                                            $od_array[] = $od_interest;
-                                                            $od_amount = json_encode(round(array_sum($od_array), 2));
-
-                                                            $od_date_start->modify($od_dates);
-                                                            $y++;
-                                                        }
-                                                        echo number_format($od_amount, 2);
-                                                    } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0) {
-                                                        $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
-                                                        $od_array[] = $od_interest;
-                                                        $od_amount = json_encode(round(array_sum($od_array), 2));
-                                                        echo $od_amount;
-                                                    }
-
-                                                    echo '</td>';
+                                                        echo '</td>';
 
 
-                                                    echo '<td class="text-center tr-color font-color-2">';
+                                                        echo '<td class="text-center tr-color font-color-2">';
 
 
-                                                    //check payment button 
-                                                    if ($date <= $today || $due_and_excess < 0) {
-                                                        echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                        //check payment button 
+                                                        if ($date <= $today || $due_and_excess < 0) {
+                                                            echo '<a href="add-new-installment.php?date=' . $date . '&loan=' . $loan_id . '&amount=' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                     <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
 
-                                                        //show week payment button
-                                                    } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
+                                                            //show week payment button
+                                                        } elseif ($LOAN->installment_type == 4 && ($date <= $today || $due_and_excess < 0)) {
 
-                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
-                                                    } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
-                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
+                                                        } elseif ($LOAN->installment_type == 1 && ($date <= $today || $due_and_excess < 0)) {
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $due_and_excess . '&od_amount=' . $od_amount . ' ">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                     </a>';
-                                                    } else {
-                                                        echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
+                                                        } else {
+                                                            echo '<a href="add-new-installment.php?date = ' . $date . '&loan = ' . $loan_id . '&amount = ' . $amount . '&od_amount=' . $od_amount . ' ">
                                                          <button class="glyphicon glyphicon-send btn btn-info" title="Payment"  disabled></button> 
                                                     </a>';
-                                                    }
+                                                        }
 
-                                                    echo '</td>';
+                                                        echo '</td>';
+                                                    }
+                                                    echo '</tr>';
+                                                    $start->modify($add_dates);
+                                                    $x++;
                                                 }
-                                                echo '</tr>';
-                                                $start->modify($add_dates);
-                                                $x++;
-                                            }
-                                            ?>
-                                            
-                                            
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                                <th class="text-center">ID</th> 
-                                                <th class="text-center">Installment Date</th>  
-                                                <th class="text-center">Status</th> 
-                                                <th class="text-center">Paid Amount</th> 
-                                                <th class="text-center">Due and Excess</th> 
-                                                <th class="text-center">Od Interest</th>  
-                                                <th class="text-center">Options</th> 
-                                            </tr>   
-                                        </tfoot>
-                                    </table>  
+                                                ?>
+
+
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th class="text-center">ID</th> 
+                                                    <th class="text-center">Installment Date</th>  
+                                                    <th class="text-center">Status</th> 
+                                                    <th class="text-center">Paid Amount</th> 
+                                                    <th class="text-center">Due and Excess</th> 
+                                                    <th class="text-center">Od Interest</th>  
+                                                    <th class="text-center">Options</th> 
+                                                </tr>   
+                                            </tfoot>
+                                        </table>  
+                                    <?php } ?>
+
                                 </div>
+
                             </div>
                         </div>
                     </div>

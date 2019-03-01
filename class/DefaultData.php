@@ -69,7 +69,7 @@ class DefaultData {
     }
 
     public function getLoanDocumentFee() {
-        return 50;
+        return 20;
     }
 
     public function getLoanChequeFee() {

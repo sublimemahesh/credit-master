@@ -117,8 +117,8 @@ $CUSTOMER = new Customer(NULL)
                                                     <td>
                                                         <a href="view-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-eye-open  arrange-btn" title="View"></button></a> |
                                                         <a href="edit-customer.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit"></button></a> |
-                                                        <a href="add-new-customer-document.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-picture arrange-btn-2" title="Customer Document"></button></a>
-                                                        
+                                                        <a href="add-new-customer-document.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-picture arrange-btn-2" title="Customer Document"></button></a> | 
+                                                        <a href="view-all-loan-history.php?id=<?php echo $customer['id']; ?>"> <button class="glyphicon glyphicon-time arrange-btn-2 btn-info" title="All Loan History"></button></a>                                                       
                                                     </td> 
                                                 </tr>
                                                 <?php

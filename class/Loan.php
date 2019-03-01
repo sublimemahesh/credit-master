@@ -335,7 +335,7 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "') AND  (`status` ='issued' OR `status` ='released') ";
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
         $row = mysql_fetch_row($result);
@@ -636,10 +636,6 @@ class Loan {
 
             $date = $start->format('Y-m-d');
 
-            if (strtotime(date("Y/m/d")) <= strtotime($date)) {
-                break;
-            }
-
             $paid_amount = 0;
             $od_amount = 0;
             $interest_amount = 0;
@@ -662,6 +658,8 @@ class Loan {
             date_default_timezone_set('Asia/Colombo');
             $today = date('Y-m-d');
 
+
+
             $INSTALLMENT = new Installment(NULL);
             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id, $today) as $paid) {
                 $paid_amount += $paid['paid_amount'];
@@ -677,7 +675,7 @@ class Loan {
                 $due_and_excess = $total_paid - $ins_total;
                 $due_and_excess = $due_and_excess + $previus_amount;
 
-                if (strtotime(date("Y/m/d")) < strtotime($date) || $this->od_interest_limit == "NOT") {
+                if (strtotime(date("Y/m/d")) <= strtotime($date) || $this->od_interest_limit == "NOT") {
                     
                 } else if (strtotime($this->od_date) <= strtotime($date) && $due_and_excess < 0 && $this->installment_type == 4) {
 
@@ -745,6 +743,10 @@ class Loan {
                     $array_value = array($od_amount);
                     array_push($array_value, 1);
                 } $total_installment_amount += $installment_amount;
+                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                    break;
+                }
+
                 $start->modify($modify_range);
                 $x++;
             }
@@ -776,6 +778,8 @@ class Loan {
             'receipt' => $total_paid_installment,
             'arrears-excess-num-of-ins' => ($total_installment_amount - $total_paid_installment) / $this->installment_amount,
             'arrears-excess' => $total_installment_amount - $total_paid_installment,
+            'installment_amount' => $amount,
+            
         ];
     }
 
@@ -890,14 +894,13 @@ class Loan {
                         $od_array[] = (float) $interest_amount;
                         $od_amount = json_encode(round(array_sum($od_array), 2));
                         $all_amount = (float) $od_amount + $DUE;
-                       
+
                         return [
                             'od_amount' => $od_amount,
                             'due_and_excess' => (float) $due_and_excess,
                             'all_amount' => (float) $all_amount,
                         ];
                     }
-                    
                 }
             }
             $start->modify($add_dates);

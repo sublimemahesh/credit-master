@@ -1040,9 +1040,6 @@ $('#create_loan').click(function (event) {
             showConfirmButton: false
         });
 
-    } else if (result) {
-
-
     }
     return false;
 });
@@ -1070,16 +1067,20 @@ $('#customer,#issue_mode').change(function () {
         success: function (jsonStr) {
 
             if (jsonStr.status) {
+                setTimeout(function () {
+                    window.location.replace("create-loan.php");
+                }, 2000);
+
                 $('option:selected', $('#customer')).remove();
                 swal({
                     title: "The new loan cannot be processed..!",
                     text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",
                     type: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#00b0e4",
-                    confirmButtonText: "Ok.!",
+                    confirmButtonColor: "#00b0e4",                   
                     closeOnConfirm: false
                 });
+
             } else {
 
                 $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
