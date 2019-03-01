@@ -171,8 +171,8 @@ $today = date('Y-m-d');
                                                         <br> 
                                                         <?php
                                                         if ($status["arrears-excess"] > 0) {
-                                                            echo '<b class="text-danger">Arrears: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
                                                         } else {
                                                             echo '<b class="text-success">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
@@ -183,11 +183,11 @@ $today = date('Y-m-d');
                                                         if ($status["od_amount"] == 0) {
                                                             
                                                         } else {
-                                                            echo '<b class="text-success">Od Amount: </b>';
-                                                            echo '<span  class="text-success">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size">Od Amount: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
                                                             echo '<br>';
-                                                            echo '<b class="text-danger"  >All Aress Amount: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>  
                                                     </td>

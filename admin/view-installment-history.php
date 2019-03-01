@@ -78,7 +78,7 @@ $today = date("Y-m-d");
                                         ?>
                                     </h5>
 
-                                   <h5>Loan Amount : <?php echo number_format($LOAN->loan_amount,2) ?> </h5>
+                                    <h5>Loan Amount : <?php echo number_format($LOAN->loan_amount, 2) ?> </h5>
 
                                     <h5>Installment Type :
                                         <?php
@@ -148,6 +148,20 @@ $today = date("Y-m-d");
                                                 </tr>
                                                 <?php
                                             }
+                                            $row_count++;
+                                            ?>
+
+                                            <tr style="background-color: white;">                                                    
+
+                                                <td><?php echo $row_count; ?></td>
+                                                <td   class="font-colors text-right"> <?php echo $first_date ?></td>                                                  
+                                                <td class="font-colors text-right"> </td>
+                                                <td class="font-colors text-right"> </td>
+                                                <td class="font-colors text-right">  </td>                                                  
+                                                <td class="font-colors text-right">  <?php echo number_format($LOAN->loan_processing_pre) ?>  </td>                                                  
+                                            </tr>
+
+                                            <?php
                                             $previus_amount = 0;
                                             $paid_amount_beetwen_dates = 0;
                                             $previus_amount += $installments['paid_amount'];
@@ -196,11 +210,13 @@ $today = date("Y-m-d");
                                                 $balance = 0;
                                                 $od_amount = 0;
 
-                                                $FID = new DateTime($date);
-                                                $FID->modify($add_dates);
+                                                $FIDS = new DateTime($date);
+                                                $FIDS->modify($add_dates);
                                                 $day_remove = '-1 day';
-                                                $FID->modify($day_remove);
-                                                $second_installment_date = $FID->format('Y-m-d');
+
+                                                $FIDS->modify($day_remove);
+                                                $second_installment_date = $FIDS->format('Y-m-d');
+
 
                                                 if (strtotime(date("Y/m/d")) < strtotime($date)) {
                                                     break;
@@ -346,7 +362,7 @@ $today = date("Y-m-d");
                                                     echo '</tr>';
                                                 }
 
-                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $Installment_payment) {
+                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $Installment_payment) {
                                                     $row_count++;
                                                     ?>
 
