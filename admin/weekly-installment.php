@@ -107,8 +107,7 @@ $next = $ND->format('Y-m-d');
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
                                                 $first_installment_date = '';
-                                                $installments = 0;
-
+                                               
                                                 if ($loan['installment_type'] == 4) {
                                                     $FID = new DateTime($loan['effective_date']);
                                                     $FID->modify('+7 day');
@@ -125,20 +124,9 @@ $next = $ND->format('Y-m-d');
                                                 $start = new DateTime($first_installment_date);
 
                                                 $first_date = $start->format('Y-m-d');
-                                                $INSTALLMENT = new Installment(NULL);
-
-                                                $first_date = $start->format('Y-m-d');
-
-                                                foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $loan['id']) as $installments) {
-                                                    
-                                                }
-
-
-                                                $x = 0;
-                                                $count = 0;
-                                                $ins_total = 0;
-                                                $total_paid = 0;
-                                                $od_array = array();
+                                               
+ 
+                                                $x = 0;                                               
 
                                                 while ($x < $defultdata) {
                                                     if ($defultdata == 4) {
@@ -168,35 +156,15 @@ $next = $ND->format('Y-m-d');
 
                                                     $date = $start->format('Y-m-d');
                                                     $customer = $loan['customer'];
-
                                                     $CUSTOMER = new Customer($customer);
                                                     $route = $CUSTOMER->route;
                                                     $center = $CUSTOMER->center;
-                                                    $amount = $loan['installment_amount'];
-
-                                                    $INSTALLMENT = new Installment(NULL);
-                                                    $paid_amount = 0;
-                                                    $od_amount = 0;
-
-                                                    $previus_amount = 0;
-                                                    $FID = new DateTime($date);
-                                                    $day_remove = '-1 day';
-                                                    $FID->modify($day_remove);
-                                                    $second_installment_date = $FID->format('Y-m-d');
-
-                                                    $previus_amount += $installments['paid_amount'];
-
-                                                    foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($second_installment_date, $date, $loan['id'], $today) as $paid) {
-                                                        $paid_amount += $paid['paid_amount'];
-                                                    }
-
+                                                   
+                                               
 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                         $start->modify($add_dates);
-                                                    } else {
-                                                        $ins_total += $amount;
-                                                        $total_paid += $paid_amount;
-                                                        $due_and_excess = $total_paid - $ins_total;
+                                                    } else { 
                                                         $ITYPE = $loan['installment_type'];
 
                                                         if ($date == $today && $ITYPE == 4) {
@@ -325,10 +293,7 @@ $next = $ND->format('Y-m-d');
                                                     }
                                                 }
                                             }
-                                            ?> 
-
-
-
+                                            ?>  
 
                                         </tbody>
                                         <tfoot>
