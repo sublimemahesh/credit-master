@@ -222,8 +222,8 @@ $next = $ND->format('Y-m-d');
                                                                     <b> : 
                                                                         <?php
                                                                         $Customer = new Customer($loan['customer']);
-                                                                        $DEFAULTDATA = new DefaultData();
-                                                                        $first_name = $DEFAULTDATA->getFirstLetterName(ucwords($Customer->surname));
+                                                                        $DefaultData = new DefaultData();
+                                                                        $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
                                                                         echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
                                                                         ?>
                                                                     </b>
@@ -262,7 +262,8 @@ $next = $ND->format('Y-m-d');
                                                                     $PR = DefaultData::getLoanPeriod();
                                                                     echo $PR[$loan['loan_period']];
                                                                     ?>
-                                                                </td> 
+                                                                </td>
+
                                                                 <td>
                                                                     <b>Sys Due: </b>
                                                                     <?php
@@ -271,7 +272,6 @@ $next = $ND->format('Y-m-d');
                                                                     echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
                                                                     ?>
                                                                     <br/>
-
                                                                     <b>Act Due: </b>
                                                                     <?php
                                                                     echo '<b>' . round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2) . '</b>';
@@ -283,44 +283,35 @@ $next = $ND->format('Y-m-d');
                                                                         <?php
                                                                         echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
                                                                         ?>
+                                                                    </span> 
+                                                                    <br> 
+                                                                    <?php
+                                                                    $LOAN_2 = new Loan($loan['id']);
+                                                                    $status_loan = $LOAN_2->getStatusbyDate($today);
+                                                                    ?>
+
+                                                                    <span  class="text-danger">
+                                                                        <?php
+                                                                        echo '<b class="text-danger font-re-size">Due : </b>';
+                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["due_and_excess"], 2) . '</span>' . '<b>';
+                                                                        ?>
                                                                     </span>
                                                                     <br> 
+
                                                                     <?php
-                                                                    if ($due_and_excess > 0) {
-                                                                        echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                                    } else if ($due_and_excess < 0) {
-                                                                        $due_and_excess = $due_and_excess + $previus_amount;
-                                                                        echo '<b class="text-danger font-re-size"  >Aress Amount: </b>';
-                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($due_and_excess, 2) . '</b>' . '</span>';
+                                                                    if ($status["od_amount"] == 0) {
+                                                                        
                                                                     } else {
-                                                                        echo number_format($due_and_excess, 2);
+                                                                        echo '<b class="text-danger font-re-size">Od Amount: </b>';
+                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"], 2) . '</span>' . '<b>';
+                                                                        echo '<br>';
+                                                                        echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
+                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"] - $status_loan["due_and_excess"], 2) . '</span>' . '<b>';
                                                                     }
                                                                     ?>  
-                                                                    <br> 
-                                                                    <?php
-                                                                    if (strtotime(date("Y/m/d")) < strtotime($date) || $loan['od_interest_limit'] == "NOT") {
-                                                                        
-                                                                    } else if (strtotime($loan['od_date']) <= strtotime($date) && $due_and_excess < 0) {
-
-                                                                        $od_interest = $LOAN_2->getOdIntereset($due_and_excess, $loan['od_interest_limit']);
-                                                                        $od_array[] = $od_interest;
-                                                                        $od_amount = json_encode(round(array_sum($od_array), 2));
-                                                                        $all_arress = $od_amount - $due_and_excess;
-
-                                                                        if ($od_amount == 0.00) {
-                                                                            
-                                                                        } else {
-                                                                            echo '<b class="text-danger font-re-size">Od Amount: </b>';
-                                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($od_amount, 2) . '</span>' . '<b>';
-                                                                            echo '<br>';
-                                                                            echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
-                                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($all_arress, 2) . '</span>' . '<b>';
-                                                                        }
-                                                                    }
-                                                                    ?>
                                                                 </td>
 
-                                                                <td class="text-center"> 
+                                                                <td class="text-center" style="padding-top: 24px;">
                                                                     <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $due_and_excess ?>&od_amount=<?php echo $od_amount ?>">
                                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                                     </a> 
@@ -335,6 +326,10 @@ $next = $ND->format('Y-m-d');
                                                 }
                                             }
                                             ?> 
+
+
+
+
                                         </tbody>
                                         <tfoot>
                                             <tr>

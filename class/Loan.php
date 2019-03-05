@@ -742,10 +742,11 @@ class Loan {
                     $array_value = array($od_amount);
                     array_push($array_value, 1);
                 }
+                 $total_installment_amount += $installment_amount;
                 if (strtotime($selectedDate) <= strtotime($date)) {
                     break;
                 }
-                $total_installment_amount += $installment_amount;
+               
                 $start->modify($modify_range);
                 $x++;
             }
@@ -955,7 +956,7 @@ class Loan {
                     $array_value = array($od_amount);
                     array_push($array_value, 1);
                 }
-                $total_installment_amount += $installment_amount;
+                    $total_installment_amount += $installment_amount;
                 if (strtotime(date("Y/m/d")) <= strtotime($date)) {
                     break;
                 }
