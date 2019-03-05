@@ -12,6 +12,7 @@ $id = $_GET['id'];
 
 $LOAN = new Loan(NULL);
 
+$CUSTOMER_DETAILS = new Customer($id);
 $today = date("Y-m-d");
 ?>
 <!DOCTYPE html>
@@ -76,7 +77,6 @@ $today = date("Y-m-d");
                                     <h5> ID: <?php
                                         if ($LOAN->installment_type == 30) {
                                             echo 'BLD' . $LOAN->id;
-                                            
                                         } elseif ($LOAN->installment_type == 4) {
                                             echo 'BLW' . $LOAN->id;
                                         } else {
@@ -91,7 +91,7 @@ $today = date("Y-m-d");
                                         ?>
                                     </h5>
 
-                                    <h5>Loan Amount : <?php echo number_format($LOAN->loan_amount,2) ?> </h5>
+                                    <h5>Loan Amount : <?php echo number_format($LOAN->loan_amount, 2) ?> </h5>
 
                                     <h5>Installment Type :
                                         <?php
@@ -118,9 +118,9 @@ $today = date("Y-m-d");
                                                 <th class="text-right">CREDIT</th>
                                                 <th class="text-right">BALANCE</th>
                                             </tr>
-                                            
+
                                         </thead>
-                                        
+
                                         <tbody>
 
                                             <?php
@@ -203,7 +203,6 @@ $today = date("Y-m-d");
                                                     $date = $start->format('Y-m-d');
 
                                                     $customer = $loan['customer'];
-
                                                     $CUSTOMER = new Customer($customer);
                                                     $route = $CUSTOMER->route;
                                                     $center = $CUSTOMER->center;

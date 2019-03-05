@@ -81,6 +81,7 @@ $today = date('Y-m-d');
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
+                                                
                                                 ?> 
                                                 <tr>
                                                     <td> 
@@ -170,6 +171,7 @@ $today = date('Y-m-d');
 
                                                         <br> 
                                                         <?php
+                                                           
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
