@@ -193,16 +193,12 @@ $today = date("Y-m-d");
                                                     $INSTALLMENT = new Installment(NULL);
                                                     $paid_amount = 0;
                                                     $od_amount = 0;
-
                                                     $previus_amount = 0;
-                                                    $FID = new DateTime($date);                                                   
-                                                    $day_remove = '-1 day';
-                                                    $FID->modify($day_remove);
-                                                    $second_installment_date = $FID->format('Y-m-d');
+                                                  
 
                                                     $previus_amount += $installments['paid_amount'];
                                                     
-                                                    foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
+                                                    foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date,$loan_id) as $paid) {
                                                         $paid_amount += $paid['paid_amount'];
                                                     }
 

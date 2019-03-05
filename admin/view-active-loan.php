@@ -90,7 +90,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                             <?php } ?>
                             <li><a data-toggle="tab" href="#menu5"><h5>Loan Document</h5></a></li>
                             <li><a data-toggle="tab" href="#menu6"><h5>User History</h5></a></li>   
-                            <li><a data-toggle="tab" href="#menu7"><h5>Od Limite</h5></a></li>   
+                            <li><a data-toggle="tab" href="#menu7"><h5>Od Limit</h5></a></li>   
                         </ul> 
                     </div> 
                     <div class="tab-content">  

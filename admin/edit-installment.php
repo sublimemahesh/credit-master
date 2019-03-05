@@ -126,7 +126,7 @@ if (isset($_GET['date'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="additional_interest" class="hidden-lg hidden-md">Additional Interest</label>
-                                            <input type="number" id="additional_interest" value="<?php echo $INSTALLMENT->additional_interest ?>" name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0" readonly="">
+                                            <input type="number" id="additional_interest" value="<?php echo $INSTALLMENT->additional_interest ?>" name="additional_interest" placeholder="Enter Additional Interest" class="form-control" autocomplete="off" min="0"  >
                                         </div>
                                     </div>
                                 </div>
