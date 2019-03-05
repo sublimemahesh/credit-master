@@ -141,9 +141,7 @@ $today = date("Y-m-d");
                                                 <td class="font-colors text-right"> <?php echo $LOAN->status ?></td>
                                                 <td class="font-colors text-right"><?php echo number_format($LOAN->loan_amount, 2) ?> </td> 
                                                 <td> </td>
-                                                <td class="font-colors text-right"><?php echo number_format($LOAN->loan_amount, 2) ?> </td>                                                 
-
-
+                                                <td class="text-right " style="color:red"><?php echo number_format('-'.$LOAN->loan_amount, 2) ?> </td>                                                 
                                             </tr>
 
                                             <tr style="background-color: white;">                                                   
@@ -151,14 +149,15 @@ $today = date("Y-m-d");
                                                 <td><?php
                                                     $row_count++;
                                                     echo $row_count;
-                                                    ?></td>
+                                                    ?>
+                                                </td>
                                                 <td   class="font-colors text-right"> <?php echo $first_date ?></td>                                                 
                                                 <td class="font-colors text-right"> Loan Processing Fee</td>
                                                 <td class="font-colors text-right">  <?php echo number_format($LOAN->loan_processing_pre, 2) ?></td>
                                                 <td class="font-colors text-right">  </td>                                                 
-                                                <td class="font-colors text-right"> <?php
+                                                <td class="  text-right" style="color:red"> <?php
                                                     $all_amount = $LOAN->loan_processing_pre + $LOAN->loan_amount;
-                                                    echo number_format($all_amount, 2)
+                                                    echo number_format('-'.$all_amount, 2)
                                                     ?> 
                                                 </td>                                                 
                                             </tr>
@@ -178,10 +177,8 @@ $today = date("Y-m-d");
                                                 </tr>
                                                 <?php
                                             }
-                                            ?>
-
-
-                                            <?php
+                                           
+                                            
                                             $previus_amount = 0;
                                             $paid_amount_beetwen_dates = 0;
                                             $previus_amount += $installments['paid_amount'];
@@ -358,9 +355,7 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2">';
-
                                                     $ins_total += $amount;
-
                                                     $total_paid += $paid_amount;
                                                     $due_and_excess = $total_paid - $ins_total;
                                                    
@@ -378,7 +373,6 @@ $today = date("Y-m-d");
 
                                                         echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
                                                     }
-
                                                     echo '</td>';
                                                     echo '</tr>';
                                                 }

@@ -702,7 +702,6 @@ class Loan {
 
                         $array_value = array($od_amount);
                         array_push($array_value, 1);
-
                         $od_date_start->modify($od_dates);
                         $y++;
                     }
@@ -774,6 +773,8 @@ class Loan {
             'system-due' => $system_due,
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
+            'due_and_excess' => $due_and_excess,
+            'all_amount' => $due_and_excess +$array_value[0],
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment,
             'first_installment_date' => $first_installment_date,
@@ -910,7 +911,7 @@ class Loan {
 
                         $od_array[] = $od_interest;
                         $od_amount = json_encode(round(array_sum($od_array), 2));
-
+                        $array_value = 0;
                         $array_value = array($od_amount);
                         array_push($array_value, 1);
 
@@ -992,138 +993,6 @@ class Loan {
             'arrears-excess' => $total_installment_amount - $total_paid_installment,
             'installment_amount' => $amount,
         ];
-    }
-
-    public function getOdAmount($paid_dates) {
-
-        $defultdata = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
-
-        $first_installment_date = '';
-
-        if ($this->installment_type == 4) {
-            $FID = new DateTime($this->effective_date);
-            $FID->modify('+7 day');
-            $first_installment_date = $FID->format('Y-m-d');
-        } elseif ($this->installment_type == 30) {
-            $FID = new DateTime($this->effective_date);
-            $FID->modify('+1 day');
-            $first_installment_date = $FID->format('Y-m-d');
-        } elseif ($this->installment_type == 1) {
-            $FID = new DateTime($this->effective_date);
-            $FID->modify('+1 months');
-            $first_installment_date = $FID->format('Y-m-d');
-        }
-        $start = new DateTime($first_installment_date);
-
-
-        $x = 0;
-        $count = 0;
-        $ins_total = 0;
-        $total_paid = 0;
-        $od_array = array();
-
-        while ($x < $defultdata) {
-            if ($defultdata == 4) {
-                $add_dates = '+7 day';
-            } elseif ($defultdata == 30) {
-                $add_dates = '+1 day';
-            } elseif ($defultdata == 8) {
-                $add_dates = '+7 day';
-            } elseif ($defultdata == 60) {
-                $add_dates = '+1 day';
-            } elseif ($defultdata == 2) {
-                $add_dates = '+1 months';
-            } elseif ($defultdata == 1) {
-                $add_dates = '+1 months';
-            } elseif ($defultdata == 90) {
-                $add_dates = '+1 day';
-            } elseif ($defultdata == 12) {
-                $add_dates = '+7 day';
-            } elseif ($defultdata == 3) {
-                $add_dates = '+1 months';
-            } elseif ($defultdata == 100) {
-                $add_dates = '+1 day';
-            } elseif ($defultdata == 13) {
-                $add_dates = '+7 day';
-            }
-
-            $date = $start->format('Y-m-d');
-
-            $customer = $this->customer;
-            $CUSTOMER = new Customer($customer);
-            $route = $CUSTOMER->route;
-            $center = $CUSTOMER->center;
-            $amount = $this->installment_amount;
-
-            $INSTALLMENT = new Installment(NULL);
-            $paid_amount = 0;
-            $od_amount = 0;
-
-            date_default_timezone_set('Asia/Colombo');
-            $today = date('Y-m-d');
-
-            $FID = new DateTime($date);
-            $FID->modify($add_dates);
-            $day_remove = '-1 day';
-            $FID->modify($day_remove);
-            $second_installment_date = $FID->format('Y-m-d');
-
-            foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id, $today) as $paid) {
-                $paid_amount += $paid['paid_amount'];
-            }
-
-            if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
-                $count;
-                $x--;
-            } else {
-
-                $count;
-                $ins_total += $amount;
-                $total_paid += $paid_amount;
-                $due_and_excess = $total_paid - $ins_total;
-
-                if (strtotime(date("Y/m/d")) < strtotime($date) || $this->od_interest_limit == "NOT" && $due_and_excess < 0) {
-
-                    $due = explode("-", $due_and_excess);
-                    $DUE = (float) $due[1];
-
-                    return [
-                        'od_amount' => (float) 0,
-                        'due_and_excess' => (float) $due_and_excess,
-                        'all_amount' => (float) $DUE,
-                    ];
-                } else if (strtotime($this->od_date) <= strtotime($date) && strtotime($paid_dates) <= strtotime($date) && $due_and_excess < 0) {
-
-                    $due = explode("-", $due_and_excess);
-                    $DUE = (float) $due[1];
-
-                    if ($DUE > (float) $this->od_interest_limit && $paid_dates <= $date) {
-
-                        $interest_amount_per_month = ($DUE * 10) / 100;
-                        $interest_amount = ($interest_amount_per_month / 30);
-
-                        $od_array[] = (float) $interest_amount;
-                        $od_amount = json_encode(round(array_sum($od_array), 2));
-                        $all_amount = (float) $od_amount + $DUE;
-
-                        return [
-                            'od_amount' => $od_amount,
-                            'due_and_excess' => (float) $due_and_excess,
-                            'all_amount' => (float) $all_amount,
-                        ];
-                    } else {
-                        return [
-                            'od_amount' => (float) 0,
-                            'due_and_excess' => (float) $due_and_excess,
-                            'all_amount' => (float) $DUE,
-                        ];
-                    }
-                   
-                }
-            }
-            $start->modify($add_dates);
-            $x++;
-        }
     }
 
     public function updateLoanCompleted() {

@@ -176,7 +176,7 @@ $today = date('Y-m-d');
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
                                                         } else {
-                                                            echo '<b class="text-success">Excess: </b>';
+                                                            echo '<b class="text-success font-re-size">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
