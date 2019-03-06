@@ -18,7 +18,7 @@ thead, tfoot {
     background:#f9f9f9;
     display:table;
     width:100%;
-    width:calc(100% - 18px);
+
 }
 tbody {
     height:600px;

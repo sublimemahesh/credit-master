@@ -107,7 +107,7 @@ $next = $ND->format('Y-m-d');
                                                 $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
 
                                                 $first_installment_date = '';
-                                               
+
                                                 if ($loan['installment_type'] == 4) {
                                                     $FID = new DateTime($loan['effective_date']);
                                                     $FID->modify('+7 day');
@@ -124,9 +124,9 @@ $next = $ND->format('Y-m-d');
                                                 $start = new DateTime($first_installment_date);
 
                                                 $first_date = $start->format('Y-m-d');
-                                               
- 
-                                                $x = 0;                                               
+
+
+                                                $x = 0;
 
                                                 while ($x < $defultdata) {
                                                     if ($defultdata == 4) {
@@ -159,12 +159,12 @@ $next = $ND->format('Y-m-d');
                                                     $CUSTOMER = new Customer($customer);
                                                     $route = $CUSTOMER->route;
                                                     $center = $CUSTOMER->center;
-                                                   
-                                               
+
+
 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                         $start->modify($add_dates);
-                                                    } else { 
+                                                    } else {
                                                         $ITYPE = $loan['installment_type'];
 
                                                         if ($date == $today && $ITYPE == 4) {
@@ -280,10 +280,9 @@ $next = $ND->format('Y-m-d');
                                                                 </td>
 
                                                                 <td class="text-center" style="padding-top: 24px;">
-                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $due_and_excess ?>&od_amount=<?php echo $od_amount ?>">
+                                                                    <a href="add-new-installment.php?date=<?php echo $today ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $status_loan["due_and_excess"] ?>&od_amount=<?php echo $status_loan["od_amount"] ?>">
                                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
                                                                     </a> 
-
                                                                 </td> 
                                                             </tr>
                                                             <?php
