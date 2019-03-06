@@ -23,6 +23,7 @@ class Installment {
     public $collector;
     public $receipt_no;
     public $status;
+    public $type; 
     public $history;
 
     public function __construct($id) {
@@ -44,6 +45,7 @@ class Installment {
             $this->collector = $result['collector'];
             $this->receipt_no = $result['receipt_no'];
             $this->status = $result['status'];
+            $this->type = $result['type'];
             $this->history = $result['history'];
 
             return $this;
@@ -188,7 +190,7 @@ class Installment {
     public function CheckInstallmetDateByLoanId($date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE `paid_date`< '" . $date . "' AND `loan`= '" . $loan_id . "'";
-       
+         
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -202,7 +204,7 @@ class Installment {
     public function CheckInstallmetBeetwenTwoDateByLoanId($first_date, $second_date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE  `paid_date`  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "'";
-        
+          
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();

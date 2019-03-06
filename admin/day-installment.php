@@ -279,9 +279,9 @@ $next = $ND->format('Y-m-d');
                                                                 </td>
 
                                                                 <td class="text-center" style="padding-top: 24px;">
-                                                                    <a href="add-new-installment.php?date=<?php echo $date ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $due_and_excess ?>&od_amount=<?php echo $od_amount ?>">
+                                                                    <a href="add-new-installment.php?date=<?php echo $today ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $status_loan["due_and_excess"] ?>&od_amount=<?php echo $status_loan["od_amount"] ?>">
                                                                         <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                                    </a> 
+                                                                    </a>  
 
                                                                 </td> 
                                                             </tr>

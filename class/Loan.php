@@ -572,7 +572,7 @@ class Loan {
         }
     }
 
-    public function getStatusbyDate($selectedDate) {
+    public function  getStatusbyDate($selectedDate) {
 
         $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
@@ -766,7 +766,7 @@ class Loan {
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
         $all_arress = ($array_value[0]) + ($total_installment_amount - $total_paid_installment);
-
+      
         return [
             'od_amount' => $array_value[0],
             'all_arress' => $all_arress,
@@ -775,7 +775,7 @@ class Loan {
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
             'due_and_excess' => $due_and_excess,
-            'all_amount' => $due_and_excess +$array_value[0],
+            'all_amount' => $due_and_excess -$array_value[0],
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment,
             'first_installment_date' => $first_installment_date,
