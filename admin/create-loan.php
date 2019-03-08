@@ -164,7 +164,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="guarantor_1" class="hidden-lg hidden-md">Guarantor 01</label>
-                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_1"  name="test" >
+                                            <select class="form-control all-customers" autocomplete="off" id="guarantor_1"  name="guarantor_1" >
                                                 <option  value=""> -- Please Select Registration Type First-- </option> 
                                             </select>
 
@@ -441,9 +441,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-
+                            </div> 
                             <div class="row" >
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="">Balance Of the last Loan</label>
@@ -453,7 +451,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <div class="form-line">
                                             <label for="" class="hidden-lg hidden-md">Balance Of the last Loan</label>
                                             <div class="form-control"  > 
-                                                <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -502,7 +500,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                         <input type="hidden" value="<?php echo $USERS->id; ?>" id="collector_id">
-                                        <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  name="guarantor_1"  required="TRUE">
+                                        <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  required="TRUE">
                                     </div> 
                                 </div> 
                             </div>

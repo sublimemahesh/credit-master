@@ -17,9 +17,7 @@ $issue_mode = $_GET['issue_mode'];
 $effective_date = $_GET['effective_date'];
 $balance_of_last_loan = $_GET['balance_of_last_loan'];
 $customer_id = $_GET['customer_id'];
-$issue_note = $_GET['issue_note'];
-
-
+$issue_note = $_GET['issue_note']; 
 
 $CUSTOMER = new Customer($LOAN->customer);
 ?>

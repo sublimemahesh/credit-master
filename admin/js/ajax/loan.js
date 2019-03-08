@@ -102,7 +102,7 @@ $(document).ready(function () {
                     $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']").attr("selected", "selected");
                     $("#guarantor_1").attr("disabled", "TRUE");
                 } else {
-                    $("#guarantor_1").removeAttr("disabled", "TRUE");
+                    $("#guarantor_1 option[id='cu_" + jsonStr.leader + "']");
                 }
                 $("#guarantor_2 option[id='cu_" + jsonStr.leader + "']").remove();
                 $("#guarantor_3 option[id='cu_" + jsonStr.leader + "']").remove();
@@ -413,9 +413,7 @@ $(document).ready(function () {
         var customer_id = $('#customer_id').val();
         var issue_note = $('#issue_note').val();
 
-        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
-        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
-
+        var balance_of_last_loan = balance_of_last_loans.replace(",", "");  
         var balance_pay = balance_pays.replace(",", "");
 
         var issued_date = $('#issued_date').val();
@@ -1070,7 +1068,6 @@ $('#customer,#issue_mode').change(function () {
                 setTimeout(function () {
                     window.location.replace("create-loan.php");
                 }, 2000);
-
                 $('option:selected', $('#customer')).remove();
                 swal({
                     title: "The new loan cannot be processed..!",

@@ -159,7 +159,7 @@ include_once(dirname(__FILE__) . '/auth.php');
                             </a>
                         </li>
                         <li>
-                            <a href="manage-completed.php">
+                            <a href="manage-completed-loan.php">
                                 <i class="material-icons">beenhere</i>
                                 <span>completed Loan</span>
                             </a>

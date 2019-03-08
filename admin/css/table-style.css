@@ -10,9 +10,12 @@
 }
 .f-style{
     color: black;
-    font-size: 16px;
+    font-size: 13.4px;
     border-color: black;
     text-align: right;
+}
+td{
+    padding: 8px !important;
 }
 
 .gray{
@@ -20,4 +23,10 @@
     color: white;
     font-size: 16px;
     border-color: black;
+}
+#payment-color{
+    background-color:  #9fa58f;
+}
+#back-color{
+  background-color: #dd9c9cb3;
 }
