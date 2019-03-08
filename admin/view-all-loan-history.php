@@ -8,11 +8,12 @@ $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$id = $_GET['id'];
-
-$LOAN = new Loan(NULL);
-
+$id = $_GET['customer_id'];
+$loan_id = $_GET['loan_id'];
+ 
 $CUSTOMER_DETAILS = new Customer($id);
+$LOAN = new Loan($loan_id);
+
 $today = date("Y-m-d");
 ?>
 <!DOCTYPE html>
@@ -153,7 +154,7 @@ $today = date("Y-m-d");
                                                 foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $loan['id']) as $installments) {
                                                     $row_count++;
                                                     ?>
-                                                    <tr style="background-color: white;">                                                    
+                                            <tr class="payment-color">                                                    
 
                                                         <td><?php echo $row_count; ?></td>
                                                         <td   class="font-colors text-right"><?php echo $installments['paid_date'] . ' / ' . $installments['time']; ?></td>                                                  
@@ -366,7 +367,7 @@ $today = date("Y-m-d");
                                                         $row_count++;
                                                         ?>
 
-                                                        <tr style="background-color: white;">  
+                                                        <tr  >  
                                                             <td>
                                                                 <?php echo $row_count; ?>
                                                             </td>                                                        

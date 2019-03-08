@@ -5,9 +5,10 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 
 ///loan details update///  
 
-$LOAN = new Loan($_POST['loan_id']);
-
-
+$LOAN = new Loan($_POST['loan_id']); 
+ 
+$balance_of_last_loan =  str_replace(',','', $_POST['balance_of_last_loan']);
+ 
 $LOAN->issued_date = $_POST['issued_date'];
 $LOAN->effective_date = $_POST['effective_date'];
 $LOAN->issue_mode = $_POST['issue_mode'];
@@ -16,7 +17,7 @@ $LOAN->loan_processing_pre = $_POST['loan_processing_pre_amount'];
 $LOAN->release_by = $_POST['release_by'];
 $LOAN->status = 'released';
 $LOAN->transaction_id = $_POST['transaction_id'];
-$LOAN->balance_of_last_loan = $_POST['balance_of_last_loan'];
+$LOAN->balance_of_last_loan =$balance_of_last_loan;
 
 
 ///effective date details update///
@@ -43,7 +44,7 @@ $INSTALLMENT->loan = $loan_details[0];
 $INSTALLMENT->paid_date = $create_at;
 $INSTALLMENT->installment_date = $create_at;
 $INSTALLMENT->time = $change_time;
-$INSTALLMENT->paid_amount = $_POST['balance_of_last_loan'];
+$INSTALLMENT->paid_amount = $balance_of_last_loan;
 $INSTALLMENT->receipt_no = 'loanid00' . $loan_details[0];
 
 
@@ -54,10 +55,9 @@ $LOAN_UPDATE->update();
 
 //update history colum
 $history = $INSTALLMENT->history;
-$change_at = $create_at;
-$change_time = date('h:i:s');
+$change_at = $create_at; 
 $user_id = $_POST['release_by'];
-$amount = $_POST['balance_of_last_loan'];
+$amount = $balance_of_last_loan;
 $status = 'Paid';
 
 if ($history == NULL) {
@@ -111,10 +111,9 @@ if ($handle->uploaded) {
 }
 
 $LOAN->transaction_document = $imgName;
-
 $result = $LOAN->update();
-///transfer amount in Collector///    
 
+///transfer amount in Collector///   
 $COLLECTOR = new CollectorPaymentDetail($_POST['create_by']);
 $COLLECTOR->ammount = $_POST['balance_pay'];
 $COLLECTOR->create();

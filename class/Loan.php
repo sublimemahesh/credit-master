@@ -127,7 +127,7 @@ class Loan {
                 . $this->od_date . "', '"
                 . "pending')";
 
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -218,8 +218,7 @@ class Loan {
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "', "
                 . "`od_date` ='" . $this->od_date . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
-
+        
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -231,6 +230,7 @@ class Loan {
         }
     }
 
+    
     public function updateOd() {
 
         $query = "UPDATE  `loan` SET "
@@ -572,7 +572,7 @@ class Loan {
         }
     }
 
-    public function  getStatusbyDate($selectedDate) {
+    public function getStatusbyDate($selectedDate) {
 
         $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
@@ -674,13 +674,13 @@ class Loan {
                 $total_paid += $paid_amount;
                 $due_and_excess = $total_paid - $ins_total;
                 $due_and_excess = $due_and_excess + $previus_amount;
-
+ 
                 if (strtotime($selectedDate) <= strtotime($date) || $this->od_interest_limit == "NOT") {
                     
                 } else if (strtotime($this->od_date) <= strtotime($date) && $due_and_excess < 0 && $this->installment_type == 4) {
 
                     $od_interest = $this->getOdIntereset($due_and_excess, $this->od_interest_limit);
-
+                   
                     $y = 0;
                     $od_date_start = new DateTime($date);
                     $defult_val = 6;
@@ -742,11 +742,11 @@ class Loan {
                     $array_value = array($od_amount);
                     array_push($array_value, 1);
                 }
-                 $total_installment_amount += $installment_amount;
+                $total_installment_amount += $installment_amount;
                 if (strtotime($selectedDate) <= strtotime($date)) {
                     break;
                 }
-               
+
                 $start->modify($modify_range);
                 $x++;
             }
@@ -766,7 +766,7 @@ class Loan {
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
         $all_arress = ($array_value[0]) + ($total_installment_amount - $total_paid_installment);
-      
+
         return [
             'od_amount' => $array_value[0],
             'all_arress' => $all_arress,
@@ -775,7 +775,7 @@ class Loan {
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
             'due_and_excess' => $due_and_excess,
-            'all_amount' => $due_and_excess -$array_value[0],
+            'all_amount' => $due_and_excess - $array_value[0],
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment,
             'first_installment_date' => $first_installment_date,
@@ -956,11 +956,11 @@ class Loan {
                     $array_value = array($od_amount);
                     array_push($array_value, 1);
                 }
-                    $total_installment_amount += $installment_amount;
+
                 if (strtotime(date("Y/m/d")) <= strtotime($date)) {
                     break;
                 }
-
+                $total_installment_amount += $installment_amount;
                 $start->modify($modify_range);
                 $x++;
             }
