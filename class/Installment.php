@@ -190,7 +190,7 @@ class Installment {
     public function CheckInstallmetDateByLoanId($date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE `paid_date`< '" . $date . "' AND `loan`= '" . $loan_id . "'";
-         
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -204,7 +204,7 @@ class Installment {
     public function CheckInstallmetBeetwenTwoDateByLoanId($first_date, $second_date, $loan_id) {
 
         $query = "SELECT * FROM `installment` WHERE  `paid_date`  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "'";
-          
+
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
@@ -214,9 +214,6 @@ class Installment {
         }
         return $array_res;
     }
-
-
-   
 
     public function CheckInstallmetBeetwenTwoDateByLoan($first_date, $second_date, $loan_id) {
 
@@ -335,6 +332,20 @@ class Installment {
         $loan_amount += (($loan_amount * $rate) / 100) * ($ins_type / 30);
 
         return $loan_amount;
+    }
+
+    public function CheckPaidOdAmount($selectedDate, $od_date, $loan_id) {
+
+        $query = "SELECT * FROM `installment` WHERE  `paid_date`  BETWEEN '" . $od_date . "' AND '" . $selectedDate . "' AND `loan` = '" . $loan_id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
     }
 
 }
