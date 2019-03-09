@@ -563,7 +563,7 @@ class Loan {
         $due = explode("-", $due_amount);
         $DUE = (float) $due[1];
 
-        if ($DUE > (float) $od_interest_limit) {
+        if ($DUE >= (float) $od_interest_limit) {
 
             $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
@@ -657,9 +657,7 @@ class Loan {
             $previus_amount += $installments['paid_amount'];
 
             date_default_timezone_set('Asia/Colombo');
-            $today = date('Y-m-d');
-
-
+            $today = date('Y-m-d'); 
 
             $INSTALLMENT = new Installment(NULL);
             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id, $today) as $paid) {
@@ -876,8 +874,6 @@ class Loan {
 
             date_default_timezone_set('Asia/Colombo');
             $today = date('Y-m-d');
-
-
 
             $INSTALLMENT = new Installment(NULL);
             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id, $today) as $paid) {

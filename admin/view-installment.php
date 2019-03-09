@@ -150,7 +150,7 @@ $today = date("Y-m-d");
                                                 }
 
                                                 $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
-
+                                             
                                                 $x = 0;
                                                 $count = 0;
                                                 $ins_total = 0;
@@ -267,7 +267,6 @@ $today = date("Y-m-d");
                                                         if ($due_and_excess > 0) {
                                                             echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                         } else if ($due_and_excess < 0) {
-
                                                             if ($ALl_AMOUNT[0] >= $ins_total) {
                                                                 echo '00.0';
                                                             } else {
@@ -514,6 +513,7 @@ $today = date("Y-m-d");
                                                                 echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                             } else if ($due_and_excess < 0) {
 
+
                                                                 if ($ALl_AMOUNT[0] >= $ins_total) {
                                                                     echo '00.0';
                                                                 } else {
@@ -657,10 +657,12 @@ $today = date("Y-m-d");
                                                         if ($due_and_excess > 0) {
                                                             echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
                                                         } else if ($due_and_excess < 0) {
+                                                            
                                                             if ($ALl_AMOUNT[0] >= $ins_total) {
                                                                 echo '00.0';
-                                                            } else {
-
+                                                            } else {  
+                                                                
+                                                                
                                                                 $due_and_excess = $ALl_AMOUNT[0] - $ins_total + $previus_amount;
                                                                 echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
                                                             }

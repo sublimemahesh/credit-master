@@ -7,11 +7,16 @@ if (isset($_POST['create-new-loan'])) {
 
     $LOAN = new Loan(NULL);
     $VALID = new Validator();
-
+    if ($_POST['guarantor_1_id'] == NULL) {
+        $guarantor = $_POST['guarantor_1'];
+    } else {
+        $guarantor = $_POST['guarantor_1_id'];
+    }
     
+
     $LOAN->create_date = $_POST['create_date'];
     $LOAN->customer = $_POST['customer'];
-    $LOAN->guarantor_1 = $_POST['guarantor_1'];
+    $LOAN->guarantor_1 = $guarantor;
     $LOAN->guarantor_2 = $_POST['guarantor_2'];
     $LOAN->guarantor_3 = $_POST['guarantor_3'];
     $LOAN->loan_amount = $_POST['loan_amount'];

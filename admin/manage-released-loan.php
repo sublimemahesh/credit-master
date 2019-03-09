@@ -78,6 +78,7 @@ $LOAN->status = 'released';
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
+                                                
                                                 ?> 
                                                 <tr>
                                                     <td> 
@@ -106,16 +107,13 @@ $LOAN->status = 'released';
                                                             ?>
                                                         </b>
                                                         <br/>
-
                                                         <i class="glyphicon glyphicon-calendar"></i>
                                                         <b> :
                                                             <?php echo $loan['create_date']; ?>  
                                                         </b>
                                                         <br/>
-
                                                         <i class="glyphicon glyphicon-usd"></i>
                                                         <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
-
                                                     </td>
 
                                                     <td>
@@ -163,37 +161,36 @@ $LOAN->status = 'released';
                                                             echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
                                                             ?>
                                                         </span>
+
+
                                                         <br> 
-                                                        <?php
+                                                        <?php                                                           
                                                         if ($status["arrears-excess"] > 0) {
-                                                            echo '<b class="text-danger">Arrears: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
                                                         } else {
-                                                            echo '<b class="text-success">Excess: </b>';
+                                                            echo '<b class="text-success font-re-size">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
-
                                                         <br> 
                                                         <?php
-                                                        if ($status["od_amount"] == 0) {
-                                                            
+                                                        if ($status["od_amount"] == 0) {                                                            
                                                         } else {
-                                                            echo '<b class="text-success">Od Amount: </b>';
-                                                            echo '<span  class="text-success">' . '<b>' . round($status["od_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size">Od Amount: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
                                                             echo '<br>';
-                                                            echo '<b class="text-danger"  >All Aress Amount: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . round($status["all_arress"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>  
-
                                                     </td>
 
                                                     <td class="text-center" style="padding-top: 24px;">
-                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan "></button></a> | 
-                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installments"></button></a> | 
-                                                        <a href="view-installment-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn arrange-btn" title="View History"></button></a>
-                                                    </td> 
+                                                        <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
+                                                        <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
+                                                        <a href="view-installment-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a>  
+                                                     </td> 
                                                 </tr>
                                                 <?php
                                             }
