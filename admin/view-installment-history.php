@@ -103,13 +103,13 @@ $today = date("Y-m-d");
                                 <div class="table-responsive ">
                                     <table class="table table-bordered table-striped table-hover dataTable" id="history-table">
                                         <thead>
-                                            <tr>
-                                                <th class="text-right">ID</th>
-                                                <th class="text-right">Installment Date </th>                                              
-                                                <th class="text-right">Trans:ID</th>                                              
-                                                <th class="text-right">Status</th>
-                                                <th class="text-right">DEBIT</th>
-                                                <th class="text-right">CREDIT</th>
+                                             <tr>
+                                                <th class="text-right th-width">ID</th>
+                                                <th class="text-right th-width-2">Date</th> 
+                                                <th class="text-right th-width">Trans:ID</th>     
+                                                <th class="text-right th-width-2">Status</th>
+                                                <th class="text-right th-width">DEBIT</th>
+                                                <th class="text-right th-width-2">CREDIT</th>
                                                 <th class="text-right">BALANCE</th>
                                             </tr>
                                         </thead>
@@ -120,7 +120,7 @@ $today = date("Y-m-d");
 
                                             $first_installment_date = '';
                                             $installments = 0;
-
+                                            $all_amount = 0;
                                             if ($LOAN->installment_type == 4) {
                                                 $FID = new DateTime($LOAN->effective_date);
                                                 $FID->modify('+7 day');
@@ -139,23 +139,42 @@ $today = date("Y-m-d");
                                             $first_date = $start->format('Y-m-d');
                                             $INSTALLMENT = new Installment(NULL);
                                             $row_count++;
+
+                                            if ($LOAN->issue_mode == 'bank') {
+                                                ?>
+
+                                                <tr style="background-color: white;">    
+                                                    <td>
+                                                        <?php
+                                                        echo $row_count;
+                                                        ?> 
+                                                    </td>
+                                                    <td class="font-colors text-right f-style"> <?php echo $first_date ?></td>                                                 
+                                                    <td class="font-colors text-right f-style">  </td>                                                 
+                                                    <td class="font-colors text-right f-style"> Released</td>
+                                                    <td class="font-colors text-right f-style">  </td>
+                                                    <td class="font-colors text-right f-style"><?php echo number_format($LOAN->loan_amount, 2) ?>  </td>                                                 
+                                                    <td class=" font-colors text-right f-style" > <?php echo number_format($LOAN->loan_amount, 2) ?>                                               </td>                                                 
+                                                </tr>
+                                            <?php } else {
+                                                ?>
+                                                <tr style="background-color: white;">    
+                                                    <td>
+                                                        <?php
+                                                        echo $row_count;
+                                                        ?> 
+                                                    </td>
+                                                    <td class="font-colors text-right f-style"> <?php echo $LOAN->effective_date ?></td>                                                 
+                                                    <td class="font-colors text-right f-style">  </td>                                                 
+                                                    <td class="font-colors text-right f-style"> Released</td>
+                                                    <td class="font-colors text-right f-style">  </td>
+                                                    <td class="font-colors text-right f-style"><?php echo number_format($LOAN->loan_amount, 2) ?>  </td>                                                 
+                                                    <td class=" font-colors text-right f-style" > <?php echo number_format($LOAN->loan_amount, 2) ?>                                               </td>                                                 
+                                                </tr>
+
+                                                <?php
+                                            }
                                             ?>
-
-
-                                            <tr style="background-color: white;">    
-                                                <td>
-                                                    <?php
-                                                    echo $row_count;
-                                                    ?> 
-                                                </td>
-                                                <td class="font-colors text-right f-style"> <?php echo $LOAN->effective_date ?></td>                                                 
-                                                <td class="font-colors text-right f-style">  </td>                                                 
-                                                <td class="font-colors text-right f-style"> Released</td>
-                                                <td class="font-colors text-right f-style">  </td>
-                                                <td class="font-colors text-right f-style"><?php echo number_format($LOAN->loan_amount, 2) ?>  </td>                                                 
-                                                <td class=" font-colors text-right f-style" > <?php echo number_format($LOAN->loan_amount, 2) ?>                                               </td>                                                 
-                                            </tr>
-
 
                                             <?php if ($LOAN->balance_of_last_loan) { ?>
                                                 <tr style="background-color: white;">     
@@ -167,36 +186,18 @@ $today = date("Y-m-d");
                                                     </td>
                                                     <td class="font-colors text-right f-style"> <?php echo $first_date ?></td>   
                                                     <td class="font-colors text-right f-style">  </td>    
-                                                    <td class="font-colors text-right f-style">Balance of L:loan.</td>
+                                                    <td class="font-colors text-right f-style">Balance of L:Loan</td>
                                                     <td class="font-colors text-right f-style">  <?php echo '<p style="color:red">' . number_format($LOAN->balance_of_last_loan, 2) . '</p>' ?></td>
                                                     <td class="font-colors text-right f-style">  </td>                                                 
                                                     <td class=" font-colors text-right f-style" > <?php
-                                                        $all_amount = $all_amount - $LOAN->balance_of_last_loan;
+                                                        $all_amount = $LOAN->loan_amount - $LOAN->balance_of_last_loan;
                                                         echo number_format($all_amount, 2)
                                                         ?> 
                                                     </td>                                                 
                                                 </tr>
                                             <?php } ?>
 
-                                            <tr style="background-color: white;">
-                                                <td><?php
-                                                    $row_count++;
-                                                    echo $row_count;
-                                                    ?>
-                                                </td>
-                                                <td class="font-colors text-right f-style"><?php echo $first_date ?></td>  
-                                                <td class="font-colors text-right f-style">  </td>    
-                                                <td class="font-colors text-right f-style">Issued</td>
-                                                <td class="font-colors text-right f-style"> 
-                                                    <?php
-                                                    echo '<p style="color:red">' . number_format($LOAN->loan_amount, 2) . '</p>'
-                                                    ?>
-                                                </td>      
-                                                <td class="font-colors text-right f-style">  </td> 
-                                                <td class="text-right font-colors f-style">
-                                                    0.00
-                                                </td>                                                 
-                                            </tr>
+
                                             <tr style="background-color: white;">     
                                                 <td>
                                                     <?php
@@ -210,27 +211,123 @@ $today = date("Y-m-d");
                                                 <td class="font-colors text-right f-style">  <?php echo '<p style="color:red">' . number_format($LOAN->loan_processing_pre, 2) . '</p>' ?></td>
                                                 <td class="font-colors text-right f-style">  </td>                                                 
                                                 <td class=" font-colors text-right f-style" > <?php
-                                                    $all_amount = $LOAN->loan_amount - $LOAN->loan_processing_pre;
-                                                    echo number_format($all_amount, 2)
+                                                    if ($all_amount == 0) {
+                                                        $all_amount = $LOAN->loan_amount - $LOAN->loan_processing_pre;
+                                                        echo number_format($all_amount, 2);
+                                                    } else {
+                                                        $all_amount = $all_amount - $LOAN->loan_processing_pre;
+                                                        echo number_format($all_amount, 2);
+                                                    }
                                                     ?> 
                                                 </td>                                                 
                                             </tr>
 
+                                            <?php
+                                            foreach ($INSTALLMENT->getOtherPaymentByLoan($LOAN->id) as $installment_type) {
+
+                                                if ($installment_type['type'] == 'loan_processing_fee' && $installment_type['paid_date'] <= $first_date) {
+                                                    ?>
+
+                                                    <tr style="background-color: lightseagreen;">     
+                                                        <td>
+                                                            <?php
+                                                            $row_count++;
+                                                            echo $row_count;
+                                                            ?> 
+                                                        </td>
+                                                        <td class="font-colors text-right f-style"> <?php echo $installment_type['paid_date'] . ' / ' . $installment_type['time'] ?></td>   
+                                                        <td class="font-colors text-right f-style">  </td>    
+                                                        <td class="font-colors text-right f-style">Processing Fee Paid</td>
+                                                        <td class="font-colors text-right f-style">  </td>
+                                                        <td class="font-colors text-right f-style"> <?php echo number_format($installment_type['paid_amount'], 2) . '</p>' ?> </td>                                                 
+                                                        <td class=" font-colors text-right f-style" > <?php
+                                                            if ($all_amount == 0) {
+                                                                $all_amount = $all_amount + $installment_type['paid_amount'];
+                                                                echo number_format($all_amount, 2);
+                                                            } else {
+                                                                $all_amount = $all_amount + $installment_type['paid_amount'];
+                                                                echo number_format($all_amount, 2);
+                                                            }
+                                                            ?> 
+                                                        </td>                                                 
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            foreach ($INSTALLMENT->getOtherPaymentByLoan($LOAN->id) as $installment_type) {
+
+                                                if ($installment_type['type'] == 'down_payment' && $installment_type['paid_date'] <= $first_date) {
+                                                    ?>
+
+                                                    <tr style="background-color: lightsalmon;">     
+                                                        <td>
+                                                            <?php
+                                                            $row_count++;
+                                                            echo $row_count;
+                                                            ?> 
+                                                        </td>
+                                                        <td class="font-colors text-right f-style"> <?php echo $installment_type['paid_date'] . ' / ' . $installment_type['time'] ?></td>   
+                                                        <td class="font-colors text-right f-style">  </td>    
+                                                        <td class="font-colors text-right f-style"> down Payment</td>
+                                                        <td class="font-colors text-right f-style">  </td>
+                                                        <td class="font-colors text-right f-style"> <?php echo number_format($installment_type['paid_amount'], 2) . '</p>' ?> </td>                                                 
+                                                        <td class=" font-colors text-right f-style" > <?php
+                                                            if ($all_amount == 0) {
+                                                                $all_amount = $all_amount + $installment_type['paid_amount'];
+                                                                echo number_format($all_amount, 2);
+                                                            } else {
+                                                                $all_amount = $all_amount + $installment_type['paid_amount'];
+                                                                echo number_format($all_amount, 2);
+                                                            }
+                                                            ?> 
+                                                        </td>                                                 
+                                                    </tr>
+                                                    <?php
+                                                }
+                                            }
+                                            ?>
+
+                                            <tr style="background-color: white;">
+                                                <td><?php
+                                                    $row_count++;
+                                                    echo $row_count;
+                                                    ?>
+                                                </td>
+                                                <td class="font-colors text-right f-style"><?php echo $first_date ?></td>  
+                                                <td class="font-colors text-right f-style">  </td>    
+                                                <td class="font-colors text-right f-style">Issued</td>
+                                                <td class="font-colors text-right f-style"> 
+                                                    <?php
+                                                    echo '<p style="color:red">' . number_format($all_amount, 2) . '</p>'
+                                                    ?>
+                                                </td>      
+                                                <td class="font-colors text-right f-style">  </td> 
+                                                <td class="text-right font-colors f-style">
+                                                    0.00
+                                                </td>                                                 
+                                            </tr> 
 
                                             <?php
                                             foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
                                                 $row_count++;
-                                                ?>
-                                                <tr style="background-color: white;">   
-                                                    <td><?php echo $row_count; ?></td>
-                                                    <td class="font-colors text-right f-style"><?php echo $installments['paid_date'] . ' / ' . $installments['time']; ?></td>     
-                                                    <td class="font-colors text-right f-style">  </td>    
-                                                    <td class="font-colors text-right f-style"><?php echo $installments['status']; ?></td>
-                                                    <td class="font-colors text-right f-style"> </td>
-                                                    <td class="font-colors text-right f-style"><?php echo number_format($installments['paid_amount'], 2); ?></td>                                                 
-                                                    <td> </td>
-                                                </tr>
-                                                <?php
+                                                if ($installments['type'] == 'installment') {
+                                                    ?>
+                                                    <tr  id="payment-color">   
+                                                        <td><?php echo $row_count; ?></td>
+                                                        <td class="font-colors text-right f-style"><?php echo $installments['paid_date'] . ' / ' . $installments['time']; ?></td>     
+                                                        <td class="font-colors text-right f-style">  </td>    
+                                                        <td class="font-colors text-right f-style"> <?php
+                                                            if ($installments['status'] == 'paid' || 'Paid')
+                                                                echo 'Receipt';
+                                                            ?></td>
+                                                        <td class="font-colors text-right f-style"> </td>
+                                                        <td class="font-colors text-right f-style">
+                                                            <?php echo number_format($installments['paid_amount'], 2); ?>
+                                                        </td>                                                 
+                                                        <td class="font-colors text-right f-style">  <?php echo number_format($all_amount = $all_amount - $installments['paid_amount'], 2); ?></td>
+                                                    </tr>
+                                                    <?php
+                                                }
                                             }
                                             $previus_amount = 0;
                                             $paid_amount_beetwen_dates = 0;
@@ -278,7 +375,7 @@ $today = date("Y-m-d");
                                                 $paid_amount = 0;
                                                 $balance = 0;
                                                 $od_amount = 0;
-
+                                                $due_and_excess = 0;
                                                 $FIDS = new DateTime($date);
                                                 $FIDS->modify($add_dates);
                                                 $day_remove = '-1 day';
@@ -291,7 +388,7 @@ $today = date("Y-m-d");
                                                     break;
                                                 }
 
-                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id, $today) as $paid) {
+                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
 
@@ -362,6 +459,7 @@ $today = date("Y-m-d");
                                                                 if ($ALl_AMOUNT[0] >= $ins_total) {
                                                                     echo '00.0';
                                                                 } else {
+                                                                    echo $paid_amount;
                                                                     $due_amount = $due_and_excess - $paid_amount;
                                                                     echo '<p style="color:red">' . number_format($due_amount + $balance, 2) . '</p>';
                                                                 }
@@ -412,7 +510,7 @@ $today = date("Y-m-d");
                                                                 echo '00.0';
                                                             } else {
 
-                                                                $due_amount = $ALl_AMOUNT[0] - $ins_total + $previus_amount;
+                                                                $due_amount = $ALl_AMOUNT[0] - $ins_total;
                                                                 echo number_format($due_amount + $balance, 2);
                                                             }
                                                         } else {
@@ -425,6 +523,7 @@ $today = date("Y-m-d");
                                                     echo '</td>';
                                                     echo '</tr>';
                                                 }
+
 
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $Installment_payment) {
                                                     $row_count++;
@@ -441,9 +540,9 @@ $today = date("Y-m-d");
                                                         </td>
                                                         <td class="font-colors text-right f-style">
                                                             <?php
-                                                            if ($Installment_payment['status'] == 'Paid')
-                                                                echo 'Receipt'
-                                                                ?>
+                                                            if ($Installment_payment['status'] == 'paid' || 'Paid')
+                                                                echo 'Receipt';
+                                                            ?>
                                                         </td>
                                                         <td class="font-colors text-right f-style"></td>                                                      
                                                         <td class="font-colors text-right f-style">
@@ -510,12 +609,14 @@ $today = date("Y-m-d");
                                                     }
                                                 }
 
+
+
                                                 if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT" || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                     
                                                 } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
 
                                                     $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
-
+                                                    
                                                     $y = 0;
                                                     $od_date_start = new DateTime($date);
                                                     $defult_val = 6;
@@ -690,12 +791,12 @@ $today = date("Y-m-d");
                                         </tbody>
                                         <tfoot>
                                             <tr>
-                                                <th class="text-right">ID</th>
-                                                <th class="text-right">Installment Date </th>  
-                                                <th class="text-right">Trans:ID</th>     
-                                                <th class="text-right">Status</th>
-                                                <th class="text-right">DEBIT</th>
-                                                <th class="text-right">CREDIT</th>
+                                                <th class="text-right th-width">ID</th>
+                                                <th class="text-right th-width-2">Date</th> 
+                                                <th class="text-right th-width">Trans:ID</th>     
+                                                <th class="text-right th-width-2">Status</th>
+                                                <th class="text-right th-width">DEBIT</th>
+                                                <th class="text-right th-width-2">CREDIT</th>
                                                 <th class="text-right">BALANCE</th>
                                             </tr>
                                         </tfoot>

@@ -500,7 +500,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="create_by">
                                         <input type="hidden" value="<?php echo $_SESSION['id']; ?>" name="collector">
                                         <input type="hidden" value="<?php echo $USERS->id; ?>" id="collector_id">
-                                        <input type="hidden" class="form-control all-customers" id="guarantor_1_id"  required="TRUE">
+                                        <input type="hidden" class="form-control all-customers" id="guarantor_1_id" name="guarantor_1_id" required="TRUE">
                                     </div> 
                                 </div> 
                             </div>

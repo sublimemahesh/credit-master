@@ -17,6 +17,7 @@ $INSTALLMENT->time = $_POST['time'];
 $INSTALLMENT->paid_amount = $paid_amount;
 $INSTALLMENT->additional_interest = $od_interest;
 $INSTALLMENT->collector = $_POST['user_id'];
+$INSTALLMENT->type = 'installment';
 
 $INSTALLMENT->create();
 $result = ["status" => 'success'];
