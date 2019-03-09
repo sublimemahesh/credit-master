@@ -69,7 +69,7 @@ foreach ($LOAN->allByStatus() as $key => $loan) {
         $aod = '0.00';
     } else {
        
-      $aod = number_format($status["od_amount"], 2);
+      $aod = $status["od_amount"];
        
    
     }
@@ -96,14 +96,11 @@ foreach ($LOAN->allByStatus() as $key => $loan) {
         $instrollment_data['start_date'] = $status["first_installment_date"];
         $instrollment_data['excess'] = -1 * $excess_amount;
         $instrollment_data['total_paid'] = $status["receipt"];
-        $instrollment_data['ins_total'] = number_format($status["total_installment_amount"], 2);
-        $instrollment_data['od_amount'] = $status["od_amount"];
+        $instrollment_data['ins_total'] = $status["total_installment_amount"];
         $instrollment_data['installment_date'] = "ddd";
-        $instrollment_data['aod'] = number_format($status["od_amount"], 2);
+        $instrollment_data['aod'] = $aod;
         $instrollment_data['area'] = $area;
-        $instrollment_data['ins_total'] = number_format($status["total_installment_amount"], 2);
-        $instrollment_data['installment_date'] = 'ddd';
-        $instrollment_data['area'] = $area;
+       
 
 
         array_push($instrollment, $instrollment_data);
