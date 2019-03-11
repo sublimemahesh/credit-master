@@ -367,7 +367,17 @@ class Loan {
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`status` ='issued'"
                 . "WHERE `id` = '" . $this->id . "'";
+                
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+            return FALSE;
+        }
     }
+
 
     public function getCustomersHistoryByloanId($id) {
 
@@ -378,7 +388,7 @@ class Loan {
         $GUARANTOR_02 = new Customer($LOAN->guarantor_2);
         $GUARANTOR_03 = new Customer($LOAN->guarantor_3);
 
-
+        
         $CUSTOMER_BANK = new Bank($CUSTOMER->bank);
         $GUARANTOR_01_BANK = new Bank($GUARANTOR_01->bank);
         $GUARANTOR_02_BANK = new Bank($GUARANTOR_02->bank);
