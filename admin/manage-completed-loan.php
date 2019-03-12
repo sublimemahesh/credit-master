@@ -167,12 +167,12 @@ $LOAN->status = 'completed';
 
                                                         <br> 
                                                         <?php
-                                                        if ($status["arrears-excess"] > 0) {
-                                                            echo '<b class="text-danger">Arrears: </b>';
-                                                            echo '<span  class="text-danger">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
-                                                        } else {
+                                                        if ($status["arrears-excess"] < 0) {
                                                             echo '<b class="text-success">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
+                                                        } else {
+                                                            echo '<b  >Amount: 00.0 </b>';
+                                                            
                                                         }
                                                         ?>
 

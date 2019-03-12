@@ -7,7 +7,7 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 if ($_POST['action'] == 'CHECKOD') {
 
     $LOAN = new Loan($_POST["loan_id"]);  
-    $result = $LOAN->getStatusbyDate($_POST["paid_date"]);
+    $result = $LOAN->getSelectedDayLoanDetails($_POST["paid_date"]);
     
     $all_amount = explode("-", $result['all_amount']);
     
