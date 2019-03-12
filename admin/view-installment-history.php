@@ -103,7 +103,7 @@ $today = date("Y-m-d");
                                 <div class="table-responsive ">
                                     <table class="table table-bordered table-striped table-hover dataTable" id="history-table">
                                         <thead>
-                                             <tr>
+                                            <tr>
                                                 <th class="text-right th-width">ID</th>
                                                 <th class="text-right th-width-2">Date</th> 
                                                 <th class="text-right th-width">Trans:ID</th>     
@@ -184,7 +184,7 @@ $today = date("Y-m-d");
                                                         echo $row_count;
                                                         ?> 
                                                     </td>
-                                                    <td class="font-colors text-right f-style"> <?php echo $first_date ?></td>   
+                                                    <td class="font-colors text-right f-style"> <?php echo $LOAN->effective_date ?></td>   
                                                     <td class="font-colors text-right f-style">  </td>    
                                                     <td class="font-colors text-right f-style">Balance of L:Loan</td>
                                                     <td class="font-colors text-right f-style">  <?php echo '<p style="color:red">' . number_format($LOAN->balance_of_last_loan, 2) . '</p>' ?></td>
@@ -205,7 +205,7 @@ $today = date("Y-m-d");
                                                     echo $row_count;
                                                     ?> 
                                                 </td>
-                                                <td class="font-colors text-right f-style"> <?php echo $first_date ?></td>   
+                                                <td class="font-colors text-right f-style"> <?php echo $LOAN->effective_date ?></td>   
                                                 <td class="font-colors text-right f-style">  </td>    
                                                 <td class="font-colors text-right f-style">Processing Fee</td>
                                                 <td class="font-colors text-right f-style">  <?php echo '<p style="color:red">' . number_format($LOAN->loan_processing_pre, 2) . '</p>' ?></td>
@@ -285,29 +285,32 @@ $today = date("Y-m-d");
                                                     <?php
                                                 }
                                             }
-                                            ?>
 
-                                            <tr style="background-color: white;">
-                                                <td><?php
-                                                    $row_count++;
-                                                    echo $row_count;
-                                                    ?>
-                                                </td>
-                                                <td class="font-colors text-right f-style"><?php echo $first_date ?></td>  
-                                                <td class="font-colors text-right f-style">  </td>    
-                                                <td class="font-colors text-right f-style">Issued</td>
-                                                <td class="font-colors text-right f-style"> 
-                                                    <?php
-                                                    echo '<p style="color:red">' . number_format($all_amount, 2) . '</p>'
-                                                    ?>
-                                                </td>      
-                                                <td class="font-colors text-right f-style">  </td> 
-                                                <td class="text-right font-colors f-style">
-                                                    0.00
-                                                </td>                                                 
-                                            </tr> 
+                                            if ($LOAN->status == "issued") {
+                                                ?>
 
-                                            <?php
+                                                <tr style="background-color: white;">
+                                                    <td><?php
+                                                        $row_count++;
+                                                        echo $row_count;
+                                                        ?>
+                                                    </td>
+                                                    <td class="font-colors text-right f-style"><?php echo $LOAN->issued_date ?></td>  
+                                                    <td class="font-colors text-right f-style">  </td>    
+                                                    <td class="font-colors text-right f-style">Issued</td>
+                                                    <td class="font-colors text-right f-style"> 
+                                                        <?php
+                                                        echo '<p style="color:red">' . number_format($all_amount, 2) . '</p>'
+                                                        ?>
+                                                    </td>      
+                                                    <td class="font-colors text-right f-style">  </td> 
+                                                    <td class="text-right font-colors f-style">
+                                                        0.00
+                                                    </td>                                                 
+                                                </tr> 
+
+                                                <?php
+                                            }
                                             foreach ($INSTALLMENT->CheckInstallmetDateByLoanId($first_date, $LOAN->id) as $installments) {
                                                 $row_count++;
                                                 if ($installments['type'] == 'installment') {
@@ -329,6 +332,7 @@ $today = date("Y-m-d");
                                                     <?php
                                                 }
                                             }
+
                                             $previus_amount = 0;
                                             $paid_amount_beetwen_dates = 0;
                                             $previus_amount += $installments['paid_amount'];
@@ -336,8 +340,11 @@ $today = date("Y-m-d");
                                             $x = 0;
                                             $ins_total = 0;
                                             $total_paid = 0;
+                                            $one_ins_amount = 0;
+                                            $total_paid_amount = 0;
                                             $od_array = array();
-                                            $array_value = 0;
+                                            $fetched_arr = array();
+
                                             while ($x < $defultdata) {
                                                 if ($defultdata == 4) {
                                                     $add_dates = '+7 day';
@@ -376,6 +383,11 @@ $today = date("Y-m-d");
                                                 $balance = 0;
                                                 $od_amount = 0;
                                                 $due_and_excess = 0;
+                                                $ins_total_all = 0;
+                                                $total_paid_all = 0;
+                                                $paid_all_amount_before_ins_date = 0;
+
+
                                                 $FIDS = new DateTime($date);
                                                 $FIDS->modify($add_dates);
                                                 $day_remove = '-1 day';
@@ -384,6 +396,7 @@ $today = date("Y-m-d");
                                                 $second_installment_date = $FIDS->format('Y-m-d');
                                                 $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
+
                                                 if (strtotime(date("Y/m/d")) < strtotime($date)) {
                                                     break;
                                                 }
@@ -391,6 +404,19 @@ $today = date("Y-m-d");
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
+                                                $before_payment_amounts = $INSTALLMENT->getPaidAmountByBeforeDate($date, $LOAN->id);
+
+                                                foreach ($before_payment_amounts as $before_payment_amount) {
+                                                    $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
+                                                }
+
+                                                $ins_total += $amount;
+                                                $total_paid += $paid_amount;
+                                                $due_and_excess = $total_paid - $ins_total;
+
+                                                $ins_total_all += $amount;
+                                                $total_paid_all += $paid_amount;
+                                                $due_and_excess_all = $total_paid_all;
 
                                                 $row_count++;
 
@@ -420,6 +446,7 @@ $today = date("Y-m-d");
                                                     $x--;
                                                     if ($LOAN->installment_type == 4 || $LOAN->installment_type == 1) {
 
+
                                                         $row_count++;
                                                         $POSTD = new DateTime($date);
                                                         $POSTD->modify('+1 day');
@@ -447,35 +474,15 @@ $today = date("Y-m-d");
                                                         echo '</td>';
 
                                                         echo '<td class="f-style tr-color font-color-2" id="back-color">';
-                                                        $ins_total += $amount;
-                                                        $total_paid += $paid_amount;
-                                                        $due_and_excess = $total_paid - $ins_total;
 
-                                                        if ($array_value == 0) {
-                                                            if ($due_and_excess > 0) {
-                                                                echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                            } else if ($due_and_excess < 0) {
+                                                        echo number_format($due_and_excess_all, 2);
 
-                                                                if ($ALl_AMOUNT[0] >= $ins_total) {
-                                                                    echo '00.0';
-                                                                } else {
-                                                                    echo $paid_amount;
-                                                                    $due_amount = $due_and_excess - $paid_amount;
-                                                                    echo '<p style="color:red">' . number_format($due_amount + $balance, 2) . '</p>';
-                                                                }
-                                                            } else {
-                                                                echo number_format($due_and_excess, 2);
-                                                            }
-                                                        } else {
-                                                            $od_amount = $array_value[0];
-                                                            $due_and_excess = $od_amount - ($amount);
-                                                            echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                        }
                                                         echo '</td>';
-
                                                         echo '</tr>';
                                                     }
                                                 } else {
+
+
                                                     echo '<tr>';
                                                     echo '<td class"tr-color font-color-2"  id="back-color">';
                                                     echo $row_count;
@@ -498,31 +505,13 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2" id="back-color">';
-                                                    $ins_total += $amount;
-                                                    $total_paid += $paid_amount;
-                                                    $due_and_excess = $total_paid - $ins_total;
+                                                    $before_balance_amount = $paid_all_amount_before_ins_date - $ins_total;
+                                                    $last_od = (float) end($fetched_arr);
+                                                    echo $before_balance_amount - $last_od;
 
-                                                    if ($array_value == 0) {
-                                                        if ($due_and_excess > 0) {
-                                                            echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-                                                        } else if ($due_and_excess < 0) {
-                                                            if ($ALl_AMOUNT[0] >= $ins_total) {
-                                                                echo '00.0';
-                                                            } else {
-
-                                                                $due_amount = $ALl_AMOUNT[0] - $ins_total;
-                                                                echo number_format($due_amount + $balance, 2);
-                                                            }
-                                                        } else {
-                                                            echo number_format($due_and_excess, 2);
-                                                        }
-                                                    } else {
-
-                                                        echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-                                                    }
                                                     echo '</td>';
-                                                    echo '</tr>';
                                                 }
+                                                echo '</tr>';
 
 
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $Installment_payment) {
@@ -550,20 +539,8 @@ $today = date("Y-m-d");
                                                         </td>
                                                         <td class="font-colors text-right f-style">
                                                             <?php
-                                                            $balance += $Installment_payment['paid_amount'];
-                                                            if ($due_and_excess < 0) {
-                                                                $due_amount = $due_and_excess - $paid_amount;
-                                                                echo '<p style="color:red">' . number_format($due_amount + $balance, 2) . '</p>';
-                                                            } else if ($due_and_excess > 0) {
-                                                                if ($ALl_AMOUNT[0] >= $ins_total) {
-                                                                    echo '00.0';
-                                                                } else {
-                                                                    $due_amount = $due_and_excess - $paid_amount;
-                                                                    echo number_format($due_amount + $balance, 2);
-                                                                }
-                                                            } else {
-                                                                echo '00.0';
-                                                            }
+                                                            $before_all_balnce_amount = $before_balance_amount + $Installment_payment['paid_amount'];
+                                                            echo $before_all_balnce_amount;
                                                             $row_count++
                                                             ?>
                                                         </td>
@@ -573,7 +550,7 @@ $today = date("Y-m-d");
                                                         
                                                     } else {
                                                         ?>
-                                                        <tr style="background-color: white;"> 
+                                                        <tr style="background-color: lightcyan;"> 
                                                             <td>
                                                                 <?php echo $row_count; ?>
                                                             </td>                                                       
@@ -592,16 +569,8 @@ $today = date("Y-m-d");
                                                             </td>
                                                             <td class="font-colors text-right f-style">
                                                                 <?php
-                                                                if ($due_and_excess < 0) {
-                                                                    $due_amount = $due_and_excess - $paid_amount;
-                                                                    echo '<p style="color:red">' . number_format($due_amount + $balance, 2) . '</p>';
-                                                                } else if ($due_and_excess > 0) {
-                                                                    $due_amount = $due_and_excess - $paid_amount;
-                                                                    echo '<p style="color:red">' . number_format($due_amount + $balance, 2) . '</p>';
-                                                                } else {
-                                                                    echo '00.0';
-                                                                }
-                                                                ?>
+                                                                echo number_format($before_all_balnce_amount + $Installment_payment['additional_interest'], 2);
+                                                                ?>   
                                                             </td>
                                                         </tr>
 
@@ -616,7 +585,7 @@ $today = date("Y-m-d");
                                                 } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
 
                                                     $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
-                                                    
+
                                                     $y = 0;
                                                     $od_date_start = new DateTime($date);
                                                     $defult_val = 6;
@@ -650,11 +619,13 @@ $today = date("Y-m-d");
                                                                 <?php
                                                                 $od_array[] = $od_interest;
                                                                 $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                                array_push($fetched_arr, $od_amount);
                                                                 echo '<p style="color:red">' . number_format($od_amount, 2) . '</p>';
                                                                 ?>
                                                             </td>
                                                             <td class="font-colors text-right f-style"></td>
-                                                            <td class="font-colors text-right f-style">                                                               
+                                                            <td class="font-colors text-right f-style">   
+
                                                                 <?php
                                                                 if ($due_and_excess < 0) {
                                                                     $balance_in_od = $due_and_excess - $od_amount;
@@ -701,6 +672,7 @@ $today = date("Y-m-d");
                                                                 <?php
                                                                 $od_array[] = $od_interest;
                                                                 $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                                array_push($fetched_arr, $od_amount);
                                                                 echo '<p style="color:red">' . number_format($od_amount, 2) . '</p>';
                                                                 ?>
                                                             </td>
@@ -725,6 +697,8 @@ $today = date("Y-m-d");
                                                     if (strtotime(date("Y/m/d")) <= strtotime($date)) {
                                                         break;
                                                     }
+
+
                                                     $od_interest = $LOAN->getOdIntereset($due_and_excess, $LOAN->od_interest_limit);
 
                                                     $row_count++;
@@ -740,6 +714,7 @@ $today = date("Y-m-d");
                                                             <?php
                                                             $od_array[] = $od_interest;
                                                             $od_amount = json_encode(round(array_sum($od_array), 2));
+                                                            array_push($fetched_arr, $od_amount);
                                                             echo '<p style="color:red">' . number_format($od_amount, 2) . '</p>';
                                                             ?>
                                                         </td>
@@ -747,16 +722,13 @@ $today = date("Y-m-d");
                                                         <td class="font-colors text-right f-style"> </td>
                                                         <td class="font-colors text-right f-style">
                                                             <?php
-                                                            if ($due_and_excess < 0) {
-                                                                $balance_in_od = $due_and_excess - $od_amount;
-                                                                echo '<p   class="f-style   font-color-2">' . number_format($balance_in_od, 2) . '</p>';
-                                                            }
+                                                            $balance_in_od = $due_and_excess - $od_amount;
+                                                            echo '<p   class="f-style   font-color-2">' . number_format($balance_in_od, 2) . '</p>';
                                                             ?>
                                                         </td>
                                                     </tr> 
                                                     <?php
                                                 }
-
                                                 $start->modify($add_dates);
                                                 $x++;
                                             }
@@ -779,7 +751,9 @@ $today = date("Y-m-d");
                                                     <td class="font-colors text-right f-style">
 
                                                     </td>
-                                                    <td class="font-colors text-right f-style"></td>
+                                                    <td class="font-colors text-right f-style">
+                                                        <?php echo number_format($Installment_payment['paid_amount'], 2) ?>
+                                                    </td>
                                                     <td class="font-colors text-right f-style">                                                               
                                                         00.0
                                                     </td>
