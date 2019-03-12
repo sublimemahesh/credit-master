@@ -35,10 +35,12 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="css/themes/all-themes.css" rel="stylesheet" />
         <!-- Bootstrap Spinner Css -->
+        <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
         <link href="plugins/light-gallery/css/lightgallery.css" rel="stylesheet">
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
-        <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
-         <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
+
+
+        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red">
@@ -627,87 +629,87 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <div class="row"> 
                                     <div class="col-md-1"></div>
                                     <div class="table-responsive col-md-10">                                         
-                                            <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                                <thead>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Installment Date</th> 
-                                                        <th>Installment Amount</th> 
-                                                        <th>Due and Excess</th> 
+                                        <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Installment Date</th> 
+                                                    <th>Installment Amount</th> 
+                                                    <th>Due and Excess</th> 
 
-                                                    </tr>
-                                                </thead>
-                                                <tbody>
-                                                    <?php
-                                                    $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                                </tr>
+                                            </thead>
+                                            <tbody>
+                                                <?php
+                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
-                                                    $first_installment_date = '';
+                                                $first_installment_date = '';
 
-                                                    if ($LOAN->installment_type == 4) {
-                                                        $FID = new DateTime($LOAN->effective_date);
-                                                        $FID->modify('+7 day');
-                                                        $first_installment_date = $FID->format('Y-m-d');
-                                                    } elseif ($LOAN->installment_type == 30) {
-                                                        $FID = new DateTime($LOAN->effective_date);
-                                                        $FID->modify('+1 day');
-                                                        $first_installment_date = $FID->format('Y-m-d');
-                                                    } elseif ($LOAN->installment_type == 1) {
-                                                        $FID = new DateTime($LOAN->effective_date);
-                                                        $FID->modify('+1 months');
-                                                        $first_installment_date = $FID->format('Y-m-d');
+                                                if ($LOAN->installment_type == 4) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+7 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 30) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 day');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                } elseif ($LOAN->installment_type == 1) {
+                                                    $FID = new DateTime($LOAN->effective_date);
+                                                    $FID->modify('+1 months');
+                                                    $first_installment_date = $FID->format('Y-m-d');
+                                                }
+
+                                                $start = new DateTime($first_installment_date);
+
+                                                $x = 0;
+                                                $count = 0;
+                                                $ins_total = 0;
+                                                $total_paid = 0;
+                                                while ($x < $defultdata) {
+                                                    if ($defultdata == 4) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 30) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 8) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 60) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 2) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 1) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 90) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 12) {
+                                                        $add_dates = '+7 day';
+                                                    } elseif ($defultdata == 3) {
+                                                        $add_dates = '+1 months';
+                                                    } elseif ($defultdata == 100) {
+                                                        $add_dates = '+1 day';
+                                                    } elseif ($defultdata == 13) {
+                                                        $add_dates = '+7 day';
                                                     }
 
-                                                    $start = new DateTime($first_installment_date);
+                                                    $count++;
+                                                    $date = $start->format('Y-m-d');
+                                                    $customer = $LOAN->customer;
 
-                                                    $x = 0;
-                                                    $count = 0;
-                                                    $ins_total = 0;
-                                                    $total_paid = 0;
-                                                    while ($x < $defultdata) {
-                                                        if ($defultdata == 4) {
-                                                            $add_dates = '+7 day';
-                                                        } elseif ($defultdata == 30) {
-                                                            $add_dates = '+1 day';
-                                                        } elseif ($defultdata == 8) {
-                                                            $add_dates = '+7 day';
-                                                        } elseif ($defultdata == 60) {
-                                                            $add_dates = '+1 day';
-                                                        } elseif ($defultdata == 2) {
-                                                            $add_dates = '+1 months';
-                                                        } elseif ($defultdata == 1) {
-                                                            $add_dates = '+1 months';
-                                                        } elseif ($defultdata == 90) {
-                                                            $add_dates = '+1 day';
-                                                        } elseif ($defultdata == 12) {
-                                                            $add_dates = '+7 day';
-                                                        } elseif ($defultdata == 3) {
-                                                            $add_dates = '+1 months';
-                                                        } elseif ($defultdata == 100) {
-                                                            $add_dates = '+1 day';
-                                                        } elseif ($defultdata == 13) {
-                                                            $add_dates = '+7 day';
-                                                        }
+                                                    $CUSTOMER = new Customer($customer);
+                                                    $route = $CUSTOMER->route;
+                                                    $center = $CUSTOMER->center;
+                                                    $amount = $LOAN->installment_amount;
 
-                                                        $count++;
-                                                        $date = $start->format('Y-m-d');
-                                                        $customer = $LOAN->customer;
+                                                    $Installment = new Installment(NULL);
+                                                    $paid_amount = 0;
 
-                                                        $CUSTOMER = new Customer($customer);
-                                                        $route = $CUSTOMER->route;
-                                                        $center = $CUSTOMER->center;
-                                                        $amount = $LOAN->installment_amount;
+                                                    foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
 
-                                                        $Installment = new Installment(NULL);
-                                                        $paid_amount = 0;
+                                                        $paid_amount += $paid['paid_amount'];
+                                                    }
 
-                                                        foreach ($Installment->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
-
-                                                            $paid_amount += $paid['paid_amount'];
-                                                        }
-
-                                                        echo '<tr>';
-                                                        if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                            echo '<td class="padd-td gray ">';
+                                                    echo '<tr>';
+                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
+                                                        echo '<td class="padd-td gray ">';
                                                         echo $count;
                                                         echo '</td>';
                                                         echo '<td class="padd-td gray text-right">';
@@ -718,43 +720,43 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                         echo '</td>';
 
                                                         $start->modify($add_dates);
-                                                        } else {
-                                                            echo '<td>';
-                                                            echo $count;
-                                                            echo '</td>';
-                                                            echo '<td class="padd-td f-style">';
-                                                            echo $date;
-                                                            echo '</td>';
-                                                            echo '<td class="f-style">';
-                                                            echo 'Rs: ' . number_format($amount, 2);
-                                                            echo '</td>';
+                                                    } else {
+                                                        echo '<td>';
+                                                        echo $count;
+                                                        echo '</td>';
+                                                        echo '<td class="padd-td f-style">';
+                                                        echo $date;
+                                                        echo '</td>';
+                                                        echo '<td class="f-style">';
+                                                        echo 'Rs: ' . number_format($amount, 2);
+                                                        echo '</td>';
 
 
-                                                            echo '<td class="f-style">';
+                                                        echo '<td class="f-style">';
 
-                                                            $ins_total += $amount;
-                                                            $total_paid += $paid_amount;
+                                                        $ins_total += $amount;
+                                                        $total_paid += $paid_amount;
 
-                                                            echo number_format($total_paid - $ins_total, 2);
-                                                            echo '</td>';
+                                                        echo number_format($total_paid - $ins_total, 2);
+                                                        echo '</td>';
 
 
-                                                            $start->modify($add_dates);
-                                                            $x++;
-                                                        }
-                                                        echo '</tr>';
+                                                        $start->modify($add_dates);
+                                                        $x++;
                                                     }
-                                                    ?>
-                                                </tbody>
-                                                <tfoot>
-                                                    <tr>
-                                                        <th>ID</th>
-                                                        <th>Installment Date</th> 
-                                                        <th>Installment Amount</th>                                                      
-                                                        <th>Due and Excess</th> 
-                                                    </tr>   
-                                                </tfoot>
-                                            </table>                                            
+                                                    echo '</tr>';
+                                                }
+                                                ?>
+                                            </tbody>
+                                            <tfoot>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Installment Date</th> 
+                                                    <th>Installment Amount</th>                                                      
+                                                    <th>Due and Excess</th> 
+                                                </tr>   
+                                            </tfoot>
+                                        </table>                                            
                                     </div>  
                                     <div class="col-md-1"></div>
                                 </div>
@@ -3314,15 +3316,17 @@ $GR3 = new Customer($LOAN->guarantor_3);
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="js/ajax/loan.js" type="text/javascript"></script>
+
+
+
     <script>
         $(function () {
             $(".datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
 //                minDate: '-3D',
 //                maxDate: '+3D',
-
             });
         });
-    </script>
+    </script> 
 </body> 
 </html>

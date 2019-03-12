@@ -21,7 +21,7 @@ $(document).ready(function () {
             success: function (jsonStr) {
                 if (jsonStr.type == 'route') {
                     var html = '<option> -- Please Select a Route -- </option>';
-                    html += '<option value="all"> All</option>';
+                    html += '<option value="88888"> All</option>';
 
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
@@ -36,7 +36,7 @@ $(document).ready(function () {
 
                 } else if (jsonStr.type == 'center') {
                     var html = '<option> -- Please Select a Center -- </option>';
-                    html += '<option value="all"> All</option>';
+                    html += '<option value="99999"> All</option>';
                     $.each(jsonStr.data, function (i, data) {
                         html += '<option value="' + data.id + '">';
                         html += data.name;

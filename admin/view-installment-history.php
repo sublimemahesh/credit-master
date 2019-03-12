@@ -410,13 +410,6 @@ $today = date("Y-m-d");
                                                     $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
                                                 }
 
-                                                $ins_total += $amount;
-                                                $total_paid += $paid_amount;
-                                                $due_and_excess = $total_paid - $ins_total;
-
-                                                $ins_total_all += $amount;
-                                                $total_paid_all += $paid_amount;
-                                                $due_and_excess_all = $total_paid_all;
 
                                                 $row_count++;
 
@@ -475,7 +468,7 @@ $today = date("Y-m-d");
 
                                                         echo '<td class="f-style tr-color font-color-2" id="back-color">';
 
-                                                        echo number_format($due_and_excess_all, 2);
+                                                        echo number_format($due_and_excess, 2);
 
                                                         echo '</td>';
                                                         echo '</tr>';
@@ -505,6 +498,10 @@ $today = date("Y-m-d");
                                                     echo '</td>';
 
                                                     echo '<td class="f-style tr-color font-color-2" id="back-color">';
+                                                    $ins_total += $amount;
+                                                    $total_paid += $paid_amount;
+                                                    $due_and_excess = $total_paid - $ins_total;
+
                                                     $before_balance_amount = $paid_all_amount_before_ins_date - $ins_total;
                                                     $last_od = (float) end($fetched_arr);
                                                     echo $before_balance_amount - $last_od;
@@ -577,10 +574,8 @@ $today = date("Y-m-d");
                                                         <?php
                                                     }
                                                 }
-
-
-
-                                                if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT" || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                               
+                                                if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT"  || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                     
                                                 } else if (strtotime($LOAN->od_date) <= strtotime($date) && $due_and_excess < 0 && $LOAN->installment_type == 4) {
 

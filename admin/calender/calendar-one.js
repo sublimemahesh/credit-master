@@ -10,7 +10,7 @@ jQuery(document).ready(function() {
                 month = 0;
                 jQuery('#year').val(year + 1);
             }
-            jQuery('#month').val(month + 1);
+            jQuery('#month').val(month);
         }
 
         if (this.id == 'back') {
@@ -19,7 +19,7 @@ jQuery(document).ready(function() {
                 month = 13;
                 jQuery('#year').val(year - 1);
             }
-            jQuery('#month').val(month - 1);
+            jQuery('#month').val(month);
         }
 
         var data = {
