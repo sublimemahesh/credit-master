@@ -175,6 +175,19 @@ class Installment {
         return $row;
     }
 
+    public function getAmountByType($loan, $type) {
+
+        $query = "SELECT sum(`paid_amount`) FROM `installment` WHERE `loan`= '" . $loan . "' AND `type`= '" . $type . "' LIMIT 1";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        $row = mysql_fetch_array($result);
+
+        return $row;
+    }
+
     public function getModifiedInstallmentByCollector() {
 
         $query = "SELECT * FROM `installment` WHERE `collector`= '" . $this->collector . "' AND `status`= 'modified'";
@@ -274,12 +287,12 @@ class Installment {
         return $row;
     }
 
-    public function getPaidAmountByBeforeDate($date,$loan_id) {
+    public function getPaidAmountByBeforeDate($date, $loan_id) {
 
         $query = "SELECT  * FROM `installment` WHERE `paid_date` <'" . $date . "' AND `loan`='" . $loan_id . "' AND `type` = 'installment'";
 
 
-      $db = new Database();
+        $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
 

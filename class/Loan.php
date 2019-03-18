@@ -341,6 +341,17 @@ class Loan {
 
         return $row;
     }
+    
+    public function getDetailsByCustomer($customer) {
+
+        $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "')   ";
+        
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $row = mysql_fetch_row($result);
+
+        return $row;
+    }
 
     public function getAllApprovedLoansByCollector() {
 

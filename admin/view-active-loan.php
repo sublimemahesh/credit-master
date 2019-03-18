@@ -296,12 +296,147 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                                <?php if ($LOAN->balance_of_last_loan != 0) { ?>
+                                    <div class="row" id="balance_of_last_loan_row"  >
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="balance_of_last_loan">Balance Of the last Loan</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
+                                                    <div class="form-control"  > 
+                                                        <input type="text"    id="balance_of_last_loan_amount" name="balance_of_last_loan" placeholder="00.00" value="<?php echo number_format($LOAN->balance_of_last_loan, 2) ?>"class="form-control  " autocomplete="off" disabled="" style="color: red;">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
 
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="total_deductions">Total Deductions </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $DEFAULTDATA_2 = new DefaultData(NULL);
+                                                    if ($LOAN->issue_mode == 'cash') {
+
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreCash($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"  class="form-control "   value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    } else if ($LOAN->issue_mode == 'bank') {
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreBank($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"     class="form-control "  value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    } else if ($LOAN->issue_mode == "cheque") {
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreCheque($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"     class="form-control "  value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <?php
+                                $loan = $LOAN->getDetailsByCustomer($LOAN->customer);
+                                $down_payment = $INSTALLMENT->getAmountByType($loan[0], 'down_payment');
+                                
+                                if ((int) $down_payment[0] != NULL) {
+                                    ?>
+                                    <div class="row" id="down_payment_row" >
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="down_payment">Down Payment</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="down_payment" class="hidden-lg hidden-md">Down Payment</label>
+                                                    <div class="form-control"> 
+                                                        <input type="text"    class="form-control" value="<?php echo number_format($down_payment[0], 2) ?>" autocomplete="off" readonly="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                               
+                                <?php } ?>
+
+                                <?php
+                                $paid_loan_processing_fee = $INSTALLMENT->getAmountByType($loan[0], 'loan_processing_fee');
+                                if ((int) $paid_loan_processing_fee[0] != NULL) {
+                                    ?>
+                                    <div class="row" id="paid_loan_processing_fee_row" >
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="paid_loan_processing_fee">Paid Loan Processing Fee</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="paid_loan_processing_fee" class="hidden-lg hidden-md">Paid Loan Processing Fee</label>
+                                                    <div class="form-control">
+
+                                                        <input type="text"   value="<?php echo number_format($paid_loan_processing_fee[0], 2) ?>" class="form-control  " autocomplete="off" disabled="">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="balance_pay">Balance Pay </label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $balance_pay = $LOAN->loan_amount - $LOAN->balance_of_last_loan - $loan_proccesign_fee['total'] + $down_payment[0] + $paid_loan_processing_fee[0];
+                                                    ?>
+                                                    <input type="text" id="balance_pay_amount" value="<?php echo number_format($balance_pay, 2) ?>" class="form-control font-weight-new " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <?php
                                 if ($LOAN->issue_mode == "bank") {
                                     ?>
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="balance_pay">Balance Pay</label>
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">
+                                                    <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay</label>
+                                                    <div> 
+                                                        <?php
+                                                        $DEFAULTDATA_2 = new DefaultData();
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->getLoanBankFee();
+                                                        echo $LOAN->loan_amount - $LOAN->balance_of_last_loan;
+                                                        ?>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="bank">Bank</label>
@@ -3410,205 +3545,205 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>  
                             </div>
                         </div>
-                            <div id="menu5" class="tab-pane fade">
-                                <div class="body"> 
-                                    <div class="row">
-                                        <?php
-                                        $LOAN_DOCUMENT = new LoanDocument(NUll);
-                                        foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
-                                            ?>
-                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class=" clearfix aniimated-thumbnials">
-                                                        <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
-                                                            <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
-                                                        </a>  
-                                                        <lable><b><?php echo $loan_document['caption'] ?></b></lable>
-                                                    </div> 
-                                                </div>
-                                            </div>
-                                        <?php } ?>
-                                    </div>    
-                                    <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
-                                </div>
-                            </div>
-                            <div id="menu6" class="tab-pane fade">
-                                <div class="body"> 
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            <label for="created_by">Created By :</label>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                        <div id="menu5" class="tab-pane fade">
+                            <div class="body"> 
+                                <div class="row">
+                                    <?php
+                                    $LOAN_DOCUMENT = new LoanDocument(NUll);
+                                    foreach ($LOAN_DOCUMENT->getDocumentByLoan($loan_id) as $loan_document) {
+                                        ?>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <label  class="hidden-lg hidden-md">Created By :</label>
-                                                    <div class="form-control"><?php
-                                                        $USER = new User($LOAN->create_by);
-                                                        echo $USER->name;
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                    
-                                    </div>                                  
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            <label for="verified_by">Verified By :</label>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <label  class="hidden-lg hidden-md">Verified By :</label>
-                                                    <div class="form-control"><?php
-                                                        $USER = new User($LOAN->verify_by);
-                                                        echo $USER->name;
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                    
-                                    </div> 
-                                    <div class="row">
-                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                            <label for="approved_by">Approved By :</label>
-                                        </div>
-                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <label  class="hidden-lg hidden-md">Approved By :</label>
-                                                    <div class="form-control"><?php
-                                                        $USER = new User($LOAN->approved_by);
-                                                        echo $USER->name;
-                                                        ?>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>                                    
-                                    </div> 
-                                    <?php if ($LOAN->issue_by == 0) { ?>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                                <label for="release_by">Release By :</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line"> 
-                                                        <label  class="hidden-lg hidden-md">Release By :</label>
-                                                        <div class="form-control"><?php
-                                                            $USER = new User($LOAN->release_by);
-                                                            echo $USER->name;
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                                    
-                                        </div> 
-                                    <?php } else { ?>
-                                        <div class="row">
-                                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                                <label for="issued_by">Issued By :</label>
-                                            </div>
-                                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line"> 
-                                                        <label  class="hidden-lg hidden-md">Issued By :</label>
-                                                        <div class="form-control"><?php
-                                                            $USER = new User($LOAN->issue_by);
-                                                            echo $USER->name;
-                                                            ?>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>                                    
-                                        </div> 
-                                    <?php } ?>
-                                </div>
-                            </div>
-                            <div id="menu7" class="tab-pane fade">
-                                <div class="body"> 
-                                    <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
-
-
-                                        <div class="row">
-                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                                <label for="od_interest_limit">OD Interest Limit</label>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line"> 
-                                                        <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit; ?>"  autocomplete="off" min="0" >
-
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div class="form-line">                                            
-                                                        <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off" value="<?php echo $LOAN->od_date; ?>"  >
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <div  style="margin-top: 15px;">
-                                                        <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
-                                                        if ($LOAN->od_interest_limit !== 'NOT') {
-                                                            echo 'checked';
-                                                        }
-                                                        ?> id="rememberme"  />
-                                                        <label for="rememberme" id="lable-active">Activate</label>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-
-
-                                        <div class="row clearfix">
-                                            <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            </div>
-                                            <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                                <div class="form-group">
-                                                    <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-od"  >Save Details</button>
+                                                <div class=" clearfix aniimated-thumbnials">
+                                                    <a href="../upload/loan/document/<?php echo $loan_document['image_name'] ?>" data-sub-html="<?php echo $loan_document['caption'] ?>">
+                                                        <img class="img-responsive thumbnail" src="../upload/loan/document/thumb/<?php echo $loan_document['image_name'] ?>">
+                                                    </a>  
+                                                    <lable><b><?php echo $loan_document['caption'] ?></b></lable>
                                                 </div> 
-                                                <input type="hidden" name="id" value="<?php echo $loan_id ?>">
-                                            </div> 
+                                            </div>
                                         </div>
-                                    </form>  
-                                </div>
+                                    <?php } ?>
+                                </div>    
+                                <a href="add-loan-document.php?id=<?php echo $loan_id ?>"><button class="btn btn-info" value="Manage Document"> Manage Document</button> </a>                                   
                             </div>
-                            <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                            <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
-                            <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
-                            <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
-                            <input type="hidden" name="id" value="<?php echo $id ?>">
-                            <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                         </div>
+                        <div id="menu6" class="tab-pane fade">
+                            <div class="body"> 
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="created_by">Created By :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <label  class="hidden-lg hidden-md">Created By :</label>
+                                                <div class="form-control"><?php
+                                                    $USER = new User($LOAN->create_by);
+                                                    echo $USER->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div>                                  
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="verified_by">Verified By :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <label  class="hidden-lg hidden-md">Verified By :</label>
+                                                <div class="form-control"><?php
+                                                    $USER = new User($LOAN->verify_by);
+                                                    echo $USER->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div> 
+                                <div class="row">
+                                    <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                        <label for="approved_by">Approved By :</label>
+                                    </div>
+                                    <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line"> 
+                                                <label  class="hidden-lg hidden-md">Approved By :</label>
+                                                <div class="form-control"><?php
+                                                    $USER = new User($LOAN->approved_by);
+                                                    echo $USER->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>                                    
+                                </div> 
+                                <?php if ($LOAN->issue_by == 0) { ?>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="release_by">Release By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Release By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->release_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div> 
+                                <?php } else { ?>
+                                    <div class="row">
+                                        <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                            <label for="issued_by">Issued By :</label>
+                                        </div>
+                                        <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <label  class="hidden-lg hidden-md">Issued By :</label>
+                                                    <div class="form-control"><?php
+                                                        $USER = new User($LOAN->issue_by);
+                                                        echo $USER->name;
+                                                        ?>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>                                    
+                                    </div> 
+                                <?php } ?>
+                            </div>
+                        </div>
+                        <div id="menu7" class="tab-pane fade">
+                            <div class="body"> 
+                                <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
+
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="od_interest_limit">OD Interest Limit</label>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit; ?>"  autocomplete="off" min="0" >
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">                                            
+                                                    <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off" value="<?php echo $LOAN->od_date; ?>"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div  style="margin-top: 15px;">
+                                                    <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
+                                                    if ($LOAN->od_interest_limit !== 'NOT') {
+                                                        echo 'checked';
+                                                    }
+                                                    ?> id="rememberme"  />
+                                                    <label for="rememberme" id="lable-active">Activate</label>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div class="row clearfix">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-od"  >Save Details</button>
+                                            </div> 
+                                            <input type="hidden" name="id" value="<?php echo $loan_id ?>">
+                                        </div> 
+                                    </div>
+                                </form>  
+                            </div>
+                        </div>
+                        <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+                        <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
+                        <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
+                        <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
+                        <input type="hidden" name="id" value="<?php echo $id ?>">
+                        <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
 
-        <script src="plugins/jquery/jquery.min.js"></script>
-        <script src="plugins/bootstrap/js/bootstrap.js"></script> 
-        <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-        <script src="plugins/node-waves/waves.js"></script>
-        <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-        <script src="js/admin.js"></script>
-        <script src="js/demo.js"></script> 
-        <script src="plugins/jquery-ui/jquery-ui.js"></script>
-        <script src="plugins/sweetalert/sweetalert.min.js"></script>
+    <script src="plugins/jquery/jquery.min.js"></script>
+    <script src="plugins/bootstrap/js/bootstrap.js"></script> 
+    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+    <script src="plugins/node-waves/waves.js"></script>
+    <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+    <script src="js/admin.js"></script>
+    <script src="js/demo.js"></script> 
+    <script src="plugins/jquery-ui/jquery-ui.js"></script>
+    <script src="plugins/sweetalert/sweetalert.min.js"></script>
 
-        <script src="js/ajax/loan.js"></script> 
-        <script src="js/image.js" type="text/javascript"></script>
-        <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
-        <script>
-            $(function () {
-                $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-                $(".od_date").datepicker({
-                    dateFormat: 'yy-mm-dd',
+    <script src="js/ajax/loan.js"></script> 
+    <script src="js/image.js" type="text/javascript"></script>
+    <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+    <script>
+        $(function () {
+            $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
+            $(".od_date").datepicker({
+                dateFormat: 'yy-mm-dd',
 
-                });
             });
-        </script>
-    </body> 
+        });
+    </script>
+</body> 
 </html>

@@ -13,6 +13,11 @@ $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
 $GR2 = new Customer($LOAN->guarantor_2);
 $GR3 = new Customer($LOAN->guarantor_3);
+
+
+$INSTALLMENT = new Installment(NULL);
+$down_payment = 0;
+$loan_processing_fee = 0;
 ?>
 
 <!DOCTYPE html>
@@ -292,16 +297,16 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                 <div class="row" id="balance_of_last_loan_row" style="display: none">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="">Balance Of the last Loan</label>
+                                        <label for="balance_of_last_loan">Balance Of the last Loan</label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Balance Of the last Loan</label>
+                                                <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
                                                 <div class="form-control"  > 
-                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text"    id="balance_of_last_loan_amount" name="balance_of_last_loan" placeholder="00.00" value="<?php echo number_format($LOAN->balance_of_last_loan, 2) ?>"class="form-control  " autocomplete="off" disabled="" style="color: red;">
                                                 </div>
                                             </div>
                                         </div>
@@ -317,7 +322,65 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="total_deductions"  placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                    <?php
+                                                    $DEFAULTDATA_2 = new DefaultData(NULL);
+                                                    if ($LOAN->issue_mode == 'cash') {
+
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreCash($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"  class="form-control "   value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    } else if ($LOAN->issue_mode == 'bank') {
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreBank($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"     class="form-control "  value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    } else if ($LOAN->issue_mode == "cheque") {
+                                                        $loan_proccesign_fee = $DEFAULTDATA_2->loanProcessingPreCheque($LOAN->loan_amount);
+                                                        ?>
+                                                        <input type="text"     class="form-control "  value="<?php echo number_format($LOAN->balance_of_last_loan + $loan_proccesign_fee['total'], 2) ?>" autocomplete="off" disabled="" style="color: red;">
+                                                        <?php
+                                                    }
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row" id="down_payment_row" style="display: none">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="down_payment">Down Payment</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="down_payment" class="hidden-lg hidden-md">Down Payment</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $loan = $LOAN->getDetailsByCustomer($LOAN->customer);
+                                                    $down_payment = $INSTALLMENT->getAmountByType($loan[0], 'down_payment');
+                                                    ?>
+                                                    <input type="text"    class="form-control" value="<?php echo number_format($down_payment[0], 2) ?>" autocomplete="off" readonly="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>                               
+
+                                <div class="row" id="paid_loan_processing_fee_row" style="display: none">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="paid_loan_processing_fee">Paid Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="paid_loan_processing_fee" class="hidden-lg hidden-md">Paid Loan Processing Fee</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $paid_loan_processing_fee = $INSTALLMENT->getAmountByType($loan[0], 'loan_processing_fee');
+                                                    ?>
+                                                    <input type="text"   value="<?php echo number_format($paid_loan_processing_fee[0], 2) ?>" class="form-control  " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
@@ -333,7 +396,10 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="balance_pay"  placeholder="00.00" class="form-control  font-weight-new" autocomplete="off" disabled="">
+                                                    <?php
+                                                    $balance_pay = $LOAN->loan_amount - $LOAN->balance_of_last_loan - $loan_proccesign_fee['total'] + $down_payment[0] + $paid_loan_processing_fee[0];
+                                                    ?>
+                                                    <input type="text" id="balance_pay_amount" value="<?php echo number_format($balance_pay, 2) ?>" class="form-control font-weight-new " autocomplete="off" disabled="">
                                                 </div>
                                             </div>
                                         </div>
