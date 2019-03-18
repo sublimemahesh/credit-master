@@ -48,6 +48,9 @@ class Customer {
     public $account_number;
     public $holder_name;
     public $bank_book_picture;
+///////////
+    
+    public $gn_division;
     public $is_active;
     public $queue;
     public $status;
@@ -99,6 +102,7 @@ class Customer {
             $this->account_number = $result['account_number'];
             $this->holder_name = $result['holder_name'];
             $this->bank_book_picture = $result['bank_book_picture'];
+            $this->gn_division = $result['gn_division'];
             $this->is_active = $result['is_active'];
             $this->queue = $result['queue'];
             $this->status = $result['status'];
@@ -147,6 +151,7 @@ class Customer {
                 . "`account_number`,"
                 . "`holder_name`,"
                 . "`bank_book_picture`,"
+                . "`gn_division`,"
                 . "`is_active`,"
                 . "`status`"
                 . ") VALUES  ('"
@@ -187,6 +192,7 @@ class Customer {
                 . $this->account_number . "','"
                 . $this->holder_name . "','"
                 . $this->bank_book_picture . "','"
+                . $this->gn_division . "','"
                 . $this->is_active . "','"
                 . $this->status . "')";
 
@@ -385,6 +391,7 @@ class Customer {
                 . "`account_number` ='" . $this->account_number . "', "
                 . "`holder_name` ='" . $this->holder_name . "', "
                 . "`bank_book_picture` ='" . $this->bank_book_picture . "', "
+                . "`gn_division` ='" . $this->gn_division . "', "
                 . "`is_active` ='" . $this->is_active . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 

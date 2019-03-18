@@ -297,6 +297,22 @@ $CUSTOMER = new Customer($_GET['id']);
                                 </div>
                             </div>
                         </div>
+                        <div class="row">
+                            <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                <label for="gn_division">GN Division</label>
+                            </div>
+                            <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                <div class="form-group">
+                                    <div class="form-line">
+                                        <label for="gn_division" class="hidden-lg hidden-md">GN Division</label>
+                                        <div class="form-control"><?php
+                                            $GNDIVISION = new GnDivision($CUSTOMER->gn_division);
+                                            echo $GNDIVISION->name;
+                                            ?></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
 
                         <div class="row">
                             <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">

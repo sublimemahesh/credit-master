@@ -42,6 +42,7 @@ if (isset($_POST['add-customer'])) {
     $CUSTOMER->branch_code = $_POST['branch_code'];
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
+    $CUSTOMER->gn_division = $_POST['gn_division'];
     $CUSTOMER->is_active = $_POST['is_active'];
 
 
@@ -437,6 +438,7 @@ if (isset($_POST['add-customer'])) {
         'first_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
+        'gn_division' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
         'address_line_2' => ['required' => TRUE],
         'credit_limit' => ['required' => TRUE],
@@ -909,6 +911,7 @@ if (isset($_POST['update-cutomer'])) {
     $CUSTOMER->account_number = $_POST['account_number'];
     $CUSTOMER->holder_name = ucfirst($_POST['holder_name']);
     $CUSTOMER->od_interest_limit = $_POST['od_interest_limit'];
+    $CUSTOMER->gn_division = $_POST['gn_division'];
     $CUSTOMER->is_active = $_POST['is_active'];
 
     $VALID = new Validator();
@@ -918,6 +921,7 @@ if (isset($_POST['update-cutomer'])) {
         'first_name' => ['required' => TRUE],
         'nic_number' => ['required' => TRUE],
         'city' => ['required' => TRUE],
+        'gn_division' => ['required' => TRUE],
         'address_line_1' => ['required' => TRUE],
         'address_line_2' => ['required' => TRUE],
         'credit_limit' => ['required' => TRUE],

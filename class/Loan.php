@@ -334,7 +334,7 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "') AND  (`status` ='issued' OR `status` ='released') ";
-
+        
         $db = new Database();
         $result = $db->readQuery($query);
         $row = mysql_fetch_row($result);
