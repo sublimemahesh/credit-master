@@ -288,7 +288,7 @@ class Installment {
         }
         return $array_res;
     }
-
+    
     public function getAmountByLoanId($loan_id) {
 
 
@@ -381,5 +381,40 @@ class Installment {
         }
         return $array_res;
     }
+    
+    
+    public function getPaidDownPayments($loan) {
+
+        $query = "SELECT *  FROM `installment` WHERE `loan` ='" . $loan . "' AND `type` = 'down_payment'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
+     public function getPaidLoanProcessingFee($loan) {
+
+        $query = "SELECT *  FROM `installment` WHERE `loan` ='" . $loan . "' AND `type` = 'loan_processing_fee'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+
+            array_push($array_res, $row);
+        }
+
+        return $array_res;
+    }
+
+
 
 }
