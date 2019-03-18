@@ -46,24 +46,24 @@ $ROUTE = count(Route::all());
             include './navigation-and-header_1.php';
         } elseif ($USERS->user_level == 3) {
             include './navigation-and-header_2.php';
-        }else{
+        } else {
             
         }
         ?>
         <section class="content">
             <div class="container-fluid">
 
-<?php
-if (isset($_GET['message'])) {
+                <?php
+                if (isset($_GET['message'])) {
 
-    $MESSAGE = New Message($_GET['message']);
-    ?>
-                    <div class="alert alert-<?php echo $MESSAGE->status; ?>" role = "alert">
-                    <?php echo $MESSAGE->description; ?>
-                    </div>
-                        <?php
-                    }
+                    $MESSAGE = New Message($_GET['message']);
                     ?>
+                    <div class="alert alert-<?php echo $MESSAGE->status; ?>" role = "alert">
+                        <?php echo $MESSAGE->description; ?>
+                    </div>
+                    <?php
+                }
+                ?>
 
 
                 <div class="block-header">
@@ -131,7 +131,7 @@ if (isset($_GET['message'])) {
                                     LOANS
 
                                     <small class="pull-right">   
-<?php echo $LOANS ?>
+                                        <?php echo $LOANS ?>
                                     </small>
                                 </h2>
 

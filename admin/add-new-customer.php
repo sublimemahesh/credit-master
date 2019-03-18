@@ -6,6 +6,8 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
+$GNDIVISION = new GnDivision(NULL);
 ?>
 
 <!DOCTYPE html>
@@ -264,6 +266,30 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="gn_division ">GN Division <span class="color-red"> *</span></label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="gn_division" class="hidden-lg hidden-md">GN Division<span class="color-red"> *</span></label>
+                                            <select class="form-control" autocomplete="off" id="gn_division"  name="gn_division"  required="TRUE" >
+                                                <option selected="" value=""> - Select the GN Division - </option>
+                                                <?php
+                                                
+                                                foreach ($GNDIVISION->all() as $gndivision) {
+                                                    ?>
+                                                    <option select="true" value="<?php echo $gndivision['id'] ?>" required="true" > <?php echo $gndivision['name'] ?></option>
+                                                    <?php
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>
                                 </div>
                                 <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
@@ -384,7 +410,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -676,7 +702,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="js/birthday_script.js" type="text/javascript"></script>
         <script src="js/ajax/customer.js" type="text/javascript"></script> 
         <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-      
+
     </body>
 
 </html> 

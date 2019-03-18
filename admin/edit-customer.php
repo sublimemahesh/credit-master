@@ -330,6 +330,36 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
+                            
+                              <div class="row">
+                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
+                                    <label for="gn_division">GN Division <span class="color-red"> *</span></label>
+                                </div>
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="gn_division" class="hidden-lg hidden-md">GN Division<span class="color-red"> *</span></label>
+                                            <select class="form-control" autocomplete="off" id="gn_division"  name="gn_division"  required="true" > 
+                                                <option  value="" > - Select the GN Division - </option>
+                                                <?php
+                                                $GNDIVISION = new GnDivision(NULL);
+                                                foreach ($GNDIVISION->all() as $key => $gndivision) {
+                                                    if ($gndivision['id'] == $CUSTOMER->gn_division) {
+                                                        ?>
+                                                        <option selected="" value="<?php echo $gndivision['id']; ?>" required="true" > <?php echo $gndivision['name'] ?></option>
+                                                        <?php
+                                                    } else {
+                                                        ?>
+                                                        <option  value="<?php echo $gndivision['id']; ?>" required="true" > <?php echo $gndivision['name'] ?></option>
+                                                        <?php
+                                                    }
+                                                }
+                                                ?>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="email">Email</label>

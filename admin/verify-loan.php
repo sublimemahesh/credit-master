@@ -37,7 +37,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
-         <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
+        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
     </head>
 
     <body class="theme-red"  onLoad="focusOnMyInputBox()">
@@ -1007,6 +1007,24 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="gn_division">GN Division</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="gn_division" class="hidden-lg hidden-md">GN Division</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $GNDIVISION = new GnDivision($CUSTOMER->gn_division);
+                                                    echo $GNDIVISION->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -1634,7 +1652,24 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="gn_division">GN Division</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="gn_division" class="hidden-lg hidden-md">GN Division</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $GNDIVISION = new GnDivision($GR1->gn_division);
+                                                    echo $GNDIVISION->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -2245,7 +2280,24 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="gn_division">GN Division</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="gn_division" class="hidden-lg hidden-md">GN Division</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $GNDIVISION = new GnDivision($GR2->gn_division);
+                                                    echo $GNDIVISION->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="email">Email</label>
@@ -2853,7 +2905,24 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-
+                                <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="gn_division">GN Division</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="gn_division" class="hidden-lg hidden-md">GN Division</label>
+                                                <div class="form-control">
+                                                    <?php
+                                                    $GNDIVISION = new GnDivision($GR3->gn_division);
+                                                    echo $GNDIVISION->name;
+                                                    ?>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">

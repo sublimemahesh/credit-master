@@ -1042,8 +1042,6 @@ $('#create_loan').click(function (event) {
     return false;
 });
 
-
-
 //customer Last loan amount
 $('#customer,#issue_mode').change(function () {
 
@@ -1214,7 +1212,7 @@ window.onload = function () {
     var paid_number_installment = $('#paid_number_installment').val();
     var paids_amount = $('#paids_amount').val();
 
-    //cal
+ //cal
 
     var amount = (loan_amount * interest_rate) / 100;
     var interest_amount = ((amount / number_of_installments) * paid_number_installment).toFixed(2);
