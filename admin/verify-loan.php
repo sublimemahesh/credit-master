@@ -298,7 +298,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row">
+                                <div class="row" id="balance_of_last_loan_row" style="display: none">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="balance_of_last_loan">Balance Of the last Loan</label>
                                     </div>
@@ -307,8 +307,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="balance_of_last_loan" class="hidden-lg hidden-md">Balance Of the last Loan</label>
                                                 <div class="form-control"  > 
-                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
-
+                                                    <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan"placeholder="00.00" class="form-control  " autocomplete="off" disabled="" style="color: red;">
                                                 </div>
                                             </div>
                                         </div>
@@ -324,13 +323,45 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                             <div class="form-line">
                                                 <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
                                                 <div class="form-control">
-                                                    <input type="text" id="total_deductions" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                    <input type="text" id="total_deductions" placeholder="00.00" class="form-control " autocomplete="off" disabled="" style="color: red;">
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
+                                
+                                <div class="row" id="down_payment_row" style="display: none">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="down_payment">Down Payment</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="down_payment" class="hidden-lg hidden-md">Down Payment</label>
+                                                <div class="form-control">
+                                                    <input type="text" id="down_payment" placeholder="00.00" class="form-control   " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row" id="paid_loan_processing_fee_row" style="display: none">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="paid_loan_processing_fee">Paid Loan Processing Fee</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="paid_loan_processing_fee" class="hidden-lg hidden-md">Paid Loan Processing Fee</label>
+                                                <div class="form-control">
+                                                    <input type="text" id="paid_loan_processing_fee" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="balance_pay">Balance Pay </label>

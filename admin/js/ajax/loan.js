@@ -403,17 +403,23 @@ $(document).ready(function () {
 
 //issue loan
     $('#loan_issue').click(function () {
-
+      
         var loan_id = $('#loan_id').val();
+         
         var issue_mode = $('#issue_mode').val();
+       
         var effective_date = $('#effective_date').val();
-        var balance_pays = $('#balance_pay').val();
-        var balance_of_last_loan = $('#balance_of_last_loan').val();
-        var balance_of_last_loans = $('#balance_of_last_loan').val();
+         
+        var balance_pays = $('#balance_pay_amount').val();
+       
+        var balance_of_last_loan = $('#balance_of_last_loan_amount').val();
+         
+        var balance_of_last_loans = $('#balance_of_last_loan_amount').val();
+       
         var customer_id = $('#customer_id').val();
         var issue_note = $('#issue_note').val();
 
-        var balance_of_last_loan = balance_of_last_loans.replace(",", "");  
+        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
         var balance_pay = balance_pays.replace(",", "");
 
         var issued_date = $('#issued_date').val();
@@ -1072,7 +1078,7 @@ $('#customer,#issue_mode').change(function () {
                     text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",
                     type: "error",
                     showCancelButton: false,
-                    confirmButtonColor: "#00b0e4",                   
+                    confirmButtonColor: "#00b0e4",
                     closeOnConfirm: false
                 });
 
@@ -1194,7 +1200,14 @@ window.onload = function () {
                 $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
                 $('#total_deductions').val(jsonStr.total_deductions);
                 $('#balance_pay').val(jsonStr.balance_pay);
-
+                $('#paid_loan_processing_fee').val(jsonStr.paid_loan_processing_fee);
+                $('#down_payment').val(jsonStr.down_payment);
+                $('#paid_loan_processing_fee').val(jsonStr.paid_loan_processing_fee);
+              
+                //show all
+                $('#down_payment_row').show();
+                $('#balance_of_last_loan_row').show();
+                $('#paid_loan_processing_fee_row').show();
             } else {
                 $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
                 $('#total_deductions').val(jsonStr.total_deductions);
@@ -1212,7 +1225,7 @@ window.onload = function () {
     var paid_number_installment = $('#paid_number_installment').val();
     var paids_amount = $('#paids_amount').val();
 
- //cal
+    //cal
 
     var amount = (loan_amount * interest_rate) / 100;
     var interest_amount = ((amount / number_of_installments) * paid_number_installment).toFixed(2);

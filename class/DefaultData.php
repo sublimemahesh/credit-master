@@ -89,6 +89,7 @@ class DefaultData {
         $document_fee = $this->getLoanDocumentFee();
         $stamp_fee = $this->getLoanStampFee($amount);
         $total = $stamp_fee + $document_fee;
+      
         $loan_free = array(
             "document_free" => number_format($document_fee, 2),
             "total" => number_format($total, 2),
