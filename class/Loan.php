@@ -354,10 +354,6 @@ class Loan {
             array_push($array_res, $row);
         }
         return $array_res;
-
-        $row = mysql_fetch_row($result);
-
-        return $row;
     }
 
     public function approveLoan() {

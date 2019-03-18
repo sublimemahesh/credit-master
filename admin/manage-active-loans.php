@@ -81,7 +81,6 @@ $today = date('Y-m-d');
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
-                                                
                                                 ?> 
                                                 <tr>
                                                     <td> 
@@ -149,7 +148,6 @@ $today = date('Y-m-d');
                                                     <td>
                                                         <b>Sys Due: </b>
                                                         <?php
-                                                    
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
                                                         echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
@@ -172,7 +170,6 @@ $today = date('Y-m-d');
 
                                                         <br> 
                                                         <?php
-                                                           
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
@@ -198,7 +195,22 @@ $today = date('Y-m-d');
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-                                                        <a href="view-installment-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                        <?php
+                                                        if ($loan['installment_type'] == 30) {
+                                                            ?>
+                                                            <a href="view-daily-loan-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                            <?php
+                                                        } elseif ($loan['installment_type'] == 4) {
+                                                            ?>
+                                                            <a href="#?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                            <?php
+                                                        } elseif ($loan['installment_type'] == 4) {
+                                                            ?>
+                                                            <a href="#?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                            <?php
+                                                        }
+                                                        ?>
+
                                                         <a href="view-customer-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-log-out btn  btn-default" title="Customer History"></button></a>
                                                     </td> 
                                                 </tr>
