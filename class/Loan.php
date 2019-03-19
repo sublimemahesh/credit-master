@@ -219,7 +219,8 @@ class Loan {
                 . "`od_date` ='" . $this->od_date . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-
+      
+        
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -303,7 +304,7 @@ class Loan {
 
     public function CheckCustomerLoan($customer) {
 
-        $query = "SELECT * FROM `loan` WHERE  customer='" . $customer . "'   AND  `status` = 'approve' OR ";
+        $query = "SELECT * FROM `loan` WHERE  customer='" . $customer . "'   AND  (`status` ='pending' OR `status` ='verified' OR `status` ='approve' ) ";
 
         $db = new Database();
 

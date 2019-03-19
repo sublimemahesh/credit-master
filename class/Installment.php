@@ -66,7 +66,7 @@ class Installment {
                 . $this->type . "', '"
                 . $this->receipt_no . "', '"
                 . $this->history . "')";
-
+      
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -342,7 +342,7 @@ class Installment {
     public function getAllPaymentsByPaidDate($date) {
 
 
-        $query = "SELECT *  FROM `installment` WHERE `paid_date` ='" . $date . "'";
+        $query = "SELECT *  FROM `installment` WHERE `paid_date` ='" . $date . "' AND `type`= 'installment'";
 
         $db = new Database();
         $result = $db->readQuery($query);
