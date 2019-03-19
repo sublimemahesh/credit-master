@@ -248,6 +248,44 @@ $(document).ready(function () {
         });
 
     });
+//pending loan
+    $('#pending').click(function () {
+
+        var loan_id = $('#loan_id').val();
+        var effective_date = $('#effective_date').val();
+        var comments = $('#comments').val();
+
+        swal({
+            title: "Back!",
+            text: "Do you really want to back this loan for pending?...",
+            type: "info",
+            showCancelButton: true,
+            confirmButtonColor: "#00b0e4",
+            confirmButtonText: "Yes, Back It!",
+            closeOnConfirm: false
+        }, function () {
+
+            $.ajax({
+                url: "post-and-get/ajax/loan.php",
+                type: "POST",
+                data: {
+                    loan_id: loan_id,
+                    effective_date: effective_date,
+                    verify_comments: comments,
+                    action: 'PENDING'
+                },
+                dataType: "JSON",
+                success: function (jsonStr) {
+                    if (jsonStr.status == 'pending') {
+                        window.location = 'manage-verified-loans.php';
+                    } else {
+                        alert('Error');
+                    }
+
+                }
+            });
+        });
+    });
 
 //reject loan
     $('#reject').click(function () {
@@ -362,44 +400,6 @@ $(document).ready(function () {
         });
     });
 
-//pending loan
-    $('#pending').click(function () {
-
-        var loan_id = $('#loan_id').val();
-        var effective_date = $('#effective_date').val();
-        var comments = $('#comments').val();
-
-        swal({
-            title: "Back!",
-            text: "Do you really want to back this loan for pending?...",
-            type: "info",
-            showCancelButton: true,
-            confirmButtonColor: "#00b0e4",
-            confirmButtonText: "Yes, Back It!",
-            closeOnConfirm: false
-        }, function () {
-
-            $.ajax({
-                url: "post-and-get/ajax/loan.php",
-                type: "POST",
-                data: {
-                    loan_id: loan_id,
-                    effective_date: effective_date,
-                    verify_comments: comments,
-                    action: 'PENDING'
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-                    if (jsonStr.status == 'pending') {
-                        window.location = 'manage-verified-loans.php';
-                    } else {
-                        alert('Error');
-                    }
-
-                }
-            });
-        });
-    });
 
 //issue loan
     $('#loan_issue').click(function () {
@@ -407,14 +407,14 @@ $(document).ready(function () {
         var loan_id = $('#loan_id').val();
         var issue_mode = $('#issue_mode').val();
         var effective_date = $('#effective_date').val();
-        var balance_pays = $('#balance_pay_amount').val();
-        
-        var balance_of_last_loan = $('#balance_of_last_loan_amount').val();
-        var balance_of_last_loans = $('#balance_of_last_loan_amount').val();
-         var balance_of_last_loan = balance_of_last_loans.replace(",", "");
-         
+        var balance_pays = $('#balance_pay').val();
+
+        var balance_of_last_loan = $('#balance_of_last_loan').val();
+        var balance_of_last_loans = $('#balance_of_last_loan').val();
+        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
+
         var customer_id = $('#customer_id').val();
-        var issue_note = $('#issue_note').val();       
+        var issue_note = $('#issue_note').val();
         var balance_pay = balance_pays.replace(",", "");
         var issued_date = $('#issued_date').val();
 
@@ -1009,8 +1009,8 @@ $('#customer').change(function () {
             if (jsonStr.status) {
                 $('option:selected', $('#customer')).remove();
                 swal({
-                    title: "The customer already create a loan ..!",
-                    text: "The customer loan has proccesign..",
+                    title: "This customer already create a loan ..!",
+                    text: "This customer Current loan has proccesign..",
                     type: "error",
                     showCancelButton: false,
                     confirmButtonColor: "#00b0e4",
@@ -1055,7 +1055,6 @@ $('#customer,#issue_mode').change(function () {
     var issue_mode = $(`#issue_mode`).val();
     var loan_amount = $(`#loan_amount`).val();
 
-
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",
@@ -1063,7 +1062,7 @@ $('#customer,#issue_mode').change(function () {
             customer_id: customer_id,
             issue_mode: issue_mode,
             loan_amount: loan_amount,
-            action: `LASTLOANAMOUNTBYCUSTOMER`
+            action: `LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN`
         },
         dataType: "JSON",
         success: function (jsonStr) {
@@ -1181,6 +1180,7 @@ window.onload = function () {
     var customer_id = $('#customer_id').val();
     var loan_amount = $('#loan_amount').val();
     var issue_mode = $('#issue_mode_onloard').val();
+    var loan_id = $('#loan_id').val();
 
     $.ajax({
         url: "post-and-get/ajax/loan.php",
@@ -1190,6 +1190,7 @@ window.onload = function () {
             issue_mode: issue_mode,
             customer_id: customer_id,
             loan_amount: loan_amount,
+            loan_id: loan_id,
             action: `LASTLOANAMOUNTBYCUSTOMER`
         },
         dataType: "JSON",

@@ -86,9 +86,10 @@ if (isset($_GET['date'])) {
                                         <tbody>
                                             <?php
                                             foreach ($postpone_dates as $key => $postpone_date) {
+                                                $key++;
                                                 ?>
                                                 <tr id="row_<?php echo $postpone_date['id']; ?>">
-                                                    <td>#<?php echo $postpone_date['id']; ?></td> 
+                                                    <td>#<?php echo$key; ?></td> 
                                                     <td><?php echo $postpone_date['date']; ?></td>
                                                     <td>
                                                         <?php

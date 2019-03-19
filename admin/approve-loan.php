@@ -482,7 +482,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                                     <label for="collector" class="hidden-lg hidden-md">Collector</label>
                                                     <div class="form-control"><?php
                                                         $USER = new User($LOAN->collector);
-                                                        echo $USER->name
+                                                        echo $USER->name;
                                                         ?></div>
                                                 </div>
                                             </div>
@@ -738,13 +738,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
 
                                                     echo '<tr>';
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date)) {
-                                                        echo '<td class="padd-td gray ">';
+                                                        echo '<td class="padd-td gray " style="background-color:red; color:black;" >';
                                                         echo $count;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td gray text-right">';
+                                                        echo '<td class="padd-td gray text-right" style="background-color:red; color:black;">';
                                                         echo $date;
                                                         echo '</td>';
-                                                        echo '<td class="padd-td   gray text-center" colspan=5>';
+                                                        echo '<td class="padd-td   gray text-center" colspan=5 style="background-color:red; color:black;">';
                                                         echo '-- Postponed --';
                                                         echo '</td>';
 

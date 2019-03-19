@@ -35,7 +35,7 @@ $EffectiveDate->create();
 /// Installment update 
 $INSTALLMENT = new Installment(NULL);
 $loan_details = $LOAN->getLoanDetailsByCustomer($_POST['customer_id']);
-
+ 
 date_default_timezone_set('Asia/Colombo');
 $create_at = date('Y-m-d');
 $change_time = date('h:i:s');
@@ -45,7 +45,8 @@ $INSTALLMENT->paid_date = $create_at;
 $INSTALLMENT->installment_date = $create_at;
 $INSTALLMENT->time = $change_time;
 $INSTALLMENT->paid_amount = $balance_of_last_loan;
-$INSTALLMENT->receipt_no = 'loanid00' . $loan_details[0];
+$INSTALLMENT->type = 'loanid00' . $loan_details[0];
+ 
 
 
 //completed before loan
