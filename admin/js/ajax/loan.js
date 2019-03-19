@@ -403,28 +403,28 @@ $(document).ready(function () {
 
 //issue loan
     $('#loan_issue').click(function () {
-      
+
         var loan_id = $('#loan_id').val();
-         
         var issue_mode = $('#issue_mode').val();
-       
         var effective_date = $('#effective_date').val();
-         
         var balance_pays = $('#balance_pay_amount').val();
-       
+        
         var balance_of_last_loan = $('#balance_of_last_loan_amount').val();
-         
         var balance_of_last_loans = $('#balance_of_last_loan_amount').val();
-       
+         var balance_of_last_loan = balance_of_last_loans.replace(",", "");
+         
         var customer_id = $('#customer_id').val();
-        var issue_note = $('#issue_note').val();
-
-        var balance_of_last_loan = balance_of_last_loans.replace(",", "");
+        var issue_note = $('#issue_note').val();       
         var balance_pay = balance_pays.replace(",", "");
-
         var issued_date = $('#issued_date').val();
 
-        if (issue_mode === 'cash') {
+        if (!$('#effective_date').val() || !$('#issued_date').val() || !$('#issue_note').val()) {
+            swal({
+                title: "Error!..",
+                text: "Effective Date, Issued Date, Issue Note is required",
+                type: "error",
+            });
+        } else if (issue_mode === 'cash') {
             window.location = 'release-cash-loan.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan + '&&customer_id=' + customer_id + '&&issue_note=' + issue_note;
         } else if (issue_mode === 'cheque') {
             window.location = 'release-cheque.php?id=' + loan_id + '&&balance_pay=' + balance_pay + '&&issued_date=' + issued_date + '&&effective_date=' + effective_date + '&&issue_mode=' + issue_mode + '&&balance_of_last_loan=' + balance_of_last_loan + '&&customer_id=' + customer_id + '&&issue_note=' + issue_note;
@@ -1203,7 +1203,7 @@ window.onload = function () {
                 $('#paid_loan_processing_fee').val(jsonStr.paid_loan_processing_fee);
                 $('#down_payment').val(jsonStr.down_payment);
                 $('#paid_loan_processing_fee').val(jsonStr.paid_loan_processing_fee);
-              
+
                 //show all
                 $('#down_payment_row').show();
                 $('#balance_of_last_loan_row').show();
