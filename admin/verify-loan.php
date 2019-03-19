@@ -37,7 +37,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <!-- Bootstrap Spinner Css -->
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
         <link rel="stylesheet" href="plugins/jquery-ui/jquery-ui.css">
-        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
+        
     </head>
 
     <body class="theme-red"  onLoad="focusOnMyInputBox()">

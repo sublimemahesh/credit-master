@@ -40,7 +40,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
 
 
-        <link href="css/table-style.css" rel="stylesheet" type="text/css"/>
+       
     </head>
 
     <body class="theme-red">
@@ -49,10 +49,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         ?> 
         <section class="content">
             <div class="container-fluid"> 
-                <?php
-                $vali = new Validator();
-                $vali->show_message();
-                ?>
+              
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header"> 
