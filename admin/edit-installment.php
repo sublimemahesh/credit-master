@@ -78,30 +78,14 @@ if (isset($_GET['date'])) {
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
                                     <label for="paid_date">Paid Date</label>
                                 </div>
-                                <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 p-bottom">
+                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_date" class="hidden-lg hidden-md">Paid Date</label>
-                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo $INSTALLMENT->paid_date ?>"placeholder="Enter Paid Date" class="form-control  " autocomplete="off" readonly="">
+                                            <input type="text" id="paid_date"  name="paid_date" value="<?php echo date($INSTALLMENT->paid_date) ?>"placeholder="Enter Paid Date" class="form-control  " autocomplete="off" readonly="">
                                         </div>
                                     </div>
-                                </div>
-                                <div class="col-lg-1 col-md-1 hidden-sm hidden-xs form-control-label">
-                                    <label for="time">Time</label>
-                                </div>
-                                <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="paid_date" class="hidden-lg hidden-md">Time</label>
-                                            <input type="text" id="time"  name="time" value="<?php
-                                            date_default_timezone_set("Asia/Calcutta");
-                                            $time = date('h:i:s');
-
-                                            echo $INSTALLMENT->time;
-                                            ?>  "placeholder="Enter Paid Date" class="form-control date-time-picker" autocomplete="off" readonly="">
-                                        </div>
-                                    </div>
-                                </div>
+                                </div> 
                             </div>
 
                             <div class="row">
