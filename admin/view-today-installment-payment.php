@@ -95,7 +95,7 @@ $next = $ND->format('Y-m-d');
                                                 <th>Loan Id</th>
                                                 <th>Customer Name</th>
                                                 <th>Registration Type</th>
-                                                <th>Time</th>
+                                                <th>Date / Time</th>
                                                 <th>Total Payment</th>
                                                 <th>Option</th>
                                             </tr>
@@ -149,7 +149,7 @@ $next = $ND->format('Y-m-d');
 
                                                     </td>
                                                     <td >
-                                                        <?php echo $installment['time'] ?>
+                                                        <?php echo $installment['paid_date'] ?>
                                                     </td>
 
                                                     <?php ?>
@@ -173,7 +173,7 @@ $next = $ND->format('Y-m-d');
                                                 <th>Loan Id</th>  
                                                 <th>Customer Name</th>  
                                                 <th>Registration Type</th> 
-                                                <th>Time</th> 
+                                                <th>Date / Time</th>
                                                 <th>Total Payment</th> 
                                                 <th>Option</th>
                                             </tr>

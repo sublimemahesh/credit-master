@@ -219,8 +219,8 @@ class Loan {
                 . "`od_date` ='" . $this->od_date . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
-      
-        
+
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -335,18 +335,18 @@ class Loan {
     public function getLoanDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "') AND  (`status` ='issued' OR `status` ='released') ";
-        
+
         $db = new Database();
         $result = $db->readQuery($query);
         $row = mysql_fetch_row($result);
 
         return $row;
     }
-    
+
     public function getDetailsByCustomer($customer) {
 
         $query = "SELECT `id`,`loan_amount`,`interest_rate` FROM loan WHERE (customer='" . $customer . "')   ";
-        
+
         $db = new Database();
         $result = $db->readQuery($query);
         $row = mysql_fetch_row($result);
@@ -374,7 +374,7 @@ class Loan {
                 . "`issued_date` ='" . $this->issued_date . "', "
                 . "`status` ='issued'"
                 . "WHERE `id` = '" . $this->id . "'";
-                
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -385,7 +385,6 @@ class Loan {
         }
     }
 
-
     public function getCustomersHistoryByloanId($id) {
 
         $LOAN = new Loan($id);
@@ -395,7 +394,7 @@ class Loan {
         $GUARANTOR_02 = new Customer($LOAN->guarantor_2);
         $GUARANTOR_03 = new Customer($LOAN->guarantor_3);
 
-        
+
         $CUSTOMER_BANK = new Bank($CUSTOMER->bank);
         $GUARANTOR_01_BANK = new Bank($GUARANTOR_01->bank);
         $GUARANTOR_02_BANK = new Bank($GUARANTOR_02->bank);
@@ -575,18 +574,26 @@ class Loan {
         return $html;
     }
 
-    public function getOdIntereset($due_amount, $od_interest_limit) {
+//    public function getOdIntereset($due_amount, $od_interest_limit) {
+//
+//        $due = explode("-", $due_amount);
+//        $DUE = (float) $due[1];
+//
+//        if ($DUE >= (float) $od_interest_limit) {            
+//            $interest_amount_per_month = ($DUE * 10) / 100;         
+//            $interest_amount = ($interest_amount_per_month / 30);
+// 
+//            return $interest_amount;
+//        }
+//    }
 
-        $due = explode("-", $due_amount);
-        $DUE = (float) $due[1];
-
-        if ($DUE >= (float) $od_interest_limit) {
-
-            $interest_amount_per_month = ($DUE * 10) / 100;
+    public function getOdIntereset($due_amount) {
+//        dd($due_amount);
+            $interest_amount_per_month = ($due_amount * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
 
             return $interest_amount;
-        }
+        
     }
 
     public function getSelectedDayLoanDetails($selectedDate) {
