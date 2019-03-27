@@ -161,7 +161,7 @@ class Installment {
 
     public function getInstallmentByLoanAndDate($loan, $date) {
 
-        $query = "SELECT * FROM `installment` WHERE `loan`= '" . $loan . "' AND date(`paid_date`)= '" . $date . "' LIMIT 1";
+        $query = "SELECT * FROM `installment` WHERE `loan`= '" . $loan . "' AND `paid_date`= '" . $date . "' LIMIT 1";
 
         $db = new Database();
 
@@ -202,7 +202,7 @@ class Installment {
 
     public function CheckInstallmetByPaidDate($date, $loan_id) {
 
-        $query = "SELECT * FROM `installment` WHERE date(`paid_date`)= '" . $date . "' AND    `loan`= '" . $loan_id . "' AND `type` = 'installment'";
+        $query = "SELECT * FROM `installment` WHERE `paid_date`= '" . $date . "' AND    `loan`= '" . $loan_id . "' AND `type` = 'installment'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -216,7 +216,7 @@ class Installment {
 
     public function CheckInstallmetDateByLoanId($date, $loan_id) {
 
-        $query = "SELECT * FROM `installment` WHERE date(`paid_date`)< '" . $date . "' AND `type` = 'installment' AND `loan`= '" . $loan_id . "'";
+        $query = "SELECT * FROM `installment` WHERE `paid_date`< '" . $date . "' AND `type` = 'installment' AND `loan`= '" . $loan_id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -231,7 +231,7 @@ class Installment {
     public function CheckInstallmetBeetwenTwoDateByLoanId($first_date, $second_date, $loan_id) {
 
 
-        $query = "SELECT * FROM `installment` WHERE  date(`paid_date`)  BETWEEN '" . $first_date . "' AND '" . $second_date . "'  AND `type` = 'installment' AND `loan` ='" . $loan_id . "'";
+        $query = "SELECT * FROM `installment` WHERE   `paid_date`   BETWEEN '" . $first_date . "' AND '" . $second_date . "'  AND `type` = 'installment' AND `loan` ='" . $loan_id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -245,7 +245,7 @@ class Installment {
 
     public function CheckInstallmetBeetwenTwoDateByLoan($first_date, $second_date, $loan_id) {
 
-        $query = "SELECT * FROM `installment` WHERE  date(`paid_date`)  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND date(`paid_date`)>= '" . $first_date . "' AND date(`paid_date`)< '" . $second_date . "' AND `type` = 'installment' ";
+        $query = "SELECT * FROM `installment` WHERE   `paid_date`  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND  `paid_date` >= '" . $first_date . "' AND  `paid_date` < '" . $second_date . "' AND `type` = 'installment' ";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -259,7 +259,7 @@ class Installment {
 
     public function CheckInstallmetBeetwenTwoDateByLoanIdAllAmount($first_date, $second_date, $loan_id, $today) {
 
-        $query = "SELECT  sum(`paid_amount`) FROM `installment` WHERE  date(`paid_date`)  BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "' AND date(`paid_date`)>= '" . $first_date . "' || date(`paid_date`)= '" . $today . "' AND `type` = 'installment'";
+        $query = "SELECT  sum(`paid_amount`) FROM `installment` WHERE   `paid_date` BETWEEN '" . $first_date . "' AND '" . $second_date . "' AND `loan` ='" . $loan_id . "' AND  `paid_date` )>= '" . $first_date . "' || `paid_date`= '" . $today . "' AND `type` = 'installment'";
 
         $db = new Database();
 
@@ -272,7 +272,7 @@ class Installment {
 
     public function getAllAmountByPaidDate($date) {
 
-        $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE date(`paid_date`) ='" . $date . "' AND `type` = 'installment'";
+        $query = "SELECT sum(`paid_amount`)  FROM `installment` WHERE `paid_date` ='" . $date . "' AND `type` = 'installment'";
 
         $db = new Database();
 
@@ -285,7 +285,7 @@ class Installment {
 
     public function getPaidAmountByBeforeDate($date, $loan_id) {
 
-        $query = "SELECT  * FROM `installment` WHERE date(`paid_date`) <'" . $date . "' AND `loan`='" . $loan_id . "' AND `type` = 'installment'";
+        $query = "SELECT  * FROM `installment` WHERE `paid_date` <'" . $date . "' AND `loan`='" . $loan_id . "' AND `type` = 'installment'";
 
 
         $db = new Database();
@@ -366,7 +366,7 @@ class Installment {
     public function getAllPaymentsByPaidDate($date) {
 
 
-        $query = "SELECT *  FROM `installment` WHERE  date(`paid_date`) ='" . $date . "' AND `type`= 'installment'";
+        $query = "SELECT *  FROM `installment` WHERE  `paid_date` ='" . $date . "' AND `type`= 'installment'";
 
         $db = new Database();
         $result = $db->readQuery($query);
@@ -407,7 +407,7 @@ class Installment {
 
     public function CheckPaidOdAmount($selectedDate, $od_date, $loan_id) {
 
-        $query = "SELECT * FROM `installment` WHERE  date(`paid_date`)  BETWEEN '" . $od_date . "' AND '" . $selectedDate . "' AND `loan` = '" . $loan_id . "'";
+        $query = "SELECT * FROM `installment` WHERE  `paid_date`  BETWEEN '" . $od_date . "' AND '" . $selectedDate . "' AND `loan` = '" . $loan_id . "'";
 
         $db = new Database();
         $result = $db->readQuery($query);
