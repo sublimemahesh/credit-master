@@ -218,7 +218,6 @@ class Installment {
 
         $query = "SELECT * FROM `installment` WHERE date(`paid_date`)< '" . $date . "' AND `type` = 'installment' AND `loan`= '" . $loan_id . "'";
 
-
         $db = new Database();
         $result = $db->readQuery($query);
         $array_res = array();
