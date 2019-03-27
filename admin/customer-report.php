@@ -65,6 +65,7 @@ $CUSTOMER = new Customer(NULL);
                                         <thead>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Customer Name</th>
                                                 <th>Personal Details</th>   
                                                 <th>Business Details</th>
                                                 <th>Bank Details</th> 
@@ -81,6 +82,11 @@ $CUSTOMER = new Customer(NULL);
                                                 ?>
                                                 <tr id="row_<?php echo $customer['id']; ?>">
                                                     <td><?php echo $customer['id'] ?></td> 
+                                                    <td> <?php
+                                                        $first_name = $DefaultData->getFirstLetterName(ucwords($customer['surname']));
+                                                        echo $first_name . ' ' . $customer['first_name'];
+                                                        ?> 
+                                                    </td> 
                                                     <td>
                                                         <?php
                                                         if ($customer['last_name'] == NULL) {
@@ -99,6 +105,8 @@ $CUSTOMER = new Customer(NULL);
                                                             echo 'Telephone Number is empty.';
                                                         } elseif ($customer['signature_image'] == NULL) {
                                                             echo 'Signature Image is empty.';
+                                                        } elseif ($customer['gn_division'] == NULL) {
+                                                            echo 'GN Division  is empty.';
                                                         } else {
                                                             echo 'Customer Details is Completed';
                                                         }
@@ -153,6 +161,7 @@ $CUSTOMER = new Customer(NULL);
                                         <tfoot>
                                             <tr>
                                                 <th>ID</th>
+                                                <th>Customer Name</th>
                                                 <th>Full Name</th>   
                                                 <th>Address</th>
                                                 <th>Mobile</th>                                                

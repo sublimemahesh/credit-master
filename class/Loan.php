@@ -574,21 +574,21 @@ class Loan {
         return $html;
     }
 
-//    public function getOdIntereset($due_amount, $od_interest_limit) {
-//
-//        $due = explode("-", $due_amount);
-//        $DUE = (float) $due[1];
-//
-//        if ($DUE >= (float) $od_interest_limit) {            
-//            $interest_amount_per_month = ($DUE * 10) / 100;         
-//            $interest_amount = ($interest_amount_per_month / 30);
-// 
-//            return $interest_amount;
-//        }
-//    }
+    public function getOdIntereset($due_amount, $od_interest_limit) {
 
-    public function getOdIntereset($due_amount) {
-//        dd($due_amount);
+        $due = explode("-", $due_amount);
+        $DUE = (float) $due[1];
+
+        if ($DUE >= (float) $od_interest_limit) {            
+            $interest_amount_per_month = ($DUE * 10) / 100;         
+            $interest_amount = ($interest_amount_per_month / 30);
+ 
+            return $interest_amount;
+        }
+    }
+
+    public function getOdInteresetByInstallment($due_amount) {
+ 
             $interest_amount_per_month = ($due_amount * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
 

@@ -235,6 +235,25 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
+                                  <div class="row">
+                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        <label for="">Interest Rate</label>
+                                    </div>
+                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                        <div class="form-group">
+                                            <div class="form-line">
+                                                <label for="" class="hidden-lg hidden-md">Interest Rate</label>
+                                                <div class="form-control">
+                                                    <input type="hidden" value="<?php echo $LOAN->interest_rate ?>" id="interest_rate"> 
+                                                    <?php
+                                                    echo $LOAN->interest_rate;
+                                                    ?>%
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issue_mode">Issue Mode</label>
@@ -659,24 +678,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="">Interest Rate</label>
-                                    </div>
-                                    <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
-                                        <div class="form-group">
-                                            <div class="form-line">
-                                                <label for="" class="hidden-lg hidden-md">Interest Rate</label>
-                                                <div class="form-control">
-                                                    <input type="hidden" value="<?php echo $LOAN->interest_rate ?>" id="interest_rate"> 
-                                                    <?php
-                                                    echo $LOAN->interest_rate;
-                                                    ?>%
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>  
+                                
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
