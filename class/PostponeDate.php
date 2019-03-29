@@ -83,6 +83,8 @@ class PostponeDate {
 
     public function getPostPoneDateByDate($date) {
 
+        $dt = strtotime($date);
+        $date = date('Y-m-d', $dt);
 
         $query = "SELECT * FROM `postpone_date` WHERE `date`='$date' ";
 
@@ -270,6 +272,7 @@ class PostponeDate {
     }
 
     public function CheckIsPostPoneByDateAndCustomer($date, $customer) {
+         
 
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);
@@ -287,11 +290,11 @@ class PostponeDate {
     }
 
     public function CheckIsPostPoneByDateAndRoute($date, $route) {
-
+ 
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '" . $route . "' AND `route` !=0";
+         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `route`= '" . $route . "' AND `route` !=0";
 
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
@@ -304,11 +307,11 @@ class PostponeDate {
     }
 
     public function CheckIsPostPoneByDateAndCenter($date, $center) {
-
+ 
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '" . $center . "' AND `center` !=0";
+         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '" . $center . "' AND `center` !=0";
 
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
@@ -321,11 +324,11 @@ class PostponeDate {
     }
 
     public function CheckIsPostPoneByDateAndAll($date) {
-
+ 
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);
 
-        $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `all`= '1'";
+         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `all`= '1'";
 
         $db = new Database();
         $result = mysql_fetch_array($db->readQuery($query));
@@ -336,6 +339,7 @@ class PostponeDate {
             return FALSE;
         }
     }
+ 
 
     public function CheckIsPostPoneByDateCenterAll($date) {
 
@@ -343,6 +347,7 @@ class PostponeDate {
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);
 
+  
         $query = "SELECT * FROM `postpone_date` WHERE `date`= '" . $date . "' AND `center`= '99999' AND `route` = '0'";
 
         $db = new Database();
@@ -356,6 +361,7 @@ class PostponeDate {
     }
 
     public function CheckIsPostPoneByDateRouteAll($date) {
+       
 
         $dt = strtotime($date);
         $date = date('Y-m-d', $dt);

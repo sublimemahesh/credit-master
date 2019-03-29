@@ -235,7 +235,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="row">
+                                <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="">Interest Rate</label>
                                     </div>
@@ -253,7 +253,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                         </div>
                                     </div>
                                 </div>
-                                
+
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         <label for="issue_mode">Issue Mode</label>
@@ -371,7 +371,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 <?php
                                 $loan = $LOAN->getDetailsByCustomer($LOAN->customer);
                                 $down_payment = $INSTALLMENT->getAmountByType($loan[0], 'down_payment');
-                                
+
                                 if ((int) $down_payment[0] != NULL) {
                                     ?>
                                     <div class="row" id="down_payment_row" >
@@ -678,7 +678,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                     </div>
                                 </div>
 
-                                
+
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -3664,88 +3664,88 @@ $GR3 = new Customer($LOAN->guarantor_3);
                         <div id="menu7" class="tab-pane fade">
                             <div class="body"> 
                                 <form class="" action="post-and-get/loan.php" method="post"  enctype="multipart/form-data">  
-
-
+ 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                             <label for="od_interest_limit">OD Interest Limit</label>
                                         </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" value="<?php echo $LOAN->od_interest_limit; ?>"  autocomplete="off" min="0" >
 
-                                                </div>
-                                            </div>
-                                        </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
                                                 <div class="form-line">                                            
-                                                    <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off" value="<?php echo $LOAN->od_date; ?>"  >
+                                                    <input type="text"  name="od_start_date"  id="od_start_date" placeholder="Enter OD Start Date" class="form-control od_start_date" autocomplete="off"  >
                                                 </div>
                                             </div>
                                         </div>
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
-                                                <div  style="margin-top: 15px;">
-                                                    <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1" <?php
-                                                    if ($LOAN->od_interest_limit !== 'NOT') {
-                                                        echo 'checked';
-                                                    }
-                                                    ?> id="rememberme"  />
-                                                    <label for="rememberme" id="lable-active">Activate</label>
+                                                <div class="form-line"> 
+                                                    <input type="text" name="od_end_date" id="od_end_date" placeholder="Enter OD End Date" class="form-control" autocomplete="off" >
                                                 </div>
                                             </div>
-                                        </div>
-                                    </div>
-
+                                        </div> 
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div> 
 
                                     <div class="row clearfix">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
-                                                <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-od"  >Save Details</button>
+                                                <button class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit" name="update-od" id="rememberme" >Save Details</button>
                                             </div> 
                                             <input type="hidden" name="id" value="<?php echo $loan_id ?>">
                                         </div> 
-                                    </div>
+                                    </div> 
                                 </form>  
                             </div>
+
                         </div>
-                        <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
-                        <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
-                        <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
-                        <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
-                        <input type="hidden" name="id" value="<?php echo $id ?>">
-                        <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                     </div>
+                    <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
+                    <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
+                    <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
+                    <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
+                    <input type="hidden" name="id" value="<?php echo $id ?>">
+                    <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
                 </div>
             </div>
         </div>
-    </section>
+    </div>
+</section>
 
-    <script src="plugins/jquery/jquery.min.js"></script>
-    <script src="plugins/bootstrap/js/bootstrap.js"></script> 
-    <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
-    <script src="plugins/node-waves/waves.js"></script>
-    <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/demo.js"></script> 
-    <script src="plugins/jquery-ui/jquery-ui.js"></script>
-    <script src="plugins/sweetalert/sweetalert.min.js"></script>
+<script src="plugins/jquery/jquery.min.js"></script>
+<script src="plugins/bootstrap/js/bootstrap.js"></script> 
+<script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
+<script src="plugins/node-waves/waves.js"></script>
+<script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
+<script src="js/admin.js"></script>
+<script src="js/demo.js"></script> 
+<script src="plugins/jquery-ui/jquery-ui.js"></script>
+<script src="plugins/sweetalert/sweetalert.min.js"></script>
 
-    <script src="js/ajax/loan.js"></script> 
-    <script src="js/image.js" type="text/javascript"></script>
-    <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
-    <script>
-        $(function () {
-            $(".datepicker").datepicker({dateFormat: 'yy-mm-dd'});
-            $(".od_date").datepicker({
-                dateFormat: 'yy-mm-dd',
-
-            });
+<script src="js/ajax/loan.js"></script> 
+<script src="js/image.js" type="text/javascript"></script>
+<script src="plugins/light-gallery/js/lightgallery-all.js"></script>
+<script>
+    $(function () {
+        $(".datepicker").datepicker({
+            dateFormat: 'yy-mm-dd'
         });
-    </script>
+        $("#od_start_date").datepicker({
+            dateFormat: 'yy-mm-dd'
+
+        });
+        $("#od_end_date").datepicker({
+            dateFormat: 'yy-mm-dd'
+        });
+    });
+</script>
 </body> 
 </html>

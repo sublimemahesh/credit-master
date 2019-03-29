@@ -281,33 +281,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-                            <div class="row">
-                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                    <label for="od_interest_limit">OD Interest Limit</label>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line"> 
-                                            <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">                                            
-                                            <input type="text"  name="od_date"  id="od_date" placeholder="Enter OD Interest Limit Date" class="form-control od_date" autocomplete="off"  >
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div  style="margin-top: 15px;">
-                                            <input class="filled-in chk-col-pink" type="checkbox" name="od_active" value="1"  id="rememberme"  />
-                                            <label for="rememberme" id="lable-active">Activate</label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                            
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -389,7 +363,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div  class="row" style="display: none" id="loan_processing_pre">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="issue_mode">Loan Processing Fee</label>
@@ -535,10 +509,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                     dateFormat: 'yy-mm-dd',
 
                 });
-                $(".od_date").datepicker({
-                    dateFormat: 'yy-mm-dd',
-
-                });
+               
             });
 
         </script>
