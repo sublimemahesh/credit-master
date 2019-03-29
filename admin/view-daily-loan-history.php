@@ -545,7 +545,7 @@ $today = date("Y-m-d H:i:s");
                                                         </td>
                                                         <td class="font-colors text-right f-style"></td>                                                      
                                                         <td class="font-colors text-right f-style">
-                                                            <?php echo number_format($Installment_payment['paid_amount'] + $Installment_payment['additional_interest'] , 2)?>
+                                                            <?php echo number_format($Installment_payment['paid_amount'] + $Installment_payment['additional_interest'], 2) ?>
                                                         </td>
                                                         <td class="font-colors text-right f-style">
                                                             <?php
@@ -554,63 +554,108 @@ $today = date("Y-m-d H:i:s");
                                                             array_push($payment_arr, $payment_balance);
 
                                                             //
-                                                            $balance = $balance + $Installment_payment['paid_amount'] + $Installment_payment['additional_interest'] ;
+                                                            $balance = $balance + $Installment_payment['paid_amount'] + $Installment_payment['additional_interest'];
                                                             echo number_format($balance + $paidadditional_interest, 2);
                                                             $row_count++
                                                             ?>
                                                         </td>
                                                     </tr>
                                                     <?php
-                                                 
-                                                    
                                                 }
 
-                                                if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT" || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
-                                                    
-                                                } else if (strtotime($LOAN->od_date) <= strtotime($date) && (-1 * ($LOAN->od_interest_limit)) > $balance) {
+                                                //Od new code segment
+                                                $OD = new OD(NULL);
+                                                $OD->loan = $LOAN->id;
+                                                $AllOd = $OD->allOdByLoan();
 
-                                                    if (strtotime(date("Y/m/d")) <= strtotime($date)) {
-                                                        break;
-                                                    }
+                                                if (strtotime(date("Y/m/d")) < strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                    
+                                                } else {
+                                                    if ($AllOd) {
+                                                        
+                                                        foreach ($AllOd as $key => $aa) {
+                                                            
+                                                            
+
+
+                                                            if (strtotime($aa['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($aa['od_date_end']) && (-1 * ($aa['od_interest_limit'])) > $balance) {
+
+
+                                                                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                                                                    break;
+                                                                }
 //od date time show
-                                                    $ODDATES = new DateTime($date);
-                                                    $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
+                                                                $ODDATES = new DateTime($date);
+                                                                $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
 
-                                                    $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+                                                                $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
 
-                                                    $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $LOAN->od_interest_limit);
+                                                                $od_interest = $LOAN->getOdIntereset1(-$ins_total + $paid_all_amount_before_ins_date, $aa['od_interest_limit']);
 
 
-                                                    $row_count++;
-                                                    ?>
-                                                    <tr style="background-color:#8acae4b3">  
-                                                        <td><?php echo $row_count; ?> </td>
-                                                        <td class="font-colors text-right f-style"> <?php echo $od_date_morning ?></td>
-                                                        <td class="font-colors text-right f-style">   </td>
-                                                        <td class="font-colors text-right f-style">
-                                                            OD Interest
-                                                        </td>
-                                                        <td class="font-colors text-right f-style">
-                                                            <?php
-                                                            $od_array[] = $od_interest;
-                                                            $od_amount = json_encode(array_sum($od_array), 2);
-                                                            array_push($last_od, $od_interest);
-                                                            echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
-                                                            ?>
-                                                        </td>
+                                                                $row_count++;
+                                                                ?>
 
-                                                        <td class="font-colors text-right f-style"> </td>
-                                                        <td class="font-colors text-right f-style">
-                                                            <?php
-                                                            array_push($od_total, $od_amount);
-                                                            echo '<p class="f-style font-color-2">' . number_format($balance + $paidadditional_interest - $od_interest, 2) . '</p>';
-                                                            ?>
-                                                        </td>
-                                                    </tr> 
-                                                    <?php
+
+                                                                <tr style="background-color:#8acae4b3">  
+                                                                    <td><?php echo $row_count; ?> </td>
+                                                                    <td class="font-colors text-right f-style"> <?php echo $od_date_morning ?></td>
+                                                                    <td class="font-colors text-right f-style">   </td>
+                                                                    <td class="font-colors text-right f-style">
+                                                                        OD Interest (<?php echo $aa['od_interest_limit'];?>)
+                                                                    </td>
+                                                                    <td class="font-colors text-right f-style">
+                                                                        <?php
+                                                                        $od_array[] = $od_interest;
+                                                                        $od_amount = json_encode(array_sum($od_array), 2);
+                                                                        array_push($last_od, $od_interest);
+                                                                        echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
+                                                                        ?>
+                                                                    </td>
+
+                                                                    <td class="font-colors text-right f-style"> </td>
+                                                                    <td class="font-colors text-right f-style">
+                                                                        <?php
+                                                                        array_push($od_total, $od_amount);
+                                                                        echo '<p class="f-style font-color-2">' . number_format($balance + $paidadditional_interest - $od_interest, 2) . '</p>';
+                                                                        ?>
+                                                                    </td>
+                                                                </tr> 
+
+
+                                                                <?php
+                                                            }
+                                                        }
+                                                    }
                                                 }
+
+
                                                 $start->modify($add_dates);
                                                 $x++;
+
+
+
+                                                //Od new code segment end
+//                                                if (strtotime(date("Y/m/d")) < strtotime($date) || $LOAN->od_interest_limit == "NOT" || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+//                                                    
+//                                                } else if (strtotime($LOAN->od_date) <= strtotime($date) && (-1 * ($LOAN->od_interest_limit)) > $balance) {
+//
+//                                                    if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+//                                                        break;
+//                                                    }
+////od date time show
+//                                                    $ODDATES = new DateTime($date);
+//                                                    $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
+//
+//                                                    $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+//
+//                                                    $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $LOAN->od_interest_limit);
+//
+//
+//                                                    $row_count++;
+//                                                }
+//                                                $start->modify($add_dates);
+//                                                $x++;
                                             }
 
                                             if ($LOAN->status == "completed") {

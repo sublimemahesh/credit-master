@@ -579,21 +579,32 @@ class Loan {
         $due = explode("-", $due_amount);
         $DUE = (float) $due[1];
 
-        if ($DUE >= (float) $od_interest_limit) {            
-            $interest_amount_per_month = ($DUE * 10) / 100;         
+        if ($DUE >= (float) $od_interest_limit) {
+            $interest_amount_per_month = ($DUE * 10) / 100;
             $interest_amount = ($interest_amount_per_month / 30);
- 
+
             return $interest_amount;
         }
     }
 
-    public function getOdInteresetByInstallment($due_amount) {
- 
-            $interest_amount_per_month = ($due_amount * 10) / 100;
-            $interest_amount = ($interest_amount_per_month / 30);
+    public function getOdIntereset1($due_amount, $od_interest_limit) {
 
-            return $interest_amount;
-        
+        $due = explode("-", $due_amount);
+        $DUE = (float) $due[1];
+
+
+        $interest_amount_per_month = ($DUE * 10) / 100;
+        $interest_amount = ($interest_amount_per_month / 30);
+
+        return $interest_amount;
+    }
+
+    public function getOdInteresetByInstallment($due_amount) {
+
+        $interest_amount_per_month = ($due_amount * 10) / 100;
+        $interest_amount = ($interest_amount_per_month / 30);
+
+        return $interest_amount;
     }
 
     public function getSelectedDayLoanDetails($selectedDate) {
