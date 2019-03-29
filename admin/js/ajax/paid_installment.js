@@ -8,7 +8,7 @@ $(document).ready(function () {
         var amount = $("#paid_amount").val();
         var od_limite = $("#od_limite").val();
 
-
+       
         if (!amount) {
             swal({
                 title: "Error!",
@@ -110,7 +110,7 @@ $(document).ready(function () {
                 action: 'CHECKOD'
             },
             dataType: "JSON",
-            success: function (jsonStr) {                
+            success: function (jsonStr) {
                 $('#od_limite').val(jsonStr.od_amount);
                 $('#due_and_excess').val(jsonStr.due_and_excess);
                 $('#paid_amount').val(jsonStr.all_amount);
