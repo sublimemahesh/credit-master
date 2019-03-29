@@ -364,7 +364,7 @@ $today = date("Y-m-d H:i:s");
 
                                             //dsw
                                             $od_balance_amount = array();
-                                        
+                                           
 
                                             while ($x < $defultdata) {
                                                 if ($defultdata == 4) {
@@ -503,9 +503,7 @@ $today = date("Y-m-d H:i:s");
                                                         $before_balance_amount = $paid_all_amount_before_ins_date - $ins_total;
                                                         $last_od_amount = (float) end($last_od);
                                                         $od_total_amount = (float) end($od_total);
-//                                                        $last_paid_od_amount = (float) end($last_paid_od);
-                                                        $lastPaidOd = 0;
-
+                                                       
 
                                                         //dsw
                                                         $last_pay_total = (float) end($payment_arr);
@@ -553,7 +551,7 @@ $today = date("Y-m-d H:i:s");
                                                     $before_balance_amount = $paid_all_amount_before_ins_date - $ins_total;
                                                     $last_od_amount = (float) end($last_od);
                                                     $od_total_amount = (float) end($od_total);
-//                                                    $last_paid_od_amount = (float) end($last_paid_od);
+                                                 
 
 
                                                     //dsw
@@ -584,8 +582,8 @@ $today = date("Y-m-d H:i:s");
                                                 if (strtotime(date("Y/m/d")) < strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                     
                                                 } else if ($AllOd) {
-                                                    foreach ($AllOd as $key => $aa) {
-                                                        if (strtotime($aa['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($aa['od_date_end']) && (-1 * ($aa['od_interest_limit'])) > $balance) {
+                                                    foreach ($AllOd as $key => $od) {
+                                                        if (strtotime($od['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($od['od_date_end']) && (-1 * ($od['od_interest_limit'])) > $balance) {
 
                                                             $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $LOAN->od_interest_limit);
 
@@ -643,7 +641,7 @@ $today = date("Y-m-d H:i:s");
                                                                         </td>
                                                                         <td class="font-colors text-right f-style"></td>                                                      
                                                                         <td class="font-colors text-right f-style">
-                                                                            <?php echo number_format($Installment_payment['paid_amount'], 2); ?>
+                                                                            <?php echo number_format($Installment_payment['paid_amount'] + $Installment_payment['additional_interest'], 2); ?>
                                                                         </td>
                                                                         <td class="font-colors text-right f-style">
                                                                             <?php
@@ -653,7 +651,7 @@ $today = date("Y-m-d H:i:s");
 
                                                                             //
                                                                             $balance = $balance + $Installment_payment['paid_amount'];
-                                                                            echo number_format($balance + $paidadditional_interest - ($od_amount - $od_total_amount), 2);
+                                                                            echo number_format($balance + $Installment_payment['additional_interest'] + $paidadditional_interest - ($od_amount - $od_total_amount), 2);
 
                                                                             $row_count++
                                                                             ?>
@@ -662,36 +660,10 @@ $today = date("Y-m-d H:i:s");
 
                                                                     <?php
                                                                     if ($Installment_payment['additional_interest'] != 0) {
-                                                                        ?>
-                                                                        <tr style="background-color: lightcyan;"> 
-                                                                            <td>
-                                                                                <?php echo $row_count; ?>
-                                                                            </td>                                                       
-                                                                            <td class="font-colors text-right f-style">
-                                                                                <?php echo $Installment_payment['paid_date']; ?>
-                                                                            </td>
-                                                                            <td class="font-colors text-right f-style">
 
-                                                                            </td>
-                                                                            <td class="font-colors text-right f-style">
-                                                                                Paid OD
-                                                                            </td>
-                                                                            <td class="font-colors text-right f-style"></td>                                                      
-                                                                            <td class="font-colors text-right f-style">
-                                                                                <?php echo number_format($Installment_payment['additional_interest'], 2); ?>
-                                                                            </td>
-                                                                            <td class="font-colors text-right f-style">
-                                                                                <?php
-                                                                                $lastPaidOd = $Installment_payment['additional_interest'];
-                                                                            
-                                                                                $paidadditional_interest = $paidadditional_interest + $Installment_payment['additional_interest'];
+                                                                  
+                                                                        $paidadditional_interest = $paidadditional_interest + $Installment_payment['additional_interest'];
 //                                                             
-//                                                                      $balance = $balance + $Installment_payment['additional_interest'] ;
-                                                                                echo number_format($balance + $Installment_payment['additional_interest'] - ($od_amount - $od_total_amount), 2);
-                                                                                ?>   
-                                                                            </td>
-                                                                        </tr>
-                                                                        <?php
                                                                     }
                                                                 }
                                                                 ?>
@@ -805,8 +777,8 @@ $today = date("Y-m-d H:i:s");
                                                                 </td>
                                                                 <td class="font-colors text-right f-style">
                                                                     <?php
-                                                                    $lastPaidOd = $Installment_payment['additional_interest'];
-                                                                
+                                                              
+                                                                  
                                                                     $paidadditional_interest = $paidadditional_interest + $Installment_payment['additional_interest'];
 //                                                             
 //                                                               $balance = $balance + $Installment_payment['additional_interest'] ;

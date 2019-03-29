@@ -573,12 +573,12 @@ $today = date("Y-m-d H:i:s");
                                                 } else {
                                                     if ($AllOd) {
                                                         
-                                                        foreach ($AllOd as $key => $aa) {
+                                                        foreach ($AllOd as $key => $od) {
                                                             
                                                             
 
 
-                                                            if (strtotime($aa['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($aa['od_date_end']) && (-1 * ($aa['od_interest_limit'])) > $balance) {
+                                                            if (strtotime($od['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($od['od_date_end']) && (-1 * ($od['od_interest_limit'])) > $balance) {
 
 
                                                                 if (strtotime(date("Y/m/d")) <= strtotime($date)) {
@@ -590,7 +590,7 @@ $today = date("Y-m-d H:i:s");
 
                                                                 $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
 
-                                                                $od_interest = $LOAN->getOdIntereset1(-$ins_total + $paid_all_amount_before_ins_date, $aa['od_interest_limit']);
+                                                                $od_interest = $LOAN->getOdIntereset1(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
 
                                                                 $row_count++;
@@ -602,7 +602,7 @@ $today = date("Y-m-d H:i:s");
                                                                     <td class="font-colors text-right f-style"> <?php echo $od_date_morning ?></td>
                                                                     <td class="font-colors text-right f-style">   </td>
                                                                     <td class="font-colors text-right f-style">
-                                                                        OD Interest (<?php echo $aa['od_interest_limit'];?>)
+                                                                        OD Interest (<?php echo $od['od_interest_limit'];?>)
                                                                     </td>
                                                                     <td class="font-colors text-right f-style">
                                                                         <?php
