@@ -7,6 +7,7 @@ include_once(dirname(__FILE__) . '/auth.php');
 $USERS = new User($_SESSION['id']);
 $DEFAULTDATA = new DefaultData(NULL);
 $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
+
 $INSTALLMENT = new Installment(NULL);
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
@@ -119,7 +120,7 @@ $today = date("Y-m-d");
                                                     <th class="text-center">Ins: Amount</th>  
                                                     <th class="text-center">Ins: Total</th>  
                                                     <th class="text-center">Od Interest</th> 
-                                                   
+
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -149,6 +150,7 @@ $today = date("Y-m-d");
                                                 $x = 0;
                                                 $count = 0;
                                                 $ins_total = 0;
+                                                $ins_for_od = 0;
                                                 $total_paid = 0;
                                                 $od_array = array();
                                                 $od_amount_all_array = array();
@@ -195,6 +197,7 @@ $today = date("Y-m-d");
                                                     $route = $CUSTOMER->route;
                                                     $center = $CUSTOMER->center;
                                                     $amount = $LOAN->installment_amount;
+
                                                     $od_amount = $LOAN->od_interest_limit;
 
                                                     $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
@@ -230,12 +233,13 @@ $today = date("Y-m-d");
                                                         echo '</td>';
                                                         echo '<td class="padd-td gray text-center" >';
                                                         echo '</td>';
-                                                         
+
                                                         $x--;
                                                     } else {
 
 
                                                         $last_od_amount = (float) end($od_amount_all_array);
+
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
                                                         $due_and_excess = $ins_total - $total_paid;
@@ -288,20 +292,23 @@ $today = date("Y-m-d");
                                                         if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                                                             
                                                         } else {
+
                                                             if ($AllOd) {
                                                                 foreach ($AllOd as $key => $allod) {
+
                                                                     if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance) {
 
+                                                                        if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                                                                            break;
+                                                                        }
 
                                                                         $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $allod['od_interest_limit']);
-
                                                                         $od_array[] = $od_interest;
                                                                         $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
                                                                         if ($od_amount_all > 0) {
-                                                                            array_push($od_amount_all_array, $od_amount_all);
-
                                                                             echo number_format($od_amount_all, 2);
+                                                                            array_push($od_amount_all_array, $od_amount_all);
                                                                         }
                                                                     }
                                                                 }
@@ -309,7 +316,7 @@ $today = date("Y-m-d");
                                                         }
 
 
-                                                        echo '</td>'; 
+                                                        echo '</td>';
                                                     }
                                                     echo '</tr>';
                                                     $start->modify($add_dates);
@@ -327,7 +334,7 @@ $today = date("Y-m-d");
                                                     <th class="text-center">Ins: Amount</th>  
                                                     <th class="text-center">Ins: Total</th>  
                                                     <th class="text-center">Od Interest</th> 
-                                                    
+
                                                 </tr>  
                                             </tfoot>
                                         </table>  

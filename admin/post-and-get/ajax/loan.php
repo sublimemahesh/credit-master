@@ -193,9 +193,9 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
-        $data = array("status" => FALSE);
-        header('Content-type: application/json');
-        exit();
+            $data = array("status" => FALSE);
+            header('Content-type: application/json');
+            exit();
     }
 }
 
@@ -280,7 +280,7 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
         $result = $DEFULTDATA->loanProcessingPreCash($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
-
+        dd($loan[1]);
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer
@@ -440,7 +440,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
     $balance_in_last_loan = 0;
     $down_payment = 0;
     $paid_loan_processing_fee = 0;
-
+    dd($loan[1]);
     if ($_POST['issue_mode'] == 'cash') {
 
 
@@ -486,10 +486,8 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
         }
     } else if ($_POST['issue_mode'] == 'bank') {
 
-
         $result = $DEFULTDATA->loanProcessingPreBank($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
-
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer

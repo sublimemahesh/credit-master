@@ -1,3 +1,4 @@
+
 $(document).ready(function () {
 //registration_type user 
     $('#registration_type').change(function () {
@@ -399,7 +400,6 @@ $(document).ready(function () {
             });
         });
     });
-
 
 //issue loan
     $('#loan_issue').click(function () {
@@ -1186,7 +1186,6 @@ window.onload = function () {
         url: "post-and-get/ajax/loan.php",
         type: "POST",
         data: {
-
             issue_mode: issue_mode,
             customer_id: customer_id,
             loan_amount: loan_amount,

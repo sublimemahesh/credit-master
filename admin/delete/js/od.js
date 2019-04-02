@@ -1,6 +1,6 @@
 $(document).ready(function () {
    
-  $('.dataTable').on('click', '.delete-account', function () {
+  $('.dataTable').on('click', '.delete-od', function () {
         var id = $(this).attr("data-id");
 
         swal({
@@ -14,7 +14,7 @@ $(document).ready(function () {
         }, function () {
 
             $.ajax({
-                url: "delete/ajax/account.php",
+                url: "delete/ajax/od.php",
                 type: "POST",
                 data: {id: id, option: 'delete'},
                 dataType: "JSON",
@@ -23,7 +23,7 @@ $(document).ready(function () {
 
                         swal({
                             title: "Deleted!",
-                            text: "Account has been deleted.",
+                            text: "Od has been deleted.",
                             type: 'success',
                             timer: 2000,
                             showConfirmButton: false
