@@ -14,6 +14,8 @@ $CUSTOMER = new Customer($LOAN->customer);
 $GR1 = new Customer($LOAN->guarantor_1);
 $GR2 = new Customer($LOAN->guarantor_2);
 $GR3 = new Customer($LOAN->guarantor_3);
+
+$today = date("Y-m-d"); 
 ?>
 
 <!DOCTYPE html>
@@ -40,7 +42,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         <link href="plugins/jquery-spinner/css/bootstrap-spinner.css" rel="stylesheet">
 
 
-       
+
     </head>
 
     <body class="theme-red">
@@ -49,7 +51,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
         ?> 
         <section class="content">
             <div class="container-fluid"> 
-              
+
                 <!-- Vertical Layout -->
                 <div class="card">
                     <div class="header"> 
@@ -72,6 +74,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                     </div> 
                     <div class="header" style="padding: 0px !important;"> 
                         <div id="blanace__amount"> </div>
+                        <div id="od_limit"> </div>    
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
@@ -87,6 +90,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
                             <?php } ?>
                             <li><a data-toggle="tab" href="#menu5"><h5>Loan Document</h5></a></li>
                             <li><a data-toggle="tab" href="#menu6"><h5>User History</h5></a></li>
+                            <li><a data-toggle="tab" href="#menu7"><h5>Od Limit</h5></a></li>   
                         </ul> 
                     </div> 
                     <div class="tab-content">  
@@ -3374,6 +3378,171 @@ $GR3 = new Customer($LOAN->guarantor_3);
                                 </div>                                  
                             </div>
                         </div>
+                        <div id="menu7" class="tab-pane fade">
+                            <div class="body"> 
+                                <div> 
+                                    <h5> ID: <?php
+                                        if ($LOAN->installment_type == 30) {
+                                            echo 'BLD' . $loan_id;
+                                        } elseif ($LOAN->installment_type == 4) {
+                                            echo 'BLW' . $loan_id;
+                                        } else {
+                                            echo 'BLM' . $loan_id;
+                                        }
+                                        ?></h5>
+                                    <h5>
+                                        Customer Name : 
+                                        <?php
+                                        $customer = new Customer($LOAN->customer);
+                                        echo $customer->title . ' ' . $customer->first_name . ' ' . $customer->last_name;
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Installment Type : 
+                                        <?php
+                                        $IT = DefaultData::getInstallmentType();
+                                        echo $IT[$LOAN->installment_type];
+                                        ?> 
+                                    </h5>
+
+                                    <h5>Loan Period : 
+                                        <?php
+                                        $LP = DefaultData::getLoanPeriod();
+                                        echo $LP[$LOAN->loan_period];
+                                        ?> 
+                                    </h5>
+                                    <h5>Loan Amount : 
+                                        <?php
+                                        echo number_format($LOAN->loan_amount, 2)
+                                        ?> 
+                                    </h5>
+                                    <h5>Installment Amount :
+                                        <?php
+                                        echo Number_format($LOAN->installment_amount, 2)
+                                        ?> 
+                                    </h5>
+                                    <h5>Effective date :
+                                        <?php
+                                        echo $LOAN->effective_date
+                                        ?> 
+                                    </h5>
+                                </div> 
+                                <br>
+
+                                <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data">  
+
+                                    <div class="row">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                            <label for="od_interest_limit">OD Interest Limit</label>
+                                        </div>
+
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line">                                            
+                                                    <input type="text"  name="od_date_start"  id="od_date_start" placeholder="Enter OD Start Date" class="form-control od_date_start" autocomplete="off"  >
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <input type="text" name="od_date_end" id="od_date_end" placeholder="Enter OD End Date" class="form-control" autocomplete="off" >
+                                                </div>
+                                            </div>
+                                        </div> 
+                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <div class="form-line"> 
+                                                    <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
+                                                </div>
+                                            </div>
+                                        </div> 
+                                    </div> 
+
+                                    <div class="row clearfix">
+                                        <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                        </div>
+                                        <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                            <div class="form-group">
+                                                <input class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit"  id="create-od" value="Save Details ">
+                                            </div> 
+                                            <input type="hidden" name="id" id="id" value="<?php echo $loan_id ?>">
+                                        </div> 
+                                    </div> 
+                                </form>  
+                            </div>
+                            <div class="body"> 
+                                <div> 
+                                    <h2 class="text-center">  Manage Od Dates </h2>
+
+                                </div> 
+                                <div class="table-responsive">
+                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
+                                        <thead>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Od Start Date</th>  
+                                                <th>Od End Date</th>                                                 
+                                                <th>Od Limit</th> 
+                                                <th>Options</th> 
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <?php
+                                            $OD = new Od(NULL);
+                                            foreach ($OD->getOdByLoanId($loan_id) as $key => $od) {
+                                                $key++;
+                                                ?>
+                                                <tr id="row_<?php echo $od['id']; ?>">
+                                                    <td>#<?php echo $key ?></td> 
+                                                    <td><?php echo $od['od_date_start']; ?></td> 
+                                                    <td>
+                                                        <?php
+                                                        $END = new DateTime($od['od_date_start']);
+                                                        $END->modify('+2 years');
+                                                        $end = $END->format('Y-m-d');
+                                                        if ($end == $od['od_date_end']) {
+                                                            echo 'Unlimited';
+                                                        } else {
+                                                            echo $od['od_date_end'];
+                                                        }
+                                                        ?>
+                                                    </td> 
+                                                    <td><?php echo number_format($od['od_interest_limit'], 2); ?></td> 
+                                                    <?php if ($today > $od['od_date_end']) { ?>
+                                                        <td>
+                                                            <a href="edit-od.php?id=<?php echo $od['id']; ?>&loan=<?php echo $loan_id ?>"> <button class="glyphicon glyphicon-pencil edit-btn " title="Edit" disabled=""></button></a> | 
+                                                            <a href="#"  class="delete-od" data-id="<?php echo $od['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete" disabled="" ></button></a>
+
+                                                        </td> 
+                                                    <?php } else { ?>
+                                                        <td>
+                                                            <a href="edit-od.php?id=<?php echo $od['id']; ?>&loan=<?php echo $loan_id ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit" ></button></a> | 
+                                                            <a href="#"  class="delete-od" data-id="<?php echo $od['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
+
+                                                        </td> 
+                                                    <?php } ?>
+                                                </tr>
+                                                <?php
+                                            }
+                                            ?>   
+                                        </tbody>
+                                        <tfoot>
+                                            <tr>
+                                            <tr>
+                                                <th>ID</th>
+                                                <th>Od Start Date</th>  
+                                                <th>Od End Date</th>                                                 
+                                                <th>Od Limit</th> 
+                                                <th>Options</th> 
+                                            </tr>
+                                            </tr>
+                                        </tfoot>
+                                    </table>
+                                </div>
+                            </div>
+
+                        </div>
                     </div>
                     <div class="body" style="margin: -10px 0px 0px 0px; padding: 0px 0px 50px 23px;">
                         <div class="row">
@@ -3415,7 +3584,7 @@ $GR3 = new Customer($LOAN->guarantor_3);
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="js/ajax/loan.js" type="text/javascript"></script>
-
+    <script src="js/ajax/od-limite.js" type="text/javascript"></script>
 
 
     <script>
@@ -3424,6 +3593,13 @@ $GR3 = new Customer($LOAN->guarantor_3);
                 dateFormat: 'yy-mm-dd',
 //                minDate: '-3D',
 //                maxDate: '+3D',
+            });
+            $("#od_date_start").datepicker({
+                dateFormat: 'yy-mm-dd'
+
+            });
+            $("#od_date_end").datepicker({
+                dateFormat: 'yy-mm-dd'
             });
         });
     </script> 

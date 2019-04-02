@@ -47,7 +47,7 @@ class Od {
                 . $this->od_date_end . "', '"
                 . $this->od_interest_limit . "')";
 
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -77,6 +77,21 @@ class Od {
         return $array_res;
     }
 
+    public function getOdByLoanId($loan_id) {
+
+        $query = 'SELECT * FROM `od_history` WHERE `loan`="' . $loan_id . '"';
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+        $array_res = array();
+
+        while ($row = mysql_fetch_array($result)) {
+            array_push($array_res, $row);
+        }
+        return $array_res;
+    }
+
     public function update() {
 
         $query = "UPDATE  `od_history` SET "
@@ -85,7 +100,7 @@ class Od {
                 . "`od_date_end` ='" . $this->od_date_end . "', "
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-
+       
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -118,6 +133,36 @@ class Od {
             array_push($array_res, $row);
         }
         return $array_res;
+    }
+
+    public function checkOdDates($loan_id, $start_date, $end_date) {
+
+        $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "' AND `od_date_start` < '" . $start_date . "'  AND `od_date_end` > '" . $end_date . "'";
+        
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
+    }
+
+    public function checkOdByLoan($loan_id) {
+
+        $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "'";
+
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if (mysql_num_rows($result) > 0) {
+            return TRUE;
+        } else {
+            return FALSE;
+        }
     }
 
 }

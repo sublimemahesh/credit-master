@@ -574,9 +574,7 @@ $today = date("Y-m-d H:i:s");
                                                     if ($AllOd) {
                                                         
                                                         foreach ($AllOd as $key => $od) {
-                                                            
-                                                            
-
+                                                             
 
                                                             if (strtotime($od['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($od['od_date_end']) && (-1 * ($od['od_interest_limit'])) > $balance) {
 
