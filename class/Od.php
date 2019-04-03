@@ -135,10 +135,13 @@ class Od {
         return $array_res;
     }
 
+    
+
+
     public function checkOdDates($loan_id, $start_date, $end_date) {
 
         $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "' AND `od_date_start` < '" . $start_date . "'  AND `od_date_end` > '" . $end_date . "'";
-        
+
         $db = new Database();
 
         $result = $db->readQuery($query);
@@ -160,6 +163,25 @@ class Od {
 
         if (mysql_num_rows($result) > 0) {
             return TRUE;
+
+  
+        } else {
+            return FALSE;
+        }
+    }
+
+    
+    public function allOdByLoanAndDate($date, $balance) {
+
+        $query = "SELECT * FROM `od_history` WHERE loan ='" . $this->loan . "'  "
+                . "AND '" . $date . "'  BETWEEN od_date_start AND od_date_end AND (-1 * (od_interest_limit)) > '" . $balance . "' ";
+        $db = new Database();
+
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            $row = mysql_fetch_assoc($result);
+            return $row;
         } else {
             return FALSE;
         }
