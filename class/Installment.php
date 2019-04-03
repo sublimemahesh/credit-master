@@ -96,7 +96,7 @@ class Installment {
 
     public function getInstallmentByLoan($loan) {
 
-        $query = "SELECT * FROM `installment` WHERE `loan`= $loan  AND `type` = 'installment'";
+        $query = "SELECT * FROM `installment` WHERE `loan`= $loan  AND `type` = 'installment' ";
 
         $db = new Database();
         $result = $db->readQuery($query);

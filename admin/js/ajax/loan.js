@@ -316,11 +316,9 @@ $(document).ready(function () {
                     } else {
                         alert('Error');
                     }
-
                 }
             });
         });
-
     });
 
 //delete loan
@@ -351,11 +349,9 @@ $(document).ready(function () {
                     } else {
                         alert('Error');
                     }
-
                 }
             });
         });
-
     });
 
 //approve loan
@@ -395,7 +391,6 @@ $(document).ready(function () {
                     } else {
                         alert('Error');
                     }
-
                 }
             });
         });
@@ -1096,10 +1091,12 @@ $('#customer,#issue_mode').change(function () {
 
 ///-----------Windows Onloard----------// 
 window.onload = function () {
-
+     
     //get other page to issumode prices in onloard
     var issue_mode = $('#issue_mode_onloard').val();
     var loan_amount = $('#loan_amount').val();
+
+
 
     if (issue_mode == 'bank') {
 
@@ -1246,4 +1243,23 @@ window.onload = function () {
     //cal Total value in month
     var totalValue = parseFloat(numVal) + parseFloat((month * (numVal * numVa2)));
     $('#total').val(totalValue);
+
+// check od has customer
+
+    var loan_id = $('#loan_id').val();
+    $.ajax({
+        url: "post-and-get/ajax/active-od-limite.php",
+        type: 'POST',
+        data: {
+            id: loan_id,
+            action: 'CHECKOD'
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
+            } else {
+                $('#od_limit').append("<div class='alert alert-danger'> <strong>This Customer has not active od amount, Please check it now..!</strong></div>");
+            }
+        }
+    });
 };

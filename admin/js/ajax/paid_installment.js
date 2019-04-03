@@ -1,14 +1,16 @@
 
 $(document).ready(function () {
 
+//installment payment
     $('#paid_installment').click(function (event) {
         event.preventDefault();
 
+        //get variable to values        
         var actual_due = $("#actual-due").val();
         var amount = $("#paid_amount").val();
         var od_limite = $("#od_limite").val();
 
-       
+        //Check amount is empty
         if (!amount) {
             swal({
                 title: "Error!",
@@ -33,7 +35,7 @@ $(document).ready(function () {
             swal({
                 html: true,
                 title: "Completed !",
-                text: "This loan has been Completed , With excess amount" + ' <b> Excess ' + $excess + ' </b>',
+                text: "This loan has been Completed , With excess amount" + ' <b style="color:red"> Excess ' + $excess + ' </b>',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ef2e18",
@@ -88,19 +90,17 @@ $(document).ready(function () {
                             window.location = 'manage-active-loans.php';
                         }
                     }
-
                 });
             });
         }
         return false;
     });
 
+//get od amount, Due amount, all amount in select paid date
     $('#paid_date').change(function () {
-
         var paid_date = $('#paid_date').val();
         var loan_id = $('#loan_id').val();
-
-
+        
         $.ajax({
             url: "post-and-get/ajax/od-limite.php",
             type: "POST",

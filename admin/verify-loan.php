@@ -3397,7 +3397,7 @@ $today = date("Y-m-d");
                                 </div> 
                                 <br>
 
-                                <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data">  
+                                <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data"> 
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -3537,19 +3537,19 @@ $today = date("Y-m-d");
     </section>
 
     <script src="plugins/jquery/jquery.min.js"></script> 
-    <script src="plugins/bootstrap/js/bootstrap.js"></script> 
+    <script src="plugins/bootstrap/js/bootstrap.js"></script>    
+     <script src="js/ajax/loan.js" type="text/javascript"></script>     
     <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <script src="plugins/node-waves/waves.js"></script>
     <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>
     <script src="js/admin.js"></script>
     <script src="js/demo.js"></script> 
     <script src="plugins/jquery-ui/jquery-ui.js"></script>
-    <script src="plugins/sweetalert/sweetalert.min.js"></script>
-    <script src="js/ajax/loan.js"></script> 
+    <script src="plugins/sweetalert/sweetalert.min.js"></script>   
     <script src="js/image.js" type="text/javascript"></script>
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
-    <script src="js/ajax/loan.js" type="text/javascript"></script>
     <script src="js/ajax/od-limite.js" type="text/javascript"></script>
+    
     <script>
         $(function () {
             $(".datepicker").datepicker({
