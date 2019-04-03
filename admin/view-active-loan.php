@@ -76,7 +76,8 @@ $today = date("Y-m-d");
                             </li>
                         </ul>
                     </div> 
-                    <div class="header" style="padding: 0px !important;">  
+                    <div class="header" style="padding: 0px !important;">
+                        <div id="od_limit"> </div>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
                             <li><a data-toggle="tab" href="#menu0"><h5>Installment</h5></a></li>
@@ -3835,6 +3836,7 @@ $today = date("Y-m-d");
                     <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
                     <input type="hidden" name="id" value="<?php echo $id ?>">
                     <input type="hidden"   id="loan_amount"  value="<?php echo $LOAN->loan_amount; ?>" />
+                    <input type="hidden"   id="loan_id"  value="<?php echo $LOAN->id; ?>" />
                 </div>
             </div>
         </div>
@@ -3850,8 +3852,8 @@ $today = date("Y-m-d");
 <script src="js/demo.js"></script> 
 <script src="plugins/jquery-ui/jquery-ui.js"></script>
 <script src="plugins/sweetalert/sweetalert.min.js"></script>
-
-<script src="js/ajax/loan.js"></script> 
+<script src="js/ajax/loan.js" type="text/javascript"></script>
+ 
 <script src="js/image.js" type="text/javascript"></script>
 <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 <script src="js/ajax/od-limite.js" type="text/javascript"></script>

@@ -6,7 +6,8 @@ include_once(dirname(__FILE__) . '/../../auth.php');
 $INSTALLMENT = new Installment(NULL);
 $VALID = new Validator();
 
-$amount = $_POST['paid_amount'];
+$amount = $_POST['full-featured'];
+dd($amount);
 $od_interest = $_POST['od_limite'];
 $paid_amount = (float) $amount - (float) $od_interest;
 

@@ -11,18 +11,19 @@ $(document).ready(function () {
     $('#create-od').click(function (event) {
         event.preventDefault();
         //Check od form
+
         if (!$('#od_date_start').val() || !$('#od_interest_limit').val()) {
             swal({
                 title: "Error!..",
                 text: "Od start date, Od interest limit  is required..!",
                 type: "error"
             });
-        } else if ($('#od_date_start').val() > $('#od_date_end').val()) {
-            swal({
-                title: "Error!..",
-                text: "Od end date minimum Od start date.  Please check it..!",
-                type: "error"
-            });
+//        } else if ($('#od_date_start').val() > $('#od_date_end').val() ) {
+//            swal({
+//                title: "Error!..",
+//                text: "Od end date minimum Od start date.  Please check it..!",
+//                type: "error"
+//            });
         } else {
             //Check od dates 
             $.ajax({
@@ -96,7 +97,7 @@ $(document).ready(function () {
     //Edit od in validation dates
     $('#edit-od').click(function (event) {
         event.preventDefault();
-        
+
         var today = $('#today').val();
         var enddate = $('#od_date_end').val();
 
@@ -154,30 +155,4 @@ $(document).ready(function () {
         }
 
     });
-});
-
-
-// Windows on loard functions 
-
-window.onload = function () {
-
-    //Show alert Message 
-    var loan_id = $('#loan_id').val();
-    $.ajax({
-        url: "post-and-get/ajax/active-od-limite.php",
-        type: 'POST',
-        data: {
-            id: loan_id,
-            action: 'CHECKOD'
-        },
-        dataType: "JSON",
-        success: function (jsonStr) {
-            if (jsonStr.status) {
-            } else {
-                $('#od_limit').append("<div class='alert alert-danger'> <strong>This Customer has not active od amount, Please check it now..!</strong></div>");
-            }
-        }
-    });
-}
-
-
+}); 

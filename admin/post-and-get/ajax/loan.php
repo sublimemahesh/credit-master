@@ -155,14 +155,15 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $LOAN = new Loan(NULl);
 
     $result = $LOAN->CheckGuarantor_2($_POST["guarantor_2"]);
-
+    
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
+        $data = array("status" => FALSE);
         header('Content-type: application/json');
-        exit();
+        echo json_encode($data);
     }
 }
 
@@ -177,8 +178,9 @@ if ($_POST['action'] == 'CHECKGUARANTER_3') {
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
+        $data = array("status" => FALSE);
         header('Content-type: application/json');
-        exit();
+        echo json_encode($data);
     }
 }
 
@@ -193,9 +195,9 @@ if ($_POST['action'] == 'CHECKCUSTOMERHASACTIVELOAN') {
         header('Content-type: application/json');
         echo json_encode($data);
     } else {
-            $data = array("status" => FALSE);
-            header('Content-type: application/json');
-            exit();
+        $data = array("status" => FALSE);
+        header('Content-type: application/json');
+        exit();
     }
 }
 
@@ -280,7 +282,7 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
         $result = $DEFULTDATA->loanProcessingPreCash($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
-        dd($loan[1]);
+       
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer
@@ -305,7 +307,7 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
-
+             
             $balance_pay = $loan_amount - $total_deduction;
 
             echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
@@ -440,7 +442,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
     $balance_in_last_loan = 0;
     $down_payment = 0;
     $paid_loan_processing_fee = 0;
-    dd($loan[1]);
+    
     if ($_POST['issue_mode'] == 'cash') {
 
 

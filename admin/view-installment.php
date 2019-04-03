@@ -57,10 +57,13 @@ $today = date("Y-m-d");
                             <div class="header">
                                 <h2>
                                     View Installment
-                                </h2>
+                                </h2> 
                             </div>
 
-                            <div class="body">
+                            <div class="body">  
+                                <div class="pull-right">
+                                    <a href="add-new-installment.php?loan=<?php echo $loan_id ?>"><button class="btn btn-primary btn-lg"><b>payment </b></button></a>
+                                </div>
                                 <div> 
                                     <h5> ID: <?php
                                         if ($LOAN->installment_type == 30) {
@@ -107,7 +110,10 @@ $today = date("Y-m-d");
                                         echo $LOAN->effective_date
                                         ?> 
                                     </h5>
+
+
                                 </div> 
+
                                 <div class="table-responsive">
                                     <?php if ($LOAN->installment_type == 30) {
                                         ?>
@@ -217,12 +223,12 @@ $today = date("Y-m-d");
                                                     echo '<tr>';
 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
-
+                                                        $date = new DateTime($date);
                                                         echo '<td class="padd-td gray ">';
                                                         echo $count;
                                                         echo '</td>';
                                                         echo '<td class="padd-td red">';
-                                                        echo $date;
+                                                        echo $date->format('Y-m-d');
                                                         echo '</td>';
                                                         echo '<td class="padd-td gray text-center" >';
                                                         echo '-- Postponed --';
@@ -239,7 +245,6 @@ $today = date("Y-m-d");
 
 
                                                         $last_od_amount = (float) end($od_amount_all_array);
-
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
                                                         $due_and_excess = $ins_total - $total_paid;
@@ -250,12 +255,12 @@ $today = date("Y-m-d");
 
                                                             $balance = $balance + $paid['paid_amount'] + $paid['paid_amount'];
                                                         }
-
+                                                        $date_format = new DateTime($date);
                                                         echo '<td class="tr-color font-color-2">';
                                                         echo $count;
                                                         echo '</td>';
                                                         echo '<td class="padd-td f-style tr-color font-color-2">';
-                                                        echo $date;
+                                                        echo $date_format->format('Y-m-d');
                                                         echo '</td>';
 
                                                         echo '<td class="f-style tr-color font-color-2">';

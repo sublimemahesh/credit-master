@@ -8,21 +8,11 @@ $USERS = new User($_SESSION['id']);
 //$DEFAULTDATA = new DefaultData(NULL);
 //$DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 
-$date = null;
+
 $id = null;
-
-
-if (isset($_GET['date'])) {
-    $date = $_GET['date'];
-} if (isset($_GET['loan'])) {
+if (isset($_GET['loan'])) {
     $loan = $_GET['loan'];
-}if (isset($_GET['amount'])) {
-    $amount = $_GET['amount'];
-}if (isset($_GET['od_amount'])) {
-    $od_amount = $_GET['od_amount'];
 }
-
-$paid_amount = $amount + $od_amount;
 ?>
 
 <!DOCTYPE html>
@@ -68,19 +58,7 @@ $paid_amount = $amount + $od_amount;
                     </div>
                     <div class="body">
                         <form class="" action="" method="post"  enctype="multipart/form-data" id="form-data"> 
-                            <div class="row">
-                                <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
-                                    <label for="installment_date">Installment Date</label>
-                                </div>
-                                <div class="col-lg-10 col-md-10 col-sm-12 col-xs-12 p-bottom">
-                                    <div class="form-group">
-                                        <div class="form-line">
-                                            <label for="installment_date" class="hidden-lg hidden-md">Installment Date</label>
-                                            <input type="text" id="installment_date"   name="installment_date" value="<?php echo $date ?>" placeholder="Enter Installment Date" class="form-control  " disabled="true" autocomplete="off">
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+
 
                             <div class="row">
                                 <div class="col-lg-2 col-md-2 hidden-sm hidden-xs form-control-label">
@@ -120,7 +98,7 @@ $paid_amount = $amount + $od_amount;
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Enter Paid Amount" class="form-control" value="<?php echo round($paid_amount, 2) ?>" autocomplete="off" min="0" step="0.001" >
+                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Select the date" class="form-control"   autocomplete="off" min="0" step="0.001" >
                                         </div>
                                     </div>
                                 </div>
@@ -128,14 +106,14 @@ $paid_amount = $amount + $od_amount;
                                 <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line"> 
-                                            <input type="text" id="due_and_excess"   placeholder="Due Amount" class="form-control"  autocomplete="off"  value="<?php echo number_format($amount, 2) ?>"readonly="" >
+                                            <input type="text" id="due_and_excess"   placeholder="Due Amount" class="form-control"  autocomplete="off"   readonly="" >
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">                                            
-                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Limite" class="form-control"  value="<?php echo round($od_amount, 2) ?>" autocomplete="off" >
+                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Limite" class="form-control"   autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
