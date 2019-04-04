@@ -40,13 +40,43 @@ $(document).ready(function () {
                     //Check date range
                     if (jsonStr.status) {
                         swal({
+                            html: true,
                             title: "You can not add this date range!...",
-                            text: "This date range is allredy adding, please end your od or select the another date range ..",
+                            text: "This date range is allredy adding," + '<span style="font-weight:600;color:red;">  ' + jsonStr.od_date_start + '</span>' + "  to End date",
                             type: "error",
-                            showCancelButton: false,
+                            showCancelButton: true,
                             confirmButtonColor: "#00b0e4",
-                            confirmButtonText: "Ok.!",
+                            confirmButtonText: "Yes, active It!",
                             closeOnConfirm: false
+                        }, function () {
+                            //send form date  create od
+                            var formData = new FormData($("form#form-data")[0]);
+                            $.ajax({
+                                url: "post-and-get/ajax/update-od-date-range.php",
+                                type: 'POST',
+                                data: formData,
+                                async: false,
+                                cache: false,
+                                contentType: false,
+                                processData: false,
+                                dataType: "JSON",
+                                success: function (jsonStr) {
+                                    if (jsonStr.status) {
+                                        swal({
+                                            title: "Actived!",
+                                            text: "Od limite is actived..!",
+                                            type: 'success',
+                                            timer: 2000,
+                                            showConfirmButton: false
+                                        });
+                                        setTimeout(function () {
+                                            window.location.replace("view-active-loan.php?id=" + jsonStr.id);
+                                        }, 2000);
+                                    } else {
+                                        alert('Error');
+                                    }
+                                }
+                            });
                         });
                         //active od
                     } else {

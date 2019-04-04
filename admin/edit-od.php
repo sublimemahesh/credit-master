@@ -126,10 +126,7 @@ $today = date("Y-m-d");
                                             <?php
                                             if ($OD->od_date_start < $today) {
                                                 ?>
-                                                <input type="text"  name="od_date_start"  
-                                                       
-                                                       
-                                                       placeholder="Enter OD Start Date" class="form-control  " autocomplete="off" value="<?php echo $OD->od_date_start ?>" readonly="">
+                                                <input type="text"  name="od_date_start"  placeholder="Enter OD Start Date" class="form-control  " autocomplete="off" value="<?php echo $OD->od_date_start ?>" readonly="">
                                             <?php } else { ?>
                                                 <input type="text"  name="od_date_start"  id="od_date_start" placeholder="Enter OD Start Date" class="form-control od_date_start" autocomplete="off" value="<?php echo $OD->od_date_start ?>" >
                                             <?php } ?>

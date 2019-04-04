@@ -47,7 +47,7 @@ class Od {
                 . $this->od_date_end . "', '"
                 . $this->od_interest_limit . "')";
 
-       
+
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -100,7 +100,7 @@ class Od {
                 . "`od_date_end` ='" . $this->od_date_end . "', "
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "' "
                 . "WHERE `id` = '" . $this->id . "'";
-       
+     
         $db = new Database();
         $result = $db->readQuery($query);
 
@@ -135,19 +135,20 @@ class Od {
         return $array_res;
     }
 
-    
-
-
     public function checkOdDates($loan_id, $start_date, $end_date) {
 
         $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "' AND `od_date_start` < '" . $start_date . "'  AND `od_date_end` > '" . $end_date . "'";
-
+        
         $db = new Database();
 
-        $result = $db->readQuery($query);
-
+        $result = $db->readQuery($query); 
+        
         if (mysql_num_rows($result) > 0) {
-            return TRUE;
+            $row = mysql_fetch_assoc($result);
+            return [
+                'array_res' => $row,
+                'status' => TRUE,
+            ];
         } else {
             return FALSE;
         }
@@ -163,14 +164,11 @@ class Od {
 
         if (mysql_num_rows($result) > 0) {
             return TRUE;
-
-  
         } else {
             return FALSE;
         }
     }
 
-    
     public function allOdByLoanAndDate($date, $balance) {
 
         $query = "SELECT * FROM `od_history` WHERE loan ='" . $this->loan . "'  "
