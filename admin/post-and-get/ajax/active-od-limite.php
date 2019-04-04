@@ -16,9 +16,10 @@ if ($_POST['action'] == 'CHECKODDATES') {
     }
 
     $result = $OD->checkOdDates($_POST['id'], $_POST['od_date_start'], $end);
+    $array_res_row = $result['array_res'];
 
-    if ($result == TRUE) {
-        $data = array("status" => TRUE);
+    if ($result['status'] == TRUE) {
+        $data = array("status" => TRUE, "od_date_start" => $array_res_row['od_date_start']);
         header('Content-type: application/json');
         echo json_encode($data);
     } else {

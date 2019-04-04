@@ -4,20 +4,27 @@ include_once(dirname(__FILE__) . '/../../../class/include.php');
 include_once(dirname(__FILE__) . '/../../auth.php');
 
 $OD = new Od(NULL);
-if ($_POST['od_date_end'] == NULL) {
-    $END = new DateTime($_POST['od_date_start']);
-    $END->modify('+2 years');
-    $end = $END->format('Y-m-d');
-} else {
-    $end = $_POST['od_date_end'];
-}
+
+$result = $OD->checkOdDates($_POST['id'], $_POST['od_date_start'], $_POST['od_date_end']);
+$array_res_row = $result['array_res'];
+
+$END = new DateTime($_POST['od_date_start']);
+$END->modify('-1 day');
+$END = $END->format('Y-m-d');
+
+$OD_1 = new Od($array_res_row['id']);
+
+$OD_1->od_date_end = $END;
+
+$OD_1->update();
 
 $OD->loan = $_POST['id'];
 $OD->od_date_start = $_POST['od_date_start'];
-$OD->od_date_end = $end;
+$OD->od_date_end = $_POST['od_date_end'];
 $OD->od_interest_limit = $_POST['od_interest_limit'];
 
 $result = $OD->create();
+
 
 if ($result == TRUE) {
     $data = array("status" => TRUE, "id" => $_POST['id']);
