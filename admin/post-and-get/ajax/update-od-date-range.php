@@ -13,9 +13,7 @@ $END->modify('-1 day');
 $END = $END->format('Y-m-d');
 
 $OD_1 = new Od($array_res_row['id']);
-
 $OD_1->od_date_end = $END;
-
 $OD_1->update();
 
 $OD->loan = $_POST['id'];
@@ -24,7 +22,6 @@ $OD->od_date_end = $_POST['od_date_end'];
 $OD->od_interest_limit = $_POST['od_interest_limit'];
 
 $result = $OD->create();
-
 
 if ($result == TRUE) {
     $data = array("status" => TRUE, "id" => $_POST['id']);

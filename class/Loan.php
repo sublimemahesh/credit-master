@@ -1121,10 +1121,9 @@ class Loan {
         $x = 0;
         $total_installment_amount = 0;
         $ins_total = 0;
-        $total_paid = 0;
-        $od_array = array();
+        $total_paid = 0; 
         $od_amount_all_array = array();
-        $array_value = 0;
+        $array_value = array();
         while ($x < $numOfInstallments) {
             if ($numOfInstallments == 4) {
                 $modify_range = '+7 day';
@@ -1209,33 +1208,29 @@ class Loan {
 
                 $OD = new OD(NULL);
                 $OD->loan = $this->id;
-                $AllOd = $OD->allOdByLoan();
+                $od = $OD->allOdByLoanAndDate($date, $balance);
 
-                if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                if (strtotime(date("Y/m/d")) <= strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                     
                 } else {
-                    if ($AllOd) {
-                        foreach ($AllOd as $key => $allod) {
+                    if ($od !== false) {
 
-                            if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance) {
+                        if (strtotime($od['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($od['od_date_end']) && (-1 * ($od['od_interest_limit'])) > $balance) {
 
-                                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
-                                    break;
-                                }
-
-                                $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $allod['od_interest_limit']);
-                                $od_array[] = $od_interest;
-                                $od_amount_all = json_encode(round(array_sum($od_array), 2));
-
-                                if ($od_amount_all > 0) {
-//                                    echo number_format($od_amount_all, 2);
-                                    
-                                    array_push($od_amount_all_array, $od_amount_all);
-                                }
+                            if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                                break;
                             }
+
+                            $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
+                            $od_array[] = $od_interest;
+                            $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                            array_push($array_value, $od_amount);
                         }
                     }
                 }
+
+
 
 
 
@@ -1313,7 +1308,7 @@ class Loan {
 //                    $array_value = array($od_amount);
 //                    array_push($array_value, 1);
 //                }
-//                
+//                 
                 $total_installment_amount += $installment_amount;
 
                 if (strtotime(date("Y/m/d")) <= strtotime($date)) {
@@ -1338,10 +1333,11 @@ class Loan {
         $actual_due = $loan_amount - $total_paid_installment;
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
+
         $all_arress = ($od_amount_all) + ($total_installment_amount - $total_paid_installment);
 
         return [
-            'od_amount' => number_format($od_amount_all, 2),
+            'od_amount' => number_format($od_amount, 2),
             'all_arress' => $all_arress,
             'all_amount' => $balance,
             'system-due-num-of-ins' => $system_due_num_of_ins,
