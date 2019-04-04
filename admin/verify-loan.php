@@ -3549,7 +3549,7 @@ $today = date("Y-m-d");
     <script src="js/image.js" type="text/javascript"></script>
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="js/ajax/od-limite.js" type="text/javascript"></script>
-    
+    <script src="delete/js/od.js" type="text/javascript"></script>
     <script>
         $(function () {
             $(".datepicker").datepicker({

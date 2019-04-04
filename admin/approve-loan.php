@@ -3585,7 +3585,7 @@ $today = date("Y-m-d");
     <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
     <script src="js/ajax/loan.js" type="text/javascript"></script>
     <script src="js/ajax/od-limite.js" type="text/javascript"></script>
-
+    <script src="delete/js/od.js" type="text/javascript"></script>
 
     <script>
         $(function () {
