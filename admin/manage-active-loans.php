@@ -206,7 +206,7 @@ $today = date('Y-m-d');
                                                             <?php
                                                         } elseif ($loan['installment_type'] == 1) {
                                                             ?>
-                                                            <a href="#?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                            <a href="view-monthly-loan-history.php?id=<?php echo $loan['id'];?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
                                                             <?php
                                                         }
                                                         ?>
