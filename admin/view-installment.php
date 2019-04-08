@@ -196,6 +196,7 @@ $today = date("Y-m-d");
                                                     $paid_all_od_before_ins_date = 0;
 
                                                     $date = $start->format('Y-m-d H:i:s');
+                                                   
                                                     $customer = $LOAN->customer;
                                                     $CUSTOMER = new Customer($customer);
 
@@ -286,7 +287,7 @@ $today = date("Y-m-d");
                                                         echo '</td>';
 
                                                         echo '<td class="f-style">';
-
+                                                        echo $balance . '<br>';
 
                                                         // get balance
                                                         //get od amount

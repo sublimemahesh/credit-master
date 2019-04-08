@@ -611,32 +611,32 @@ class Loan {
 
     //paid select date in add installmen t date 
     public function getSelectedDayLoanDetails($selectedDate) {
+        date_default_timezone_set("Asia/Calcutta");
+        $time = date('H:i:s');
+        $today = date('Y-m-d H:i:s');
 
         $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
         $first_installment_date = '';
 
         if ($this->installment_type == 4) {
-            $FID = new DateTime($this->effective_date);
-            $FID->modify('+7 day');
-            $first_installment_date = $FID->format('Y-m-d');
+            $FID = new DateTime($this->effective_date . " 00:00:01");
+            $FID->modify('+7 day ');
+            $first_installment_date = $FID->format('Y-m-d ' . $time);
         } elseif ($this->installment_type == 30) {
 
-            $FID = new DateTime($this->effective_date);
+            $FID = new DateTime($this->effective_date . " 00:00:01");
             $FID->modify('+1 day');
-            $first_installment_date = $FID->format('Y-m-d');
+            $first_installment_date = $FID->format('Y-m-d ' . $time);
         } elseif ($this->installment_type == 1) {
-            $FID = new DateTime($this->effective_date);
+            $FID = new DateTime($this->effective_date . " 00:00:01");
             $FID->modify('+1 months');
-            $first_installment_date = $FID->format('Y-m-d');
+            $first_installment_date = $FID->format('Y-m-d ' . $time);
         }
 
         $start = new DateTime($first_installment_date);
-
-        $first_date = $start->format('Y-m-d');
-        $installments = 0;
+        $first_date = $start->format('Y-m-d ' . $time);
         $INSTALLMENT = new Installment(NULL);
-
 
         $x = 0;
         $total_installment_amount = 0;
@@ -647,7 +647,7 @@ class Loan {
         $array_value = 0;
         while ($x < $numOfInstallments) {
             if ($numOfInstallments == 4) {
-                $modify_range = '+7 day';
+                $modify_range = '+7 day ';
             } elseif ($numOfInstallments == 30) {
                 $modify_range = '+1 day';
             } elseif ($numOfInstallments == 8) {
@@ -670,7 +670,8 @@ class Loan {
                 $modify_range = '+7 day';
             }
 
-            $date = $start->format('Y-m-d');
+
+            $date = $start->format('Y-m-d ' . $time);
 
             $paid_amount = 0;
             $od_amount = 0;
@@ -691,16 +692,12 @@ class Loan {
             $FID->modify($modify_range);
             $day_remove = '-1 day';
             $FID->modify($day_remove);
-            $second_installment_date = $FID->format('Y-m-d');
+            $second_installment_date = $FID->format('Y-m-d ' . $time);
             $amount = $this->installment_amount;
-
-
-            date_default_timezone_set('Asia/Colombo');
-            $today = date('Y-m-d');
 
             $INSTALLMENT = new Installment(NULL);
 
-            foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $this->id) as $paid) {
+            foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id) as $paid) {
                 $paid_amount += $paid['paid_amount'];
             }
 
@@ -711,7 +708,6 @@ class Loan {
                 $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
             }
 
-
             if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                 $start->modify($modify_range);
             } else {
@@ -721,11 +717,11 @@ class Loan {
                 $total_paid += $paid_amount;
                 $due_and_excess = $ins_total - $total_paid;
 
-                $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $last_od_amount;
-
+                $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total;
+               
                 foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $this->id) as $paid) {
 
-                    $balance = $balance + $paid['paid_amount'] + $paid['paid_amount'];
+                    $balance = $balance + $paid['paid_amount'];
                 }
 
                 $OD = new OD(NULL);
@@ -831,6 +827,9 @@ class Loan {
                 if (strtotime($selectedDate) <= strtotime($date)) {
                     break;
                 }
+
+
+
                 $total_installment_amount += $installment_amount;
                 $start->modify($modify_range);
                 $x++;
@@ -860,8 +859,8 @@ class Loan {
             'system-due' => $system_due,
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
-            'due_and_excess' => $balance + $od_amount_all,
-            'all_amount' => $balance,
+            'due_and_excess' => $balance,
+            'all_amount' => $balance - $od_amount_all,
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment,
             'first_installment_date' => $first_installment_date,
@@ -1121,7 +1120,7 @@ class Loan {
         $x = 0;
         $total_installment_amount = 0;
         $ins_total = 0;
-        $total_paid = 0; 
+        $total_paid = 0;
         $od_amount_all_array = array();
         $array_value = array();
         while ($x < $numOfInstallments) {
@@ -1200,7 +1199,7 @@ class Loan {
                 $total_paid += $paid_amount;
                 $due_and_excess = $ins_total - $total_paid;
 
-                $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $last_od_amount;
+                $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total;
 
                 foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $this->id) as $paid) {
                     $balance = $balance + $paid['paid_amount'] + $paid['paid_amount'];
