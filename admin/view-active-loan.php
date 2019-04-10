@@ -3830,6 +3830,8 @@ $today = date("Y-m-d");
 
                         </div>
                     </div>
+                    
+                  
                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
                     <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
                     <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">
@@ -3853,22 +3855,25 @@ $today = date("Y-m-d");
 <script src="plugins/jquery-ui/jquery-ui.js"></script>
 <script src="plugins/sweetalert/sweetalert.min.js"></script>
 <script src="js/ajax/loan.js" type="text/javascript"></script>
- 
+
 <script src="js/image.js" type="text/javascript"></script>
 <script src="plugins/light-gallery/js/lightgallery-all.js"></script>
 <script src="js/ajax/od-limite.js" type="text/javascript"></script>
 <script src="delete/js/od.js" type="text/javascript"></script>
 <script>
+    var today = new Date();
     $(function () {
         $(".datepicker").datepicker({
             dateFormat: 'yy-mm-dd'
         });
         $("#od_date_start").datepicker({
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'yy-mm-dd',
+            minDate: today
 
         });
         $("#od_date_end").datepicker({
-            dateFormat: 'yy-mm-dd'
+            dateFormat: 'yy-mm-dd',
+            minDate: today
         });
     });
 </script>

@@ -575,7 +575,7 @@ $today = date("Y-m-d H:i:s");
                                                 //Od new code segment
                                                 $OD = new OD(NULL);
                                                 $OD->loan = $LOAN->id;
-
+                                              
                                                 $od = $OD->allOdByLoanAndDate($date, $balance);
 
 
@@ -665,7 +665,7 @@ $today = date("Y-m-d H:i:s");
                                                                 <?php
                                                             }
                                                             if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
-                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date,$second_installment_date, $loan_id) as $Installment_payment) {
+                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date, $second_installment_date, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
 
@@ -758,8 +758,8 @@ $today = date("Y-m-d H:i:s");
 
                                                             <?php
                                                             if (strtotime($od['od_date_end']) <= strtotime($od_date)) {
-                                                                
-                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od['od_date_end'] .' 23:59:59',$second_installment_date, $loan_id) as $Installment_payment) {
+
+                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od['od_date_end'] . ' 23:59:59', $second_installment_date, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
 
