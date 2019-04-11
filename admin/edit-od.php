@@ -188,16 +188,20 @@ $today = date("Y-m-d");
         <script src="js/ajax/od-limite.js" type="text/javascript"></script>
         <script src="plugins/jquery-ui/jquery-ui.js"></script>
         <script>
+             var today = new Date();
             $(function () {
                 $(".datepicker").datepicker({
                     dateFormat: 'yy-mm-dd'
+                    
                 });
                 $("#od_date_start").datepicker({
-                    dateFormat: 'yy-mm-dd'
+                    dateFormat: 'yy-mm-dd',
+                       minDate: today
 
                 });
                 $("#od_date_end").datepicker({
-                    dateFormat: 'yy-mm-dd'
+                    dateFormat: 'yy-mm-dd',
+                       minDate: today
                 });
             });
         </script>

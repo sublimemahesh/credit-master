@@ -11,7 +11,7 @@ if ($_POST['od_date_end'] == NULL) {
 } else {
     $end = $_POST['od_date_end'];
 }
-
+ 
 $OD->loan = $_POST['id'];
 $OD->od_date_start = $_POST['od_date_start'];
 $OD->od_date_end = $end;
