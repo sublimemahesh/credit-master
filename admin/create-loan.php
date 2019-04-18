@@ -261,7 +261,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
-                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0"  >
+                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0" onwheel="this.blur()" >
                                         </div>
                                     </div>
                                 </div>
@@ -281,7 +281,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                 </div>
                             </div>
 
-                            
+
 
                             <div class="row">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -348,7 +348,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="issue_mode" class="hidden-lg hidden-md">Issue Mode</label>
-                                            <select id="issue_mode" name="issue_mode" class="form-control" required="">
+                                            <select id="issue_mode" name="issue_mode" class="form-control issue_mode" required="">
                                                 <option value=""> -- Please Select Issue Mode -- </option>
                                                 <?php
                                                 $issueModes = DefaultData::getLoanIssueMode();
@@ -416,7 +416,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div> 
-                            
+
                             <div class="row"  >
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
                                     <label for="">Balance Of the last Loan</label>
@@ -496,7 +496,10 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
         <script src="plugins/jquery-ui/jquery-ui.js"></script>
         <script src="plugins/sweetalert/sweetalert.min.js"></script>   
         <script src="js/ajax/loan.js" type="text/javascript"></script>
+        <script>
 
+
+        </script>
         <script>
             $(function () {
                 $(".datepicker").datepicker({
@@ -505,15 +508,14 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 //                    maxDate: '+3D',
 
                 });
-
                 $(".create_date").datepicker({
                     dateFormat: 'yy-mm-dd',
-
                 });
-               
             });
-
         </script>
+
+
+
     </body>
 
 </html>

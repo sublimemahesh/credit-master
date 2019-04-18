@@ -446,7 +446,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_amount" class="hidden-lg hidden-md">Loan Amount</label>
-                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0"  value="<?php echo $LOAN->loan_amount ?>">
+                                            <input type="number" id="loan_amount"  name="loan_amount" max="" placeholder="Enter The Loan Amount" class="form-control loan_amount" autocomplete="off" required="TRUE" min="0"  value="<?php echo $LOAN->loan_amount ?>" onwheel="this.blur()">
                                         </div>
                                     </div>
                                 </div>
