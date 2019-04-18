@@ -884,7 +884,7 @@ $(`.issue_mode,.loan_amount`).bind("keyup change", function () {
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
         $('#cheque_free').hide();
-
+        $(`#bank_transaction_free_amount`).hide();
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -1091,7 +1091,7 @@ $('#customer,#issue_mode').change(function () {
 
 ///-----------Windows Onloard----------// 
 window.onload = function () {
-     
+
     //get other page to issumode prices in onloard
     var issue_mode = $('#issue_mode_onloard').val();
     var loan_amount = $('#loan_amount').val();
