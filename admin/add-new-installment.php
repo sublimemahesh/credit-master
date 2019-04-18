@@ -98,7 +98,7 @@ if (isset($_GET['loan'])) {
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="paid_amount" class="hidden-lg hidden-md"> Amount</label>
-                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Select the date" class="form-control"   autocomplete="off" min="0"   >
+                                            <input type="number" id="paid_amount"  name="paid_amount" placeholder="Amount" class="form-control"   autocomplete="off" min="0"   >
                                         </div>
                                     </div>
                                 </div>
@@ -113,7 +113,7 @@ if (isset($_GET['loan'])) {
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">                                            
-                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Limite" class="form-control"   autocomplete="off" >
+                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Amount" class="form-control"   autocomplete="off" >
                                         </div>
                                     </div>
                                 </div>
