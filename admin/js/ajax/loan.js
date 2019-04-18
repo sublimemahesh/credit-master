@@ -170,43 +170,6 @@ $(document).ready(function () {
         }
     });
 
-//create loan before check customer bank details completed
-    $('#issue_mode').change(function () {
-        var issue_mode = $(this).val();
-        var customer = $('#customer').val();
-
-        if (issue_mode === 'bank') {
-
-            $.ajax({
-                url: "post-and-get/ajax/customer.php",
-                type: "POST",
-                data: {
-                    customer: customer,
-                    action: 'CHECKCUSTOMERBANKDETAILS'
-                },
-                dataType: "JSON",
-                success: function (jsonStr) {
-
-                    if (jsonStr.status == 'sucess') {
-                        $.each(jsonStr.data, function (i, data) {
-                            $('option:selected', $('#issue_mode')).remove();
-                            swal({
-                                title: "You can not create this loan .!",
-                                text: "This Customer has not completed bank details..",
-                                type: "error",
-                                showCancelButton: false,
-                                confirmButtonColor: "#00b0e4",
-                                confirmButtonText: "Enter Again.!",
-                                closeOnConfirm: false
-                            });
-                        });
-                    }
-                }
-            });
-        }
-    });
-
-
 //loan type
     $('#verify').click(function () {
         var loan_id = $('#loan_id').val();
@@ -249,7 +212,7 @@ $(document).ready(function () {
         });
 
     });
-//pending loan
+//Pending loan
     $('#pending').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -288,7 +251,7 @@ $(document).ready(function () {
         });
     });
 
-//reject loan
+//Reject loan
     $('#reject').click(function () {
         var loan_id = $('#loan_id').val();
 
@@ -321,7 +284,7 @@ $(document).ready(function () {
         });
     });
 
-//delete loan
+//Delete loan
     $('#delete').click(function () {
         var loan_id = $('#loan_id').val();
 
@@ -354,7 +317,7 @@ $(document).ready(function () {
         });
     });
 
-//approve loan
+//Approve loan
     $('#approve').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -396,7 +359,7 @@ $(document).ready(function () {
         });
     });
 
-//issue loan
+//Issue loan
     $('#loan_issue').click(function () {
 
         var loan_id = $('#loan_id').val();
@@ -428,7 +391,7 @@ $(document).ready(function () {
         }
     });
 
-//direct issue loan
+//Direct issue loan
     $('#direct_issue').click(function () {
 
         if (!$('#effective_date').val() || !$('#issued_date').val() || !$('#issue_note').val()) {
@@ -475,7 +438,7 @@ $(document).ready(function () {
         }
     });
 
-//issue bank loans
+//Issue bank loans
     $('#issue_bank_loan').click(function (event) {
         event.preventDefault();
         var issued_date = $('#issued_date').val();
@@ -567,7 +530,7 @@ $(document).ready(function () {
         return false;
     });
 
-//release loans
+//Release loans
     $('#release').click(function (event) {
         event.preventDefault();
 
@@ -621,7 +584,7 @@ $(document).ready(function () {
         return false;
     });
 
-//check od limite active innactive 
+//Check od limite active innactive 
     $('#rememberme').click(function () {
         var id = $(this).val();
 
@@ -646,7 +609,7 @@ $(document).ready(function () {
         }
     });
 
-//remove Loan Period in select  installment type
+//Remove Loan Period in select  installment type
     $('#installment_type').change(function () {
         var installment_type = $('#installment_type').val();
 
@@ -660,7 +623,7 @@ $(document).ready(function () {
         }
     });
 
-//validate effective date , issue date , issue mode
+//Validate effective date , issue date , issue mode
     function validateForIssue(effective_date, issued_date, issue_mode) {
 
         if (!Date.parse(effective_date)) {
@@ -781,7 +744,7 @@ $('#guarantor_3').change(function () {
 
 });
 
-//check loan processing free
+//Check loan processing free
 $(`#issue_mode`).change(function () {
 
     var issue_mode = $(this).val();
@@ -793,7 +756,8 @@ $(`#issue_mode`).change(function () {
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
         $('#cheque_free').hide();
-
+        $(`#bank_transaction_free_amount`).hide();
+        $(`#total_deductions_row`).show();
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -818,7 +782,7 @@ $(`#issue_mode`).change(function () {
         $(`#loan_processing_pre`).show();
         $(`#bank_transaction_free_amount`).show();
         $('#cheque_free').hide();
-
+        $(`#total_deductions_row`).show();
 
         $.ajax({
             url: "post-and-get/ajax/loan.php",
@@ -843,6 +807,7 @@ $(`#issue_mode`).change(function () {
         $(`#stamp_fee_amount`).show();
         $(`#loan_processing_pre`).show();
         $(`#cheque_free`).show();
+        $(`#total_deductions_row`).show();
         $(`#bank_transaction_free_amount`).hide();
 
         $.ajax({
@@ -869,10 +834,51 @@ $(`#issue_mode`).change(function () {
         $(`#stamp_fee_amount`).hide();
         $(`#loan_processing_pre`).hide();
         $(`#cheque_free`).hide();
+        $(`#bank_transaction_free_amount`).hide();
     }
 });
 
-//issu mode get by class in edit loan 0
+
+//create loan before check customer bank details completed
+$('#issue_mode').change(function () {
+    var issue_mode = $(this).val();
+    var customer = $('#customer').val();
+
+    if (issue_mode === 'bank') {
+
+        $.ajax({
+            url: "post-and-get/ajax/customer.php",
+            type: "POST",
+            data: {
+                customer: customer,
+                action: 'CHECKCUSTOMERBANKDETAILS'
+            },
+            dataType: "JSON",
+            success: function (jsonStr) {
+
+                if (jsonStr.status == 'sucess') {
+                    $.each(jsonStr.data, function (i, data) {
+                        $('option:selected', $('#issue_mode')).remove();
+                        $(`#loan_processing_pre`).hide();
+                        $(`#total_deductions_row`).hide();
+                        $(`#balance_pay_row`).hide();
+                        swal({
+                            title: "You can not create this loan .!",
+                            text: "This Customer has not completed bank details..",
+                            type: "error",
+                            showCancelButton: false,
+                            confirmButtonColor: "#00b0e4",
+                            confirmButtonText: "Enter Again.!",
+                            closeOnConfirm: false
+                        });
+                    });
+                }
+            }
+        });
+    }
+});
+
+//issue mode get by class in edit loan 0
 $(`.issue_mode,.loan_amount`).bind("keyup change", function () {
 
     var issue_mode = $(`.issue_mode`).val();
@@ -960,7 +966,7 @@ $(`.issue_mode,.loan_amount`).bind("keyup change", function () {
     }
 });
 
-//Before delete Cheque Customer '
+//Before delete check Customer '
 $('.delete-customer').click(function () {
     var customer = $(this).attr("data-id");
 
@@ -988,7 +994,7 @@ $('.delete-customer').click(function () {
     });
 });
 
-//check customer has loan before create
+//Check customer has loan before create
 $('#customer').change(function () {
     var customer = $(this).val();
 
@@ -1017,7 +1023,7 @@ $('#customer').change(function () {
     });
 });
 
-// crate loan check od limite and date add
+// Create loan check od limite and date add
 $('#create_loan').click(function (event) {
     event.preventDefault();
 
@@ -1043,7 +1049,7 @@ $('#create_loan').click(function (event) {
     return false;
 });
 
-//customer Last loan amount
+//Customer Last loan amount
 $('#customer,#issue_mode').change(function () {
 
     var customer_id = $(`#customer`).val();
