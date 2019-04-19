@@ -3,10 +3,9 @@
 require("config.php");
 
 if (!empty($_POST)) {
-    $query = "INSERT INTO `installment` (`loan`,`paid_date`,`time`,`paid_amount`,`additional_interest`,`collector`,`receipt_no`,`type`) VALUES (:loan, :paiddate, :paidtime, :paidamount, :paidinterest, :collector, :receipt, :type)";
+    $query = "INSERT INTO `installment` (`loan`,`paid_date`,`paid_amount`,`additional_interest`,`collector`,`receipt_no`,`type`) VALUES (:loan, :paiddate, :paidamount, :paidinterest, :collector, :receipt, :type)";
     $params = array(
         ':loan' => $_POST['loan'],
-        ':paidtime' => $_POST['paidtime'],
         ':paiddate' => $_POST['paiddate'],
         ':paidamount' => $_POST['paidamount'],
         ':paidinterest' => $_POST['paidinterest'],
