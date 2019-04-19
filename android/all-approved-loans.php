@@ -46,37 +46,46 @@ foreach ($LOAN->getAllApprovedLoansByCollector() as $key => $loan) {
         $ROUTE = new Route($CUSTOMER->route);
         $area = 'Route - ' . $ROUTE->name;
     }
-    $PaidDownpayments = 0;
+
     $DownPayments = $INSTALLMENT->getPaidDownPayments($loan['id']);
-    foreach ($DownPayments as $DownPayment) {
-        $PaidDownpayments += $DownPayment['paid_amount'];
-    }
 
-    $PaidProcessingFee = 0;
+    $PaidDownPayment = 0;
+    foreach($DownPayments as $downpayment){
+        $PaidDownPayment += $downpayment['paid_amount'];
+    }
+    
+    
+    
     $ProcessingFees = $INSTALLMENT->getPaidLoanProcessingFee($loan['id']);
-    foreach ($ProcessingFees as $ProcessingFee) {
-        $PaidProcessingFee += $ProcessingFee['paid_amount'];
+      
+    $PaidProcessingFee = 0;
+    foreach($ProcessingFees as $processingfee){
+        $PaidProcessingFee += $processingfee['paid_amount'];
     }
-
-
-
-    $amount_payable = $loan['loan_amount'] - $loan['loan_processing_pre'] - $loan['balance_of_last_loan']+$PaidProcessingFee+$PaidDownpayments;
+    
+    
+    // $total_processing_fee = $loan['loan_processing_pre'] - $PaidProcessingFee;
+    // $total_balance_of_last = $loan['balance_of_last_loan'] -$PaidDownPayment;
+    $amount_payable = $loan['loan_amount'] - $loan['loan_processing_pre'] - $loan['balance_of_last_loan'] + $PaidProcessingFee + $PaidDownPayment;
+    
+    
 
     $instrollment_data['customer'] = $customer_name;
     $instrollment_data['customer_no'] = $CUSTOMER->mobile;
     $instrollment_data['customer_address'] = $address;
-
     $instrollment_data['id'] = $loan['id'];
     $instrollment_data['loan_id'] = $loanId;
     $instrollment_data['create_date'] = $loan['create_date'];
-    $instrollment_data['loan_amount'] = number_format($loan['loan_amount'], 2);
+    $instrollment_data['loan_amount'] = $loan['loan_amount'];
     $instrollment_data['loan_processing_fee'] = $loan['loan_processing_pre'];
     $instrollment_data['balance_of_last_loan'] = $loan['balance_of_last_loan'];
-    $instrollment_data['loan_amount_payable'] = number_format($amount_payable, 2);
+    $instrollment_data['downpayments'] = $PaidDownPayment;
+    $instrollment_data['paidprocessingfee'] = $PaidProcessingFee;
+    $instrollment_data['loan_amount_payable'] = $amount_payable;
     $instrollment_data['installment_type'] = $LT[$loan['installment_type']];
     $instrollment_data['area'] = $area;
     $instrollment_data['loan_period'] = $LP[$loan['loan_period']];
-    $instrollment_data['installment_amount'] = number_format($amount, 2);
+    $instrollment_data['installment_amount'] = $amount;
 
     array_push($instrollment, $instrollment_data);
 }

@@ -7,10 +7,9 @@ if (!empty($_POST)) {
     $type = str_replace(' ', '_', $post_type);
     
     
-    $query = "INSERT INTO `installment` (`loan`,`paid_date`,`time`,`paid_amount`,`collector`,`receipt_no`,`type`) VALUES (:loan, :paiddate, :paidtime, :paidamount, :collector, :receipt, :type)";
+    $query = "INSERT INTO `installment` (`loan`,`paid_date`,`paid_amount`,`collector`,`receipt_no`,`type`) VALUES (:loan, :paiddate, :paidamount, :collector, :receipt, :type)";
     $params = array(
         ':loan' => $_POST['loan'],
-        ':paidtime' => $_POST['paidtime'],
         ':paiddate' => $_POST['paiddate'],
         ':paidamount' => $_POST['paidamount'],
         ':receipt' => $_POST['receipt_no'],
