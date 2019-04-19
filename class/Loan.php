@@ -884,7 +884,7 @@ class Loan {
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
         $all_arress = ($last_od_amount) + ($total_installment_amount - $total_paid_installment);
-        echo $last_od_amount;
+      
         return [
             'od_amount' => $last_od_amount,
             'all_arress' => $all_arress,
