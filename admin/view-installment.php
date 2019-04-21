@@ -11,8 +11,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 $INSTALLMENT = new Installment(NULL);
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
-$today = date("Y-m-d");
-$today = date("Y-m-d");
+$today = date("Y-m-d"); 
 $time = date('H:i:s');
 ?> 
 <!DOCTYPE html>
@@ -282,15 +281,10 @@ $time = date('H:i:s');
                                                         echo '</td>';
 
                                                         echo '<td class="f-style">';
-
-
                                                         echo '<span style="color:red">' . number_format($ins_total, 2) . '</span>';
                                                         echo '</td>';
 
-                                                        echo '<td class="f-style">';
-
-
-                                                        // get balance
+                                                        echo '<td class="f-style">';                                                       
                                                         //get od amount
                                                         $OD = new OD(NULL);
                                                         $OD->loan = $LOAN->id;
@@ -314,7 +308,7 @@ $time = date('H:i:s');
                                                                         $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
                                                                         if ($od_amount_all > 0) {
-                                                                            echo number_format($od_amount_all, 2);
+                                                                            echo number_format($od_interest, 2);
                                                                             array_push($od_amount_all_array, $od_amount_all);
                                                                         }
                                                                     }

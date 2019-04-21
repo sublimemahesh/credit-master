@@ -683,6 +683,7 @@ class Loan {
 
             $paid_amount = 0;
             $od_amount = 0;
+            $od = 0;
             $od_amount_all = 0;
             $balance = 0;
             $loan_proccesign_fee_paid = 0;
@@ -734,12 +735,14 @@ class Loan {
                     $balance = $balance + $paid['paid_amount'];
                 }
 
+                //get od amount
+                $OD = new OD(NULL);
+                $OD->loan = $this->id;
+                $AllOd = $OD->allOdByLoan();
+                $od = $OD->allOdByLoanAndDate($date, $balance);
+
                 //get daily loan od amount
                 if ($this->installment_type == 30) {
-
-                    $OD = new OD(NULL);
-                    $OD->loan = $this->id;
-                    $AllOd = $OD->allOdByLoan();
 
                     if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                         
@@ -770,10 +773,6 @@ class Loan {
                     //weekly loan od amount 
                 } else if ($this->installment_type == 4) {
 
-                    $OD_2 = new OD(NULL);
-                    $OD_2->loan = $this->id;
-                    $od = $OD_2->allOdByLoanAndDate($date, $balance);
-
                     if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                         
                     } else {
@@ -790,8 +789,12 @@ class Loan {
                                 if ($defult_val <= 6 && $this->od_date <= $od_date_start) {
                                     $od_dates = '+1 day';
                                 }
+
                                 $od_date = $od_date_start->format('Y-m-d');
 
+                                if ((strtotime(date("Y/m/d")) <= strtotime($od_date)) || (strtotime($od_date) >= strtotime($selectedDate))) {
+                                    break;
+                                }
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
@@ -807,11 +810,6 @@ class Loan {
 
                     //monthly loan od amount
                 } else {
-
-                    $OD_3 = new OD(NULL);
-                    $OD_3->loan = $this->id;
-                    $od = $OD_3->allOdByLoanAndDate($date, $balance);
-
 
                     if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                         
@@ -829,27 +827,23 @@ class Loan {
 
                             $od_date_start = new DateTime($date);
                             $defult_val = $daysOfMonth - 1;
+                            $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
                             while ($y <= $defult_val) {
 
                                 if ($defult_val <= $daysOfMonth - 1 && $this->od_date <= $od_date_start) {
                                     $od_dates = '+1 day';
                                 }
+
                                 $od_date = $od_date_start->format('Y-m-d');
 
-                                if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                if ((strtotime(date("Y/m/d")) <= strtotime($od_date)) || (strtotime($od_date) >= strtotime($selectedDate))) {
                                     break;
                                 }
 
-                                $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
-
-                                if ($od_amount_all > 0) {
-
-                                    array_push($od_amount_all_array, $od_amount_all);
-                                }
-
+                                array_push($od_amount_all_array, $od_amount_all);
 
                                 $od_date_start->modify($od_dates);
                                 $y++;
@@ -857,12 +851,10 @@ class Loan {
                         }
                     }
                 }
-
                 //break selected date
                 if (strtotime($selectedDate) <= strtotime($date)) {
                     break;
                 }
-
                 $total_installment_amount += $installment_amount;
                 $start->modify($modify_range);
                 $x++;
@@ -877,6 +869,7 @@ class Loan {
             $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
         }
 
+ 
         $loan_amount = $numOfInstallments * $this->installment_amount;
         $system_due = $loan_amount - $total_installment_amount;
         $system_due_num_of_ins = $system_due / $this->installment_amount;
@@ -884,7 +877,7 @@ class Loan {
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
         $all_arress = ($last_od_amount) + ($total_installment_amount - $total_paid_installment);
-      
+
         return [
             'od_amount' => $last_od_amount,
             'all_arress' => $all_arress,
@@ -1278,7 +1271,7 @@ class Loan {
                                 if ($defult_val <= 6 && $this->od_date <= $od_date_start) {
                                     $od_dates = '+1 day';
                                 }
-                                $od_date = $od_date_start->format('Y-m-d'); 
+                                $od_date = $od_date_start->format('Y-m-d');
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
@@ -1289,7 +1282,7 @@ class Loan {
                                 if ($today == $od_date) {
                                     break;
                                 }
-                               
+
                                 $od_date_start->modify($od_dates);
                                 $y++;
                             }
