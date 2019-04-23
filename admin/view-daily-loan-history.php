@@ -572,9 +572,9 @@ $today = date("Y-m-d H:i:s");
                                                     
                                                 } else {
                                                     if ($AllOd) {
-                                                        
+
                                                         foreach ($AllOd as $key => $od) {
-                                                             
+
 
                                                             if (strtotime($od['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($od['od_date_end']) && (-1 * ($od['od_interest_limit'])) > $balance) {
 
@@ -600,7 +600,7 @@ $today = date("Y-m-d H:i:s");
                                                                     <td class="font-colors text-right f-style"> <?php echo $od_date_morning ?></td>
                                                                     <td class="font-colors text-right f-style">   </td>
                                                                     <td class="font-colors text-right f-style">
-                                                                        OD Interest (<?php echo $od['od_interest_limit'];?>)
+                                                                        OD Interest (<?php echo $od['od_interest_limit']; ?>)
                                                                     </td>
                                                                     <td class="font-colors text-right f-style">
                                                                         <?php
@@ -618,9 +618,7 @@ $today = date("Y-m-d H:i:s");
                                                                         echo '<p class="f-style font-color-2">' . number_format($balance + $paidadditional_interest - $od_interest, 2) . '</p>';
                                                                         ?>
                                                                     </td>
-                                                                </tr> 
-
-
+                                                                </tr>  
                                                                 <?php
                                                             }
                                                         }
