@@ -11,7 +11,7 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
 $INSTALLMENT = new Installment(NULL);
 $loan_id = $_GET['id'];
 $LOAN = new Loan($loan_id);
-$today = date("Y-m-d"); 
+$today = date("Y-m-d");
 $time = date('H:i:s');
 ?> 
 <!DOCTYPE html>
@@ -284,20 +284,20 @@ $time = date('H:i:s');
                                                         echo '<span style="color:red">' . number_format($ins_total, 2) . '</span>';
                                                         echo '</td>';
 
-                                                        echo '<td class="f-style">';                                                       
+                                                        echo '<td class="f-style">';
                                                         //get od amount
                                                         $OD = new OD(NULL);
                                                         $OD->loan = $LOAN->id;
                                                         $AllOd = $OD->allOdByLoan();
 
-                                                        if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                        if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                                                             
                                                         } else {
 
                                                             if ($AllOd) {
                                                                 foreach ($AllOd as $key => $allod) {
 
-                                                                    if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance) {
+                                                                    if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance ) {
 
                                                                         if (strtotime(date("Y/m/d")) <= strtotime($date)) {
                                                                             break;
@@ -308,14 +308,16 @@ $time = date('H:i:s');
                                                                         $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
                                                                         if ($od_amount_all > 0) {
-                                                                            echo number_format($od_interest, 2);
+
                                                                             array_push($od_amount_all_array, $od_amount_all);
                                                                         }
                                                                     }
                                                                 }
                                                             }
                                                         }
-
+                                                        if ($od_amount_all > 0) {
+                                                            echo number_format($od_amount_all, 2);
+                                                        }
 
                                                         echo '</td>';
                                                     }
