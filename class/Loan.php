@@ -611,6 +611,7 @@ class Loan {
 
     //paid select date in get od,due,all amount
     public function getSelectedDayLoanDetails($selectedDate) {
+
         date_default_timezone_set("Asia/Calcutta");
         $time = date('H:i:s');
         $today = date('Y-m-d H:i:s');
@@ -647,10 +648,10 @@ class Loan {
         $ins_total = 0;
         $total_paid = 0;
         $installments = 0;
-
+        $array_value = 0;
         $od_array = array();
         $od_amount_all_array = array();
-        $array_value = 0;
+
         while ($x < $numOfInstallments) {
             if ($numOfInstallments == 4) {
                 $modify_range = '+7 day ';
@@ -677,7 +678,7 @@ class Loan {
             }
 
             $date = $start->format('Y-m-d ' . $time);
-            $INSTALLMENT = new Installment(NULL);
+
 
             $paid_amount = 0;
             $od_amount = 0;
@@ -688,7 +689,9 @@ class Loan {
             $total_od_paid = 0;
             $paid_all_amount_before_ins_date = 0;
             $paid_all_od_before_ins_date = 0;
+            $total_paid_installment = 0;
 
+            $INSTALLMENT = new Installment(NULL);
             $customer = $this->customer;
             $CUSTOMER = new Customer($customer);
             $route = $CUSTOMER->route;
@@ -701,7 +704,6 @@ class Loan {
             $FID->modify($day_remove);
             $second_installment_date = $FID->format('Y-m-d ' . $time);
             $amount = $this->installment_amount;
-
             $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($this->id);
 
             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id) as $paid) {
@@ -728,7 +730,6 @@ class Loan {
                 $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $last_od_amount;
 
                 foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $this->id) as $paid) {
-
                     $balance = $balance + $paid['paid_amount'];
                 }
 
@@ -769,7 +770,7 @@ class Loan {
                     //weekly loan od amount 
                 } else if ($this->installment_type == 4) {
 
-                    if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                    if (strtotime(date("Y/m/d")) <= strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                         
                     } else {
                         if ($od !== false) {
@@ -791,11 +792,11 @@ class Loan {
                                 if ((strtotime(date("Y/m/d")) <= strtotime($od_date)) || (strtotime($od_date) >= strtotime($selectedDate))) {
                                     break;
                                 }
+
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
                                 if ($od_amount_all > 0) {
-
                                     array_push($od_amount_all_array, $od_amount_all);
                                 }
                                 $od_date_start->modify($od_dates);
@@ -803,11 +804,9 @@ class Loan {
                             }
                         }
                     }
-
                     //monthly loan od amount
                 } else {
-
-                    if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                    if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                         
                     } else {
                         if ($od !== false) {
@@ -849,17 +848,27 @@ class Loan {
                 }
 
                 //break selected date
-                if (strtotime($selectedDate) <= strtotime($date)) {
-                    break;
+                if ($this->installment_type == 30) {
+
+                    $total_installment_amount += $installment_amount;
+                    if (strtotime($selectedDate) <= strtotime($date)) {
+                        break;
+                    }
+                } else if ($this->installment_type == 4 || $this->installment_type == 1) {
+
+
+                    if (strtotime($selectedDate) <= strtotime($date)) {
+                        break;
+                    }
+                    $total_installment_amount += $installment_amount;
                 }
-                $total_installment_amount += $installment_amount;
+
                 $start->modify($modify_range);
                 $x++;
             }
         }
 
         $Installment = new Installment(NULL);
-        $total_paid_installment = 0;
 
         foreach ($Installment->getInstallmentByLoan($this->id) as $installment) {
             $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
@@ -881,8 +890,8 @@ class Loan {
             'system-due' => $system_due,
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
             'actual-due' => $actual_due,
-            'due_and_excess' => $balance + $last_od_amount,
-            'all_amount' => $balance,
+            'due_and_excess' => $total_installment_amount,
+            'all_amount' => $total_installment_amount + $last_od_amount,
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment,
             'first_installment_date' => $first_installment_date,
@@ -979,7 +988,7 @@ class Loan {
 
             $INSTALLMENT = new Installment(NULL);
             $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($this->id);
-            
+
             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $this->id, $today) as $paid) {
                 $paid_amount += $paid['paid_amount'];
             }
@@ -1270,7 +1279,13 @@ class Loan {
                                 if ($defult_val <= 6 && $this->od_date <= $od_date_start) {
                                     $od_dates = '+1 day';
                                 }
+
                                 $od_date = $od_date_start->format('Y-m-d');
+
+                                if ((strtotime(date("Y/m/d")) <= strtotime($od_date))) {
+                                    break;
+                                }
+
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
@@ -1278,18 +1293,14 @@ class Loan {
 
                                     array_push($od_amount_all_array, $od_amount_all);
                                 }
-                                if ($today == $od_date) {
-                                    break;
-                                }
-
                                 $od_date_start->modify($od_dates);
                                 $y++;
                             }
                         }
                     }
+
                     //monthly loan od amount
                 } else {
-
                     if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
                         
                     } else {
@@ -1306,27 +1317,23 @@ class Loan {
 
                             $od_date_start = new DateTime($date);
                             $defult_val = $daysOfMonth - 1;
+                            $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
                             while ($y <= $defult_val) {
 
                                 if ($defult_val <= $daysOfMonth - 1 && $this->od_date <= $od_date_start) {
                                     $od_dates = '+1 day';
                                 }
+
                                 $od_date = $od_date_start->format('Y-m-d');
 
-                                if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
+                                if ((strtotime(date("Y/m/d")) <= strtotime($od_date))) {
                                     break;
                                 }
 
-                                $od_interest = $this->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array), 2));
-
-                                if ($od_amount_all > 0) {
-
-                                    array_push($od_amount_all_array, $od_amount_all);
-                                }
-
+                                array_push($od_amount_all_array, $od_amount_all);
 
                                 $od_date_start->modify($od_dates);
                                 $y++;
@@ -1334,10 +1341,20 @@ class Loan {
                         }
                     }
                 }
-                $total_installment_amount += $installment_amount;
 
-                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
-                    break;
+                if ($this->installment_type == 30) {
+                    $total_installment_amount += $installment_amount;
+
+                    if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                        break;
+                    }
+                } else if ($this->installment_type == 4 || $this->installment_type == 1) {
+
+
+                    if (strtotime(date("Y/m/d")) <= strtotime($date)) {
+                        break;
+                    }
+                    $total_installment_amount += $installment_amount;
                 }
 
                 $start->modify($modify_range);

@@ -378,8 +378,6 @@ $time = date('H:i:s');
 
                                                 $first_date = $start->format('Y-m-d H:i:s');
 
-
-
                                                 $x = 0;
                                                 $count = 0;
                                                 $ins_total = 0;
@@ -620,7 +618,7 @@ $time = date('H:i:s');
                                                         $od = $OD->allOdByLoanAndDate($date, $balance);
 
 
-                                                        if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                        if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                                                             
                                                         } else {
                                                             if ($od !== false) {
