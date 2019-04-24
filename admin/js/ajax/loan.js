@@ -876,7 +876,7 @@ $(`#issue_mode,#loan_amount`).bind("keyup change", function () {
 });
 
 //issue mode get by class in edit loan 0
-$(`issue_mode,#loan_amount`).bind("keyup change", function () {
+$(`.issue_mode,#loan_amount`).change(function () {
 
     var issue_mode = $(`.issue_mode`).val();
     var loan_amount = $(`.loan_amount`).val();

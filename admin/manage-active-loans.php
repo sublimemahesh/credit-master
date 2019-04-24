@@ -173,9 +173,12 @@ $today = date('Y-m-d');
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
-                                                        } else {
+                                                        } else if ($status["arrears-excess"] < 0) {
                                                             echo '<b class="text-success font-re-size">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
+                                                        } else {
+                                                            echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' .   number_format($status["installment_amount"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
                                                         <br> 
@@ -186,7 +189,7 @@ $today = date('Y-m-d');
                                                             echo '<b class="text-danger font-re-size">Od Amount: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
                                                             echo '<br>';
-                                                            echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
+                                                            echo '<b class="text-danger font-re-size"  >All Arrears Amount: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>  
@@ -195,9 +198,9 @@ $today = date('Y-m-d');
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-                                                        <?php
-                                                        if ($loan['installment_type'] == 30) {
-                                                            ?>
+    <?php
+    if ($loan['installment_type'] == 30) {
+        ?>
                                                             <a href="view-daily-loan-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
                                                             <?php
                                                         } elseif ($loan['installment_type'] == 4) {
@@ -206,7 +209,7 @@ $today = date('Y-m-d');
                                                             <?php
                                                         } elseif ($loan['installment_type'] == 1) {
                                                             ?>
-                                                            <a href="view-monthly-loan-history.php?id=<?php echo $loan['id'];?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
+                                                            <a href="view-monthly-loan-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
                                                             <?php
                                                         }
                                                         ?>
@@ -214,9 +217,9 @@ $today = date('Y-m-d');
                                                         <a href="view-customer-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-log-out btn  btn-default" title="Customer History"></button></a>
                                                     </td> 
                                                 </tr>
-                                                <?php
-                                            }
-                                            ?>   
+    <?php
+}
+?>   
                                         </tbody>
                                         <tfoot>
                                             <tr>
