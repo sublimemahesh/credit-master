@@ -155,7 +155,7 @@ if ($_POST['action'] == 'CHECKGUARANTER_2') {
     $LOAN = new Loan(NULl);
 
     $result = $LOAN->CheckGuarantor_2($_POST["guarantor_2"]);
-    
+
     if ($result == TRUE) {
         $data = array("status" => TRUE);
         header('Content-type: application/json');
@@ -249,7 +249,7 @@ if ($_POST['action'] == 'lOANPROCESSINGPRE') {
     }
 }
 
-//Before Delete Customer has loan
+//before delete Customer has loan
 if ($_POST['action'] == 'CHECKCUSTOMERHASLOAN') {
 
     $LOAN = new Loan(NULL);
@@ -279,10 +279,9 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
     if ($_POST['issue_mode'] == 'cash') {
 
-
         $result = $DEFULTDATA->loanProcessingPreCash($loan_amount);
         $loan = $LOAN->getLoanDetailsByCustomer($customer_id);
-       
+
         $paid_amount = $INSTALLMENT->getAmountByLoanId($loan[0]);
 
         //get total loan amount in customer
@@ -290,14 +289,16 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             $amount = 0;
             $total_loan_amount = $amount += ($loan[1] * $loan[2]) / 100;
 
+            $loan_processing_fee = $result["total"];
             //cash total
             $total_deduction = (int) $result["total"];
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
         } else {
+
             $total_loan_amount = $loan[1] += ($loan[1] * $loan[2]) / 100;
 
             //balance of last loan
@@ -305,12 +306,15 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             $status = $LOAN_1->getCurrentStatus();
             $balance_in_last_loan = $status['installment_amount'] * $status['actual-due-num-of-ins'];
 
+            //loan processign fee
+            $loan_processing_fee = $result["total"];
+
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
-             
+
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
             exit();
         }
@@ -327,12 +331,15 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             $amount = 0;
             $total_loan_amount = $amount += ($loan[1] * $loan[2]) / 100;
 
+            //loan processign fee
+            $loan_processing_fee = $result["total"];
+
             //cash total
             $total_deduction = (int) $result["total"];
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
         } else {
 
@@ -342,12 +349,15 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             $status = $LOAN_1->getCurrentStatus();
             $balance_in_last_loan = $status['installment_amount'] * $status['actual-due-num-of-ins'];
 
+            //loan processign fee
+            $loan_processing_fee = $result["total"];
+
             //check paid amount has loan
             $total_deduction = ($balance_in_last_loan + $result["total"]);
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
             exit();
         }
@@ -364,12 +374,15 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             $amount = 0;
             $total_loan_amount = $amount += ($loan[1] * $loan[2]) / 100;
 
+            //loan processign fee
+            $loan_processing_fee = $result["total"];
+
             //cash total
             $total_deduction = (int) $result["total"];
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
         } else {
 
@@ -377,6 +390,9 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
             //balance of last loan
             $LOAN_1 = new Loan($loan[0]);
             $status = $LOAN_1->getCurrentStatus();
+
+            //loan processign fee
+            $loan_processing_fee = $result["total"];
 
 
             $balance_in_last_loan = $status['installment_amount'] * $status['actual-due-num-of-ins'];
@@ -387,7 +403,7 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2), 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan, 'balance_pay' => number_format($balance_pay, 2), 'total_deductions' => number_format($total_deduction, 2), 'loan_processing_fee' => $loan_processing_fee]);
             header('Content-type: application/json');
             exit();
         }
@@ -416,7 +432,7 @@ if ($_POST['action'] == 'LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN') {
 
             $balance_pay = $loan_amount - $total_deduction;
 
-            echo json_encode(['balance_of_last_loan' => number_format($balance_in_last_loan, 2)]);
+            echo json_encode(['balance_of_last_loan' => $balance_in_last_loan]);
             header('Content-type: application/json');
             exit();
         } else {
@@ -442,7 +458,7 @@ if ($_POST['action'] == 'LASTLOANAMOUNTBYCUSTOMER') {
     $balance_in_last_loan = 0;
     $down_payment = 0;
     $paid_loan_processing_fee = 0;
-    
+
     if ($_POST['issue_mode'] == 'cash') {
 
 
