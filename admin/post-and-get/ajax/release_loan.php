@@ -21,7 +21,6 @@ $LOAN->balance_of_last_loan =$balance_of_last_loan;
 
 
 ///effective date details update///
-
 $EffectiveDate = New EffectiveDate(NULL);
 
 $EffectiveDate->loan = $LOAN->id;

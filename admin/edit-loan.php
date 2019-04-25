@@ -465,7 +465,7 @@ $CENTER = Center::all();
                                     </div>
                                 </div>
                             </div>
-                             
+
 
 
                             <div class="row">
@@ -535,7 +535,7 @@ $CENTER = Center::all();
                                         <div class="form-line">
                                             <label for="" class="hidden-lg hidden-md">Issue Mode</label>
 
-                                            <select id="issue_mode_onloard"    name="issue_mode" class="form-control issue_mode">
+                                            <select id="issue_mode"    name="issue_mode" class="form-control issue_mode">
                                                 <option value=""> -- Please Select Issue Mode -- </option>
                                                 <?php
                                                 $issueModes = DefaultData::getLoanIssueMode();
@@ -567,7 +567,7 @@ $CENTER = Center::all();
                                     <div class="form-group">
                                         <div class="form-line">
                                             <label for="loan_processing_pre_amount" class="hidden-lg hidden-md">Loan Processing Fee</label>
-                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control  " autocomplete="off" disabled="">
+                                            <input type="text" id="loan_processing_pre_amount"    name="loan_processing_pre_amount" placeholder="loan Processing Pre" class="form-control loan_processing_pre_amount " autocomplete="off" disabled="">
                                         </div>
                                     </div>
                                 </div>
@@ -614,6 +614,53 @@ $CENTER = Center::all();
                                 </div>
                             </div>
 
+                            <div class="row" style="display: none;" id="balance_of_last_loan_row" >
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="">Balance Of the last Loan</label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="" class="hidden-lg hidden-md">Balance Of the last Loan</label>
+                                            <div class="form-control"  > 
+                                                <input type="text" id="balance_of_last_loan"  name="balance_of_last_loan" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row" id="total_deductions_row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="total_deductions">Total Deductions </label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="total_deductions" class="hidden-lg hidden-md">Total Deductions </label>
+                                            <div class="form-control">
+                                                <input type="text" id="total_deductions" placeholder="00.00" class="form-control  " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="balance_pay">Balance Pay </label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="balance_pay" class="hidden-lg hidden-md">Balance Pay </label>
+                                            <div class="form-control">
+                                                <input type="text" id="balance_pay"  placeholder="00.00" class="form-control font-weight-new " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
                             <div class="row clearfix">
                                 <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">

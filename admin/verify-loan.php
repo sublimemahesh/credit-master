@@ -251,7 +251,7 @@ $today = date("Y-m-d");
                                             <div class="form-line">
                                                 <label for="" class="hidden-lg hidden-md">Issue Mode</label>
                                                 <div><?php echo ucfirst($LOAN->issue_mode); ?></div>
-                                                <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
+                                                <input type="hidden"   id="issue_mode" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>"   class="form-control  " autocomplete="off" disabled="">
                                             </div>
                                         </div>
                                     </div>
@@ -3518,7 +3518,7 @@ $today = date("Y-m-d");
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs">
                                         <input type="hidden" id="loan_id" value="<?php echo $LOAN->id; ?>"/>
                                         <input type="hidden" id="customer_id" value="<?php echo $CUSTOMER->id; ?>"/>
-                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="verify_by">
+                                        <input type="hidden" value="<?php echo $_SESSION['id']; ?>" id="verify_by">  
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12">
                                         <input type="submit" id="verify" class="btn btn-success" value="Verify Now"/> | 
@@ -3538,7 +3538,7 @@ $today = date("Y-m-d");
 
     <script src="plugins/jquery/jquery.min.js"></script> 
     <script src="plugins/bootstrap/js/bootstrap.js"></script>    
-     <script src="js/ajax/loan.js" type="text/javascript"></script>     
+    <script src="js/ajax/loan.js" type="text/javascript"></script>     
     <script src="plugins/jquery-slimscroll/jquery.slimscroll.js"></script>
     <script src="plugins/node-waves/waves.js"></script>
     <script src="plugins/jquery-spinner/js/jquery.spinner.js"></script>

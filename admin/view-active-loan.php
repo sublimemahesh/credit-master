@@ -76,7 +76,7 @@ $today = date("Y-m-d");
                             </li>
                         </ul>
                     </div> 
-                    <div class="header" style="padding: 0px !important;">
+                    <div class="header" style="padding: 0px !important;"> 
                         <div id="od_limit"> </div>
                         <ul class="nav nav-tabs">
                             <li class="active"><a data-toggle="tab" href="#home"><h5>Loan Details</h5></a></li>
@@ -3830,8 +3830,8 @@ $today = date("Y-m-d");
 
                         </div>
                     </div>
-                    
-                  
+
+
                     <input type="hidden"   id="issue_mode_onloard" name="issue_mode" value="<?php echo $LOAN->issue_mode; ?>" >
                     <?php $paid_amount = $INSTALLMENT->getAmountByLoanId($loan_id); ?>
                     <input type="hidden" id="paids_amount"  name="paid_amount" value="<?php echo$paid_amount[0] ?>" class="form-control  " autocomplete="off">

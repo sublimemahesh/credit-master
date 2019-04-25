@@ -785,7 +785,7 @@ $('#issue_mode').change(function () {
 //Check loan processing free
 $(`#issue_mode,#loan_amount`).bind("keyup change", function () {
 
-    var issue_mode = $(this).val();
+    var issue_mode = $(`#issue_mode`).val();
     var loan_amount = $(`#loan_amount`).val();
 
     if (issue_mode == 'cash') {
@@ -875,11 +875,10 @@ $(`#issue_mode,#loan_amount`).bind("keyup change", function () {
     }
 });
 
-//issue mode get by class in edit loan 0
-$(`.issue_mode,#loan_amount`).change(function () {
+$(`#loan_amount`).bind("keyup change", function () {
 
     var issue_mode = $(`.issue_mode`).val();
-    var loan_amount = $(`.loan_amount`).val();
+    var loan_amount = $(`#loan_amount`).val();
 
 
     if (issue_mode == 'cash') {
@@ -889,7 +888,7 @@ $(`.issue_mode,#loan_amount`).change(function () {
         $(`#loan_processing_pre`).show();
         $('#cheque_free').hide();
         $(`#bank_transaction_free_amount`).hide();
-
+        $(`#total_deductions_row`).show();
         $.ajax({
             url: "post-and-get/ajax/loan.php",
             type: "POST",
@@ -914,7 +913,7 @@ $(`.issue_mode,#loan_amount`).change(function () {
         $(`#loan_processing_pre`).show();
         $(`#bank_transaction_free_amount`).show();
         $('#cheque_free').hide();
-
+        $(`#total_deductions_row`).show();
 
         $.ajax({
             url: "post-and-get/ajax/loan.php",
@@ -969,9 +968,6 @@ $(`.issue_mode,#loan_amount`).change(function () {
     }
 
 });
-
-
-
 
 //Before delete check Customer '
 $('.delete-customer').click(function () {
@@ -1063,6 +1059,7 @@ $('#customer,#issue_mode').change(function () {
     var issue_mode = $(`#issue_mode`).val();
     var loan_amount = $(`#loan_amount`).val();
 
+
     $.ajax({
         url: "post-and-get/ajax/loan.php",
         type: "POST",
@@ -1074,11 +1071,51 @@ $('#customer,#issue_mode').change(function () {
         },
         dataType: "JSON",
         success: function (jsonStr) {
-
             if (jsonStr.status) {
-                setTimeout(function () {
-                    window.location.replace("create-loan.php");
-                }, 2000);
+                $('option:selected', $('#customer')).remove();
+                swal({
+                    title: "The new loan cannot be processed..!",
+                    text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    closeOnConfirm: false
+                });
+
+            } else {
+                if (jsonStr.balance_of_last_loan != 0) {
+                    $('#balance_of_last_loan_row').show();
+                }
+                $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+                $('#total_deductions').val(jsonStr.total_deductions);
+                $('#balance_pay').val(jsonStr.balance_pay);
+            }
+        }
+
+    });
+});
+
+$('#loan_amount').bind("keyup change", function () {
+
+    var customer_id = $(`#customer`).val();
+    var issue_mode = $(`#issue_mode`).val();
+    var loan_amount = $(`#loan_amount`).val();
+    var total_deduction = 0;
+    var balance_of_last_loan = 0;
+    var loan_processing_fee = 0;
+
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            customer_id: customer_id,
+            issue_mode: issue_mode,
+            loan_amount: loan_amount,
+            action: `LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN`
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+            if (jsonStr.status) {
                 $('option:selected', $('#customer')).remove();
                 swal({
                     title: "The new loan cannot be processed..!",
@@ -1091,8 +1128,17 @@ $('#customer,#issue_mode').change(function () {
 
             } else {
 
+                loan_processing_fee = (parseFloat(jsonStr.loan_processing_fee));
+                balance_of_last_loan = (parseFloat(jsonStr.balance_of_last_loan));
+
+                total_deduction = (balance_of_last_loan + loan_processing_fee);
+
+                if (jsonStr.balance_of_last_loan != 0) {
+                    $('#balance_of_last_loan_row').show();
+                }
+
                 $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
-                $('#total_deductions').val(jsonStr.total_deductions);
+                $('#total_deductions').val(total_deduction);
                 $('#balance_pay').val(jsonStr.balance_pay);
             }
         }
@@ -1101,12 +1147,11 @@ $('#customer,#issue_mode').change(function () {
 });
 
 
-
 ///-----------Windows Onloard----------// 
 window.onload = function () {
 
     //get other page to issumode prices in onloard
-    var issue_mode = $('#issue_mode_onloard').val();
+    var issue_mode = $('#issue_mode').val();
     var loan_amount = $('#loan_amount').val();
 
 
@@ -1189,7 +1234,7 @@ window.onload = function () {
 //get last loan amount by customer
     var customer_id = $('#customer_id').val();
     var loan_amount = $('#loan_amount').val();
-    var issue_mode = $('#issue_mode_onloard').val();
+    var issue_mode = $('#issue_mode').val();
     var loan_id = $('#loan_id').val();
 
     $.ajax({
@@ -1274,4 +1319,59 @@ window.onload = function () {
             }
         }
     });
+
+
+
+    var customer_id = $(`#customer`).val();
+    var issue_mode = $(`#issue_mode`).val();
+    var loan_amount = $(`#loan_amount`).val();
+    var loan_processing_pre_amount = $(`#loan_processing_pre_amount`).val();
+
+    var total_deduction = 0;
+    var balance_of_last_loan = 0;
+    $.ajax({
+        url: "post-and-get/ajax/loan.php",
+        type: "POST",
+        data: {
+            customer_id: customer_id,
+            issue_mode: issue_mode,
+            loan_amount: loan_amount,
+            action: `LAST_LOAN_AMOUNT_BY_CUSTOMER_IN_CREATE_LOAN`
+        },
+        dataType: "JSON",
+        success: function (jsonStr) {
+
+            if (jsonStr.status) {
+                setTimeout(function () {
+                    window.location.replace("create-loan.php");
+                }, 2000);
+                $('option:selected', $('#customer')).remove();
+                swal({
+                    title: "The new loan cannot be processed..!",
+                    text: "This customer already has an active loan. Please complete the 75% amount from the last loan.",
+                    type: "error",
+                    showCancelButton: false,
+                    confirmButtonColor: "#00b0e4",
+                    closeOnConfirm: false
+                });
+
+            } else {
+
+                loan_processing_fee = (parseFloat(jsonStr.loan_processing_fee));
+                balance_of_last_loan = (parseFloat(jsonStr.balance_of_last_loan));
+
+                total_deduction = (balance_of_last_loan + loan_processing_fee);
+
+                if (jsonStr.balance_of_last_loan != 0) {
+                    $('#balance_of_last_loan_row').show();
+                }
+
+                $('#balance_of_last_loan').val(jsonStr.balance_of_last_loan);
+                $('#total_deductions').val(total_deduction);
+                $('#balance_pay').val(jsonStr.balance_pay);
+            }
+        }
+
+    });
+
 };
