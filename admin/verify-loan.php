@@ -3551,6 +3551,9 @@ $today = date("Y-m-d");
     <script src="js/ajax/od-limite.js" type="text/javascript"></script>
     <script src="delete/js/od.js" type="text/javascript"></script>
     <script>
+
+        var today = new Date();
+
         $(function () {
             $(".datepicker").datepicker({
                 dateFormat: 'yy-mm-dd',
@@ -3558,11 +3561,13 @@ $today = date("Y-m-d");
 //                maxDate: '+3D',
             });
             $("#od_date_start").datepicker({
-                dateFormat: 'yy-mm-dd'
+                dateFormat: 'yy-mm-dd',
+                minDate: today
 
             });
             $("#od_date_end").datepicker({
-                dateFormat: 'yy-mm-dd'
+                dateFormat: 'yy-mm-dd',
+                minDate: today
             });
         });
 
