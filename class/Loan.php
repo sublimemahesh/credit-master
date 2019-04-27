@@ -614,11 +614,7 @@ class Loan {
 
         date_default_timezone_set("Asia/Calcutta");
         $time = date('H:i:s');
-        $today = date('Y-m-d H:i:s');
-
-        date_default_timezone_set("Asia/Calcutta");
-        $time = date('H:i:s');
-        $today = date('Y-m-d');
+        $today = date('Y-m-d H:i:s'); 
 
         $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($this->loan_period, $this->installment_type);
 
@@ -855,8 +851,6 @@ class Loan {
                         break;
                     }
                 } else if ($this->installment_type == 4 || $this->installment_type == 1) {
-
-
                     if (strtotime($selectedDate) <= strtotime($date)) {
                         break;
                     }
@@ -1204,7 +1198,7 @@ class Loan {
 
             $INSTALLMENT = new Installment(NULL);
             $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($this->id);
-            
+
             foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $this->id) as $paid) {
                 $paid_amount += $paid['paid_amount'];
             }
@@ -1374,9 +1368,8 @@ class Loan {
         $system_due = $loan_amount - $total_installment_amount;
         $system_due_num_of_ins = $system_due / $this->installment_amount;
         $actual_due = $loan_amount - $total_paid_installment;
-        $actual_due_num_of_ins = $actual_due / $this->installment_amount;
-
-
+        $actual_due_num_of_ins = $actual_due / $this->installment_amount; 
+       
 
         $all_arress = ($last_od_amount) + ($total_installment_amount - $total_paid_installment);
 

@@ -20,7 +20,7 @@ $(document).ready(function () {
                 showConfirmButton: false
             });
 
-        } else if (parseInt(amount) < parseInt(od_limite)) {
+        } else if (parseFloat(amount) < parseFloat(od_limite)) {
             swal({
                 title: "Error!",
                 text: "Amount is less than Od limite, You cannot Paid..!",
@@ -29,8 +29,8 @@ $(document).ready(function () {
                 showConfirmButton: false
             });
 
-        } else if (parseInt(actual_due) <= parseInt(amount)) {
-            var $excess = parseInt(amount) - parseInt(actual_due);
+        } else if (parseFloat(actual_due) <= parseFloat(amount)) {
+            var $excess = parseFloat(amount) - parseFloat(actual_due);
 
             swal({
                 html: true,
@@ -62,7 +62,7 @@ $(document).ready(function () {
                     }
                 });
             });
-        } else if (parseInt(actual_due) >= parseInt(amount)) {
+        } else if (parseFloat(actual_due) >= parseFloat(amount)) {
             swal({
                 title: "Paid Now!",
                 text: "Do you really want to Paid this amount?...",

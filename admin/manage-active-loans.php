@@ -118,7 +118,6 @@ $today = date('Y-m-d');
 
                                                         <i class="glyphicon glyphicon-usd"></i>
                                                         <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
-
                                                     </td>
 
                                                     <td>
@@ -166,8 +165,6 @@ $today = date('Y-m-d');
                                                             echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
                                                             ?>
                                                         </span>
-
-
                                                         <br> 
                                                         <?php
                                                         if ($status["arrears-excess"] > 0) {
@@ -178,7 +175,7 @@ $today = date('Y-m-d');
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         } else {
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
-                                                            echo '<span  class="text-danger font-re-size">' . '<b>' .   number_format($status["installment_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["installment_amount"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>
                                                         <br> 
@@ -198,9 +195,9 @@ $today = date('Y-m-d');
                                                     <td class="text-center" style="padding-top: 24px;">
                                                         <a href="view-active-loan.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-list btn btn-info" title="View Loan"></button></a> | 
                                                         <a href="view-installment.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-info-sign btn btn-warning" title="Add Installment"></button></a> | 
-    <?php
-    if ($loan['installment_type'] == 30) {
-        ?>
+                                                        <?php
+                                                        if ($loan['installment_type'] == 30) {
+                                                            ?>
                                                             <a href="view-daily-loan-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-repeat btn btn-success" title="View Installment History"></button></a> | 
                                                             <?php
                                                         } elseif ($loan['installment_type'] == 4) {
@@ -213,13 +210,12 @@ $today = date('Y-m-d');
                                                             <?php
                                                         }
                                                         ?>
-
                                                         <a href="view-customer-history.php?id=<?php echo $loan['id']; ?>"> <button class="glyphicon glyphicon-log-out btn  btn-default" title="Customer History"></button></a>
                                                     </td> 
                                                 </tr>
-    <?php
-}
-?>   
+                                                <?php
+                                            }
+                                            ?>   
                                         </tbody>
                                         <tfoot>
                                             <tr>

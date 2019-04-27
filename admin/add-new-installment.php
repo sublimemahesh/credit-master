@@ -170,9 +170,11 @@ if (isset($_GET['loan'])) {
         <script src="js/ajax/paid_installment.js" type="text/javascript"></script>
 
         <script>
+            var today = new Date();
             $(function () {
                 $(".datepicker").datepicker({
-                    dateFormat: 'yy-mm-dd'
+                    dateFormat: 'yy-mm-dd',
+//                     minDate: today
                 });
                 $('#time').timepicker({
                     timeFormat: 'H:i:s',
