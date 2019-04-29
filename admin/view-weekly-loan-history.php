@@ -115,7 +115,7 @@ $today = date("Y-m-d H:i:s");
                                         <tbody>
                                             <?php
                                             $row_count = 0;
-                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                            $no_of_installments = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                             $first_installment_date = '';
                                             $installments = 0;
@@ -347,9 +347,9 @@ $today = date("Y-m-d H:i:s");
                                                 }
                                             }
 
-                                            $previus_amount = 0;
-                                            $paid_amount_beetwen_dates = 0;
-                                            $previus_amount += $installments['paid_amount'];
+//                                            $previus_amount = 0;
+//                                            $paid_amount_beetwen_dates = 0;
+//                                            $previus_amount += $installments['paid_amount'];
 
                                             $x = 0;
                                             $ins_total = 0;
@@ -366,28 +366,28 @@ $today = date("Y-m-d H:i:s");
                                             $od_balance_amount = array();
 
 
-                                            while ($x < $defultdata) {
-                                                if ($defultdata == 4) {
+                                            while ($x < $no_of_installments) {
+                                                if ($no_of_installments == 4) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 30) {
+                                                } elseif ($no_of_installments == 30) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 8) {
+                                                } elseif ($no_of_installments == 8) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 60) {
+                                                } elseif ($no_of_installments == 60) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 2) {
+                                                } elseif ($no_of_installments == 2) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 1) {
+                                                } elseif ($no_of_installments == 1) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 90) {
+                                                } elseif ($no_of_installments == 90) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 12) {
+                                                } elseif ($no_of_installments == 12) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 3) {
+                                                } elseif ($no_of_installments == 3) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 100) {
+                                                } elseif ($no_of_installments == 100) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 13) {
+                                                } elseif ($no_of_installments == 13) {
                                                     $add_dates = '+7 day';
                                                 }
 
@@ -422,10 +422,11 @@ $today = date("Y-m-d H:i:s");
 
 
 
-                                                if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                                                if (strtotime(date("Y/m/d")." 00:00:01") < strtotime($date)) {
                                                     break;
                                                 }
-
+                                           
+                                              
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
@@ -611,7 +612,7 @@ $today = date("Y-m-d H:i:s");
 
                                                             $ODDATES->modify($od_date_remove);
 
-                                                            $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+                                                            $od_night = $ODDATES->format('Y-m-d H:i:s');
 //get receipts if od loop ends in current date(od loop break in current date)
                                                             if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
 
@@ -620,7 +621,7 @@ $today = date("Y-m-d H:i:s");
                                                                 $ss = $SS->format('Y-m-d H:i:s');
 
 
-                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date_morning, $ss, $loan_id) as $Installment_payment) {
+                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_night, $ss, $loan_id) as $Installment_payment) {
                                                                     ?>
                                                                     <tr  id="payment-color">  
                                                                         <td>
@@ -667,7 +668,7 @@ $today = date("Y-m-d H:i:s");
 
 
 
-                                                            foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date_morning, $od_date, $loan_id) as $Installment_payment) {
+                                                            foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_night, $od_date, $loan_id) as $Installment_payment) {
                                                                 $row_count++;
                                                                 ?>
 
@@ -903,7 +904,7 @@ $today = date("Y-m-d H:i:s");
                                                 $x++;
 
                                                 //this is to get receipts after installment end 
-                                                if ($defultdata == $x) {
+                                                if ($no_of_installments == $x) {
                                                     //get installment end date
                                                     $INSTALLMENT_END = new DateTime($date);
                                                     $INSTALLMENT_END->modify('+7 day');
@@ -936,7 +937,7 @@ $today = date("Y-m-d H:i:s");
                                                     //if having od after installment end
                                                     if ($od !== false) {
 
-                                                        $last_od_date = date('D/M/Y', strtotime($od_date_morning));
+                                                        $last_od_date = date('D/M/Y', strtotime($od_night));
                                                         $last_installment_date = date('D/M/Y', strtotime($date));
 
                                                         if ($last_od_date == $last_installment_date) {
@@ -1159,7 +1160,7 @@ $today = date("Y-m-d H:i:s");
                                                                 break;
                                                             }
 
-                                               
+
 
                                                             $od_date_start1->modify($od_dates);
                                                             $z++;
