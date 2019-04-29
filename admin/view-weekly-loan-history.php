@@ -422,11 +422,11 @@ $today = date("Y-m-d H:i:s");
 
 
 
-                                                if (strtotime(date("Y/m/d")." 00:00:01") < strtotime($date)) {
+                                                if (strtotime(date("Y/m/d") . " 00:00:01") < strtotime($date)) {
                                                     break;
                                                 }
-                                           
-                                              
+
+
                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($date, $second_installment_date, $loan_id) as $paid) {
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
@@ -760,52 +760,8 @@ $today = date("Y-m-d H:i:s");
                                                                 }
                                                                 break;
                                                             }
-                                                            ?>
 
 
-                                                            <!-- 
-                                                                                                              OD start
-                                                            -->
-                                                            <tr style="background-color: #8acae4b3">  
-                                                                <td><?php echo $row_count; ?> </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    <?php echo $od_date ?>
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    OD Interest(<?php echo $od['od_interest_limit']; ?>)
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    <?php
-                                                                    $od_array[] = $od_interest;
-                                                                    $od_amount = json_encode(array_sum($od_array), 2);
-                                                                    array_push($last_od, $od_interest);
-                                                                    echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
-                                                                    ?>
-                                                                </td>
-                                                                <td class="font-colors text-right f-style"></td>
-                                                                <td class="font-colors text-right f-style">   
-
-                                                                    <!--                                                     
-                                                                                                                                    if ($due_and_excess < 0) {
-                                                                                                                                        $balance_in_od = $before_installment - $od_amount;
-                                                                                                                                        array_push($last_od_balance, $balance_in_od);
-                                                                                                                                        echo number_format($balance_in_od, 2) . "weekly od";
-                                                                                                                                    }
-                                                                    -->
-                                                                    <?php
-                                                                    array_push($od_total, $od_amount);
-                                                                    $payment_balance = $balance - ($od_amount - $od_total_amount);
-                                                                    array_push($payment_arr, $payment_balance);
-                                                                    echo '<p class="f-style font-color-2">' . number_format($payment_balance, 2) . '</p>';
-                                                                    ?>
-                                                                </td>
-                                                            </tr>
-                                                            <!--                                                        OD end -->
-
-                                                            <?php
                                                             if (strtotime($od['od_date_end']) <= strtotime($od_date)) {
 
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od['od_date_end'] . ' 23:59:59', $second_installment_date, $loan_id) as $Installment_payment) {
@@ -854,7 +810,52 @@ $today = date("Y-m-d H:i:s");
                                                                 }
                                                                 break;
                                                             }
+                                                            ?>
 
+
+                                                            <!-- 
+                                                                                                              OD start
+                                                            -->
+                                                            <tr style="background-color: #8acae4b3">  
+                                                                <td><?php echo $row_count; ?> </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    <?php echo $od_date ?>
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    OD Interest(<?php echo $od['od_interest_limit']; ?>)
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    <?php
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(array_sum($od_array), 2);
+                                                                    array_push($last_od, $od_interest);
+                                                                    echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
+                                                                    ?>
+                                                                </td>
+                                                                <td class="font-colors text-right f-style"></td>
+                                                                <td class="font-colors text-right f-style">   
+
+                                                                    <!--                                                     
+                                                                                                                                    if ($due_and_excess < 0) {
+                                                                                                                                        $balance_in_od = $before_installment - $od_amount;
+                                                                                                                                        array_push($last_od_balance, $balance_in_od);
+                                                                                                                                        echo number_format($balance_in_od, 2) . "weekly od";
+                                                                                                                                    }
+                                                                    -->
+                                                                    <?php
+                                                                    array_push($od_total, $od_amount);
+                                                                    $payment_balance = $balance - ($od_amount - $od_total_amount);
+                                                                    array_push($payment_arr, $payment_balance);
+                                                                    echo '<p class="f-style font-color-2">' . number_format($payment_balance, 2) . '</p>';
+                                                                    ?>
+                                                                </td>
+                                                            </tr>
+                                                            <!--                                                        OD end -->
+
+                                                            <?php
                                                             $od_date_start->modify($od_dates);
                                                             $y++;
                                                         }
@@ -928,9 +929,9 @@ $today = date("Y-m-d H:i:s");
 
                                                     $z = 0;
 
-                                                    $od_date_start1 = new DateTime($date);
+                                                    $od_date_start1 = new DateTime($od_night);
 
-                                                    $od_date_start1->modify('+7days +23 hours +59 minutes +58 seconds');
+                                                    $od_date_start1->modify('+1 day +23 hours +59 minutes +58 seconds');
 
                                                     $defult_val = $days_between;
 
@@ -970,6 +971,59 @@ $today = date("Y-m-d H:i:s");
 
 
 //receipts between two od dates 
+                                                            //get receipts if od loop ends in current date(od loop break in current date)
+                                                            if (strtotime(date("Y/m/d")) <= strtotime($od_date1)) {
+
+//                                                                $SS = $ODDATES->modify('+30 days');
+//
+//                                                                $ss = $SS->format('Y-m-d H:i:s');
+
+
+                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($old_od_date, $installment_unlimited_end, $loan_id) as $Installment_payment) {
+                                                                    ?>
+                                                                    <tr  id="payment-color">  
+                                                                        <td>
+                                                                            <?php echo $row_count; ?>
+                                                                        </td>                                                       
+                                                                        <td class="font-colors text-right f-style">
+                                                                            <?php echo $Installment_payment['paid_date']; ?>
+                                                                        </td>
+                                                                        <td class="font-colors text-right f-style">
+
+                                                                        </td>
+                                                                        <td class="font-colors text-right f-style">
+                                                                            <?php
+                                                                            if ($Installment_payment['status'] == 'paid' || 'Paid')
+                                                                                echo 'Receipt';
+                                                                            ?>
+                                                                        </td>
+                                                                        <td class="font-colors text-right f-style"></td>                                                      
+                                                                        <td class="font-colors text-right f-style">
+                                                                            <?php echo number_format($Installment_payment['paid_amount'] + $Installment_payment['additional_interest'], 2); ?>
+                                                                        </td>
+                                                                        <td class="font-colors text-right f-style">
+                                                                            <?php
+                                                                            $before_all_balnce_amount = $balance + $Installment_payment['paid_amount'];
+//                                                                            $payment_balance = -1 * ($ins_total) + $Installment_payment['paid_amount'] + $Installment_payment['additional_interest'];
+//                                                                            array_push($payment_arr, $payment_balance);
+                                                                            //
+                                                                    $balance = $balance + $Installment_payment['paid_amount'] + $Installment_payment['additional_interest'];
+                                                                            if (($od_amount - $od_total_amount) < 0) {
+                                                                                $dd = 0;
+                                                                            } else {
+                                                                                $dd = ($od_amount - $od_total_amount);
+                                                                            }
+                                                                            echo number_format($balance - ($dd), 2);
+
+                                                                            $row_count++
+                                                                            ?>
+                                                                        </td>
+                                                                    </tr>
+                                                                    <?php
+                                                                }
+                                                                break;
+                                                            }
+
 
                                                             foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($old_od_date, $od_date1, $loan_id) as $Installment_payment) {
                                                                 $row_count++;
@@ -1063,54 +1117,7 @@ $today = date("Y-m-d H:i:s");
                                                                 }
                                                                 break;
                                                             }
-                                                            ?>
 
-
-
-
-                                                            <tr style="background-color: #8acae4b3">  
-                                                                <td><?php echo $row_count; ?> </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    <?php echo $od_date1; ?>
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    OD Interest(<?php echo $od['od_interest_limit']; ?>)
-                                                                </td>
-                                                                <td class="font-colors text-right f-style">
-                                                                    <?php
-                                                                    $od_array[] = $od_interest;
-                                                                    $od_amount = json_encode(array_sum($od_array), 2);
-                                                                    array_push($last_od, $od_interest);
-                                                                    echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
-                                                                    ?>
-                                                                </td>
-                                                                <td class="font-colors text-right f-style"></td>
-                                                                <td class="font-colors text-right f-style">   
-
-                                                                    <!--                                                     
-                                                                                                                                    if ($due_and_excess < 0) {
-                                                                                                                                        $balance_in_od = $before_installment - $od_amount;
-                                                                                                                                        array_push($last_od_balance, $balance_in_od);
-                                                                                                                                        echo number_format($balance_in_od, 2) . "weekly od";
-                                                                                                                                    }
-                                                                    -->
-
-                                                                    <?php
-                                                                    array_push($od_total, $od_amount);
-                                                                    $payment_balance = $balance - ($od_amount - $od_total_amount);
-                                                                    array_push($payment_arr, $payment_balance);
-                                                                    echo '<p class="f-style font-color-2">' . number_format($payment_balance, 2) . '</p>';
-                                                                    ?>
-                                                                </td>
-                                                            </tr>
-
-
-
-
-                                                            <?php
                                                             //show receipts from od end date if od loop ends with od end date 
                                                             if ($od_date1 >= $od['od_date_end']) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od['od_date_end'] . ' 23:59:59', $installment_unlimited_end, $loan_id) as $Installment_payment) {
@@ -1159,9 +1166,54 @@ $today = date("Y-m-d H:i:s");
                                                                 }
                                                                 break;
                                                             }
+                                                            ?>
 
 
 
+
+                                                            <tr style="background-color: #8acae4b3">  
+                                                                <td><?php echo $row_count; ?> </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    <?php echo $od_date1; ?>
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    OD Interest(<?php echo $od['od_interest_limit']; ?>)
+                                                                </td>
+                                                                <td class="font-colors text-right f-style">
+                                                                    <?php
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(array_sum($od_array), 2);
+                                                                    array_push($last_od, $od_interest);
+                                                                    echo '<p style="color:red">' . number_format($od_interest, 2) . '</p>';
+                                                                    ?>
+                                                                </td>
+                                                                <td class="font-colors text-right f-style"></td>
+                                                                <td class="font-colors text-right f-style">   
+
+                                                                    <!--                                                     
+                                                                                                                                    if ($due_and_excess < 0) {
+                                                                                                                                        $balance_in_od = $before_installment - $od_amount;
+                                                                                                                                        array_push($last_od_balance, $balance_in_od);
+                                                                                                                                        echo number_format($balance_in_od, 2) . "weekly od";
+                                                                                                                                    }
+                                                                    -->
+
+                                                                    <?php
+                                                                    array_push($od_total, $od_amount);
+                                                                    $payment_balance = $balance - ($od_amount - $od_total_amount);
+                                                                    array_push($payment_arr, $payment_balance);
+                                                                    echo '<p class="f-style font-color-2">' . number_format($payment_balance, 2) . '</p>';
+                                                                    ?>
+                                                                </td>
+                                                            </tr>
+
+
+
+
+                                                            <?php
                                                             $od_date_start1->modify($od_dates);
                                                             $z++;
                                                         }

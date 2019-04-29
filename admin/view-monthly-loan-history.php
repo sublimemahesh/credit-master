@@ -981,16 +981,16 @@ $today = date("Y-m-d H:i:s");
                                                             $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
 
 
-
+                                                         
                                                             //get receipts if od loop ends in current date(od loop break in current date)
                                                             if (strtotime(date("Y/m/d")) <= strtotime($od_date1)) {
 
-//                                                                $SS = $ODDATES->modify('+30 days');
+//                                                                $SS = $ODDATES->modify('130 days');
 //
 //                                                                $ss = $SS->format('Y-m-d H:i:s');
 
 
-                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date1, $installment_unlimited_end, $loan_id) as $Installment_payment) {
+                                                                foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($old_od_date, $installment_unlimited_end, $loan_id) as $Installment_payment) {
                                                                     ?>
                                                                     <tr  id="payment-color">  
                                                                         <td>
