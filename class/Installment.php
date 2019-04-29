@@ -63,8 +63,8 @@ class Installment {
                 . $this->type . "', '"
                 . $this->receipt_no . "', '"
                 . $this->history . "')";
-        
-
+       
+      
         $db = new Database();
         $result = $db->readQuery($query);
 
