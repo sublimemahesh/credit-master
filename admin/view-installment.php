@@ -53,7 +53,6 @@ $time = date('H:i:s');
                 <!-- Manage Districts -->
                 <div class="row clearfix">
                     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-
                         <div class="card">
                             <div class="header">
                                 <h2>
@@ -111,8 +110,6 @@ $time = date('H:i:s');
                                         echo $LOAN->effective_date
                                         ?> 
                                     </h5>
-
-
                                 </div> 
 
                                 <div class="table-responsive">
@@ -149,10 +146,9 @@ $time = date('H:i:s');
                                                     $FID->modify('+1 months');
                                                     $first_installment_date = $FID->format('Y-m-d H:i:s');
                                                 }
+
                                                 $start = new DateTime($first_installment_date);
                                                 $first_date = $start->format('Y-m-d H:i:s');
-
-
 
                                                 $x = 0;
                                                 $count = 0;
@@ -161,6 +157,8 @@ $time = date('H:i:s');
                                                 $total_paid = 0;
                                                 $od_array = array();
                                                 $od_amount_all_array = array();
+                                                $last_od = array();
+
                                                 while ($x < $defultdata) {
                                                     if ($defultdata == 4) {
                                                         $add_dates = '+7 day';
@@ -188,6 +186,7 @@ $time = date('H:i:s');
 
                                                     $count++;
                                                     $paid_amount = 0;
+                                                    $od_interest = 0;
                                                     $od_amount = 0;
                                                     $od_amount_all = 0;
                                                     $balance = 0;
@@ -204,7 +203,6 @@ $time = date('H:i:s');
                                                     $route = $CUSTOMER->route;
                                                     $center = $CUSTOMER->center;
                                                     $amount = $LOAN->installment_amount;
-
                                                     $od_amount = $LOAN->od_interest_limit;
 
                                                     $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
@@ -219,8 +217,6 @@ $time = date('H:i:s');
                                                         $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
                                                         $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
                                                     }
-
-
                                                     echo '<tr>';
 
                                                     if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
@@ -243,19 +239,21 @@ $time = date('H:i:s');
 
                                                         $x--;
                                                     } else {
-
-
                                                         $last_od_amount = (float) end($od_amount_all_array);
+
+
+
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
                                                         $due_and_excess = $ins_total - $total_paid;
 
+                                                        //balance of the loan
                                                         $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $last_od_amount;
 
                                                         foreach ($INSTALLMENT->CheckInstallmetByPaidDate($date, $loan_id) as $paid) {
-
                                                             $balance = $balance + $paid['paid_amount'] + $paid['paid_amount'];
                                                         }
+
                                                         $date_format = new DateTime($date);
                                                         echo '<td class="tr-color font-color-2">';
                                                         echo $count;
@@ -290,33 +288,53 @@ $time = date('H:i:s');
                                                         $OD->loan = $LOAN->id;
                                                         $AllOd = $OD->allOdByLoan();
 
-                                                        if (strtotime(date("Y/m/d")) <= strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
+                                                        if (strtotime(date("Y/m/d")) < strtotime($date) || !$AllOd || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                                                             
                                                         } else {
 
                                                             if ($AllOd) {
                                                                 foreach ($AllOd as $key => $allod) {
 
-                                                                    if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance ) {
+                                                                    if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance) {
 
                                                                         if (strtotime(date("Y/m/d")) <= strtotime($date)) {
                                                                             break;
                                                                         }
+                                                                        $ODDATES = new DateTime($date);
+                                                                        $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
 
-                                                                        $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $allod['od_interest_limit']);
+                                                                        $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+
+                                                                        //get all paid ammount before od date
+                                                                        $paid_all_amount_before_ins_date1 = 0;
+                                                                        $before_payment_amounts1 = $INSTALLMENT->getPaidAmountByBeforeDate($od_date_morning, $LOAN->id);
+
+                                                                        foreach ($before_payment_amounts1 as $before_payment_amount1) {
+                                                                            $paid_all_amount_before_ins_date1 += $before_payment_amount1['paid_amount'];
+                                                                        }
+
+                                                                        $od_interest = $LOAN->getOdIntereset1(-$ins_total + $paid_all_amount_before_ins_date1, $allod['od_interest_limit']);
                                                                         $od_array[] = $od_interest;
+
                                                                         $od_amount_all = json_encode(round(array_sum($od_array), 2));
 
                                                                         if ($od_amount_all > 0) {
-
                                                                             array_push($od_amount_all_array, $od_amount_all);
                                                                         }
                                                                     }
                                                                 }
                                                             }
                                                         }
+
+
+                                                        //echo od amount
                                                         if ($od_amount_all > 0) {
-                                                            echo number_format($od_amount_all, 2);
+                                                            if ($defultdata == $x + 1) {
+
+                                                                echo number_format($od_amount_all, 2);
+                                                            } else {
+                                                                echo number_format($od_amount_all, 2);
+                                                            }
                                                         }
 
                                                         echo '</td>';
