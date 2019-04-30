@@ -146,7 +146,7 @@ $today = date('Y-m-d');
 
                                                     <td>
                                                         <b>Sys Due: </b>
-                                                        <?php
+                                                        <?php 
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
                                                         echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';

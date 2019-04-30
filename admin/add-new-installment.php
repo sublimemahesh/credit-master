@@ -113,7 +113,7 @@ if (isset($_GET['loan'])) {
                                 <div class="col-lg-4 col-md-4 col-sm-12 col-xs-12 p-bottom">
                                     <div class="form-group">
                                         <div class="form-line">                                            
-                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Amount" class="form-control"   autocomplete="off" >
+                                            <input type="text" id="od_limite"  name="od_limite"  placeholder="Od Amount" class="form-control"   autocomplete="off" readonly="" >
                                         </div>
                                     </div>
                                 </div>
