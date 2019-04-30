@@ -171,7 +171,7 @@ $next = $ND->format('Y-m-d');
                                                         <b>Sys Due: </b>
                                                         <?php
                                                         $LOAN_1 = new Loan($loan['id']);
-                                                        $status = $LOAN_1->getCurrentStatus();
+                                                        $status = $LOAN_1->getSelectedDayLoanStatus($today);
                                                         echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
                                                         ?>
                                                         <br/>
@@ -189,29 +189,30 @@ $next = $ND->format('Y-m-d');
                                                         </span> 
                                                         <br> 
                                                         <?php
-                                                        $LOAN_2 = new Loan($loan['id']);
-                                                        $status_loan = $LOAN_2->getStatusbyDate($today);
+                                                        if ($status["arrears-excess"] > 0) {
+                                                            echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
+                                                        } else if ($status["arrears-excess"] < 0) {
+                                                            echo '<b class="text-success font-re-size">Excess: </b>';
+                                                            echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
+                                                        } else {
+                                                            echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["installment_amount"], 2) . '</span>' . '<b>';
+                                                        }
                                                         ?>
-
-                                                        <span  class="text-danger">
-                                                            <?php
-                                                            echo '<b class="text-danger font-re-size">Due : </b>';
-                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["due_and_excess"], 2) . '</span>' . '<b>';
-                                                            ?>
-                                                        </span>
                                                         <br> 
-
                                                         <?php
                                                         if ($status["od_amount"] == 0) {
                                                             
                                                         } else {
                                                             echo '<b class="text-danger font-re-size">Od Amount: </b>';
-                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"], 2) . '</span>' . '<b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
                                                             echo '<br>';
-                                                            echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
-                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"] - $status_loan["due_and_excess"], 2) . '</span>' . '<b>';
+                                                            echo '<b class="text-danger font-re-size"  >All Arrears Amount: </b>';
+                                                            echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
                                                         }
                                                         ?>  
+                                                    </td> 
                                                     </td>
 
                                                     <td class="text-center" style="padding-top: 24px;">                                                           
