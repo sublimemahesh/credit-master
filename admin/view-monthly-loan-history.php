@@ -435,6 +435,13 @@ $today = date("Y-m-d H:i:s");
                                                     $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
                                                     $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
                                                 }
+
+                                                //use to break loops of completed loans
+                                                $loan_amount = $no_of_installments * $LOAN->installment_amount;
+                                                if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                    break;
+                                                }
+
                                                 $row_count++;
 
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
@@ -981,7 +988,7 @@ $today = date("Y-m-d H:i:s");
                                                             $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
 
 
-                                                         
+
                                                             //get receipts if od loop ends in current date(od loop break in current date)
                                                             if (strtotime(date("Y/m/d")) <= strtotime($od_date1)) {
 
@@ -1294,7 +1301,7 @@ $today = date("Y-m-d H:i:s");
                                                 <tr style="background-color: #75d44b">  
                                                     <td> <?php echo $row_count ?></td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo $Installment_payment['paid_date']; ?>
+                                                      
                                                     </td>
                                                     <td class="font-colors text-right f-style">
 
@@ -1306,10 +1313,14 @@ $today = date("Y-m-d H:i:s");
 
                                                     </td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo number_format($Installment_payment['paid_amount'], 2) ?>
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">                                                               
-                                                        00.0
+                                                        <?php
+                                                        if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                                echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
+                                                            }
+                                                            ?>
                                                     </td>
                                                 </tr>
 

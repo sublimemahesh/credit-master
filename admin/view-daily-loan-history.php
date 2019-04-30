@@ -115,7 +115,7 @@ $today = date("Y-m-d H:i:s");
                                         <tbody>
                                             <?php
                                             $row_count = 0;
-                                            $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                            $no_of_installments = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                             $first_installment_date = '';
                                             $installments = 0;
@@ -366,28 +366,37 @@ $today = date("Y-m-d H:i:s");
                                             $od_balance_amount = array();
                                             $last_paid_od = array();
 
-                                            while ($x < $defultdata) {
-                                                if ($defultdata == 4) {
+
+
+
+
+
+                                            while ($x < $no_of_installments) {
+
+
+
+
+                                                if ($no_of_installments == 4) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 30) {
+                                                } elseif ($no_of_installments == 30) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 8) {
+                                                } elseif ($no_of_installments == 8) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 60) {
+                                                } elseif ($no_of_installments == 60) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 2) {
+                                                } elseif ($no_of_installments == 2) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 1) {
+                                                } elseif ($no_of_installments == 1) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 90) {
+                                                } elseif ($no_of_installments == 90) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 12) {
+                                                } elseif ($no_of_installments == 12) {
                                                     $add_dates = '+7 day';
-                                                } elseif ($defultdata == 3) {
+                                                } elseif ($no_of_installments == 3) {
                                                     $add_dates = '+1 months';
-                                                } elseif ($defultdata == 100) {
+                                                } elseif ($no_of_installments == 100) {
                                                     $add_dates = '+1 day';
-                                                } elseif ($defultdata == 13) {
+                                                } elseif ($no_of_installments == 13) {
                                                     $add_dates = '+7 day';
                                                 }
 
@@ -422,6 +431,9 @@ $today = date("Y-m-d H:i:s");
                                                 $second_installment_date = $FIDS->format('Y-m-d H:i:s');
                                                 $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
+
+
+
                                                 if (strtotime(date("Y/m/d") . " 00:00:01") < strtotime($date)) {
                                                     break;
                                                 }
@@ -436,6 +448,20 @@ $today = date("Y-m-d H:i:s");
                                                     $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
                                                 }
 
+                                                $total_payments = $INSTALLMENT->getAmountByLoanId($LOAN->id);
+
+                                                //use to break loops of completed loans
+                                                $loan_amount = $no_of_installments * $LOAN->installment_amount;
+                                                if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                    break;
+                                                }
+
+//                                                
+//                                                $actual_due = $loan_amount - $total_paid_installment;
+//                                                 if($status["actual-due"] > 0){
+//                                                     break; 
+//                                                 }
+//                                                    
 
                                                 $row_count++;
 
@@ -644,7 +670,7 @@ $today = date("Y-m-d H:i:s");
                                                 $x++;
 
                                                 //this is to get receipts after installment end 
-                                                if ($defultdata == $x) {
+                                                if ($no_of_installments == $x) {
 
 
 
@@ -708,8 +734,8 @@ $today = date("Y-m-d H:i:s");
                                                             $OLDODDATE->modify($od_date_remove1);
 
                                                             $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
-                                                            
-                                                             //get receipts if od loop ends in current date(od loop break in current date)
+
+                                                            //get receipts if od loop ends in current date(od loop break in current date)
                                                             if (strtotime(date("Y/m/d")) <= strtotime($od_date1)) {
 
 //                                                                $SS = $ODDATES->modify('130 days');
@@ -761,7 +787,7 @@ $today = date("Y-m-d H:i:s");
                                                                 }
                                                                 break;
                                                             }
-                                                            
+
 
                                                             //
 //receipts between two od dates 
@@ -1035,7 +1061,7 @@ $today = date("Y-m-d H:i:s");
                                                 <tr style="background-color: #75d44b">  
                                                     <td> <?php echo $row_count ?></td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo $Installment_payment['paid_date'] ?>
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">
 
@@ -1047,10 +1073,14 @@ $today = date("Y-m-d H:i:s");
 
                                                     </td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo number_format($Installment_payment['paid_amount'], 2) ?>
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">                                                               
-                                                        00.0
+                                                        <?php
+                                                        if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                            echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
+                                                        }
+                                                        ?>
                                                     </td>
                                                 </tr>
 
@@ -1114,4 +1144,11 @@ $today = date("Y-m-d H:i:s");
             });
         </script>
     </body>
-</html>
+</html><?php
+
+/* 
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+
