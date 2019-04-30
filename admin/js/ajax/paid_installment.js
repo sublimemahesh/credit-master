@@ -40,8 +40,8 @@ $(document).ready(function () {
                 showCancelButton: true,
                 confirmButtonColor: "#ef2e18",
                 confirmButtonText: "Yes, Paid It!",
-                closeOnConfirm: false
-
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
             }, function () {
                 var formData = new FormData($("form#form-data")[0]);
                 $.ajax({
@@ -70,8 +70,8 @@ $(document).ready(function () {
                 showCancelButton: true,
                 confirmButtonColor: "#ff9600",
                 confirmButtonText: "Yes, Paid It!",
-                closeOnConfirm: false
-
+                closeOnConfirm: false,
+                showLoaderOnConfirm: true
             }, function () {
                 var formData = new FormData($("form#form-data")[0]);
                 $.ajax({
@@ -100,7 +100,7 @@ $(document).ready(function () {
     $('#paid_date').change(function () {
         var paid_date = $('#paid_date').val();
         var loan_id = $('#loan_id').val();
-        
+
         $.ajax({
             url: "post-and-get/ajax/od-limite.php",
             type: "POST",
