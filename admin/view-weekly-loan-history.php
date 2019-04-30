@@ -431,11 +431,22 @@ $today = date("Y-m-d H:i:s");
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
                                                 $before_payment_amounts = $INSTALLMENT->getPaidAmountByBeforeDate($date, $LOAN->id);
+                                                
+                                               $total_payments = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
+                                              
                                                 foreach ($before_payment_amounts as $before_payment_amount) {
                                                     $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
                                                     $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
                                                 }
+
+                                                //use to break loops of completed loans
+                                                $loan_amount = $no_of_installments * $LOAN->installment_amount;
+                                                if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                    break;
+                                                }
+
+
                                                 $row_count++;
 
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
@@ -1277,14 +1288,14 @@ $today = date("Y-m-d H:i:s");
 //                                                $x++;
                                             }
 
-                                            if ($LOAN->status == "completed") {
+                                             if ($LOAN->status == "completed") {
                                                 $row_count++;
                                                 ?>
 
                                                 <tr style="background-color: #75d44b">  
                                                     <td> <?php echo $row_count ?></td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo $Installment_payment['paid_date']; ?>
+                                                     
                                                     </td>
                                                     <td class="font-colors text-right f-style">
 
@@ -1296,15 +1307,19 @@ $today = date("Y-m-d H:i:s");
 
                                                     </td>
                                                     <td class="font-colors text-right f-style">
-                                                        <?php echo number_format($Installment_payment['paid_amount'], 2) ?>
+                                                     
                                                     </td>
                                                     <td class="font-colors text-right f-style">                                                               
-                                                        00.0
-                                                    </td>
-                                                </tr>
+                                                        <?php
+                                                        if ($paid_all_amount_before_ins_date >= $loan_amount){
+                                                                echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
+                                                            }
+                                                            ?>
+                                                        </td>
+                                                    </tr>
 
-                                                <?php
-                                            }
+                                                    <?php
+                                                }
                                             ?>
                                         </tbody>
                                         <tfoot>
