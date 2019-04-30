@@ -286,7 +286,7 @@ class Installment {
     public function getPaidAmountByBeforeDate($date, $loan_id) {
 
         $query = "SELECT  * FROM `installment` WHERE `paid_date` <'" . $date . "' AND `loan`='" . $loan_id . "' AND `type` = 'installment'";
-
+        
         
         $db = new Database();
         $result = $db->readQuery($query);
