@@ -697,10 +697,11 @@ $today = date("Y-m-d H:i:s");
                                                     $od = $OD->allOdByLoanAndDate($date, $balance);
 
                                                     $y = 0;
+                                                    $dd = 0;
 
                                                     $od_date_start1 = new DateTime($od_date_morning);
 
-                                                    $od_date_start1->modify('+23 hours +59 minutes +58 seconds');
+                                                    $od_date_start1->modify('+23 hours +59 minutes +60 seconds');
 
                                                     $defult_val = $days_between;
 
@@ -835,8 +836,10 @@ $today = date("Y-m-d H:i:s");
 
                                                                 <?Php
                                                             }
+                                                            
+                                                           
                                                             //if receipt balance break the od loop then use this to show receipts from end od date
-                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
+                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date1, $installment_unlimited_end, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>

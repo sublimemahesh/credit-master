@@ -411,6 +411,7 @@ $today = date("Y-m-d H:i:s");
                                                 $paid_all_od_before_ins_date = 0;
                                                 $PaidOD = 0;
                                                 $paidadditional_interest = 0;
+                                                $dd = 0;
 
                                                 $FIDS = new DateTime($date);
                                                 $FIDS->modify($add_dates);
@@ -420,7 +421,7 @@ $today = date("Y-m-d H:i:s");
                                                 $second_installment_date = $FIDS->format('Y-m-d H:i:s');
                                                 $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
-
+                                                $od_night = date("Y/m/d");
 
                                                 if (strtotime(date("Y/m/d") . " 00:00:01") < strtotime($date)) {
                                                     break;
@@ -431,10 +432,10 @@ $today = date("Y-m-d H:i:s");
                                                     $paid_amount += $paid['paid_amount'];
                                                 }
                                                 $before_payment_amounts = $INSTALLMENT->getPaidAmountByBeforeDate($date, $LOAN->id);
-                                                
-                                               $total_payments = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
-                                              
+                                                $total_payments = $INSTALLMENT->getAmountByLoanId($LOAN->id);
+
+
                                                 foreach ($before_payment_amounts as $before_payment_amount) {
                                                     $paid_all_amount_before_ins_date += $before_payment_amount['paid_amount'];
                                                     $paid_all_od_before_ins_date += $before_payment_amount['additional_interest'];
@@ -599,6 +600,7 @@ $today = date("Y-m-d H:i:s");
 
                                                         $y = 0;
 
+
                                                         $od_date_start = new DateTime($date);
 
                                                         $od_date_start->modify('+23 hours +59 minutes +58 seconds');
@@ -724,7 +726,7 @@ $today = date("Y-m-d H:i:s");
 
                                                                 <?php
                                                             }
-                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
+                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date, $second_installment_date, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
@@ -1081,7 +1083,7 @@ $today = date("Y-m-d H:i:s");
                                                                 <?Php
                                                             }
                                                             //if receipt balance break the od loop then use this to show receipts from end od date
-                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
+                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date1, $installment_unlimited_end, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
@@ -1288,14 +1290,14 @@ $today = date("Y-m-d H:i:s");
 //                                                $x++;
                                             }
 
-                                             if ($LOAN->status == "completed") {
+                                            if ($LOAN->status == "completed") {
                                                 $row_count++;
                                                 ?>
 
                                                 <tr style="background-color: #75d44b">  
                                                     <td> <?php echo $row_count ?></td>
                                                     <td class="font-colors text-right f-style">
-                                                     
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">
 
@@ -1307,19 +1309,19 @@ $today = date("Y-m-d H:i:s");
 
                                                     </td>
                                                     <td class="font-colors text-right f-style">
-                                                     
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">                                                               
                                                         <?php
-                                                        if ($paid_all_amount_before_ins_date >= $loan_amount){
-                                                                echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
-                                                            }
-                                                            ?>
-                                                        </td>
-                                                    </tr>
+                                                        if ($paid_all_amount_before_ins_date >= $loan_amount) {
+                                                            echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
+                                                        }
+                                                        ?>
+                                                    </td>
+                                                </tr>
 
-                                                    <?php
-                                                }
+                                                <?php
+                                            }
                                             ?>
                                         </tbody>
                                         <tfoot>
