@@ -93,214 +93,142 @@ $next = $ND->format('Y-m-d');
                                     <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
                                         <thead>
                                             <tr>
-                                                <th>Customer Details</th> 
-                                                <th>Loan Details</th>  
-                                                <th>Installment Details</th>                                                 
+                                                <th>Loan Details</th> 
+                                                <th>Installment Details</th>  
+                                                <th>Payment Details</th>                                                 
                                                 <th class="text-center">Options</th> 
                                             </tr>
                                         </thead> 
                                         <tbody>
                                             <?php
                                             foreach ($LOAN->allByStatus() as $key => $loan) {
+                                                $LT = $loan['installment_type'];
+                                                if ($LT == 30) {
+                                                    ?> 
+                                                    <tr>
+                                                        <td> 
+                                                            <i class="glyphicon glyphicon-info-sign"></i>
+                                                            <b> : 
+                                                                <?php
+                                                                echo 'BLD' . $loan['id'];
+                                                                ?>
+                                                            </b>
+                                                            <br/>
 
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
+                                                            <i class="glyphicon glyphicon-user"></i>
+                                                            <b> : 
+                                                                <?php
+                                                                $Customer = new Customer($loan['customer']);
+                                                                $DefaultData = new DefaultData();
+                                                                $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
+                                                                echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
+                                                                ?>
+                                                            </b>
+                                                            <br/>
 
-                                                $first_installment_date = '';
+                                                            <i class="glyphicon glyphicon-calendar"></i>
+                                                            <b> :
+                                                                <?php echo $loan['create_date']; ?>  
+                                                            </b>
+                                                            <br/>
 
-                                                if ($loan['installment_type'] == 4) {
-                                                    $FID = new DateTime($loan['effective_date']);
-                                                    $FID->modify('+7 day');
-                                                    $first_installment_date = $FID->format('Y-m-d');
-                                                } elseif ($loan['installment_type'] == 30) {
-                                                    $FID = new DateTime($loan['effective_date']);
-                                                    $FID->modify('+1 day');
-                                                    $first_installment_date = $FID->format('Y-m-d');
-                                                } elseif ($loan['installment_type'] == 1) {
-                                                    $FID = new DateTime($loan['effective_date']);
-                                                    $FID->modify('+1 months');
-                                                    $first_installment_date = $FID->format('Y-m-d');
-                                                }
-                                                $start = new DateTime($first_installment_date);
+                                                            <i class="glyphicon glyphicon-usd"></i>
+                                                            <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
+                                                        </td>
 
-                                                $first_date = $start->format('Y-m-d');
-
-
-                                                $x = 0;
-                                                $count = 0;
-
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
-                                                        $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
-                                                        $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
-                                                        $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
-                                                        $add_dates = '+7 day';
-                                                    }
-
-
-                                                    $date = $start->format('Y-m-d');
-                                                    $customer = $loan['customer'];
-
-                                                    $CUSTOMER = new Customer($customer);
-                                                    $route = $CUSTOMER->route;
-                                                    $center = $CUSTOMER->center;
-
-
-                                                    if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
-                                                        $start->modify($add_dates);
-                                                    } else {
-                                                        $ITYPE = $loan['installment_type'];
-                                                        if ($date == $today && $ITYPE == 30) {
-                                                            ?>
-                                                            <tr>
-                                                                <td> 
-                                                                    <i class="glyphicon glyphicon-info-sign"></i>
-                                                                    <b> : 
-                                                                        <?php
-                                                                        $LT = $loan['installment_type'];
-                                                                        if ($LT == 30) {
-                                                                            echo 'BLD' . $loan['id'];
-                                                                        } elseif ($LT == 4) {
-                                                                            echo 'BLW' . $loan['id'];
-                                                                        } else {
-                                                                            echo 'BLM' . $loan['id'];
-                                                                        }
-                                                                        ?>
-                                                                    </b>
-                                                                    <br/>
-
-                                                                    <i class="glyphicon glyphicon-user"></i>
-                                                                    <b> : 
-                                                                        <?php
-                                                                        $Customer = new Customer($loan['customer']);
-                                                                        $DefaultData = new DefaultData();
-                                                                        $first_name = $DefaultData->getFirstLetterName(ucwords($Customer->surname));
-                                                                        echo $Customer->title . ' ' . $first_name . ' ' . $Customer->first_name . ' ' . $Customer->last_name;
-                                                                        ?>
-                                                                    </b>
-                                                                    <br/>
-
-                                                                    <i class="glyphicon glyphicon-calendar"></i>
-                                                                    <b> :
-                                                                        <?php echo $loan['create_date']; ?>  
-                                                                    </b>
-                                                                    <br/>
-
-                                                                    <i class="glyphicon glyphicon-usd"></i>
-                                                                    <b> : <?php echo number_format($loan['loan_amount'], 2); ?></b> 
-
-                                                                </td>
-
-                                                                <td>
-                                                                    <b>
-                                                                        Type: <?php
-                                                                        $PR = DefaultData::getInstallmentType();
-                                                                        echo $PR[$loan['installment_type']];
-                                                                        ?>
-                                                                    </b>
-                                                                    <br/>
-                                                                    <b>Amount: </b>
-                                                                    <?php echo number_format($loan['installment_amount'], 2); ?>
-                                                                    <br/> 
-                                                                    <b>Nu. of Inst.: </b>
-                                                                    <?php
-                                                                    $numOfInst = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
-                                                                    echo $numOfInst;
-                                                                    ?>
-                                                                    <br/>                                                       
-                                                                    <b>Period: </b>
-                                                                    <?php
-                                                                    $PR = DefaultData::getLoanPeriod();
-                                                                    echo $PR[$loan['loan_period']];
-                                                                    ?>
-                                                                </td>
-
-                                                                <td>
-                                                                    <b>Sys Due: </b>
-                                                                    <?php
-                                                                    $LOAN_1 = new Loan($loan['id']);
-                                                                    $status = $LOAN_1->getCurrentStatus();
-                                                                    echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
-                                                                    ?>
-                                                                    <br/>
-                                                                    <b>Act Due: </b>
-                                                                    <?php
-                                                                    echo '<b>' . round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2) . '</b>';
-                                                                    ?>
-                                                                    <br>
-
-                                                                    <b class="text-info">Receipt: </b>
-                                                                    <span  class="text-info">
-                                                                        <?php
-                                                                        echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
-                                                                        ?>
-                                                                    </span> 
-                                                                    <br> 
-                                                                    <?php
-                                                                    $LOAN_2 = new Loan($loan['id']);
-                                                                    $status_loan = $LOAN_2->getStatusbyDate($today);
-                                                                    ?>
-
-                                                                    <span  class="text-danger">
-                                                                        <?php
-                                                                        echo '<b class="text-danger font-re-size">Due : </b>';
-                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["due_and_excess"], 2) . '</span>' . '<b>';
-                                                                        ?>
-                                                                    </span>
-                                                                    <br> 
-
-                                                                    <?php
-                                                                    if ($status["od_amount"] == 0) {
-                                                                        
-                                                                    } else {
-                                                                        echo '<b class="text-danger font-re-size">Od Amount: </b>';
-                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"], 2) . '</span>' . '<b>';
-                                                                        echo '<br>';
-                                                                        echo '<b class="text-danger font-re-size"  >All Aress Amount: </b>';
-                                                                        echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status_loan["od_amount"] - $status_loan["due_and_excess"], 2) . '</span>' . '<b>';
-                                                                    }
-                                                                    ?>  
-                                                                </td>
-
-                                                                <td class="text-center" style="padding-top: 24px;">
-                                                                    <a href="add-new-installment.php?date=<?php echo $today ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $status_loan["due_and_excess"] ?>&od_amount=<?php echo $status_loan["od_amount"] ?>">
-                                                                        <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
-                                                                    </a>  
-
-                                                                </td> 
-                                                            </tr>
+                                                        <td>
+                                                            <b>
+                                                                Type: <?php
+                                                                $PR = DefaultData::getInstallmentType();
+                                                                echo $PR[$loan['installment_type']];
+                                                                ?>
+                                                            </b>
+                                                            <br/>
+                                                            <b>Amount: </b>
+                                                            <?php echo number_format($loan['installment_amount'], 2); ?>
+                                                            <br/> 
+                                                            <b>Nu. of Inst.: </b>
                                                             <?php
-                                                        }
-                                                        $start->modify($add_dates);
-                                                        $x++;
-                                                    }
+                                                            $numOfInst = DefaultData::getNumOfInstlByPeriodAndType($loan['loan_period'], $loan['installment_type']);
+                                                            echo $numOfInst;
+                                                            ?>
+                                                            <br/>                                                       
+                                                            <b>Period: </b>
+                                                            <?php
+                                                            $PR = DefaultData::getLoanPeriod();
+                                                            echo $PR[$loan['loan_period']];
+                                                            ?>
+                                                        </td>
+
+                                                        <td>
+                                                            <b>Sys Due: </b>
+                                                            <?php
+                                                            $LOAN_1 = new Loan($loan['id']);
+                                                            $status = $LOAN_1->getSelectedDayLoanDetails($today);
+                                                            echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
+                                                            ?>
+                                                            <br/>
+
+                                                            <b>Act Due: </b>
+                                                            <?php
+                                                            echo '<b>' . round($status["actual-due-num-of-ins"], 1) . ' | ' . number_format($status["actual-due"], 2) . '</b>';
+                                                            ?>
+                                                            <br>
+
+                                                            <b class="text-info">Receipt: </b>
+                                                            <span  class="text-info">
+                                                                <?php
+                                                                echo '<b>' . round($status["receipt-num-of-ins"], 1) . ' | ' . number_format($status["receipt"], 2) . '</b>';
+                                                                ?>
+                                                            </span>
+                                                            <br> 
+                                                            <?php
+                                                            if ($status["arrears-excess"] > 0) {
+                                                                echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                                echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
+                                                            } else if ($status["arrears-excess"] < 0) {
+                                                                echo '<b class="text-success font-re-size">Excess: </b>';
+                                                                echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
+                                                            } else {
+                                                                echo '<b class="text-danger font-re-size">Arrears: </b>';
+                                                                echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["installment_amount"], 2) . '</span>' . '<b>';
+                                                            }
+                                                            ?>
+                                                            <br> 
+                                                            <?php
+                                                            if ($status["od_amount"] == 0) {
+                                                                
+                                                            } else {
+                                                                echo '<b class="text-danger font-re-size">Od Amount: </b>';
+                                                                echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["od_amount"], 2) . '</span>' . '<b>';
+                                                                echo '<br>';
+                                                                echo '<b class="text-danger font-re-size"  >All Arrears Amount: </b>';
+                                                                echo '<span  class="text-danger font-re-size">' . '<b>' . number_format($status["all_arress"], 2) . '</span>' . '<b>';
+                                                            }
+                                                            ?>  
+                                                        </td>
+
+                                                        <td class="text-center" style="padding-top: 24px;">
+                                                            <a href="add-new-installment.php?date=<?php echo $today ?>&loan=<?php echo $loan['id'] ?>&amount=<?php echo $status_loan["due_and_excess"] ?>&od_amount=<?php echo $status_loan["od_amount"] ?>">
+                                                                <button class="glyphicon glyphicon-send btn btn-info" title="Payment"></button> 
+                                                            </a>  
+
+                                                        </td> 
+                                                    </tr>
+                                                    <?php
                                                 }
                                             }
-                                            ?> 
+                                            ?>   
                                         </tbody>
+
+
                                         <tfoot>
                                             <tr>
-                                                <th>Customer Details</th> 
-                                                <th>Loan Details</th>    
-                                                <th>Installment Details</th>                                                 
+                                                <th>Loan Details</th> 
+                                                <th>Installment Details</th>  
+                                                <th>Payment Details</th>                                                 
                                                 <th class="text-center">Options</th> 
-                                            </tr>
+                                            </tr> 
                                         </tfoot>
                                     </table> 
                                 </div>
