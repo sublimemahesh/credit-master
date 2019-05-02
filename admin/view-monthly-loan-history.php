@@ -405,6 +405,7 @@ $today = date("Y-m-d H:i:s");
                                                 $due_and_excess = 0;
                                                 $ins_total_all = 0;
                                                 $total_paid_all = 0;
+                                                $dd = 0;
                                                 //dsw
                                                 $od_balance = 0;
                                                 $paid_all_amount_before_ins_date = 0;
@@ -420,6 +421,7 @@ $today = date("Y-m-d H:i:s");
                                                 $second_installment_date = $FIDS->format('Y-m-d H:i:s');
                                                 $ALl_AMOUNT = $INSTALLMENT->getAmountByLoanId($LOAN->id);
 
+                                                $od_night = date("Y/m/d");
 
                                                 if (strtotime(date("Y/m/d") . " 00:00:01") < strtotime($date)) {
                                                     break;
@@ -728,7 +730,7 @@ $today = date("Y-m-d H:i:s");
 
                                                                 <?php
                                                             }
-                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
+                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date, $second_installment_date, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
@@ -1088,7 +1090,7 @@ $today = date("Y-m-d H:i:s");
                                                                 <?Php
                                                             }
                                                             //if receipt balance break the od loop then use this to show receipts from end od date
-                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance)) {
+                                                            if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date1, $installment_unlimited_end, $loan_id) as $Installment_payment) {
                                                                     $row_count++;
                                                                     ?>
@@ -1301,7 +1303,7 @@ $today = date("Y-m-d H:i:s");
                                                 <tr style="background-color: #75d44b">  
                                                     <td> <?php echo $row_count ?></td>
                                                     <td class="font-colors text-right f-style">
-                                                      
+
                                                     </td>
                                                     <td class="font-colors text-right f-style">
 
@@ -1318,9 +1320,9 @@ $today = date("Y-m-d H:i:s");
                                                     <td class="font-colors text-right f-style">                                                               
                                                         <?php
                                                         if ($paid_all_amount_before_ins_date >= $loan_amount) {
-                                                                echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
-                                                            }
-                                                            ?>
+                                                            echo number_format(-1 * ($loan_amount - $paid_all_amount_before_ins_date), 2);
+                                                        }
+                                                        ?>
                                                     </td>
                                                 </tr>
 
