@@ -146,7 +146,7 @@ $today = date('Y-m-d');
 
                                                     <td>
                                                         <b>Sys Due: </b>
-                                                        <?php 
+                                                        <?php
                                                         $LOAN_1 = new Loan($loan['id']);
                                                         $status = $LOAN_1->getCurrentStatus();
                                                         echo '<b>' . round($status["system-due-num-of-ins"], 1) . ' | ' . number_format($status["system-due"], 2) . '</b>';
@@ -167,10 +167,11 @@ $today = date('Y-m-d');
                                                         </span>
                                                         <br> 
                                                         <?php
+                                                     
                                                         if ($status["arrears-excess"] > 0) {
                                                             echo '<b class="text-danger font-re-size">Arrears: </b>';
                                                             echo '<span  class="text-danger font-re-size">' . '<b>' . round($status["arrears-excess-num-of-ins"], 1) . ' | ' . number_format($status["arrears-excess"], 2) . '</span>' . '<b>';
-                                                        } else if ($status["arrears-excess"] < 0) {
+                                                        } else if ($status["arrears-excess"] <= 0) {
                                                             echo '<b class="text-success font-re-size">Excess: </b>';
                                                             echo '<span  class="text-success">' . '<b>' . round(abs($status["arrears-excess-num-of-ins"]), 1) . ' |' . number_format(abs($status["arrears-excess"]), 2) . '</span>' . '<b>';
                                                         } else {
@@ -180,7 +181,7 @@ $today = date('Y-m-d');
                                                         ?>
                                                         <br> 
                                                         <?php
-                                                        if ($status["od_amount"] == 0) {
+                                                        if ($status["od_amount"] <= 0) {
                                                             
                                                         } else {
                                                             echo '<b class="text-danger font-re-size">Od Amount: </b>';
