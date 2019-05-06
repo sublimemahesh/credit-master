@@ -30,12 +30,12 @@ $(document).ready(function () {
             });
 
         } else if (parseFloat(actual_due) <= parseFloat(amount)) {
-            var $excess = parseFloat(amount) - parseFloat(actual_due);
+            var $excess = parseFloat(amount) - (parseFloat(actual_due) + parseFloat(od_limite));
 
             swal({
                 html: true,
                 title: "Completed !",
-                text: "This loan has been Completed , With excess amount" + ' <b style="color:red"> Excess ' + $excess + ' </b>',
+                text: "This loan has been Completed , With excess amount" + ' <b style="color:red"> Excess ' + Math.round($excess) + ' </b>',
                 type: "warning",
                 showCancelButton: true,
                 confirmButtonColor: "#ef2e18",

@@ -129,7 +129,7 @@ $time = date('H:i:s');
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                                $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                                 $first_installment_date = '';
                                                 $installments = 0;
@@ -158,29 +158,30 @@ $time = date('H:i:s');
                                                 $od_array = array();
                                                 $od_amount_all_array = array();
                                                 $last_od = array();
+                                                $array = array();
 
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
+                                                while ($x < $numOfInstallments) {
+                                                    if ($numOfInstallments == 4) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
+                                                    } elseif ($numOfInstallments == 30) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
+                                                    } elseif ($numOfInstallments == 8) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
+                                                    } elseif ($numOfInstallments == 60) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
+                                                    } elseif ($numOfInstallments == 2) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
+                                                    } elseif ($numOfInstallments == 1) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
+                                                    } elseif ($numOfInstallments == 90) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
+                                                    } elseif ($numOfInstallments == 12) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
+                                                    } elseif ($numOfInstallments == 3) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
+                                                    } elseif ($numOfInstallments == 100) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
+                                                    } elseif ($numOfInstallments == 13) {
                                                         $add_dates = '+7 day';
                                                     }
 
@@ -240,8 +241,6 @@ $time = date('H:i:s');
                                                         $x--;
                                                     } else {
                                                         $last_od_amount = (float) end($od_amount_all_array);
-
-
 
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
@@ -326,12 +325,91 @@ $time = date('H:i:s');
                                                             }
                                                         }
 
+                                                        if ($numOfInstallments == $x + 1) {
 
+                                                            $ODDATES = new DateTime($date);
+                                                            $ODDATES->modify('+23 hours +59 minutes +58 seconds');
+                                                            $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+
+                                                            //check log ends with od or installment 
+                                                            $last_od_date = date('D/M/Y', strtotime($od_date_morning));
+                                                            $last_installment_date = date('D/M/Y', strtotime($date));
+
+                                                            if ($last_od_date == $last_installment_date) {
+                                                                $last_loop_od = $od_interest;
+                                                            } else {
+                                                                $last_loop_od = 0;
+                                                            }
+
+                                                            //get installment end date
+                                                            $INSTALLMENT_END = new DateTime($date);
+                                                            $INSTALLMENT_END->modify('+1 day');
+                                                            $installment_end = $INSTALLMENT_END->format('Y-m-d H:i:s');
+
+                                                            //get 5 years ahead date from installment end date
+                                                            $INSTALLMENT_UNLIMITED_END = new DateTime($date);
+                                                            $INSTALLMENT_UNLIMITED_END->modify('+1725 day');
+                                                            $installment_unlimited_end = $INSTALLMENT_UNLIMITED_END->format('Y-m-d H:i:s');
+
+
+                                                            $start_1 = strtotime($date);
+                                                            $end = strtotime(date("Y/m/d"));
+                                                            $days_between = floor(abs($end - $start_1) / 86400) - 1;
+                                                            $od = $OD->allOdByLoanAndDate($date, $balance);
+                                                            $y = 0;
+
+                                                            $od_date_start1 = new DateTime($date);
+                                                            $od_date_start1->modify('+47 hours +59 minutes +58 seconds');
+
+                                                            $defult_val = $days_between;
+
+
+                                                            while ($y <= $defult_val) {
+
+                                                                if ($od['od_date_start'] <= $od_date_start1) {
+                                                                    $od_dates = '+1 day';
+                                                                }
+
+                                                                $od_date = $od_date_start1->format('Y-m-d H:i:s');
+
+                                                                //getting echo $od_date; before of date from current od date
+                                                                $OLDODDATE = new DateTime($od_date);
+                                                                $od_date_remove1 = '-23 hours -59 minutes -58 seconds';
+
+                                                                $OLDODDATE->modify($od_date_remove1);
+                                                                $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
+
+                                                                //strtotime(date("Y/m/d")) <= strtotime($old_od_date)
+                                                                if ((strtotime(date("Y/m/d")) <= strtotime($od_date)) || strtotime($od['od_date_end'] . $time) < strtotime($old_od_date)) {
+                                                                    break;
+                                                                }
+                                                                $od_array[] = $od_interest;
+                                                                $od_amount_all = json_encode(array_sum($od_array));
+
+                                                                if ($od_amount_all > 0 || $paid_all_od_before_ins_date == $last_od_amount) {
+
+                                                                    array_push($od_amount_all_array, $od_amount_all);
+                                                                }
+
+
+                                                                $od_date_start1->modify($od_dates);
+                                                                $y++;
+                                                            }
+                                                        }
+
+                                                        $INSTALLMENT = new Installment(NULL);
+
+                                                        $paid_aditional_interrest = 0;
+                                                        $total_paid_installment = 0;
+
+                                                        foreach ($INSTALLMENT->getInstallmentByLoan($LOAN->id) as $installment) {
+                                                            $paid_aditional_interrest += $installment["additional_interest"];
+                                                            $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
+                                                        }
                                                         //echo od amount
                                                         if ($od_amount_all > 0) {
-                                                            if ($defultdata == $x + 1) {
-
-                                                                echo number_format($od_amount_all, 2);
+                                                            if ($numOfInstallments == $x + 1) {
+                                                                echo number_format($od_amount_all - $paid_aditional_interrest, 2);
                                                             } else {
                                                                 echo number_format($od_amount_all, 2);
                                                             }
@@ -375,7 +453,7 @@ $time = date('H:i:s');
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                                $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                                 $first_installment_date = '';
                                                 $installments = 0;
@@ -407,28 +485,28 @@ $time = date('H:i:s');
                                                 $payment_arr = array();
                                                 $od_balance_amount = array();
 
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
+                                                while ($x < $numOfInstallments) {
+                                                    if ($numOfInstallments == 4) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
+                                                    } elseif ($numOfInstallments == 30) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
+                                                    } elseif ($numOfInstallments == 8) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
+                                                    } elseif ($numOfInstallments == 60) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
+                                                    } elseif ($numOfInstallments == 2) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
+                                                    } elseif ($numOfInstallments == 1) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
+                                                    } elseif ($numOfInstallments == 90) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
+                                                    } elseif ($numOfInstallments == 12) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
+                                                    } elseif ($numOfInstallments == 3) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
+                                                    } elseif ($numOfInstallments == 100) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
+                                                    } elseif ($numOfInstallments == 13) {
                                                         $add_dates = '+7 day';
                                                     }
 
@@ -447,6 +525,7 @@ $time = date('H:i:s');
                                                     $repeat = 0;
                                                     $paid_all_amount_before_ins_date = 0;
                                                     $paid_all_od_before_ins_date = 0;
+
 
                                                     $FID = new DateTime($date);
                                                     $FID->modify($add_dates);
@@ -608,59 +687,55 @@ $time = date('H:i:s');
 
                                                         $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $od_total_amount;
 
-
-
-
-//                                                        if ($due_and_excess > 0) {
-//                                                            echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-//                                                        } else if ($due_and_excess < 0) {
-//
-//                                                            if ($ALl_AMOUNT[0] >= $ins_total) {
-//                                                                echo '00.0';
-//                                                            } else {
-//                                                                $due_and_excess = $ALl_AMOUNT[0] - $ins_total + $previus_amount;
-//                                                                echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-//                                                            }
-//                                                        } else {
-//                                                            echo number_format($ins_total, 2);
-//                                                        }
-
                                                         echo '<span style="color:red">' . number_format($ins_total, 2) . '</span>';
 
                                                         echo '</td>';
-
 
                                                         echo '<td class="f-style">';
                                                         $OD = new OD(NULL);
                                                         $OD->loan = $LOAN->id;
                                                         $od = $OD->allOdByLoanAndDate($date, $balance);
 
-
                                                         if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
                                                             
                                                         } else {
                                                             if ($od !== false) {
 
+
                                                                 $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
                                                                 $y = 0;
                                                                 $od_date_start = new DateTime($date);
+                                                                $od_date_start->modify('+23 hours +59 minutes +58 seconds');
                                                                 $defult_val = 6;
 
                                                                 while ($y <= $defult_val) {
 
-                                                                    if ($defult_val <= 6 && $LOAN->od_date <= $od_date_start) {
+                                                                    if ($defult_val <= 6 && $od['od_date_start'] <= $od_date_start) {
                                                                         $od_dates = '+1 day';
                                                                     }
-                                                                    $od_date = $od_date_start->format('Y-m-d');
+
+
+                                                                    $od_date = $od_date_start->format('Y-m-d H:i:s');
+
+                                                                    $ODDATES = new DateTime($od_date);
+                                                                    $ODDATES->modify($od_dates);
+
+                                                                    $od_date_remove = '-1 day -23 hours -59 minutes -58 seconds';
+
+                                                                    $ODDATES->modify($od_date_remove);
+
+                                                                    $od_night = $ODDATES->format('Y-m-d H:i:s');
+
 
                                                                     if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
                                                                         break;
                                                                     }
+
                                                                     $od_array[] = $od_interest;
                                                                     $od_amount = json_encode(array_sum($od_array), 2);
-                                                                    array_push($last_od, $od_interest);
 
+                                                                    array_push($last_od, $od_interest);
 
                                                                     $od_date_start->modify($od_dates);
                                                                     $y++;
@@ -668,8 +743,97 @@ $time = date('H:i:s');
                                                             }
                                                         }
 
+                                                        if ($numOfInstallments == $x + 1) {
+                                                            //get installment end date
+                                                            $INSTALLMENT_END = new DateTime($date);
+                                                            $INSTALLMENT_END->modify('+7 day');
+                                                            $installment_end = $INSTALLMENT_END->format('Y-m-d H:i:s');
+
+                                                            //get 5 years ahead date from installment end date
+                                                            $INSTALLMENT_UNLIMITED_END = new DateTime($date);
+                                                            $INSTALLMENT_UNLIMITED_END->modify('+1725 day');
+                                                            $installment_unlimited_end = $INSTALLMENT_UNLIMITED_END->format('Y-m-d H:i:s');
+
+                                                            $start_1 = strtotime($date);
+                                                            $end = strtotime(date("Y/m/d"));
+
+                                                            $days_between = floor(abs($end - $start_1) / 86400) - 1;
+
+                                                            $z = 0;
+
+                                                            $od_date_start1 = new DateTime($od_night);
+                                                            $od_date_start1->modify('+1 day +23 hours +59 minutes +58 seconds');
+                                                            $defult_val = $days_between;
+
+
+                                                            //if having od after installment end
+                                                            if ($od !== false) {
+
+                                                                $last_od_date = date('D/M/Y', strtotime($od_night));
+                                                                $last_installment_date = date('D/M/Y', strtotime($date));
+
+                                                                if ($last_od_date == $last_installment_date) {
+                                                                    $last_loop_od = $od_interest;
+                                                                } else {
+                                                                    $last_loop_od = 0;
+                                                                }
+                                                                $od_amount_all_array_1 = array();
+
+                                                                while ($z <= $defult_val) {
+
+                                                                    if ($od['od_date_start'] <= $od_date_start1) {
+                                                                        $od_dates = '+1 day';
+                                                                    }
+
+                                                                    $od_date1 = $od_date_start1->format('Y-m-d H:i:s');
+
+                                                                    //getting brfore of date from current od date
+                                                                    $OLDODDATE = new DateTime($od_date1);
+                                                                    $od_date_remove1 = '-23 hours -59 minutes -58 seconds';
+
+                                                                    $OLDODDATE->modify($od_date_remove1);
+                                                                    $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
+
+                                                                    if (strtotime(date("Y/m/d")) <= strtotime($old_od_date) || strtotime(date("Y/m/d")) <= strtotime($od_date1) || strtotime($od['od_date_end'] . $time) < strtotime($old_od_date)) {
+                                                                        break;
+                                                                    }
+
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(round(array_sum($od_array), 2));
+
+                                                                    if ($od_amount > 0 || $paid_all_od_before_ins_date == $last_od_amount) {
+
+                                                                        array_push($od_amount_all_array_1, $od_amount);
+                                                                    }
+
+                                                                    array_push($last_od, end($od_amount_all_array_1));
+
+                                                                    $last_od_amount = (float) end($od_amount_all_array_1);
+
+
+                                                                    $od_date_start1->modify($od_dates);
+                                                                    $z++;
+                                                                }
+                                                            }
+                                                        }
+
+                                                        $INSTALLMENT = new Installment(NULL);
+
+                                                        $paid_aditional_interrest = 0;
+                                                        $total_paid_installment = 0;
+
+                                                        foreach ($INSTALLMENT->getInstallmentByLoan($LOAN->id) as $installment) {
+                                                            $paid_aditional_interrest += $installment["additional_interest"];
+                                                            $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
+                                                        }
+
                                                         if ($od_amount > 0) {
-                                                            echo number_format($od_amount, 2);
+                                                            if ($numOfInstallments == $x + 1) {
+                                                                $od_amount = $od_amount - $paid_aditional_interrest;
+                                                                echo number_format($od_amount, 2);
+                                                            } else {
+                                                                $od_amount = $od_amount - $paid_aditional_interrest;                                                                echo number_format($od_amount, 2);
+                                                            }
                                                         }
                                                         echo '</td>';
                                                     }
@@ -708,7 +872,7 @@ $time = date('H:i:s');
                                             </thead>
                                             <tbody>
                                                 <?php
-                                                $defultdata = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
+                                                $numOfInstallments = DefaultData::getNumOfInstlByPeriodAndType($LOAN->loan_period, $LOAN->installment_type);
 
                                                 $first_installment_date = '';
                                                 $installments = 0;
@@ -742,28 +906,28 @@ $time = date('H:i:s');
                                                 $payment_arr = array();
                                                 $od_balance_amount = array();
 
-                                                while ($x < $defultdata) {
-                                                    if ($defultdata == 4) {
+                                                while ($x < $numOfInstallments) {
+                                                    if ($numOfInstallments == 4) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 30) {
+                                                    } elseif ($numOfInstallments == 30) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 8) {
+                                                    } elseif ($numOfInstallments == 8) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 60) {
+                                                    } elseif ($numOfInstallments == 60) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 2) {
+                                                    } elseif ($numOfInstallments == 2) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 1) {
+                                                    } elseif ($numOfInstallments == 1) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 90) {
+                                                    } elseif ($numOfInstallments == 90) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 12) {
+                                                    } elseif ($numOfInstallments == 12) {
                                                         $add_dates = '+7 day';
-                                                    } elseif ($defultdata == 3) {
+                                                    } elseif ($numOfInstallments == 3) {
                                                         $add_dates = '+1 months';
-                                                    } elseif ($defultdata == 100) {
+                                                    } elseif ($numOfInstallments == 100) {
                                                         $add_dates = '+1 day';
-                                                    } elseif ($defultdata == 13) {
+                                                    } elseif ($numOfInstallments == 13) {
                                                         $add_dates = '+7 day';
                                                     }
 
@@ -782,6 +946,7 @@ $time = date('H:i:s');
                                                     $repeat = 0;
                                                     $paid_all_amount_before_ins_date = 0;
                                                     $paid_all_od_before_ins_date = 0;
+
 
                                                     $FID = new DateTime($date);
                                                     $FID->modify($add_dates);
@@ -820,7 +985,6 @@ $time = date('H:i:s');
                                                         echo '</td>';
                                                         echo '<td class="padd-td gray text-center" >';
                                                         echo '</td>';
-
                                                         echo '</tr>';
 
                                                         if ($LOAN->installment_type == 1) {
@@ -944,23 +1108,6 @@ $time = date('H:i:s');
 
                                                         $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $od_total_amount;
 
-
-
-
-//                                                        if ($due_and_excess > 0) {
-//                                                            echo '<span style="color:green">' . number_format($due_and_excess, 2) . '</span>';
-//                                                        } else if ($due_and_excess < 0) {
-//
-//                                                            if ($ALl_AMOUNT[0] >= $ins_total) {
-//                                                                echo '00.0';
-//                                                            } else {
-//                                                                $due_and_excess = $ALl_AMOUNT[0] - $ins_total + $previus_amount;
-//                                                                echo '<span style="color:red">' . number_format($due_and_excess, 2) . '</span>';
-//                                                            }
-//                                                        } else {
-//                                                            echo number_format($ins_total, 2);
-//                                                        }
-
                                                         echo '<span style="color:red">' . number_format($ins_total, 2) . '</span>';
 
                                                         echo '</td>';
@@ -987,33 +1134,144 @@ $time = date('H:i:s');
                                                                 $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
                                                                 $y = 0;
+                                                                //get how many dates in month
+                                                                $dateValue = strtotime($date);
+                                                                $year = date("Y", $dateValue);
+                                                                $month = date("m", $dateValue);
+
+                                                                $daysOfMonth = cal_days_in_month(CAL_GREGORIAN, $month, $year);
+
                                                                 $od_date_start = new DateTime($date);
                                                                 $defult_val = $daysOfMonth - 1;
+                                                                $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $od['od_interest_limit']);
 
+                                                                $od_amount_all_array_1 = array();
                                                                 while ($y <= $defult_val) {
 
                                                                     if ($defult_val <= $daysOfMonth - 1 && $LOAN->od_date <= $od_date_start) {
                                                                         $od_dates = '+1 day';
                                                                     }
+
                                                                     $od_date = $od_date_start->format('Y-m-d');
 
                                                                     if (strtotime(date("Y/m/d")) <= strtotime($od_date)) {
                                                                         break;
                                                                     }
+
+                                                                    $ODDATES = new DateTime($od_date);
+                                                                    $ODDATES->modify($od_dates);
+
+                                                                    $od_date_remove = '-1 day -23 hours -59 minutes -58 seconds';
+
+                                                                    $ODDATES->modify($od_date_remove);
+                                                                    $od_night = $ODDATES->format('Y-m-d H:i:s');
+
                                                                     $od_array[] = $od_interest;
                                                                     $od_amount = json_encode(array_sum($od_array), 2);
-                                                                    array_push($last_od, $od_interest);
 
+                                                                    if ($od_amount > 0 || $paid_all_od_before_ins_date == $last_od_amount) {
+
+                                                                        array_push($od_amount_all_array_1, $od_amount);
+                                                                    }
+
+                                                                    array_push($last_od, end($od_amount_all_array_1));
+
+                                                                    $last_od_amount = (float) end($od_amount_all_array_1);
 
                                                                     $od_date_start->modify($od_dates);
                                                                     $y++;
                                                                 }
                                                             }
                                                         }
+                                                        if ($numOfInstallments == $x + 1) {
 
-                                                        if ($od_amount > 0) {
-                                                            echo number_format($od_amount, 2);
+                                                            //get installment end date
+                                                            $INSTALLMENT_END = new DateTime($date);
+                                                            $INSTALLMENT_END->modify('+' . $daysOfMonth . ' day');
+                                                            $installment_end = $INSTALLMENT_END->format('Y-m-d H:i:s');
+
+                                                            //get 5 years ahead date from installment end date
+                                                            $INSTALLMENT_UNLIMITED_END = new DateTime($date);
+                                                            $INSTALLMENT_UNLIMITED_END->modify('+1725 day');
+                                                            $installment_unlimited_end = $INSTALLMENT_UNLIMITED_END->format('Y-m-d H:i:s');
+
+
+                                                            $start_1 = strtotime($date);
+                                                            $end = strtotime(date("Y/m/d"));
+
+                                                            $days_between = floor(abs($end - $start_1) / 86400) - 1;
+
+                                                            $z = 0;
+
+                                                            $od_date_start1 = new DateTime($od_night);
+                                                            $od_date_start1->modify('+1 day +23 hours +59 minutes +58 seconds');
+
+                                                            $defult_val = $days_between;
+
+                                                            //if having od after installment end
+                                                            if ($od !== false) {
+
+                                                                $last_od_date = date('D/M/Y', strtotime($od_night));
+                                                                $last_installment_date = date('D/M/Y', strtotime($date));
+
+                                                                $od_amount_all_array_2 = array();
+                                                                while ($z <= $defult_val) {
+
+                                                                    if ($od['od_date_start'] <= $od_date_start1) {
+                                                                        $od_dates = '+1 day';
+                                                                    }
+
+                                                                    $od_date1 = $od_date_start1->format('Y-m-d');
+
+                                                                    if ((strtotime(date("Y/m/d")) <= strtotime($od_date1) || strtotime($od['od_date_end'] . $time) <= strtotime($od_date1 . $time))) {
+                                                                        break;
+                                                                    }
+                                                                    //getting brfore of date from current od date
+                                                                    $OLDODDATE = new DateTime($od_date1);
+
+                                                                    $od_date_remove1 = '-23 hours -59 minutes -58 seconds';
+
+                                                                    $OLDODDATE->modify($od_date_remove1);
+
+                                                                    $old_od_date = $OLDODDATE->format('Y-m-d H:i:s');
+
+                                                                    $od_array[] = $od_interest;
+                                                                    $od_amount = json_encode(array_sum($od_array), 2);
+
+                                                                    if ($od_amount > 0 || $paid_all_od_before_ins_date == $last_od_amount) {
+
+                                                                        array_push($od_amount_all_array_2, $od_amount);
+                                                                    }
+
+                                                                    array_push($last_od, end($od_amount_all_array_2));
+
+
+                                                                    $od_date_start1->modify($od_dates);
+                                                                    $z++;
+
+                                                                    $last_od_amount = (float) end($od_amount_all_array_2);
+                                                                }
+                                                            }
                                                         }
+
+
+                                                        $INSTALLMENT = new Installment(NULL);
+
+                                                        $paid_aditional_interrest = 0;
+                                                        $total_paid_installment = 0;
+
+                                                        foreach ($INSTALLMENT->getInstallmentByLoan($LOAN->id) as $installment) {
+                                                            $paid_aditional_interrest += $installment["additional_interest"];
+                                                            $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
+                                                        }
+                                                        if ($od_amount > 0) {
+                                                            if ($numOfInstallments == $x + 1) {
+                                                                echo number_format($od_amount - $paid_aditional_interrest, 2);
+                                                            } else {
+                                                                echo number_format($od_amount - $paid_aditional_interrest, 2);
+                                                            }
+                                                        }
+
                                                         echo '</td>';
                                                     }
                                                     echo '</tr>';
