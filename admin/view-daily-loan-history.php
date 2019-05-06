@@ -366,7 +366,7 @@ $today = date("Y-m-d H:i:s");
                                             $od_balance_amount = array();
                                             $last_paid_od = array();
 
-
+                                            $od_night = date("Y/m/d");
 
 
 
@@ -466,6 +466,9 @@ $today = date("Y-m-d H:i:s");
                                                 $row_count++;
 
                                                 if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                    
+//                                                       $date = new DateTime($date);
+                                                     
                                                     echo '<tr>';
                                                     echo '<td class="padd-td gray">';
                                                     echo $row_count;
@@ -613,11 +616,11 @@ $today = date("Y-m-d H:i:s");
                                                                 $ODDATES = new DateTime($date);
                                                                 $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
 
-                                                                $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+                                                                $od_night = $ODDATES->format('Y-m-d H:i:s');
 
                                                                 //get all paid ammount before od date
                                                                 $paid_all_amount_before_ins_date1 = 0;
-                                                                $before_payment_amounts1 = $INSTALLMENT->getPaidAmountByBeforeDate($od_date_morning, $LOAN->id);
+                                                                $before_payment_amounts1 = $INSTALLMENT->getPaidAmountByBeforeDate($od_night, $LOAN->id);
 
                                                                 foreach ($before_payment_amounts1 as $before_payment_amount1) {
                                                                     $paid_all_amount_before_ins_date1 += $before_payment_amount1['paid_amount'];
@@ -633,7 +636,7 @@ $today = date("Y-m-d H:i:s");
 
                                                                 <tr style="background-color:#8acae4b3">  
                                                                     <td><?php echo $row_count; ?> </td>
-                                                                    <td class="font-colors text-right f-style"> <?php echo $od_date_morning ?></td>
+                                                                    <td class="font-colors text-right f-style"> <?php echo $od_night ?></td>
                                                                     <td class="font-colors text-right f-style">   </td>
                                                                     <td class="font-colors text-right f-style">
                                                                         OD Interest (<?php echo $od['od_interest_limit']; ?>)
@@ -699,7 +702,7 @@ $today = date("Y-m-d H:i:s");
                                                     $y = 0;
                                                     $dd = 0;
 
-                                                    $od_date_start1 = new DateTime($od_date_morning);
+                                                    $od_date_start1 = new DateTime($od_night);
 
                                                     $od_date_start1->modify('+23 hours +59 minutes +60 seconds');
 
@@ -709,7 +712,7 @@ $today = date("Y-m-d H:i:s");
                                                     if ($od !== false) {
 
 //check log ends with od or installment 
-                                                        $last_od_date = date('D/M/Y', strtotime($od_date_morning));
+                                                        $last_od_date = date('D/M/Y', strtotime($od_night));
                                                         $last_installment_date = date('D/M/Y', strtotime($date));
 
                                                         if ($last_od_date == $last_installment_date) {
@@ -836,8 +839,8 @@ $today = date("Y-m-d H:i:s");
 
                                                                 <?Php
                                                             }
-                                                            
-                                                           
+
+
                                                             //if receipt balance break the od loop then use this to show receipts from end od date
                                                             if ((-1 * ($od['od_interest_limit'])) < ($balance - ($dd))) {
                                                                 foreach ($INSTALLMENT->CheckInstallmetBeetwenTwoDateByLoanId($od_date1, $installment_unlimited_end, $loan_id) as $Installment_payment) {
@@ -1046,7 +1049,7 @@ $today = date("Y-m-d H:i:s");
 //                                                    $ODDATES = new DateTime($date);
 //                                                    $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
 //
-//                                                    $od_date_morning = $ODDATES->format('Y-m-d H:i:s');
+//                                                    $od_night = $ODDATES->format('Y-m-d H:i:s');
 //
 //                                                    $od_interest = $LOAN->getOdIntereset(-$ins_total + $paid_all_amount_before_ins_date, $LOAN->od_interest_limit);
 //

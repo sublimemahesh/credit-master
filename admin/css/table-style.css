@@ -4,7 +4,7 @@
 .red{
     background-color: #908f8f;
     color: white;
-    font-size: 16px;
+    font-size: 15px;
     border-color: black;
     text-align: right;
 }
@@ -21,7 +21,7 @@ td{
 .gray{
     background-color: #908f8f;
     color: white;
-    font-size: 16px;
+    font-size: 14px;
     border-color: black;
 }
 #payment-color{
