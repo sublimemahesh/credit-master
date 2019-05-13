@@ -566,29 +566,34 @@ $time = date('H:i:s');
                                                         echo '</td>';
                                                         echo '</tr>';
 
-                                                        if ($LOAN->installment_type == 4) {
+                                                        if ($LOAN->installment_type == 4) { 
+                                                            
+                                                            $POSTPONE_END = new DateTime($date);
+                                                            $POSTPONE_END->modify('+6 day');
+                                                            $postpone_end = $POSTPONE_END->format('Y-m-d H:i:s'); 
 
-                                                            $end = new DateTime($date);
-                                                            $end->modify('+6 day');
-                                                            $end = $end->format('Y-m-d');
+                                                            $POSTPONE_DATE = new DateTime($date);
+                                                            $POSTPONE_DATE->modify('+1 day');
+                                                            $date1 = $POSTPONE_DATE->format('Y-m-d H:i:s');
 
-                                                            $date = new DateTime($date);
-                                                            $date->modify('+1 day');
-                                                            $date = $date->format('Y-m-d');
+                                                            $pp_begin = new DateTime($date);
+                                                            $pp_last = new DateTime($postpone_end);
 
-                                                            $begin = new DateTime($date);
-                                                            $end = new DateTime($end);
+                                                            for ($i = $pp_begin; $i < $pp_last; $i->modify('+1 day')) {
 
-                                                            for ($i = $begin; $i <= $end; $i->modify('+1 day')) {
+                                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date1, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date1, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date1, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date1) || PostponeDate::CheckIsPostPoneByDateCenterAll($date1) || PostponeDate::CheckIsPostPoneByDateRouteAll($date1)) {
 
-                                                                if (PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date)) {
+                                                                    if ($date1 === $postpone_end) {
+                                                                        $x--;
+                                                                    }
+
                                                                     $count++;
                                                                     echo '<tr>';
                                                                     echo '<td class="padd-td gray ">';
                                                                     echo $count;
                                                                     echo '</td>';
                                                                     echo '<td class="padd-td red">';
-                                                                    echo $date;
+                                                                    echo $date1;
                                                                     echo '</td>';
                                                                     echo '<td class="padd-td gray text-center" >';
                                                                     echo '-- Postponed --';
@@ -599,10 +604,11 @@ $time = date('H:i:s');
                                                                     echo '</td>';
                                                                     echo '<td class="padd-td gray text-center" >';
                                                                     echo '</td>';
-                                                                    echo '</tr>';
+                                                                    echo '</tr>'; 
 
-                                                                    $repeat = strtotime("+1 day", strtotime($date));
-                                                                    $date = date('Y-m-d', $repeat);
+                                                                    $repeat = strtotime("+1 day", strtotime($date1));
+                                                                    $date1 = date('Y-m-d H:i:s', $repeat);
+                                                                    
                                                                 } else {
 
                                                                     $count++;
@@ -611,7 +617,7 @@ $time = date('H:i:s');
                                                                     echo $count;
                                                                     echo '</td>';
                                                                     echo '<td class="padd-td f-style tr-color font-color-2">';
-                                                                    echo $date;
+                                                                    echo $date1;
                                                                     echo '</td>';
 
                                                                     echo '<td class="f-style">';
@@ -643,9 +649,8 @@ $time = date('H:i:s');
                                                                     echo '</td>';
 
                                                                     echo '</tr>';
-
-                                                                    $end = strtotime("+1 day", strtotime($date));
-                                                                    $end = date('Y-m-d', $repeat);
+                                                                    $pp_last = date('Y-m-d H:i:s', $repeat);
+                                                                    $date = $date1;
                                                                 }
                                                             }
                                                         }
@@ -680,11 +685,12 @@ $time = date('H:i:s');
                                                         $ins_total += $amount;
                                                         $total_paid += $paid_amount;
                                                         $due_and_excess = $total_paid - $ins_total;
-
+  
                                                         $before_balance_amount = $paid_all_amount_before_ins_date - $ins_total;
                                                         $last_od_amount = (float) end($last_od);
                                                         $od_total_amount = (float) end($od_total);
-
+                                                        
+                                                       
                                                         $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $od_total_amount;
 
                                                         echo '<span style="color:red">' . number_format($ins_total, 2) . '</span>';
@@ -829,10 +835,12 @@ $time = date('H:i:s');
 
                                                         if ($od_amount > 0) {
                                                             if ($numOfInstallments == $x + 1) {
+                                                                  
                                                                 $od_amount = $od_amount - $paid_aditional_interrest;
                                                                 echo number_format($od_amount, 2);
                                                             } else {
-                                                                $od_amount = $od_amount - $paid_aditional_interrest;                                                                echo number_format($od_amount, 2);
+                                                                $od_amount = $od_amount - $paid_aditional_interrest;
+                                                                echo number_format($od_amount, 2);
                                                             }
                                                         }
                                                         echo '</td>';

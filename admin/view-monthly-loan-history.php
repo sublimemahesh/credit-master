@@ -644,7 +644,9 @@ $today = date("Y-m-d H:i:s");
                                                                     ?>
                                                                     <tr  id="payment-color">  
                                                                         <td>
-                                                                            <?php echo $row_count; ?>
+                                                                            <?php
+                                                                            echo $row_count;
+                                                                            ?>
                                                                         </td>                                                       
                                                                         <td class="font-colors text-right f-style">
                                                                             <?php echo $Installment_payment['paid_date']; ?>
