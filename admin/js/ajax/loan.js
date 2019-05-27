@@ -392,7 +392,7 @@ $(document).ready(function () {
     });
 
 //Direct issue loan
-    $('#direct_issue').click(function () {
+    $('#direct_issue').click(function ()   {
 
         if (!$('#effective_date').val() || !$('#issued_date').val() || !$('#issue_note').val()) {
             swal({
@@ -740,9 +740,7 @@ $('#guarantor_3').change(function () {
     });
 
 });
-
-
-
+ 
 //create loan before check customer bank details completed
 $('#issue_mode').change(function () {
     var issue_mode = $(this).val();

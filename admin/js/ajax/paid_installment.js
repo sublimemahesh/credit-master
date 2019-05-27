@@ -6,11 +6,14 @@ $(document).ready(function () {
         event.preventDefault();
 
         //get variable to values        
-        var actual_due = $("#actual-due").val();
+        var actual_due = $("#due_and_excess").val();
         var amount = $("#paid_amount").val();
         var od_limite = $("#od_limite").val();
- 
-
+        var od_amount_all = $("#od_amount_all").val();
+        
+        actual_due = actual_due.replace("-", "");
+        actual_due = parseFloat(actual_due) ;
+         
         //Check amount is empty
         if (!amount) {
             swal({
@@ -30,8 +33,8 @@ $(document).ready(function () {
                 showConfirmButton: false
             });
 
-        } else if (parseFloat(actual_due) + parseFloat(od_limite) <= parseFloat(amount)) {
-            var $excess = (parseFloat(actual_due) + parseFloat(od_limite)) - parseFloat(amount);
+        } else if (parseFloat(actual_due) + parseFloat(od_amount_all) <= parseFloat(amount)) {
+            var $excess = (parseFloat(actual_due) + parseFloat(od_amount_all)) - parseFloat(amount);
 
             swal({
                 html: true,
@@ -63,7 +66,7 @@ $(document).ready(function () {
                     }
                 });
             });
-        } else if (parseFloat(actual_due + parseFloat(od_limite)) >= parseFloat(amount)) {
+        } else if (parseFloat(actual_due + parseFloat(od_amount_all)) >= parseFloat(amount)) {
             swal({
                 title: "Paid Now!",
                 text: "Do you really want to Paid this amount?...",

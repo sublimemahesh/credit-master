@@ -13,7 +13,7 @@ if ($_POST['action'] == 'CHECKOD') {
    
     $all_amount = explode("-", $result['all_arress']);
  
-    echo json_encode(['all_amount' => round($all_amount[1],2), 'od_amount' => $result['od_amount'], 'due_and_excess' => number_format($result['actual-due'], 2)]);
+    echo json_encode(['all_amount' => round($all_amount[1],2), 'od_amount' => $result['od_amount'], 'due_and_excess' =>  $result['actual-due']]);
 
     header('Content-type: application/json');
     exit();
