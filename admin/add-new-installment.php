@@ -145,7 +145,7 @@ if (isset($_GET['loan'])) {
                                     $LOAN_1 = new Loan($loan);
                                     $status = $LOAN_1->getCurrentStatus();
                                     ?>
-                                    <input type="hidden" value="<?php echo $status["actual-due"] ?>" id="actual-due">
+                                    <input type="hidden" value="<?php echo $status["od_amount"] ?>"  id="od_amount_all"   >
                                 </div>
                             </div>
                         </form> 

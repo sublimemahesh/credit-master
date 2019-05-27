@@ -903,6 +903,7 @@ class Loan {
                 $total_od_paid = 0;
                 $paid_all_amount_before_ins_date = 0;
                 $paid_all_od_before_ins_date = 0;
+                $last_od_amount = 0;
 
 
                 $customer = $this->customer;
@@ -1000,7 +1001,7 @@ class Loan {
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array)));
 
-                                array_push($od_amount_all_array, $od_interest);
+                                array_push($od_amount_all_array, $od_amount_all);
                                 array_push($od_total, $od_amount_all);
 
                                 $od_date_start->modify($od_dates);
@@ -1011,10 +1012,11 @@ class Loan {
                 }
 
                 if ($selectedDate . " " . $time == $date) {
-                    $total_installment_amount += $installment_amount;
+
                     if (strtotime(date("Y/m/d")) < strtotime($date) || strtotime($selectedDate) < strtotime($date)) {
                         break;
                     }
+                    $total_installment_amount += $installment_amount;
                 } else {
                     if (strtotime(date("Y/m/d")) < strtotime($date) || strtotime($selectedDate) < strtotime($date)) {
                         break;
@@ -1099,7 +1101,7 @@ class Loan {
             $FID = new DateTime($this->effective_date . " 00:00:01");
             $FID->modify('+1 months');
             $first_installment_date = $FID->format('Y-m-d H:i:s');
- 
+
             $start = new DateTime($first_installment_date);
             $first_date = $start->format('Y-m-d H:i:s');
 
@@ -1344,7 +1346,7 @@ class Loan {
 
         $last_od_amount_balance = $od_total_amount - $paid_aditional_interrest;
 
-        $all_arress = ($total_paid_installment) - ($total_installment_amount + $last_od_amount_balance);
+        $all_arress = ($total_paid_installment) - ($total_installment_amount) - $od_total_amount;
         $system_due = $loan_amount - $total_installment_amount;
         $system_due_num_of_ins = $system_due / $this->installment_amount;
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
@@ -1352,13 +1354,13 @@ class Loan {
 
 
         return [
-            'od_amount' => $last_od_amount_balance,
+            'od_amount' => $od_total_amount,
             'all_arress' => $all_arress,
             'all_amount' => $balance,
             'system-due-num-of-ins' => $system_due_num_of_ins,
             'system-due' => $system_due,
             'actual-due-num-of-ins' => $actual_due_num_of_ins,
-            'actual-due' => $actual_due,
+            'actual-due' => ($total_paid_installment) - ($total_installment_amount),
             'receipt-num-of-ins' => $total_paid_installment / $this->installment_amount,
             'receipt' => $total_paid_installment + $paid_aditional_interrest,
             'arrears-excess-num-of-ins' => ($total_installment_amount - $total_paid_installment) / $this->installment_amount,
@@ -2232,7 +2234,7 @@ class Loan {
                     $ins_total += $amount;
                     $total_paid += $paid_amount;
 
-//                    $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $od_total_amount;
+                    //                   $balance = $paid_all_od_before_ins_date + $paid_all_amount_before_ins_date - $ins_total - $od_total_amount;
 
                     $balance = $paid_all_amount_before_ins_date - $ins_total;
 
@@ -2247,7 +2249,7 @@ class Loan {
                     } else {
                         if ($AllOd) {
                             foreach ($AllOd as $key => $allod) {
-                                if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance) {
+                                if (strtotime($allod['od_date_start']) <= strtotime($date) && strtotime($date) <= strtotime($allod['od_date_end']) && (-1 * ($allod['od_interest_limit'])) > $balance && $allod['od_interest_limit'] < $actual_due) {
 
                                     $ODDATES = new DateTime($date);
                                     $ODDATES->modify(' +23 hours +59 minutes +58 seconds');
@@ -2461,7 +2463,7 @@ class Loan {
                     $OD->loan = $this->id;
                     $od = $OD->allOdByLoanAndDate($date, $balance);
 
-                    if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total) {
+                    if (strtotime(date("Y/m/d")) < strtotime($date) || PostponeDate::CheckIsPostPoneByDateAndCustomer($date, $customer) || PostponeDate::CheckIsPostPoneByDateAndRoute($date, $route) || PostponeDate::CheckIsPostPoneByDateAndCenter($date, $center) || PostponeDate::CheckIsPostPoneByDateAndAll($date) || PostponeDate::CheckIsPostPoneByDateCenterAll($date) || PostponeDate::CheckIsPostPoneByDateRouteAll($date) || $ALl_AMOUNT[0] >= $ins_total || $actual_due < $od['od_interest_limit']) {
                         
                     } else {
                         if ($od !== false) {
@@ -2507,6 +2509,7 @@ class Loan {
                                 $od_array[] = $od_interest;
                                 $od_amount_all = json_encode(round(array_sum($od_array)));
 
+                               
                                 array_push($od_amount_all_array, $od_interest);
                                 array_push($od_total, $od_amount_all);
 
@@ -2517,11 +2520,18 @@ class Loan {
                     }
                 }
 
+                if (strtotime(date("Y/m/d")) . " " . $time == $date) {
 
-                if (strtotime(date("Y/m/d")) <= strtotime($date)) {
-                    break;
+                    if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                        break;
+                    }
+                    $total_installment_amount += $installment_amount;
+                } else {
+                    if (strtotime(date("Y/m/d")) < strtotime($date)) {
+                        break;
+                    }
+                    $total_installment_amount += $installment_amount;
                 }
-                $total_installment_amount += $installment_amount;
 
 
                 $start->modify($modify_range);
@@ -2589,6 +2599,7 @@ class Loan {
                             array_push($od_total, $od_amount_all);
 
                             $od_total_amount = (float) end($od_total);
+
                             $od_date_start1->modify($od_dates);
                             $z++;
                         }
@@ -2841,23 +2852,17 @@ class Loan {
             $total_paid_installment = $total_paid_installment + $installment["paid_amount"];
         }
 
-
         $last_od_amount_balance = $od_total_amount - $paid_aditional_interrest;
 
-        $all_arress = ($total_paid_installment) - ($total_installment_amount + $last_od_amount_balance);
+        $all_arress = ($total_paid_installment ) - ($total_installment_amount) - $od_total_amount;
         $system_due = $loan_amount - $total_installment_amount;
         $system_due_num_of_ins = $system_due / $this->installment_amount;
         $actual_due_num_of_ins = $actual_due / $this->installment_amount;
 
 
-        if ($this->installment_type == 4) {
-            $actual_due = $all_arress + $last_od_amount_balance - $paid_aditional_interrest;
-            $actual_due = explode('-', $actual_due);
-            $actual_due = $actual_due[1];
-        }
 
         return [
-            'od_amount' => $last_od_amount_balance,
+            'od_amount' => $od_total_amount,
             'all_arress' => $all_arress,
             'all_amount' => $balance,
             'system-due-num-of-ins' => $system_due_num_of_ins,
