@@ -749,19 +749,19 @@ $today = date("Y-m-d");
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                        <label for="total_payble_amount"> Payble Amount </label>
+                                        <label for="total_payble_amount"> Payable Amount </label>
                                     </div>
                                     <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                         <div class="form-group">
                                             <div class="form-line">
-                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Payble Amount</label>
+                                                <label for="total_payble_amount" class="hidden-lg hidden-md"> Payable Amount</label>
                                                 <?php
                                                 $LOAN_1 = new Loan($loan_id);
                                                 $status = $LOAN_1->getCurrentStatus();
 
                                                 $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate, $LOAN->number_of_installments);
                                                 ?>
-                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">
+                                                <!--<input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">-->
                                             </div>
                                         </div>
                                     </div>
