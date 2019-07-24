@@ -3719,27 +3719,13 @@ $today = date("Y-m-d");
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
-                                            <label for="od_interest_limit">OD Interest Limit</label>
+                                            <label for="od_interest_limit">OD Limit</label>
                                         </div>
 
                                         <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
-                                                <div class="form-line">                                            
-                                                    <input type="text"  name="od_date_start"  id="od_date_start" placeholder="Enter OD Start Date" class="form-control od_date_start" autocomplete="off"  >
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
                                                 <div class="form-line"> 
-                                                    <input type="text" name="od_date_end" id="od_date_end" placeholder="Enter OD End Date" class="form-control" autocomplete="off" >
-                                                </div>
-                                            </div>
-                                        </div> 
-                                        <div class="col-lg-3 col-md-3 col-sm-12 col-xs-12 p-bottom">
-                                            <div class="form-group">
-                                                <div class="form-line"> 
-                                                    <input type="number" name="od_interest_limit" id="od_interest_limit" placeholder="Enter OD Interest Limit" class="form-control" autocomplete="off" min="0" >
+                                                    <input type="number" name="od_limit" id="od_interest_limit" placeholder="Enter OD Limit" class="form-control" autocomplete="off" min="0" value="<?php echo $LOAN->od_limit; ?>">
                                                 </div>
                                             </div>
                                         </div> 
@@ -3756,76 +3742,6 @@ $today = date("Y-m-d");
                                         </div> 
                                     </div> 
                                 </form>  
-                            </div>
-                            <div class="body"> 
-                                <div> 
-                                    <h2 class="text-center">  Manage Od Dates </h2>
-
-                                </div> 
-                                <div class="table-responsive">
-                                    <table class="table table-bordered table-striped table-hover js-basic-example dataTable">
-                                        <thead>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Od Start Date</th>  
-                                                <th>Od End Date</th>                                                 
-                                                <th>Od Limit</th> 
-                                                <th>Options</th> 
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <?php
-                                            $OD = new Od(NULL);
-                                            foreach ($OD->getOdByLoanId($loan_id) as $key => $od) {
-                                                $key++;
-                                                ?>
-                                                <tr id="row_<?php echo $od['id']; ?>">
-                                                    <td>#<?php echo $key ?></td> 
-                                                    <td><?php echo $od['od_date_start']; ?></td> 
-                                                    <td>
-                                                        <?php
-                                                        $END = new DateTime($od['od_date_start']);
-                                                        $END->modify('+2 years');
-                                                        $end = $END->format('Y-m-d');
-                                                        if ($end == $od['od_date_end']) {
-                                                            echo 'Unlimited';
-                                                        } else {
-                                                            echo $od['od_date_end'];
-                                                        }
-                                                        ?>
-                                                    </td> 
-                                                    <td><?php echo number_format($od['od_interest_limit'], 2); ?></td> 
-                                                    <?php if ($today > $od['od_date_end']) { ?>
-                                                        <td>
-                                                            <a href="edit-od.php?id=<?php echo $od['id']; ?>&loan=<?php echo $loan_id ?>"> <button class="glyphicon glyphicon-pencil edit-btn " title="Edit" disabled=""></button></a> | 
-                                                            <a href="#"  class="delete-od" data-id="<?php echo $od['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete" disabled="" ></button></a>
-
-                                                        </td> 
-                                                    <?php } else { ?>
-                                                        <td>
-                                                            <a href="edit-od.php?id=<?php echo $od['id']; ?>&loan=<?php echo $loan_id ?>"> <button class="glyphicon glyphicon-pencil edit-btn" title="Edit" ></button></a> | 
-                                                            <a href="#"  class="delete-od" data-id="<?php echo $od['id']; ?>"> <button class="glyphicon glyphicon-trash delete-btn" title="Delete"></button></a>
-
-                                                        </td> 
-                                                    <?php } ?>
-                                                </tr>
-                                                <?php
-                                            }
-                                            ?>   
-                                        </tbody>
-                                        <tfoot>
-                                            <tr>
-                                            <tr>
-                                                <th>ID</th>
-                                                <th>Od Start Date</th>  
-                                                <th>Od End Date</th>                                                 
-                                                <th>Od Limit</th> 
-                                                <th>Options</th> 
-                                            </tr>
-                                            </tr>
-                                        </tfoot>
-                                    </table>
-                                </div>
                             </div>
 
                         </div>

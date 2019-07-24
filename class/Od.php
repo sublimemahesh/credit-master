@@ -15,6 +15,8 @@ class Od {
 
     public $id;
     public $loan;
+    public $od_date_start;
+    public $od_date_end;
     public $od_interest_limit;
 
     public function __construct($id) {
@@ -28,6 +30,8 @@ class Od {
 
             $this->id = $result['id'];
             $this->loan = $result['loan'];
+            $this->od_date_start = $result['od_date_start'];
+            $this->od_date_end = $result['od_date_end'];
             $this->od_interest_limit = $result['od_interest_limit'];
 
             return $this;
@@ -37,7 +41,7 @@ class Od {
     public function create() {
 
 
-        $query = "INSERT INTO `od_history` (`loan`,`od_interest_limit`) VALUES  ('"
+        $query = "INSERT INTO `od_history` (`loan`,`od_date_start`,`od_date_end`,`od_interest_limit`) VALUES  ('"
                 . $this->loan . "','"
                 . $this->od_date_start . "', '"
                 . $this->od_date_end . "', '"
@@ -92,6 +96,8 @@ class Od {
 
         $query = "UPDATE  `od_history` SET "
                 . "`loan` ='" . $this->loan . "', "
+                . "`od_date_start` ='" . $this->od_date_start . "', "
+                . "`od_date_end` ='" . $this->od_date_end . "', "
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "' "
                 . "WHERE `id` = '" . $this->id . "'";
      
@@ -129,24 +135,24 @@ class Od {
         return $array_res;
     }
 
-//    public function checkOdDates($loan_id, $start_date, $end_date) {
-//
-//        $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "' AND `od_date_start` <=  '" . $start_date . "'  AND `od_date_end` >= '" . $end_date . "'";
-//      
-//        $db = new Database();
-//
-//        $result = $db->readQuery($query); 
-//        
-//        if (mysql_num_rows($result) > 0) {
-//            $row = mysql_fetch_assoc($result);
-//            return [
-//                'array_res' => $row,
-//                'status' => TRUE,
-//            ];
-//        } else {
-//            return FALSE;
-//        }
-//    }
+    public function checkOdDates($loan_id, $start_date, $end_date) {
+
+        $query = "SELECT  *  FROM `od_history` WHERE `loan` = '" . $loan_id . "' AND `od_date_start` <=  '" . $start_date . "'  AND `od_date_end` >= '" . $end_date . "'";
+      
+        $db = new Database();
+
+        $result = $db->readQuery($query); 
+        
+        if (mysql_num_rows($result) > 0) {
+            $row = mysql_fetch_assoc($result);
+            return [
+                'array_res' => $row,
+                'status' => TRUE,
+            ];
+        } else {
+            return FALSE;
+        }
+    }
 
     public function checkOdByLoan($loan_id) {
 

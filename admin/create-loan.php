@@ -464,6 +464,21 @@ $DEFAULTDATA->checkUserLevelAccess('1,2,3', $USERS->user_level);
                                     </div>
                                 </div>
                             </div>
+                            <div class="row">
+                                <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
+                                    <label for="od_limit">OD Limit </label>
+                                </div>
+                                <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
+                                    <div class="form-group">
+                                        <div class="form-line">
+                                            <label for="od_limit" class="hidden-lg hidden-md">OD Limit </label>
+                                            <div class="form-control">
+                                                <input type="text" id="od_limit"  placeholder="00.00" class="form-control font-weight-new " autocomplete="off" disabled="">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
 
 
                             <div class="row clearfix">

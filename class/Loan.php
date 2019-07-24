@@ -38,6 +38,7 @@ class Loan {
     public $history;
     public $od_interest_limit;
     public $od_date;
+    public $od_limit;
 
     public function __construct($id) {
         if ($id) {
@@ -79,6 +80,7 @@ class Loan {
             $this->history = $result['history'];
             $this->od_interest_limit = $result['od_interest_limit'];
             $this->od_date = $result['od_date'];
+            $this->od_limit = $result['od_limit'];
 
             return $this;
         }
@@ -105,6 +107,7 @@ class Loan {
                 . "`collector`,"
                 . "`od_interest_limit`,"
                 . "`od_date`,"
+                . "`od_limit`,"
                 . "`status`"
                 . ") VALUES  ('"
                 . $this->create_date . "','"
@@ -125,6 +128,7 @@ class Loan {
                 . $this->collector . "', '"
                 . $this->od_interest_limit . "', '"
                 . $this->od_date . "', '"
+                . $this->od_limit . "', '"
                 . "pending')";
 
 
@@ -217,6 +221,7 @@ class Loan {
                 . "`history` ='" . $this->history . "', "
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "', "
                 . "`od_date` ='" . $this->od_date . "' "
+                . "`od_limit` ='" . $this->od_limit . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
 
@@ -236,6 +241,21 @@ class Loan {
         $query = "UPDATE  `loan` SET "
                 . "`od_interest_limit` ='" . $this->od_interest_limit . "', "
                 . "`od_date` ='" . $this->od_date . "' "
+                . "WHERE `id` = '" . $this->id . "'";
+
+        $db = new Database();
+        $result = $db->readQuery($query);
+
+        if ($result) {
+            return $this->__construct($this->id);
+        } else {
+            return FALSE;
+        }
+    }
+    public function updateOdLimit() {
+
+        $query = "UPDATE  `loan` SET "
+                . "`od_limit` ='" . $this->od_limit . "' "
                 . "WHERE `id` = '" . $this->id . "'";
 
         $db = new Database();

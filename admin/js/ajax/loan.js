@@ -1299,26 +1299,29 @@ window.onload = function () {
     var totalValue = parseFloat(numVal) + parseFloat((month * (numVal * numVa2)));
     $('#total').val(totalValue);
 
+/*------------------- comment by kavini - 2019-07-24 ----------------------*/
 // check od has customer
 
-    var loan_id = $('#loan_id').val();
-    $.ajax({
-        url: "post-and-get/ajax/active-od-limite.php",
-        type: 'POST',
-        data: {
-            id: loan_id,
-            action: 'CHECKOD'
-        },
-        dataType: "JSON",
-        success: function (jsonStr) {
-            if (jsonStr.status) {
-            } else {
-                $('#od_limit').append("<div class='alert alert-danger'> <strong>This Customer has not active od amount, Please check it now..!</strong></div>");
-            }
-        }
-    });
 
 
+//    var loan_id = $('#loan_id').val();
+//    $.ajax({
+//        url: "post-and-get/ajax/active-od-limite.php",
+//        type: 'POST',
+//        data: {
+//            id: loan_id,
+//            action: 'CHECKOD'
+//        },
+//        dataType: "JSON",
+//        success: function (jsonStr) {
+//            if (jsonStr.status) {
+//            } else {
+//                $('#od_limit').append("<div class='alert alert-danger'> <strong>This Customer has not active od amount, Please check it now..!</strong></div>");
+//            }
+//        }
+//    });
+
+/*------------------- //comment by kavini - 2019-07-24 ----------------------*/
 
     var customer_id = $(`#customer`).val();
     var issue_mode = $(`#issue_mode`).val();

@@ -29,6 +29,7 @@ if (isset($_POST['create-new-loan'])) {
     $LOAN->issue_mode = $_POST['issue_mode'];
     $LOAN->loan_processing_pre = $_POST['loan_processing_fee'];
     $LOAN->create_by = $_POST['create_by'];
+    $LOAN->od_limit = $_POST['od_limit'];
 
     //has od limite
     if ($_POST['od_active'] == 1) {
@@ -90,6 +91,7 @@ if (isset($_POST['update'])) {
     $LOAN->loan_period = $_POST['loan_period'];
     $LOAN->interest_rate = $_POST['interest_rate'];
     $LOAN->installment_type = $_POST['installment_type'];
+    $LOAN->od_limit = $_POST['od_limit'];
 
 
 
