@@ -159,4 +159,8 @@ class DefaultData {
         }
     }
 
+    public function getTotalInstlToCurrentDate($date, $period, $type) {
+        $today = date('Y-m-d H:i:s');
+        
+    }
 }

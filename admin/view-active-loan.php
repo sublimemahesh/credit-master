@@ -757,17 +757,17 @@ $today = date("Y-m-d");
                                                 <label for="total_payble_amount" class="hidden-lg hidden-md"> Payable Amount</label>
                                                 <?php
                                                 $LOAN_1 = new Loan($loan_id);
-                                                $status = $LOAN_1->getCurrentStatus();
-
+//                                                $status = $LOAN_1->getCurrentStatus();
+                                                $status = $LOAN_1->getPayableAmount();
+                                                
                                                 $payble_amount = $INSTALLMENT->getPaybleInstallmentAmount($loan_id, $LOAN->loan_amount, $LOAN->interest_rate, $LOAN->number_of_installments);
+//                                                dd($payble_amount);
                                                 ?>
-                                                <!--<input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">-->
+                                                <input type="text" id="paid_number_installment"  name="paid_number_installment" value="<?php echo number_format($status["actual-due"], 2) ?>"   class="form-control  " autocomplete="off" readonly="">
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
-
 
                                 <div class="row">
                                     <div class="col-lg-3 col-md-3 hidden-sm hidden-xs form-control-label">
@@ -3736,7 +3736,7 @@ $today = date("Y-m-d");
                                         </div>
                                         <div class="col-lg-9 col-md-9 col-sm-12 col-xs-12 p-bottom">
                                             <div class="form-group">
-                                                <input class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit"  id="create-od" value="Save Details ">
+                                                <input class="btn btn-primary m-t-15 waves-effect  pull-left" type="submit"  id="update-od" value="Save Details ">
                                             </div> 
                                             <input type="hidden" name="id" id="id" value="<?php echo $loan_id ?>">
                                         </div> 
